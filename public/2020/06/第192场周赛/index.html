@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        第192场周赛 - wqy的博客
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="这一场发挥的不错，AC了三题。一开始做的时候感觉很难，第一题慌慌张张的花了7分钟才AC了，我在c&#43;&#43;和java之间换了两次，最后还是c&#43;&#43;更容易实现其实用java也是可以的，上来我就在选择语言上飘摇不定了。这也是一个问题，做题的心理问题，看完问题，分析思路完毕后，中途不能再切换语言了，使用一个语言解决它！主要是没有数论的题，一般的数据结构的问题，hard除外，我基本都是可以AC的。
+周赛题目考察点：数组、数组/排序、设计/栈(我的思路是这个，设计类的题目思路很开放)
+" />
+    <meta name="generator" content="Hugo 0.80.0 with theme pure" />
+    <title>第192场周赛 - wqy的博客</title>
+    
+    
+    <link rel="stylesheet" href="https://qybit.gitee.io/css/style.min.cf58832f6e4a555e09cf9be94d16f6fa89069d5ad477f93d258b4b187928ff10.css">
+    
+    <link rel="stylesheet" href="https://qybit.gitee.io/css/custom.css" async>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="第192场周赛" />
+<meta property="og:description" content="这一场发挥的不错，AC了三题。一开始做的时候感觉很难，第一题慌慌张张的花了7分钟才AC了，我在c&#43;&#43;和java之间换了两次，最后还是c&#43;&#43;更容易实现其实用java也是可以的，上来我就在选择语言上飘摇不定了。这也是一个问题，做题的心理问题，看完问题，分析思路完毕后，中途不能再切换语言了，使用一个语言解决它！主要是没有数论的题，一般的数据结构的问题，hard除外，我基本都是可以AC的。
+周赛题目考察点：数组、数组/排序、设计/栈(我的思路是这个，设计类的题目思路很开放)" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://qybit.gitee.io/2020/06/%E7%AC%AC192%E5%9C%BA%E5%91%A8%E8%B5%9B/" />
+<meta property="article:published_time" content="2020-06-07T14:06:33+00:00" />
+<meta property="article:modified_time" content="2020-06-07T14:06:33+00:00" />
+<meta itemprop="name" content="第192场周赛">
+<meta itemprop="description" content="这一场发挥的不错，AC了三题。一开始做的时候感觉很难，第一题慌慌张张的花了7分钟才AC了，我在c&#43;&#43;和java之间换了两次，最后还是c&#43;&#43;更容易实现其实用java也是可以的，上来我就在选择语言上飘摇不定了。这也是一个问题，做题的心理问题，看完问题，分析思路完毕后，中途不能再切换语言了，使用一个语言解决它！主要是没有数论的题，一般的数据结构的问题，hard除外，我基本都是可以AC的。
+周赛题目考察点：数组、数组/排序、设计/栈(我的思路是这个，设计类的题目思路很开放)">
+<meta itemprop="datePublished" content="2020-06-07T14:06:33+00:00" />
+<meta itemprop="dateModified" content="2020-06-07T14:06:33+00:00" />
+<meta itemprop="wordCount" content="2857">
+
+
+
+<meta itemprop="keywords" content="力扣,题解,解题思路,周赛,设计,栈,数组,排序," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="第192场周赛"/>
+<meta name="twitter:description" content="这一场发挥的不错，AC了三题。一开始做的时候感觉很难，第一题慌慌张张的花了7分钟才AC了，我在c&#43;&#43;和java之间换了两次，最后还是c&#43;&#43;更容易实现其实用java也是可以的，上来我就在选择语言上飘摇不定了。这也是一个问题，做题的心理问题，看完问题，分析思路完毕后，中途不能再切换语言了，使用一个语言解决它！主要是没有数论的题，一般的数据结构的问题，hard除外，我基本都是可以AC的。
+周赛题目考察点：数组、数组/排序、设计/栈(我的思路是这个，设计类的题目思路很开放)"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/qybit" target="_blank">
+            <img class="img-circle img-rotate" src="https://img.imgdb.cn/item/5ed46731c2a9a83be565eadb.jpg" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">wqy</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">Talk is cheap, show me your code.</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>信阳, 中国</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">首页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-categories">
+                <a href="/categories/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">分类</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">标签</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><h5>欢迎各种技术讨论~enjoy~</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div id="tag-cloud-list" class="widget-body">
+            
+            
+            <a href="https://qybit.gitee.io/tags/dp/" class="tag-list-link" rel="5">dp<span
+               class="tag-list-count">5</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/java/" class="tag-list-link" rel="4">java<span
+               class="tag-list-count">4</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/javaweb/" class="tag-list-link" rel="1">javaweb<span
+               class="tag-list-count">1</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/lfu/" class="tag-list-link" rel="1">lfu<span
+               class="tag-list-count">1</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/orderedmap/" class="tag-list-link" rel="1">orderedmap<span
+               class="tag-list-count">1</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/promise/" class="tag-list-link" rel="1">promise<span
+               class="tag-list-count">1</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/spring/" class="tag-list-link" rel="1">spring<span
+               class="tag-list-count">1</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/tomcat/" class="tag-list-link" rel="1">tomcat<span
+               class="tag-list-count">1</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/trie/" class="tag-list-link" rel="1">trie<span
+               class="tag-list-count">1</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/wheel/" class="tag-list-link" rel="2">wheel<span
+               class="tag-list-count">2</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E4%BA%8C%E5%88%86%E6%B3%95/" class="tag-list-link" rel="1">二分法<span
+               class="tag-list-count">1</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" class="tag-list-link" rel="2">位运算<span
+               class="tag-list-count">2</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E5%87%A0%E4%BD%95/" class="tag-list-link" rel="1">几何<span
+               class="tag-list-count">1</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E5%89%8D%E7%AB%AF/" class="tag-list-link" rel="1">前端<span
+               class="tag-list-count">1</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E5%89%8D%E7%BC%80%E5%92%8C/" class="tag-list-link" rel="1">前缀和<span
+               class="tag-list-count">1</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E5%8A%9B%E6%89%A3/" class="tag-list-link" rel="3">力扣<span
+               class="tag-list-count">3</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" class="tag-list-link" rel="4">动态规划<span
+               class="tag-list-count">4</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/" class="tag-list-link" rel="1">单调队列<span
+               class="tag-list-count">1</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" class="tag-list-link" rel="2">双指针<span
+               class="tag-list-count">2</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E5%91%A8%E8%B5%9B/" class="tag-list-link" rel="3">周赛<span
+               class="tag-list-count">3</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" class="tag-list-link" rel="3">哈希表<span
+               class="tag-list-count">3</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E5%9B%9E%E6%BA%AF/" class="tag-list-link" rel="3">回溯<span
+               class="tag-list-count">3</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E5%9B%BE/" class="tag-list-link" rel="2">图<span
+               class="tag-list-count">2</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E5%A0%86/" class="tag-list-link" rel="2">堆<span
+               class="tag-list-count">2</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E5%AD%97%E5%85%B8%E6%A0%91/" class="tag-list-link" rel="1">字典树<span
+               class="tag-list-count">1</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="tag-list-link" rel="10">字符串<span
+               class="tag-list-count">10</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="tag-list-link" rel="1">并查集<span
+               class="tag-list-count">1</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E6%8E%92%E5%BA%8F/" class="tag-list-link" rel="6">排序<span
+               class="tag-list-count">6</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E6%95%B0%E5%AD%A6/" class="tag-list-link" rel="5">数学<span
+               class="tag-list-count">5</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="tag-list-link" rel="2">数据结构<span
+               class="tag-list-count">2</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E6%95%B0%E7%BB%84/" class="tag-list-link" rel="9">数组<span
+               class="tag-list-count">9</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E6%A0%88/" class="tag-list-link" rel="4">栈<span
+               class="tag-list-count">4</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E6%A0%91/" class="tag-list-link" rel="1">树<span
+               class="tag-list-count">1</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E6%A0%91-dfs/" class="tag-list-link" rel="1">树-dfs<span
+               class="tag-list-count">1</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E6%A8%A1%E6%8B%9F/" class="tag-list-link" rel="1">模拟<span
+               class="tag-list-count">1</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/" class="tag-list-link" rel="1">解题思路<span
+               class="tag-list-count">1</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E8%AE%BE%E8%AE%A1/" class="tag-list-link" rel="3">设计<span
+               class="tag-list-count">3</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E8%B4%AA%E5%BF%83/" class="tag-list-link" rel="9">贪心<span
+               class="tag-list-count">9</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E9%80%92%E5%BD%92/" class="tag-list-link" rel="1">递归<span
+               class="tag-list-count">1</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E9%93%BE%E8%A1%A8/" class="tag-list-link" rel="1">链表<span
+               class="tag-list-count">1</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E9%98%9F%E5%88%97/" class="tag-list-link" rel="1">队列<span
+               class="tag-list-count">1</span></a>
+            
+            
+            <a href="https://qybit.gitee.io/tags/%E9%A2%98%E8%A7%A3/" class="tag-list-link" rel="1">题解<span
+               class="tag-list-count">1</span></a>
+            
+    </div>
+<script>
+document.onreadystatechange = () => {
+  if (document.readyState === 'complete') {
+    tagCloud('#tag-cloud-list a',  10 ,  20 );
+  }
+};
+
+function tagCloud(where, min, max) {
+  let iMax = 0;
+  let iMin = 0;
+  $(where).each(function() {
+    let weight = Number($(this).attr("rel"));
+    if(iMax < weight) iMax = weight;
+    if(iMin > weight || iMin == 0) iMin = weight;
+  });
+  let step = (max - min)/(iMax - iMin);
+  $(where).each(function() {
+    let weight = $(this).attr("rel") - iMin;
+    $(this).css({"font-size": min + (weight * step) + 'px'});
+  });
+};
+</script>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://qybit.gitee.io/categories/spring/" class="category-list-link">spring</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://qybit.gitee.io/categories/%E5%89%8D%E7%AB%AF/" class="category-list-link">前端</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/" class="category-list-link">力扣</a><span class="category-list-count">20</span></li>
+            <li class="category-list-item"><a href="https://qybit.gitee.io/categories/%E5%91%A8%E8%B5%9B/" class="category-list-link">周赛</a><span class="category-list-count">17</span></li>
+            <li class="category-list-item"><a href="https://qybit.gitee.io/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" class="category-list-link">技术分享</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://qybit.gitee.io/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/" class="category-list-link">技术分析</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://qybit.gitee.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="category-list-link">数据结构</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://qybit.gitee.io/categories/%E7%AE%97%E6%B3%95/" class="category-list-link">算法</a><span class="category-list-count">20</span></li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/dp/" class="tag-list-link">dp</a><span
+                    class="tag-list-count">5</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/java/" class="tag-list-link">java</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/javaweb/" class="tag-list-link">javaweb</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/lfu/" class="tag-list-link">lfu</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/orderedmap/" class="tag-list-link">orderedmap</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/promise/" class="tag-list-link">promise</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/spring/" class="tag-list-link">spring</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/tomcat/" class="tag-list-link">tomcat</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/trie/" class="tag-list-link">trie</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/wheel/" class="tag-list-link">wheel</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E4%BA%8C%E5%88%86%E6%B3%95/" class="tag-list-link">二分法</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" class="tag-list-link">位运算</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E5%87%A0%E4%BD%95/" class="tag-list-link">几何</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E5%89%8D%E7%AB%AF/" class="tag-list-link">前端</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E5%89%8D%E7%BC%80%E5%92%8C/" class="tag-list-link">前缀和</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E5%8A%9B%E6%89%A3/" class="tag-list-link">力扣</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" class="tag-list-link">动态规划</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/" class="tag-list-link">单调队列</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" class="tag-list-link">双指针</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E5%91%A8%E8%B5%9B/" class="tag-list-link">周赛</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" class="tag-list-link">哈希表</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E5%9B%9E%E6%BA%AF/" class="tag-list-link">回溯</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E5%9B%BE/" class="tag-list-link">图</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E5%A0%86/" class="tag-list-link">堆</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E5%AD%97%E5%85%B8%E6%A0%91/" class="tag-list-link">字典树</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="tag-list-link">字符串</a><span
+                    class="tag-list-count">10</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="tag-list-link">并查集</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E6%8E%92%E5%BA%8F/" class="tag-list-link">排序</a><span
+                    class="tag-list-count">6</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E6%95%B0%E5%AD%A6/" class="tag-list-link">数学</a><span
+                    class="tag-list-count">5</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="tag-list-link">数据结构</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E6%95%B0%E7%BB%84/" class="tag-list-link">数组</a><span
+                    class="tag-list-count">9</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E6%A0%88/" class="tag-list-link">栈</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E6%A0%91/" class="tag-list-link">树</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E6%A0%91-dfs/" class="tag-list-link">树-dfs</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E6%A8%A1%E6%8B%9F/" class="tag-list-link">模拟</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/" class="tag-list-link">解题思路</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E8%AE%BE%E8%AE%A1/" class="tag-list-link">设计</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E8%B4%AA%E5%BF%83/" class="tag-list-link">贪心</a><span
+                    class="tag-list-count">9</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E9%80%92%E5%BD%92/" class="tag-list-link">递归</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E9%93%BE%E8%A1%A8/" class="tag-list-link">链表</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E9%98%9F%E5%88%97/" class="tag-list-link">队列</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://qybit.gitee.io/tags/%E9%A2%98%E8%A7%A3/" class="tag-list-link">题解</a><span
+                    class="tag-list-count">1</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://qybit.gitee.io/2021/01/1128-%E7%AD%89%E4%BB%B7%E5%A4%9A%E7%B1%B3%E8%AF%BA%E9%AA%A8%E7%89%8C%E5%AF%B9%E7%9A%84%E6%95%B0%E9%87%8F/" class="title">1128 等价多米诺骨牌对的数量</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-01-26 10:25:06 &#43;0000 UTC" itemprop="datePublished">2021-01-26</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://qybit.gitee.io/2021/01/%E5%85%B3%E4%BA%8Epromise%E7%9A%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="title">关于Promise的学习笔记</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-01-24 16:58:11 &#43;0000 UTC" itemprop="datePublished">2021-01-24</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://qybit.gitee.io/2021/01/%E7%AC%AC224%E5%9C%BA%E5%91%A8%E8%B5%9B/" class="title">第224场周赛</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-01-17 15:09:09 &#43;0000 UTC" itemprop="datePublished">2021-01-17</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://qybit.gitee.io/2021/01/%E7%AC%AC43%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/" class="title">第43场双周赛</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-01-12 14:06:02 &#43;0000 UTC" itemprop="datePublished">2021-01-12</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://qybit.gitee.io/2021/01/%E7%AC%AC222%E5%9C%BA%E5%91%A8%E8%B5%9B/" class="title">第222场周赛</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-01-03 20:14:33 &#43;0000 UTC" itemprop="datePublished">2021-01-03</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/2020/06/%E7%AC%AC192%E5%9C%BA%E5%91%A8%E8%B5%9B/"
+    >第192场周赛</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://qybit.gitee.io/2020/06/%E7%AC%AC192%E5%9C%BA%E5%91%A8%E8%B5%9B/" class="article-date">
+  <time datetime="2020-06-07 14:06:33 &#43;0000 UTC" itemprop="datePublished">2020-06-07</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/%E5%8A%9B%E6%89%A3/"> 力扣 </a>
+  <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
+  <a class="article-category-link" href="/categories/%E5%91%A8%E8%B5%9B/"> 周赛 </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/%E5%8A%9B%E6%89%A3/"> 力扣 </a>
+    <a class="article-tag-link" href="/tags/%E9%A2%98%E8%A7%A3/"> 题解 </a>
+    <a class="article-tag-link" href="/tags/%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/"> 解题思路 </a>
+    <a class="article-tag-link" href="/tags/%E5%91%A8%E8%B5%9B/"> 周赛 </a>
+    <a class="article-tag-link" href="/tags/%E8%AE%BE%E8%AE%A1/"> 设计 </a>
+    <a class="article-tag-link" href="/tags/%E6%A0%88/"> 栈 </a>
+    <a class="article-tag-link" href="/tags/%E6%95%B0%E7%BB%84/"> 数组 </a>
+    <a class="article-tag-link" href="/tags/%E6%8E%92%E5%BA%8F/"> 排序 </a>
+  </span>
+
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="https://qybit.gitee.io/2020/06/%E7%AC%AC192%E5%9C%BA%E5%91%A8%E8%B5%9B/" class="leancloud_visitors"  data-flag-title="第192场周赛">0</span>
+    </span>
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2020/06/%E7%AC%AC192%E5%9C%BA%E5%91%A8%E8%B5%9B/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2857字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 6分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <p>这一场发挥的不错，AC了三题。一开始做的时候感觉很难，第一题慌慌张张的花了7分钟才AC了，我在c++和java之间换了两次，最后还是c++更容易实现其实用java也是可以的，上来我就在选择语言上飘摇不定了。这也是一个问题，做题的心理问题，看完问题，分析思路完毕后，中途不能再切换语言了，使用一个语言解决它！主要是没有数论的题，一般的数据结构的问题，hard除外，我基本都是可以AC的。</p>
+<p>周赛题目考察点：<strong>数组、数组/排序、设计/栈(我的思路是这个，设计类的题目思路很开放)</strong></p>
+<h4 id="5428重新排列数组">5428、重新排列数组</h4>
+<p>给你一个数组 <code>nums</code> ，数组中有 <code>2n</code> 个元素，按 <code>[x1,x2,...,xn,y1,y2,...,yn]</code> 的格式排列。</p>
+<p>请你将数组按 <code>[x1,y1,x2,y2,...,xn,yn]</code> 格式重新排列，返回重排后的数组。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：nums = [2,5,1,3,4,7], n = 3
+输出：[2,3,5,4,1,7] 
+解释：由于 x1=2, x2=5, x3=1, y1=3, y2=4, y3=7 ，所以答案为 [2,3,5,4,1,7]
+</code></pre><p><strong>示例 2：</strong></p>
+<pre><code>输入：nums = [1,2,3,4,4,3,2,1], n = 4
+输出：[1,4,2,3,3,2,4,1]
+</code></pre><p><strong>示例 3：</strong></p>
+<pre><code>输入：nums = [1,1,2,2], n = 2
+输出：[1,2,1,2]
+</code></pre><p><strong>提示：</strong></p>
+<pre><code>1 &lt;= n &lt;= 500
+nums.length == 2n
+1 &lt;= nums[i] &lt;= 10^3
+</code></pre>
+<h5 id="1思路分析">1、思路分析</h5>
+<ul>
+<li>不难看出，给出的数据量很小，最大也是1000而已，所以不多想直接暴力</li>
+<li><code>[x1,x2,...,xn,y1,y2,...,yn]</code>把数组一分为二，然后归并到新数组中</li>
+</ul>
+<h5 id="2coding">2、Coding</h5>
+<p><strong>c++：</strong></p>
+<p>下面是我比赛的源码，比赛时的心理是比较紧张的，所以代码质量很差劲。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> shuffle(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums, <span style="color:#66d9ef">int</span> n) {
+        vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> res;
+        <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, j <span style="color:#f92672">=</span> n;
+        <span style="color:#66d9ef">while</span> (i <span style="color:#f92672">&lt;</span> n <span style="color:#f92672">&amp;&amp;</span> j <span style="color:#f92672">&lt;</span> nums.size()) {
+            res.push_back(nums[i<span style="color:#f92672">++</span>]);
+            res.push_back(nums[j<span style="color:#f92672">++</span>]);
+        }
+        <span style="color:#66d9ef">return</span>  res;
+    }
+};
+</code></pre></div><p>赛后优化版本：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> shuffle(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums, <span style="color:#66d9ef">int</span> n) {
+        vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> res;
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> nums.size()<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>; i<span style="color:#f92672">++</span>) {
+            res.push_back(nums[i]);
+            res.push_back(nums[i<span style="color:#f92672">+</span>n]);
+        }
+        <span style="color:#66d9ef">return</span>  res;
+    }
+};
+</code></pre></div><p>对应的java实现：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> <span style="color:#a6e22e">shuffle</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> nums<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> n<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> res <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[</span>nums<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">];</span>
+        <span style="color:#66d9ef">int</span> idx <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> nums<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">/</span>2<span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+            res<span style="color:#f92672">[</span>idx<span style="color:#f92672">++]</span> <span style="color:#f92672">=</span> nums<span style="color:#f92672">[</span>i<span style="color:#f92672">];</span>
+            res<span style="color:#f92672">[</span>idx<span style="color:#f92672">++]</span> <span style="color:#f92672">=</span> nums<span style="color:#f92672">[</span>i<span style="color:#f92672">+</span>n<span style="color:#f92672">];</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">return</span> res<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>以上代码的时间复杂度、空间复杂度均为<code>O(n)</code></p>
+<h4 id="5429数组中的k个最强值">5429、数组中的k个最强值</h4>
+<p>给你一个整数数组 <code>arr</code> 和一个整数 <code>k</code>。</p>
+<p>设 m 为数组的中位数，只要满足下述两个前提之一，就可以判定 <code>arr[i]</code> 的值比 <code>arr[j]</code> 的值更强：</p>
+<ul>
+<li>``|arr[i] - m| &gt; |arr[j] - m|`</li>
+<li><code> |arr[i] - m| == |arr[j] - m|，且 arr[i] &gt; arr[j]</code>
+请返回由数组中最强的 <code>k</code> 个值组成的列表。答案可以以 <strong>任意顺序</strong> 返回。</li>
+</ul>
+<p>中位数 是一个有序整数列表中处于中间位置的值。形式上，如果列表的长度为 n ，那么中位数就是该有序列表（下标从 0 开始）中位于 ((n - 1) / 2) 的元素。</p>
+<p>例如 <code>arr = [6, -3, 7, 2, 11]</code>，<code>n = 5</code>：数组排序后得到 <code>arr = [-3, 2, 6, 7, 11] </code>，数组的中间位置为 <code>m = ((5 - 1) / 2) = 2</code> ，中位数 <code>arr[m]</code> 的值为 6 。
+例如 <code>arr = [-7, 22, 17, 3]</code>，<code>n = 4</code>：数组排序后得到 <code>arr = [-7, 3, 17, 22] </code>，数组的中间位置为 <code>m = ((4 - 1) / 2) = 1</code> ，中位数 <code>arr[m] </code>的值为 3 。</p>
+<p><strong>示例 1：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">输入<span style="color:#960050;background-color:#1e0010">：</span>arr <span style="color:#f92672">=</span> <span style="color:#f92672">[</span>1<span style="color:#f92672">,</span>2<span style="color:#f92672">,</span>3<span style="color:#f92672">,</span>4<span style="color:#f92672">,</span>5<span style="color:#f92672">],</span> k <span style="color:#f92672">=</span> 2
+输出<span style="color:#960050;background-color:#1e0010">：</span><span style="color:#f92672">[</span>5<span style="color:#f92672">,</span>1<span style="color:#f92672">]</span>
+解释<span style="color:#960050;background-color:#1e0010">：</span>中位数为 3<span style="color:#960050;background-color:#1e0010">，</span>按从强到弱顺序排序后<span style="color:#960050;background-color:#1e0010">，</span>数组变为 <span style="color:#f92672">[</span>5<span style="color:#f92672">,</span>1<span style="color:#f92672">,</span>4<span style="color:#f92672">,</span>2<span style="color:#f92672">,</span>3<span style="color:#f92672">]</span><span style="color:#960050;background-color:#1e0010">。</span>最强的两个元素是 <span style="color:#f92672">[</span>5<span style="color:#f92672">,</span> 1<span style="color:#f92672">]</span><span style="color:#960050;background-color:#1e0010">。</span><span style="color:#f92672">[</span>1<span style="color:#f92672">,</span> 5<span style="color:#f92672">]</span> 也是正确答案<span style="color:#960050;background-color:#1e0010">。</span>
+注意<span style="color:#960050;background-color:#1e0010">，</span>尽管 <span style="color:#f92672">|</span>5 <span style="color:#f92672">-</span> 3<span style="color:#f92672">|</span> <span style="color:#f92672">==</span> <span style="color:#f92672">|</span>1 <span style="color:#f92672">-</span> 3<span style="color:#f92672">|</span> <span style="color:#960050;background-color:#1e0010">，</span>但是 5 比 1 更强<span style="color:#960050;background-color:#1e0010">，</span>因为 5 <span style="color:#f92672">&gt;</span> 1 <span style="color:#960050;background-color:#1e0010">。</span>
+</code></pre></div><p><strong>示例 2：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">输入<span style="color:#960050;background-color:#1e0010">：</span>arr <span style="color:#f92672">=</span> <span style="color:#f92672">[</span>1<span style="color:#f92672">,</span>1<span style="color:#f92672">,</span>3<span style="color:#f92672">,</span>5<span style="color:#f92672">,</span>5<span style="color:#f92672">],</span> k <span style="color:#f92672">=</span> 2
+输出<span style="color:#960050;background-color:#1e0010">：</span><span style="color:#f92672">[</span>5<span style="color:#f92672">,</span>5<span style="color:#f92672">]</span>
+解释<span style="color:#960050;background-color:#1e0010">：</span>中位数为 3<span style="color:#f92672">,</span> 按从强到弱顺序排序后<span style="color:#960050;background-color:#1e0010">，</span>数组变为 <span style="color:#f92672">[</span>5<span style="color:#f92672">,</span>5<span style="color:#f92672">,</span>1<span style="color:#f92672">,</span>1<span style="color:#f92672">,</span>3<span style="color:#f92672">]</span><span style="color:#960050;background-color:#1e0010">。</span>最强的两个元素是 <span style="color:#f92672">[</span>5<span style="color:#f92672">,</span> 5<span style="color:#f92672">]</span><span style="color:#960050;background-color:#1e0010">。</span>
+</code></pre></div><p><strong>示例 3：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">输入<span style="color:#960050;background-color:#1e0010">：</span>arr <span style="color:#f92672">=</span> <span style="color:#f92672">[</span>6<span style="color:#f92672">,</span>7<span style="color:#f92672">,</span>11<span style="color:#f92672">,</span>7<span style="color:#f92672">,</span>6<span style="color:#f92672">,</span>8<span style="color:#f92672">],</span> k <span style="color:#f92672">=</span> 5
+输出<span style="color:#960050;background-color:#1e0010">：</span><span style="color:#f92672">[</span>11<span style="color:#f92672">,</span>8<span style="color:#f92672">,</span>6<span style="color:#f92672">,</span>6<span style="color:#f92672">,</span>7<span style="color:#f92672">]</span>
+解释<span style="color:#960050;background-color:#1e0010">：</span>中位数为 7<span style="color:#f92672">,</span> 按从强到弱顺序排序后<span style="color:#960050;background-color:#1e0010">，</span>数组变为 <span style="color:#f92672">[</span>11<span style="color:#f92672">,</span>8<span style="color:#f92672">,</span>6<span style="color:#f92672">,</span>6<span style="color:#f92672">,</span>7<span style="color:#f92672">,</span>7<span style="color:#f92672">]</span><span style="color:#960050;background-color:#1e0010">。</span>
+<span style="color:#f92672">[</span>11<span style="color:#f92672">,</span>8<span style="color:#f92672">,</span>6<span style="color:#f92672">,</span>6<span style="color:#f92672">,</span>7<span style="color:#f92672">]</span> 的任何排列都是正确答案<span style="color:#960050;background-color:#1e0010">。</span>
+</code></pre></div><p><strong>示例 4：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">输入<span style="color:#960050;background-color:#1e0010">：</span>arr <span style="color:#f92672">=</span> <span style="color:#f92672">[</span>6<span style="color:#f92672">,-</span>3<span style="color:#f92672">,</span>7<span style="color:#f92672">,</span>2<span style="color:#f92672">,</span>11<span style="color:#f92672">],</span> k <span style="color:#f92672">=</span> 3
+输出<span style="color:#960050;background-color:#1e0010">：</span><span style="color:#f92672">[-</span>3<span style="color:#f92672">,</span>11<span style="color:#f92672">,</span>2<span style="color:#f92672">]</span>
+</code></pre></div><p><strong>示例 5：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">输入<span style="color:#960050;background-color:#1e0010">：</span>arr <span style="color:#f92672">=</span> <span style="color:#f92672">[-</span>7<span style="color:#f92672">,</span>22<span style="color:#f92672">,</span>17<span style="color:#f92672">,</span>3<span style="color:#f92672">],</span> k <span style="color:#f92672">=</span> 2
+输出<span style="color:#960050;background-color:#1e0010">：</span><span style="color:#f92672">[</span>22<span style="color:#f92672">,</span>17<span style="color:#f92672">]</span>
+</code></pre></div><p>提示：</p>
+<ul>
+<li><code>1 &lt;= arr.length &lt;= 10^5</code></li>
+<li><code>-10^5 &lt;= arr[i] &lt;= 10^5</code></li>
+<li><code>1 &lt;= k &lt;= arr.length</code></li>
+</ul>
+<h5 id="1思路分析-1">1、思路分析</h5>
+<ul>
+<li>先读题，了解题目让我们做什么，看测试用例是，题目希望我们按照他给出的两个规则来重新排序数组并且返回前<code>k</code>个数据组成的列表，答案可以任意顺序</li>
+<li>中位数的概念，我们一定要按照题目给出的要求来，不同于以往的中位数</li>
+<li>然后就是两次排序，看数据量<code>10e5</code>，达到这个量之后，任何大于O(n2)的排序算法，基本上是无法通过的，所以你即使没有想到调库，也要写快排这种<code>O(nlogn)</code>或者更快的排序算法</li>
+</ul>
+<h5 id="2coding-1">2、Coding</h5>
+<p>这个代码的时间复杂度非常高，虽然是<code>O(nlogn)</code>但是两次排序也难顶，在使用宏定义时，无法通过。另外关于<code>lambda表达式</code>，<code>cmp函数</code>必须定义在外部，即让他成为<code>全局变量</code>里定义，不然无法访问到<code>m</code>。感谢技术分享！<a href="https://www.cnblogs.com/gqtcgq/p/9939651.html">@gqtc</a></p>
+<p><strong>c++:</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">int</span> m <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">cmp</span> (<span style="color:#66d9ef">int</span> x, <span style="color:#66d9ef">int</span> y) {
+    <span style="color:#66d9ef">return</span> (abs(x<span style="color:#f92672">-</span>m) <span style="color:#f92672">&gt;</span> abs(y<span style="color:#f92672">-</span>m)) <span style="color:#f92672">||</span> (abs(x<span style="color:#f92672">-</span>m) <span style="color:#f92672">==</span> abs(y<span style="color:#f92672">-</span>m) <span style="color:#f92672">&amp;&amp;</span> x <span style="color:#f92672">&gt;</span> y);
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+    
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> getStrongest(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> arr, <span style="color:#66d9ef">int</span> k) {
+        sort(arr.begin(), arr.end());
+        m <span style="color:#f92672">=</span> arr[(arr.size()<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>];
+        sort(arr.begin(), arr.end(), cmp);
+        vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> res;
+        <span style="color:#66d9ef">while</span> (k<span style="color:#f92672">--</span>) {
+            res.push_back(arr[k]);
+        }
+        <span style="color:#66d9ef">return</span> res;
+    }
+};
+</code></pre></div><p><strong>java：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> <span style="color:#a6e22e">getStrongest</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> arr<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> k<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">sort</span><span style="color:#f92672">(</span>arr<span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">int</span> m <span style="color:#f92672">=</span> arr<span style="color:#f92672">[(</span>arr<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">-</span>1<span style="color:#f92672">)/</span>2<span style="color:#f92672">];</span>
+        <span style="color:#75715e">// java8新特性中，要把基本数据类型转化为对象，才能使用lambda表达式
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// 也算是踩了一个天坑吧，竟然输在了java上，也是让我很意外啊，哈哈哈哈哈~~
+</span><span style="color:#75715e"></span>        Integer<span style="color:#f92672">[]</span> num <span style="color:#f92672">=</span> Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">(</span>arr<span style="color:#f92672">).</span><span style="color:#a6e22e">boxed</span><span style="color:#f92672">().</span><span style="color:#a6e22e">toArray</span><span style="color:#f92672">(</span>Integer<span style="color:#f92672">[]::</span><span style="color:#66d9ef">new</span><span style="color:#f92672">);</span>
+        Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">sort</span><span style="color:#f92672">(</span>num<span style="color:#f92672">,</span> <span style="color:#f92672">(</span>a<span style="color:#f92672">,</span> b<span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>Math<span style="color:#f92672">.</span><span style="color:#a6e22e">abs</span><span style="color:#f92672">(</span>a<span style="color:#f92672">-</span>m<span style="color:#f92672">)</span> <span style="color:#f92672">&gt;</span> Math<span style="color:#f92672">.</span><span style="color:#a6e22e">abs</span><span style="color:#f92672">(</span>b<span style="color:#f92672">-</span>m<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>1<span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">((</span>Math<span style="color:#f92672">.</span><span style="color:#a6e22e">abs</span><span style="color:#f92672">(</span>a<span style="color:#f92672">-</span>m<span style="color:#f92672">)</span> <span style="color:#f92672">==</span> Math<span style="color:#f92672">.</span><span style="color:#a6e22e">abs</span><span style="color:#f92672">(</span>b<span style="color:#f92672">-</span>m<span style="color:#f92672">))</span> <span style="color:#f92672">&amp;&amp;</span> a <span style="color:#f92672">&gt;</span> b<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>1<span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+            <span style="color:#66d9ef">return</span> 1<span style="color:#f92672">;</span>
+        <span style="color:#f92672">});</span>
+        <span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> res <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[</span>k<span style="color:#f92672">];</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> k<span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+            res<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> num<span style="color:#f92672">[</span>i<span style="color:#f92672">];</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">return</span> res<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>比赛源码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> m <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; 
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">cmp</span> (<span style="color:#66d9ef">int</span> x, <span style="color:#66d9ef">int</span> y) {
+    <span style="color:#66d9ef">return</span> (abs(x<span style="color:#f92672">-</span>m) <span style="color:#f92672">&gt;</span> abs(y<span style="color:#f92672">-</span>m)) <span style="color:#f92672">||</span> (abs(x<span style="color:#f92672">-</span>m) <span style="color:#f92672">==</span> abs(y<span style="color:#f92672">-</span>m) <span style="color:#f92672">&amp;&amp;</span> x <span style="color:#f92672">&gt;</span> y); 
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> getStrongest(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> arr, <span style="color:#66d9ef">int</span> k) {
+        sort(arr.begin(), arr.end());
+        m <span style="color:#f92672">=</span> arr[(arr.size()<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>];
+        sort(arr.begin(), arr.end(), cmp);
+        vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> res;
+        <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        <span style="color:#66d9ef">while</span> (k<span style="color:#f92672">--</span>) {
+            res.push_back(arr[i<span style="color:#f92672">++</span>]);
+        }
+        <span style="color:#66d9ef">return</span> res;
+    }
+};
+</code></pre></div><h4 id="5430设计浏览器历史记录">5430、设计浏览器历史记录</h4>
+<p>你有一个只支持单个标签页的 <strong>浏览器</strong> ，最开始你浏览的网页是 <code>homepage</code> ，你可以访问其他的网站 <code>url </code>，也可以在浏览历史中后退 <code>steps</code> 步或前进 <code>steps</code> 步。</p>
+<p>请你实现 <code>BrowserHistory</code> 类：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">BrowserHistory<span style="color:#f92672">(</span>string homepage<span style="color:#f92672">)</span> <span style="color:#960050;background-color:#1e0010">，</span>用 homepage 初始化浏览器类<span style="color:#960050;background-color:#1e0010">。</span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">visit</span><span style="color:#f92672">(</span>string url<span style="color:#f92672">)</span> 从当前页跳转访问 url 对应的页面  <span style="color:#960050;background-color:#1e0010">。</span>执行此操作会把浏览历史前进的记录全部删除<span style="color:#960050;background-color:#1e0010">。</span>
+string <span style="color:#a6e22e">back</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> steps<span style="color:#f92672">)</span> 在浏览历史中后退 steps 步<span style="color:#960050;background-color:#1e0010">。</span>如果你只能在浏览历史中后退至多 x 步且 steps <span style="color:#f92672">&gt;</span> x <span style="color:#960050;background-color:#1e0010">，</span>那么你只后退 x 步<span style="color:#960050;background-color:#1e0010">。</span>请返回后退 至多 steps 步以后的 url <span style="color:#960050;background-color:#1e0010">。</span>
+string <span style="color:#a6e22e">forward</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> steps<span style="color:#f92672">)</span> 在浏览历史中前进 steps 步<span style="color:#960050;background-color:#1e0010">。</span>如果你只能在浏览历史中前进至多 x 步且 steps <span style="color:#f92672">&gt;</span> x <span style="color:#960050;background-color:#1e0010">，</span>那么你只前进 x 步<span style="color:#960050;background-color:#1e0010">。</span>请返回前进 至多 steps步以后的 url <span style="color:#960050;background-color:#1e0010">。</span>
+</code></pre></div><p><strong>示例：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">输入<span style="color:#960050;background-color:#1e0010">：</span>
+<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;BrowserHistory&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;visit&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;visit&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;visit&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;back&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;back&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;forward&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;visit&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;forward&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;back&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;back&#34;</span><span style="color:#f92672">]</span>
+<span style="color:#f92672">[[</span><span style="color:#e6db74">&#34;leetcode.com&#34;</span><span style="color:#f92672">],[</span><span style="color:#e6db74">&#34;google.com&#34;</span><span style="color:#f92672">],[</span><span style="color:#e6db74">&#34;facebook.com&#34;</span><span style="color:#f92672">],[</span><span style="color:#e6db74">&#34;youtube.com&#34;</span><span style="color:#f92672">],[</span>1<span style="color:#f92672">],[</span>1<span style="color:#f92672">],[</span>1<span style="color:#f92672">],[</span><span style="color:#e6db74">&#34;linkedin.com&#34;</span><span style="color:#f92672">],[</span>2<span style="color:#f92672">],[</span>2<span style="color:#f92672">],[</span>7<span style="color:#f92672">]]</span>
+输出<span style="color:#960050;background-color:#1e0010">：</span>
+<span style="color:#f92672">[</span><span style="color:#66d9ef">null</span><span style="color:#f92672">,</span><span style="color:#66d9ef">null</span><span style="color:#f92672">,</span><span style="color:#66d9ef">null</span><span style="color:#f92672">,</span><span style="color:#66d9ef">null</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;facebook.com&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;google.com&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;facebook.com&#34;</span><span style="color:#f92672">,</span><span style="color:#66d9ef">null</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;linkedin.com&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;google.com&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;leetcode.com&#34;</span><span style="color:#f92672">]</span>
+
+解释<span style="color:#960050;background-color:#1e0010">：</span>
+BrowserHistory browserHistory <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> BrowserHistory<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;leetcode.com&#34;</span><span style="color:#f92672">);</span>
+browserHistory<span style="color:#f92672">.</span><span style="color:#a6e22e">visit</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;google.com&#34;</span><span style="color:#f92672">);</span>       <span style="color:#75715e">// 你原本在浏览 &#34;leetcode.com&#34; 。访问 &#34;google.com&#34;
+</span><span style="color:#75715e"></span>browserHistory<span style="color:#f92672">.</span><span style="color:#a6e22e">visit</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;facebook.com&#34;</span><span style="color:#f92672">);</span>     <span style="color:#75715e">// 你原本在浏览 &#34;google.com&#34; 。访问 &#34;facebook.com&#34;
+</span><span style="color:#75715e"></span>browserHistory<span style="color:#f92672">.</span><span style="color:#a6e22e">visit</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;youtube.com&#34;</span><span style="color:#f92672">);</span>      <span style="color:#75715e">// 你原本在浏览 &#34;facebook.com&#34; 。访问 &#34;youtube.com&#34;
+</span><span style="color:#75715e"></span>browserHistory<span style="color:#f92672">.</span><span style="color:#a6e22e">back</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span>                   <span style="color:#75715e">// 你原本在浏览 &#34;youtube.com&#34; ，后退到 &#34;facebook.com&#34; 并返回 &#34;facebook.com&#34;
+</span><span style="color:#75715e"></span>browserHistory<span style="color:#f92672">.</span><span style="color:#a6e22e">back</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span>                   <span style="color:#75715e">// 你原本在浏览 &#34;facebook.com&#34; ，后退到 &#34;google.com&#34; 并返回 &#34;google.com&#34;
+</span><span style="color:#75715e"></span>browserHistory<span style="color:#f92672">.</span><span style="color:#a6e22e">forward</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span>                <span style="color:#75715e">// 你原本在浏览 &#34;google.com&#34; ，前进到 &#34;facebook.com&#34; 并返回 &#34;facebook.com&#34;
+</span><span style="color:#75715e"></span>browserHistory<span style="color:#f92672">.</span><span style="color:#a6e22e">visit</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;linkedin.com&#34;</span><span style="color:#f92672">);</span>     <span style="color:#75715e">// 你原本在浏览 &#34;facebook.com&#34; 。 访问 &#34;linkedin.com&#34;
+</span><span style="color:#75715e"></span>browserHistory<span style="color:#f92672">.</span><span style="color:#a6e22e">forward</span><span style="color:#f92672">(</span>2<span style="color:#f92672">);</span>                <span style="color:#75715e">// 你原本在浏览 &#34;linkedin.com&#34; ，你无法前进任何步数。
+</span><span style="color:#75715e"></span>browserHistory<span style="color:#f92672">.</span><span style="color:#a6e22e">back</span><span style="color:#f92672">(</span>2<span style="color:#f92672">);</span>                   <span style="color:#75715e">// 你原本在浏览 &#34;linkedin.com&#34; ，后退两步依次先到 &#34;facebook.com&#34; ，然后到 &#34;google.com&#34; ，并返回 &#34;google.com&#34;
+</span><span style="color:#75715e"></span>browserHistory<span style="color:#f92672">.</span><span style="color:#a6e22e">back</span><span style="color:#f92672">(</span>7<span style="color:#f92672">);</span>                   <span style="color:#75715e">// 你原本在浏览 &#34;google.com&#34;， 你只能后退一步到 &#34;leetcode.com&#34; ，并返回 &#34;leetcode.com&#34;
+</span></code></pre></div><p>提示：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">1 <span style="color:#f92672">&lt;=</span> homepage<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span> <span style="color:#f92672">&lt;=</span> 20
+1 <span style="color:#f92672">&lt;=</span> url<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span> <span style="color:#f92672">&lt;=</span> 20
+1 <span style="color:#f92672">&lt;=</span> steps <span style="color:#f92672">&lt;=</span> 100
+homepage 和 url 都只包含 <span style="color:#e6db74">&#39;.&#39;</span> 或者小写英文字母<span style="color:#960050;background-color:#1e0010">。</span>
+最多调用 5000 次 visit<span style="color:#960050;background-color:#1e0010">，</span> back 和 forward 函数<span style="color:#960050;background-color:#1e0010">。</span>
+</code></pre></div><h5 id="1思路分析-2">1、思路分析</h5>
+<ul>
+<li>这个题目看起来很复杂，实际上就是平时使用浏览器时的操作。浏览器会记录历史浏览状态，以及前进和后退等功能，想象一下浏览器的功能就可以解决这个问题</li>
+<li>我的思路是借助两个栈来实现该功能，一个<code>history</code>栈，一个<code>forward</code>栈</li>
+</ul>
+<p>具体看图：</p>
+<p>在<code>visit</code>操作完成后，栈内元素的情况。</p>
+<p><img src="https://pic.downk.cc/item/5edc939dc2a9a83be51681ac.png" alt=""></p>
+<p>经过两次<code>back(1)</code>后，栈内元素的情况。</p>
+<p><img src="https://pic.downk.cc/item/5edc93fcc2a9a83be517623b.png" alt=""></p>
+<p>经过<code>forward(1)</code>后，栈内元素情况。</p>
+<p><img src="https://pic.downk.cc/item/5edc9444c2a9a83be5180e99.png" alt=""></p>
+<p>经过<code>visit</code>操作后，会导致forward栈被清空。此时栈内元素的情况。</p>
+<p><img src="https://pic.downk.cc/item/5edc9492c2a9a83be518c42b.png" alt=""></p>
+<p>经过<code>forward(2)</code>操作，此时forward栈空，无法前进</p>
+<p>经过<code>back(2)</code>操作后</p>
+<p><img src="https://pic.downk.cc/item/5edc94fac2a9a83be519b69d.png" alt=""></p>
+<p>经过<code>back(7)</code>操作后</p>
+<p><img src="https://pic.downk.cc/item/5edc9506c2a9a83be519d121.png" alt=""></p>
+<h5 id="2coding-2">2、Coding</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BrowserHistory</span> <span style="color:#f92672">{</span>
+    
+    Stack<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> history<span style="color:#f92672">;</span>
+    Stack<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> forward<span style="color:#f92672">;</span>
+    
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">BrowserHistory</span><span style="color:#f92672">(</span>String homepage<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        history <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Stack<span style="color:#f92672">&lt;&gt;();</span>
+        forward <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Stack<span style="color:#f92672">&lt;&gt;();</span>
+        history<span style="color:#f92672">.</span><span style="color:#a6e22e">push</span><span style="color:#f92672">(</span>homepage<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+    
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">visit</span><span style="color:#f92672">(</span>String url<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        history<span style="color:#f92672">.</span><span style="color:#a6e22e">push</span><span style="color:#f92672">(</span>url<span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">while</span> <span style="color:#f92672">(!</span>forward<span style="color:#f92672">.</span><span style="color:#a6e22e">isEmpty</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+            forward<span style="color:#f92672">.</span><span style="color:#a6e22e">pop</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+    
+    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">back</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> steps<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">while</span> <span style="color:#f92672">(!</span>history<span style="color:#f92672">.</span><span style="color:#a6e22e">isEmpty</span><span style="color:#f92672">()</span> <span style="color:#f92672">&amp;&amp;</span> steps <span style="color:#f92672">!=</span> 0<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>history<span style="color:#f92672">.</span><span style="color:#a6e22e">size</span><span style="color:#f92672">()</span> <span style="color:#f92672">==</span> 1<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">break</span><span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+            forward<span style="color:#f92672">.</span><span style="color:#a6e22e">push</span><span style="color:#f92672">(</span>history<span style="color:#f92672">.</span><span style="color:#a6e22e">pop</span><span style="color:#f92672">());</span>
+            steps<span style="color:#f92672">--;</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">return</span> history<span style="color:#f92672">.</span><span style="color:#a6e22e">peek</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+    
+    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">forward</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> steps<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">while</span> <span style="color:#f92672">(!</span>forward<span style="color:#f92672">.</span><span style="color:#a6e22e">isEmpty</span><span style="color:#f92672">()</span> <span style="color:#f92672">&amp;&amp;</span> steps <span style="color:#f92672">!=</span> 0<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            history<span style="color:#f92672">.</span><span style="color:#a6e22e">push</span><span style="color:#f92672">(</span>forward<span style="color:#f92672">.</span><span style="color:#a6e22e">pop</span><span style="color:#f92672">());</span>
+            steps<span style="color:#f92672">--;</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">return</span> history<span style="color:#f92672">.</span><span style="color:#a6e22e">peek</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Your BrowserHistory object will be instantiated and called as such:
+</span><span style="color:#75715e"> * BrowserHistory obj = new BrowserHistory(homepage);
+</span><span style="color:#75715e"> * obj.visit(url);
+</span><span style="color:#75715e"> * String param_2 = obj.back(steps);
+</span><span style="color:#75715e"> * String param_3 = obj.forward(steps);
+</span><span style="color:#75715e"> */</span>
+</code></pre></div><h4 id="5431给房子涂色-iii">5431、给房子涂色 III</h4>
+<p>暂时没有思路，又是<code>dp</code>问题，周赛最后一题稳稳的<code>dp</code>问题</p>
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://qybit.gitee.io/2020/06/%E7%AC%AC192%E5%9C%BA%E5%91%A8%E8%B5%9B/" title="第192场周赛" target="_blank" rel="external">https://qybit.gitee.io/2020/06/%E7%AC%AC192%E5%9C%BA%E5%91%A8%E8%B5%9B/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License: </strong>
+        <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/qybit" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://img.imgdb.cn/item/5ed46731c2a9a83be565eadb.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/qybit" target="_blank"><span class="text-dark">wqy</span><small class="ml-1x">Talk is cheap, show me your code.</small></a></h3>
+        <div>Good Good Study, Day Day Up~</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+    </div>
+  </article>
+<section id="comments">
+    <div id="vcomments"></div>
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://qybit.gitee.io/about/" title="About"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://qybit.gitee.io/2020/07/%E7%AC%AC30%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/"
+                    title="第30场双周赛"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        
+        <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal"
+            data-target="#donateModal"><span>赏</span></button>
+        
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content donate">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            <div class="modal-body">
+                <div class="donate-box">
+                    <div class="donate-head">
+                        <p>感谢您的支持,我会继续努力的!</p>
+                    </div>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+                            <div class="donate-payimg">
+                                <img src="https://img.imgdb.cn/item/5ed38dc8c2a9a83be552f292.jpg"
+                                    alt="扫码支持" title="扫一扫" />
+                            </div>
+                            <p class="text-muted mv">扫码打赏, 多少你说了算~</p>
+                            <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦~</p>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+                            <div class="donate-payimg">
+                                <img src="https://img.imgdb.cn/item/5ed38dccc2a9a83be552f899.jpg"
+                                    alt="扫码支持" title="扫一扫" />
+                            </div>
+                            <p class="text-muted mv">扫码打赏, 多少你说了算~</p>
+                            <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+                        </div>
+                    </div>
+                    <div class="donate-footer">
+                        <ul class="nav nav-tabs nav-justified" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay"
+                                    aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+                            </li>
+                            <li role="presentation" class="">
+                                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab"
+                                    aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i>
+                                    微信支付</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/qybit" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://qybit.gitee.io/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2020  -
+    2021
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/html.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/css.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/cpp.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/java.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/go.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://qybit.gitee.io/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://qybit.gitee.io/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/qybit.gitee.io\/',
+            CONTENT_URL: 'https:\/\/qybit.gitee.io\/\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://qybit.gitee.io/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine"></script>
+<script type="text/javascript">
+    var GUEST = ['nick', 'mail', 'link'];
+    var meta = 'nick,mail';
+    meta = meta.split(',').filter(function (item) {
+        return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+        el: '#vcomments',
+        verify: false ,
+        notify: true ,
+        appId: 'bXWbbE9acJmnRcSYNkVRTEkE-gzGzoHsz',
+        appKey: 'oxKqCUaNn5TaVNdCjnX1pU2W',
+        placeholder: '欢迎说出你的想法~',
+        avatar: 'mm',
+        meta: meta,
+        pageSize: '10' || 10,
+        visitor: true 
+});
+</script>
+
+  </body>
+</html>
