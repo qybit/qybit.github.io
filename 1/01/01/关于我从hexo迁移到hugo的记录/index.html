@@ -47,7 +47,7 @@ hexo 固然是非常优秀的静态博客生成框架，但是它是基于 node 
 我为什么选择了 hugo？
 hugo是基于 Go 语言开发的静态博客框架，天生的语言优势在效率上是自带buff的，不出所料，我的30多篇博客（删除了很多质量低下的博客），在仅仅3 秒钟内就已经打包部署完毕了。而且体积上，我的博客工作环境的大小，还不到3M。">
 
-<meta itemprop="wordCount" content="1704">
+<meta itemprop="wordCount" content="1703">
 
 
 
@@ -493,7 +493,7 @@ function tagCloud(where, min, max) {
     </span>
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/1/01/01/%E5%85%B3%E4%BA%8E%E6%88%91%E4%BB%8Ehexo%E8%BF%81%E7%A7%BB%E5%88%B0hugo%E7%9A%84%E8%AE%B0%E5%BD%95/#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1704字</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1703字</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 4分 </span>
       </div>
     </div>
@@ -601,13 +601,12 @@ function tagCloud(where, min, max) {
 <span style="color:#75715e"># 博客发布项目仓库 和 博客源码项目必须在同级目录</span>
 hugo_dir_root<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;my_blog&#39;</span> <span style="color:#75715e"># 博客站点目录 </span>
 remote_repo<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;qybit&#39;</span> <span style="color:#75715e"># 远程仓库目录</span>
-script_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;commit.sh&#39;</span>
 
 start_time<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>date --date<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;0 days ago&#39;</span> <span style="color:#e6db74">&#34;+%Y-%m-%d %H:%M:%S&#34;</span><span style="color:#e6db74">`</span>
 echo <span style="color:#e6db74">&#34;hugo 打包文件中....&#34;</span>
 
 <span style="color:#75715e"># 删除 除 .git目录和commit.sh 之外的所有文件和文件夹</span>
-rm -rf <span style="color:#e6db74">`</span>ls | egrep -v <span style="color:#e6db74">&#39;(.git|$script_name)&#39;</span><span style="color:#e6db74">`</span>
+rm -rf <span style="color:#e6db74">`</span>ls | egrep -v <span style="color:#e6db74">&#39;(.git|commit.sh)&#39;</span><span style="color:#e6db74">`</span>
 
 <span style="color:#75715e"># 先进入 my_blog 博客源代码目录</span>
 cd ..
