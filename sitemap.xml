@@ -561,10 +561,4 @@
     <priority>0.5</priority>
   </url>
   
-  <url>
-    <loc>https://qybit.gitee.io/1/01/01/%E5%85%B3%E4%BA%8E%E6%88%91%E4%BB%8Ehexo%E8%BF%81%E7%A7%BB%E5%88%B0hugo%E7%9A%84%E8%AE%B0%E5%BD%95/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
 </urlset>

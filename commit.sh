@@ -1,8 +1,6 @@
 #!/bin/bash
 
 # 博客发布项目仓库 和 博客源码项目必须在同级目录
-hugo_dir_root='my_blog' # 博客站点目录 
-remote_repo='qybit' # 远程仓库目录
 
 start_time=`date --date='0 days ago' "+%Y-%m-%d %H:%M:%S"`
 echo "hugo 打包文件中...."
@@ -12,7 +10,7 @@ rm -rf `ls | egrep -v '(.git|commit.sh)'`
 
 # 先进入 my_blog 博客源代码目录
 cd ..
-cd $hugo_dir_root/
+cd my_blog/
 
 # 开始提交源代码
 cur_time=$(date "+%Y-%m-%d %H:%M:%S")
@@ -29,7 +27,7 @@ rm -rf public/*
 hugo
 
 # 将 public 下所有文件 全部转移到 qybit下
-mv ./public/* ../$remote_repo/
+mv ./public/* ../qybit/
 
 cd ..
 cd qybit/
