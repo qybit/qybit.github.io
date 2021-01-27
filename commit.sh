@@ -6,7 +6,7 @@ start_time=`date --date='0 days ago' "+%Y-%m-%d %H:%M:%S"`
 echo "hugo 打包文件中...."
 
 # 删除 除 .git目录和commit.sh 之外的所有文件和文件夹
-rmm -rf `ls | egrep -v '(.git|commit.sh)'`
+rm -rf `ls | egrep -v '(.git|commit.sh)'`
 
 # 先进入 my_blog 博客源代码目录
 cd ..

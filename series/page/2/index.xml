@@ -11,6 +11,15 @@
     
     
     <item>
+      <title>第201场周赛</title>
+      <link>https://qybit.gitee.io/2020/08/%E7%AC%AC201%E5%9C%BA%E5%91%A8%E8%B5%9B/</link>
+      <pubDate>Tue, 11 Aug 2020 22:24:57 +0000</pubDate>
+      
+      <guid>https://qybit.gitee.io/2020/08/%E7%AC%AC201%E5%9C%BA%E5%91%A8%E8%B5%9B/</guid>
+      <description>&lt;p&gt;题目标题即原题地址，点击查看原题。代码主要为Java和cpp，部分tricky题目会使用py来解决&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>第199场周赛</title>
       <link>https://qybit.gitee.io/2020/07/%E7%AC%AC199%E5%9C%BA%E5%91%A8%E8%B5%9B/</link>
       <pubDate>Mon, 27 Jul 2020 09:28:08 +0000</pubDate>
@@ -56,17 +65,6 @@
       <guid>https://qybit.gitee.io/2020/06/%E7%AC%AC192%E5%9C%BA%E5%91%A8%E8%B5%9B/</guid>
       <description>&lt;p&gt;这一场发挥的不错，AC了三题。一开始做的时候感觉很难，第一题慌慌张张的花了7分钟才AC了，我在c++和java之间换了两次，最后还是c++更容易实现其实用java也是可以的，上来我就在选择语言上飘摇不定了。这也是一个问题，做题的心理问题，看完问题，分析思路完毕后，中途不能再切换语言了，使用一个语言解决它！主要是没有数论的题，一般的数据结构的问题，hard除外，我基本都是可以AC的。&lt;/p&gt;
 &lt;p&gt;周赛题目考察点：&lt;strong&gt;数组、数组/排序、设计/栈(我的思路是这个，设计类的题目思路很开放)&lt;/strong&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>https://qybit.gitee.io/about/</link>
-      <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://qybit.gitee.io/about/</guid>
-      <description>Written in Go, Hugo is an open source static site generator available under the Apache Licence 2.0. Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.
-Hugo makes use of a variety of open source projects including:
- https://github.</description>
     </item>
     
   </channel>
