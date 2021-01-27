@@ -12,6 +12,18 @@
     
     
     <item>
+      <title>关于我从hexo迁移到hugo的记录</title>
+      <link>https://qybit.gitee.io/2021/01/27/%E5%85%B3%E4%BA%8E%E6%88%91%E4%BB%8Ehexo%E8%BF%81%E7%A7%BB%E5%88%B0hugo%E7%9A%84%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Wed, 27 Jan 2021 16:14:22 +0800</pubDate>
+      
+      <guid>https://qybit.gitee.io/2021/01/27/%E5%85%B3%E4%BA%8E%E6%88%91%E4%BB%8Ehexo%E8%BF%81%E7%A7%BB%E5%88%B0hugo%E7%9A%84%E8%AE%B0%E5%BD%95/</guid>
+      <description>&lt;h2 id=&#34;1初步体验&#34;&gt;1、初步体验&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;hexo&lt;/code&gt; 固然是非常优秀的静态博客生成框架，但是它是基于 &lt;code&gt;node&lt;/code&gt; 开发的框架，在打包博客的效率上，实在是不尽人意。我之前 &lt;code&gt;60&lt;/code&gt; 多篇文章，全部打包部署完毕，平均时间在 &lt;code&gt;105&lt;/code&gt; 秒左右。而且 &lt;code&gt;node&lt;/code&gt; 开发的项目，必然是不可能存在小体积的项目，实在是不堪 &lt;code&gt;node_modules&lt;/code&gt; 的负重。我的博客环境体积共 &lt;code&gt;80M+&lt;/code&gt;，实际占用&lt;code&gt;100M&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;我为什么选择了 &lt;code&gt;hugo&lt;/code&gt;？&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;hugo&lt;/code&gt;是基于 &lt;code&gt;Go&lt;/code&gt; 语言开发的静态博客框架，天生的语言优势在效率上是自带&lt;code&gt;buff&lt;/code&gt;的，不出所料，我的&lt;code&gt;30&lt;/code&gt;多篇博客（删除了很多质量低下的博客），在仅仅&lt;code&gt;3&lt;/code&gt; 秒钟内就已经打包部署完毕了。而且体积上，我的博客工作环境的大小，还不到&lt;code&gt;3M&lt;/code&gt;。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>关于</title>
       <link>https://qybit.gitee.io/about/</link>
       <pubDate>Wed, 27 Jan 2021 00:00:00 +0000</pubDate>
@@ -302,27 +314,6 @@
       
       <guid>https://qybit.gitee.io/2020/11/26/trie%E6%A0%91/</guid>
       <description>&lt;p&gt;Trie树是一种特殊的数据结构，它常用于在数据中检索字符串。也可以叫做字典树和前缀树等等。&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>手动实现LinkedList</title>
-      <link>https://qybit.gitee.io/2020/11/25/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0linkedlist/</link>
-      <pubDate>Wed, 25 Nov 2020 15:44:16 +0000</pubDate>
-      
-      <guid>https://qybit.gitee.io/2020/11/25/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0linkedlist/</guid>
-      <description>&lt;h3 id=&#34;前言&#34;&gt;前言&lt;/h3&gt;
-&lt;p&gt;链表是与线性表相对应的一种特殊的数据结构，它的各个节点在物理内存上可以是连续的也可以是不连续的，逻辑上链表是连续的。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;优点&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;增删效率高&lt;/li&gt;
-&lt;li&gt;适合经常更改的应用场景&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;缺点&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;查询效率很低&lt;/li&gt;
-&lt;li&gt;不适合经常查询的应用场景&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;优缺点是相当于线性表而言！&lt;/p&gt;</description>
     </item>
     
   </channel>
