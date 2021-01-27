@@ -12,11 +12,20 @@
     
     
     <item>
+      <title>关于</title>
+      <link>https://qybit.gitee.io/about/</link>
+      <pubDate>Wed, 27 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://qybit.gitee.io/about/</guid>
+      <description>从hexo无缝迁移至hugo 昨天晚上，终于下定决心将原本hexo环境下的博客，迁移到了hugo。 从2020年6月份，开始写博客，主要写一些给</description>
+    </item>
+    
+    <item>
       <title>1128 等价多米诺骨牌对的数量</title>
-      <link>https://qybit.gitee.io/2021/01/1128-%E7%AD%89%E4%BB%B7%E5%A4%9A%E7%B1%B3%E8%AF%BA%E9%AA%A8%E7%89%8C%E5%AF%B9%E7%9A%84%E6%95%B0%E9%87%8F/</link>
+      <link>https://qybit.gitee.io/2021/1/26/1128/</link>
       <pubDate>Tue, 26 Jan 2021 10:25:06 +0000</pubDate>
       
-      <guid>https://qybit.gitee.io/2021/01/1128-%E7%AD%89%E4%BB%B7%E5%A4%9A%E7%B1%B3%E8%AF%BA%E9%AA%A8%E7%89%8C%E5%AF%B9%E7%9A%84%E6%95%B0%E9%87%8F/</guid>
+      <guid>https://qybit.gitee.io/2021/1/26/1128/</guid>
       <description>&lt;p&gt;一道比较有意思的题目，足够简单但是时间复杂度卡得很紧。&lt;/p&gt;
 &lt;p&gt;原题链接：&lt;a href=&#34;https://leetcode-cn.com/problems/number-of-equivalent-domino-pairs/&#34;&gt;等价多米诺骨牌对的数量&lt;/a&gt;&lt;/p&gt;</description>
     </item>
@@ -314,15 +323,6 @@
 &lt;li&gt;不适合经常查询的应用场景&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;优缺点是相当于线性表而言！&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>第201场周赛</title>
-      <link>https://qybit.gitee.io/2020/08/%E7%AC%AC201%E5%9C%BA%E5%91%A8%E8%B5%9B/</link>
-      <pubDate>Tue, 11 Aug 2020 22:24:57 +0000</pubDate>
-      
-      <guid>https://qybit.gitee.io/2020/08/%E7%AC%AC201%E5%9C%BA%E5%91%A8%E8%B5%9B/</guid>
-      <description>&lt;p&gt;题目标题即原题地址，点击查看原题。代码主要为Java和cpp，部分tricky题目会使用py来解决&lt;/p&gt;</description>
     </item>
     
   </channel>
