@@ -13,9 +13,9 @@ cd ..
 cd my_blog/
 
 # 开始提交源代码
-cur_time= time=$(date "+%Y-%m-%d %H:%M:%S")
+cur_time=$(date "+%Y-%m-%d %H:%M:%S")
 git add .
-git commit -m "auto commit on ${cur_time}"
+git commit -m "auto commit on $cur_time"
 git push
 # 源码保存完毕
 echo "源码保存完毕"
@@ -34,7 +34,7 @@ cd qybit/
 
 
 git add .
-git commit -m "auto commit on ${cur_time}"
+git commit -m "auto commit on $cur_time"
 git push
 
 finish_time=`date --date='0 days ago' "+%Y-%m-%d %H:%M:%S"`
