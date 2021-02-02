@@ -6,10 +6,20 @@
     <description>Recent content in 贪心 on wqy的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>CC BY 4.0 CN</copyright>
-    <lastBuildDate>Sun, 17 Jan 2021 15:09:09 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 02 Feb 2021 20:25:15 +0800</lastBuildDate>
     
         <atom:link href="https://qybit.gitee.io/tags/%E8%B4%AA%E5%BF%83/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>1540 K次操作转变字符串</title>
+      <link>https://qybit.gitee.io/2021/02/02/1540/</link>
+      <pubDate>Tue, 02 Feb 2021 20:25:15 +0800</pubDate>
+      
+      <guid>https://qybit.gitee.io/2021/02/02/1540/</guid>
+      <description>&lt;p&gt;原题链接：&lt;a href=&#34;https://leetcode-cn.com/problems/can-convert-string-in-k-moves/&#34;&gt;K 次操作转变字符串&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;我人傻了，A了这题就立马回小学重修语文。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>410 分割数组的最大值</title>
@@ -17,8 +27,7 @@
       <pubDate>Tue, 02 Feb 2021 11:39:36 +0800</pubDate>
       
       <guid>https://qybit.gitee.io/2021/02/02/410/</guid>
-      <description>&lt;h2 id=&#34;方法一二分查找&#34;&gt;方法一：二分查找&lt;/h2&gt;
-&lt;p&gt;力扣410链接：&lt;a href=&#34;https://leetcode-cn.com/problems/split-array-largest-sum/&#34;&gt;分割数组的最大值&lt;/a&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;力扣410链接：&lt;a href=&#34;https://leetcode-cn.com/problems/split-array-largest-sum/&#34;&gt;分割数组的最大值&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -293,28 +302,6 @@
     &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
 &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
-    </item>
-    
-    <item>
-      <title>第217场周赛</title>
-      <link>https://qybit.gitee.io/2020/11/30/%E7%AC%AC217%E5%9C%BA%E5%91%A8%E8%B5%9B/</link>
-      <pubDate>Mon, 30 Nov 2020 15:43:56 +0000</pubDate>
-      
-      <guid>https://qybit.gitee.io/2020/11/30/%E7%AC%AC217%E5%9C%BA%E5%91%A8%E8%B5%9B/</guid>
-      <description>&lt;h3 id=&#34;t1最富有客户的资产总量httpsleetcode-cncomproblemsrichest-customer-wealth&#34;&gt;T1：&lt;a href=&#34;https://leetcode-cn.com/problems/richest-customer-wealth/&#34;&gt;最富有客户的资产总量&lt;/a&gt;&lt;/h3&gt;
-&lt;p&gt;思路：暴力&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Solution&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;maximumWealth&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[][]&lt;/span&gt; accounts&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 0&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[]&lt;/span&gt; account &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; accounts&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
-            res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Math&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;max&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;res&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; Arrays&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;stream&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;account&lt;span style=&#34;color:#f92672&#34;&gt;).&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;sum&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;());&lt;/span&gt;
-        &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
-    &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;复杂度分析：&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;时间复杂度：$O(n^2)$&lt;/p&gt;
-&lt;p&gt;空间复杂度：$O(1)$&lt;/p&gt;</description>
     </item>
     
   </channel>
