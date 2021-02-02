@@ -6,10 +6,19 @@
     <description>Recent content in Posts on wqy的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>CC BY 4.0 CN</copyright>
-    <lastBuildDate>Tue, 02 Feb 2021 10:50:03 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 02 Feb 2021 11:39:36 +0800</lastBuildDate>
     
         <atom:link href="https://qybit.gitee.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>第40场双周赛</title>
+      <link>https://qybit.gitee.io/2020/11/29/%E7%AC%AC40%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</link>
+      <pubDate>Sun, 29 Nov 2020 19:44:41 +0000</pubDate>
+      
+      <guid>https://qybit.gitee.io/2020/11/29/%E7%AC%AC40%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</guid>
+      <description>&lt;p&gt;难度不大，很常规的题目。最后一题动态规划仍需要多练。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Trie树</title>

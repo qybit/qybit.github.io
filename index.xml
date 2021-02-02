@@ -6,10 +6,20 @@
     <description>Recent content on wqy的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>CC BY 4.0 CN</copyright>
-    <lastBuildDate>Tue, 02 Feb 2021 10:50:03 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 02 Feb 2021 11:39:36 +0800</lastBuildDate>
     
         <atom:link href="https://qybit.gitee.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>410 分割数组的最大值</title>
+      <link>https://qybit.gitee.io/2021/02/02/410/</link>
+      <pubDate>Tue, 02 Feb 2021 11:39:36 +0800</pubDate>
+      
+      <guid>https://qybit.gitee.io/2021/02/02/410/</guid>
+      <description>&lt;h2 id=&#34;方法一二分查找&#34;&gt;方法一：二分查找&lt;/h2&gt;
+&lt;p&gt;力扣410链接：&lt;a href=&#34;https://leetcode-cn.com/problems/split-array-largest-sum/&#34;&gt;分割数组的最大值&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>424 替换后的最长重复字符</title>
@@ -17,7 +27,7 @@
       <pubDate>Tue, 02 Feb 2021 10:50:03 +0800</pubDate>
       
       <guid>https://qybit.gitee.io/2021/02/02/424/</guid>
-      <description>&lt;p&gt;力扣424：https://leetcode-cn.com/problems/longest-repeating-character-replacement/&lt;/p&gt;</description>
+      <description>&lt;p&gt;力扣424链接：&lt;a href=&#34;https://leetcode-cn.com/problems/longest-repeating-character-replacement/&#34;&gt;替换后的最长重复字符&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -305,15 +315,6 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;复杂度分析：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;时间复杂度：$O(n^2)$&lt;/p&gt;
 &lt;p&gt;空间复杂度：$O(1)$&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>第40场双周赛</title>
-      <link>https://qybit.gitee.io/2020/11/29/%E7%AC%AC40%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</link>
-      <pubDate>Sun, 29 Nov 2020 19:44:41 +0000</pubDate>
-      
-      <guid>https://qybit.gitee.io/2020/11/29/%E7%AC%AC40%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</guid>
-      <description>&lt;p&gt;难度不大，很常规的题目。最后一题动态规划仍需要多练。&lt;/p&gt;</description>
     </item>
     
   </channel>
