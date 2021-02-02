@@ -6,10 +6,19 @@
     <description>Recent content in 双指针 on wqy的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>CC BY 4.0 CN</copyright>
-    <lastBuildDate>Sun, 03 Jan 2021 20:14:33 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 02 Feb 2021 10:50:03 +0800</lastBuildDate>
     
         <atom:link href="https://qybit.gitee.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>424 替换后的最长重复字符</title>
+      <link>https://qybit.gitee.io/2021/02/02/424/</link>
+      <pubDate>Tue, 02 Feb 2021 10:50:03 +0800</pubDate>
+      
+      <guid>https://qybit.gitee.io/2021/02/02/424/</guid>
+      <description>&lt;p&gt;力扣424：https://leetcode-cn.com/problems/longest-repeating-character-replacement/&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>关于我从hexo迁移到hugo的记录</title>
@@ -305,15 +314,6 @@
       
       <guid>https://qybit.gitee.io/2020/11/29/%E7%AC%AC40%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</guid>
       <description>&lt;p&gt;难度不大，很常规的题目。最后一题动态规划仍需要多练。&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Trie树</title>
-      <link>https://qybit.gitee.io/2020/11/26/trie%E6%A0%91/</link>
-      <pubDate>Thu, 26 Nov 2020 18:28:45 +0000</pubDate>
-      
-      <guid>https://qybit.gitee.io/2020/11/26/trie%E6%A0%91/</guid>
-      <description>&lt;p&gt;Trie树是一种特殊的数据结构，它常用于在数据中检索字符串。也可以叫做字典树和前缀树等等。&lt;/p&gt;</description>
     </item>
     
   </channel>

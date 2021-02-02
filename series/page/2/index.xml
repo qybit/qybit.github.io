@@ -11,6 +11,15 @@
     
     
     <item>
+      <title>Trie树</title>
+      <link>https://qybit.gitee.io/2020/11/26/trie%E6%A0%91/</link>
+      <pubDate>Thu, 26 Nov 2020 18:28:45 +0000</pubDate>
+      
+      <guid>https://qybit.gitee.io/2020/11/26/trie%E6%A0%91/</guid>
+      <description>&lt;p&gt;Trie树是一种特殊的数据结构，它常用于在数据中检索字符串。也可以叫做字典树和前缀树等等。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>手动实现LinkedList</title>
       <link>https://qybit.gitee.io/2020/11/25/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0linkedlist/</link>
       <pubDate>Wed, 25 Nov 2020 15:44:16 +0000</pubDate>
