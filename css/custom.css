@@ -1,3 +1,4 @@
+/* 代码块 颜色修改 */
 .hljs {
     display: block;
     overflow-x: auto;
@@ -6,7 +7,14 @@
     background: #f8f8f8;
 }
 
+/* 代码块 字体修改 */
 pre > code {
     font-family: "Sans Mono", "Consolas", "Courier", monospace;
     font-size: 14px;
+}
+
+/* 文章内的超链接 全部高亮 */
+article > div a {
+    color: #2196f3;
+    text-decoration: none;
 }
