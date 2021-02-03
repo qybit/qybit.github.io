@@ -1,878 +1,133 @@
-<!DOCTYPE html>
-<html lang="zh">
-  <head>
-    <title>
-        第43场双周赛 - wqy的博客
-      </title>
-        <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-transform" />
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="format-detection" content="telephone=no,email=no,adress=no">
-    
-    <meta name="theme-color" content="#000000" />
-    
-    <meta http-equiv="window-target" content="_top" />
-    
-    
-    <meta name="description" content="题单：
- 计算力扣银行的钱 删除子字符串的最大得分 构建字典序最大的可行序列 重构一棵树的方案数 " />
-    <meta name="generator" content="Hugo 0.80.0 with theme pure" />
-    <title>第43场双周赛 - wqy的博客</title>
-    
-    
-    <link rel="stylesheet" href="https://qybit.gitee.io/css/style.min.cf58832f6e4a555e09cf9be94d16f6fa89069d5ad477f93d258b4b187928ff10.css">
-    
-    <link rel="stylesheet" href="https://qybit.gitee.io/css/custom.css" async>
-    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github.min.css" async>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
-    <meta property="og:title" content="第43场双周赛" />
-<meta property="og:description" content="题单：
-
-计算力扣银行的钱
-删除子字符串的最大得分
-构建字典序最大的可行序列
-重构一棵树的方案数
-" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://qybit.gitee.io/2021/01/12/%E7%AC%AC43%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/" />
-<meta property="article:published_time" content="2021-01-12T14:06:02+00:00" />
-<meta property="article:modified_time" content="2021-01-12T14:06:02+00:00" />
-<meta itemprop="name" content="第43场双周赛">
-<meta itemprop="description" content="题单：
-
-计算力扣银行的钱
-删除子字符串的最大得分
-构建字典序最大的可行序列
-重构一棵树的方案数
-">
-<meta itemprop="datePublished" content="2021-01-12T14:06:02+00:00" />
-<meta itemprop="dateModified" content="2021-01-12T14:06:02+00:00" />
-<meta itemprop="wordCount" content="953">
-
-
-
-<meta itemprop="keywords" content="贪心,数学,回溯,递归,树,图," />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="第43场双周赛"/>
-<meta name="twitter:description" content="题单：
-
-计算力扣银行的钱
-删除子字符串的最大得分
-构建字典序最大的可行序列
-重构一棵树的方案数
-"/>
-
-    <!--[if lte IE 9]>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-      <![endif]-->
-
-    <!--[if lt IE 9]>
-        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-      <![endif]-->
-  </head>
-
-  
-  
-
-  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
-    <div class="slimContent">
-      <div class="navbar-header">
-        <div class="profile-block text-center">
-          <a id="avatar" href="https://github.com/qybit" target="_blank">
-            <img class="img-circle img-rotate" src="https://img.imgdb.cn/item/5ed46731c2a9a83be565eadb.jpg" width="200" height="200">
-          </a>
-          <h2 id="name" class="hidden-xs hidden-sm">wqy</h2>
-          <h3 id="title" class="hidden-xs hidden-sm hidden-md">Talk is cheap, show me your code.</h3>
-          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>信阳, 中国</small>
-        </div><div class="search" id="search-form-wrap">
-    <form class="search-form sidebar-form">
-        <div class="input-group">
-            <input type="text" class="search-form-input form-control" placeholder="搜索" />
-            <span class="input-group-btn">
-                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
-                        class="icon icon-search"></i></button>
-            </span>
-        </div>
-        <div class="ins-search">
-            <div class="ins-search-mask"></div>
-            <div class="ins-search-container">
-                <div class="ins-input-wrapper">
-                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
-                        x-webkit-speech />
-                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
-                        aria-label="Close"><span aria-hidden="true">×</span></button>
-                </div>
-                <div class="ins-section-wrapper">
-                    <div class="ins-section-container"></div>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
-        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      </div>
-      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
-        <ul class="nav navbar-nav main-nav">
-            <li class="menu-item menu-item-home">
-                <a href="/">
-                    <i class="icon icon-home-fill"></i>
-                  <span class="menu-title">首页</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-archives">
-                <a href="/posts/">
-                    <i class="icon icon-archives-fill"></i>
-                  <span class="menu-title">归档</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-categories">
-                <a href="/categories/">
-                    <i class="icon icon-folder"></i>
-                  <span class="menu-title">分类</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-tags">
-                <a href="/tags/">
-                    <i class="icon icon-tags"></i>
-                  <span class="menu-title">标签</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-about">
-                <a href="/about/">
-                    <i class="icon icon-cup-fill"></i>
-                  <span class="menu-title">关于</span>
-                </a>
-            </li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
-  <div class="slimContent">
-    
-      <div class="widget">
-    <h3 class="widget-title">公告</h3>
-    <div class="widget-body">
-        <div id="board">
-            <div class="content"><h5>欢迎各种技术讨论~enjoy~</h5>
-            </div>
-        </div>
-    </div>
-</div>
-
-      <div class="widget">
-    <h3 class="widget-title"> 标签</h3>
-    <div id="tag-cloud-list" class="widget-body">
-            
-            
-            <a href="https://qybit.gitee.io/tags/dp/" class="tag-list-link" rel="5">dp<span
-               class="tag-list-count">5</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/java/" class="tag-list-link" rel="4">java<span
-               class="tag-list-count">4</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/javaweb/" class="tag-list-link" rel="1">javaweb<span
-               class="tag-list-count">1</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/lfu/" class="tag-list-link" rel="1">lfu<span
-               class="tag-list-count">1</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/orderedmap/" class="tag-list-link" rel="1">orderedmap<span
-               class="tag-list-count">1</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/promise/" class="tag-list-link" rel="1">promise<span
-               class="tag-list-count">1</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/spring/" class="tag-list-link" rel="1">spring<span
-               class="tag-list-count">1</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/tomcat/" class="tag-list-link" rel="1">tomcat<span
-               class="tag-list-count">1</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/trie/" class="tag-list-link" rel="1">trie<span
-               class="tag-list-count">1</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/wheel/" class="tag-list-link" rel="2">wheel<span
-               class="tag-list-count">2</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E4%BA%8C%E5%88%86/" class="tag-list-link" rel="2">二分<span
-               class="tag-list-count">2</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E4%BA%8C%E5%88%86%E6%B3%95/" class="tag-list-link" rel="1">二分法<span
-               class="tag-list-count">1</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" class="tag-list-link" rel="2">位运算<span
-               class="tag-list-count">2</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E5%87%A0%E4%BD%95/" class="tag-list-link" rel="1">几何<span
-               class="tag-list-count">1</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E5%89%8D%E7%AB%AF/" class="tag-list-link" rel="1">前端<span
-               class="tag-list-count">1</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E5%89%8D%E7%BC%80%E5%92%8C/" class="tag-list-link" rel="1">前缀和<span
-               class="tag-list-count">1</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E5%8A%9B%E6%89%A3/" class="tag-list-link" rel="3">力扣<span
-               class="tag-list-count">3</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" class="tag-list-link" rel="4">动态规划<span
-               class="tag-list-count">4</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/" class="tag-list-link" rel="1">单调队列<span
-               class="tag-list-count">1</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" class="tag-list-link" rel="3">双指针<span
-               class="tag-list-count">3</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E5%91%A8%E8%B5%9B/" class="tag-list-link" rel="3">周赛<span
-               class="tag-list-count">3</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" class="tag-list-link" rel="3">哈希表<span
-               class="tag-list-count">3</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E5%9B%9E%E6%BA%AF/" class="tag-list-link" rel="3">回溯<span
-               class="tag-list-count">3</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E5%9B%BE/" class="tag-list-link" rel="2">图<span
-               class="tag-list-count">2</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E5%A0%86/" class="tag-list-link" rel="2">堆<span
-               class="tag-list-count">2</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E5%AD%97%E5%85%B8%E6%A0%91/" class="tag-list-link" rel="1">字典树<span
-               class="tag-list-count">1</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="tag-list-link" rel="11">字符串<span
-               class="tag-list-count">11</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="tag-list-link" rel="1">并查集<span
-               class="tag-list-count">1</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E6%8E%92%E5%BA%8F/" class="tag-list-link" rel="6">排序<span
-               class="tag-list-count">6</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E6%95%B0%E5%AD%A6/" class="tag-list-link" rel="5">数学<span
-               class="tag-list-count">5</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="tag-list-link" rel="2">数据结构<span
-               class="tag-list-count">2</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E6%95%B0%E7%BB%84/" class="tag-list-link" rel="9">数组<span
-               class="tag-list-count">9</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E6%A0%88/" class="tag-list-link" rel="4">栈<span
-               class="tag-list-count">4</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E6%A0%91/" class="tag-list-link" rel="1">树<span
-               class="tag-list-count">1</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E6%A0%91-dfs/" class="tag-list-link" rel="1">树-dfs<span
-               class="tag-list-count">1</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E6%A8%A1%E6%8B%9F/" class="tag-list-link" rel="1">模拟<span
-               class="tag-list-count">1</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/" class="tag-list-link" rel="1">解题思路<span
-               class="tag-list-count">1</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E8%AE%BE%E8%AE%A1/" class="tag-list-link" rel="3">设计<span
-               class="tag-list-count">3</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E8%B4%AA%E5%BF%83/" class="tag-list-link" rel="10">贪心<span
-               class="tag-list-count">10</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E9%80%92%E5%BD%92/" class="tag-list-link" rel="1">递归<span
-               class="tag-list-count">1</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E9%93%BE%E8%A1%A8/" class="tag-list-link" rel="1">链表<span
-               class="tag-list-count">1</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E9%98%9F%E5%88%97/" class="tag-list-link" rel="1">队列<span
-               class="tag-list-count">1</span></a>
-            
-            
-            <a href="https://qybit.gitee.io/tags/%E9%A2%98%E8%A7%A3/" class="tag-list-link" rel="1">题解<span
-               class="tag-list-count">1</span></a>
-            
-    </div>
-<script>
-document.onreadystatechange = () => {
-  if (document.readyState === 'complete') {
-    tagCloud('#tag-cloud-list a',  5 ,  20 );
-  }
-};
-
-function tagCloud(where, min, max) {
-  let iMax = 0;
-  let iMin = 0;
-  $(where).each(function() {
-    let weight = Number($(this).attr("rel"));
-    if(iMax < weight) iMax = weight;
-    if(iMin > weight || iMin == 0) iMin = weight;
-  });
-  let step = (max - min)/(iMax - iMin);
-  $(where).each(function() {
-    let weight = $(this).attr("rel") - iMin;
-    $(this).css({"font-size": min + (weight * step) + 'px'});
-  });
-};
-</script>
-</div>
-
-      <div class="widget">
-    <h3 class="widget-title"> 分类</h3>
-    <div class="widget-body">
-        <ul class="category-list">
-            <li class="category-list-item"><a href="https://qybit.gitee.io/categories/spring/" class="category-list-link">spring</a><span class="category-list-count">1</span></li>
-            <li class="category-list-item"><a href="https://qybit.gitee.io/categories/%E5%89%8D%E7%AB%AF/" class="category-list-link">前端</a><span class="category-list-count">1</span></li>
-            <li class="category-list-item"><a href="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/" class="category-list-link">力扣</a><span class="category-list-count">24</span></li>
-            <li class="category-list-item"><a href="https://qybit.gitee.io/categories/%E5%91%A8%E8%B5%9B/" class="category-list-link">周赛</a><span class="category-list-count">17</span></li>
-            <li class="category-list-item"><a href="https://qybit.gitee.io/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" class="category-list-link">技术分享</a><span class="category-list-count">2</span></li>
-            <li class="category-list-item"><a href="https://qybit.gitee.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="category-list-link">数据结构</a><span class="category-list-count">2</span></li>
-            <li class="category-list-item"><a href="https://qybit.gitee.io/categories/%E7%AE%97%E6%B3%95/" class="category-list-link">算法</a><span class="category-list-count">20</span></li>
-        </ul>
-    </div>
-</div>
-      
-<div class="widget">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget-body">
-        <ul class="recent-post-list list-unstyled no-thumbnail">
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://qybit.gitee.io/2021/02/03/480/" class="title">480 滑动窗口中位数</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2021-02-03 12:56:57 &#43;0800 CST" itemprop="datePublished">2021-02-03</time>
-                    </p>
-                </div>
-            </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://qybit.gitee.io/2021/02/02/1540/" class="title">1540 K次操作转变字符串</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2021-02-02 20:25:15 &#43;0800 CST" itemprop="datePublished">2021-02-02</time>
-                    </p>
-                </div>
-            </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://qybit.gitee.io/2021/02/02/410/" class="title">410 分割数组的最大值</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2021-02-02 11:39:36 &#43;0800 CST" itemprop="datePublished">2021-02-02</time>
-                    </p>
-                </div>
-            </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://qybit.gitee.io/2021/02/02/424/" class="title">424 替换后的最长重复字符</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2021-02-02 10:50:03 &#43;0800 CST" itemprop="datePublished">2021-02-02</time>
-                    </p>
-                </div>
-            </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://qybit.gitee.io/2021/01/27/%E5%85%B3%E4%BA%8E%E6%88%91%E4%BB%8Ehexo%E8%BF%81%E7%A7%BB%E5%88%B0hugo%E7%9A%84%E8%AE%B0%E5%BD%95/" class="title">关于我从hexo迁移到hugo的记录</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2021-01-27 16:14:22 &#43;0800 CST" itemprop="datePublished">2021-01-27</time>
-                    </p>
-                </div>
-            </li>
-        </ul>
-    </div>
-</div>
-  </div>
-</aside>
-
-    
-    
-<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
-  <div class="slimContent">
-    <h4 class="toc-title">文章目录</h4>
-    <nav id="toc" class="js-toc toc">
-      <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-    </nav>
-  </div>
-</aside>
-<main class="main" role="main"><div class="content">
-  <article id="-" class="article article-type-" itemscope
-    itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      <h1 itemprop="name">
-  <a
-    class="article-title"
-    href="/2021/01/12/%E7%AC%AC43%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/"
-    >第43场双周赛</a
-  >
-</h1>
-
-      <div class="article-meta">
-        
-<span class="article-date">
-  <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://qybit.gitee.io/2021/01/12/%E7%AC%AC43%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/" class="article-date">
-  <time datetime="2021-01-12 14:06:02 &#43;0000 UTC" itemprop="datePublished">2021-01-12</time>
-</a>
-</span>
-<span class="article-category">
-  <i class="icon icon-folder"></i>&nbsp;
-  <a class="article-category-link" href="/categories/%E5%8A%9B%E6%89%A3/"> 力扣 </a>
-  <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
-  <a class="article-category-link" href="/categories/%E5%91%A8%E8%B5%9B/"> 周赛 </a>
-</span>  
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>&nbsp;
-    <a class="article-tag-link" href="/tags/%E8%B4%AA%E5%BF%83/"> 贪心 </a>
-    <a class="article-tag-link" href="/tags/%E6%95%B0%E5%AD%A6/"> 数学 </a>
-    <a class="article-tag-link" href="/tags/%E5%9B%9E%E6%BA%AF/"> 回溯 </a>
-    <a class="article-tag-link" href="/tags/%E9%80%92%E5%BD%92/"> 递归 </a>
-    <a class="article-tag-link" href="/tags/%E6%A0%91/"> 树 </a>
-    <a class="article-tag-link" href="/tags/%E5%9B%BE/"> 图 </a>
-  </span>
-
-	<span class="article-read hidden-xs">
-    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
-    	<span id="https://qybit.gitee.io/2021/01/12/%E7%AC%AC43%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/" class="leancloud_visitors"  data-flag-title="第43场双周赛">0</span>
-    </span>
-        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2021/01/12/%E7%AC%AC43%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/#comments"
-            class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 953字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
-      </div>
-    </div>
-    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
-      <p>题单：</p>
-<ul>
-<li><a href="https://leetcode-cn.com/problems/calculate-money-in-leetcode-bank/">计算力扣银行的钱</a></li>
-<li><a href="https://leetcode-cn.com/problems/maximum-score-from-removing-substrings/">删除子字符串的最大得分</a></li>
-<li><a href="https://leetcode-cn.com/problems/construct-the-lexicographically-largest-valid-sequence/">构建字典序最大的可行序列</a></li>
-<li><a href="https://leetcode-cn.com/problems/number-of-ways-to-reconstruct-a-tree/">重构一棵树的方案数</a></li>
-</ul>
-<h4 id="t1计算力扣银行的钱httpsleetcode-cncomproblemscalculate-money-in-leetcode-bank">T1：<a href="https://leetcode-cn.com/problems/calculate-money-in-leetcode-bank/">计算力扣银行的钱</a></h4>
-<p>思路：</p>
-<p>第一周：<code>1, 2, 3, 4, 5, 6, 7</code></p>
-<p>第二周：<code>2, 3, 4, 5, 6, 7, 8</code></p>
-<p>&hellip;.</p>
-<p>根据上述思路模拟即可。</p>
-<p><strong>代码</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> <span style="color:#f92672">{</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">totalMoney</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> n<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-        <span style="color:#66d9ef">int</span> res <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
-        <span style="color:#75715e">// 当前日期   计数      上周开头的钱
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">int</span> day <span style="color:#f92672">=</span> 1<span style="color:#f92672">,</span> idx <span style="color:#f92672">=</span> 1<span style="color:#f92672">,</span> pre <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span>
-        <span style="color:#66d9ef">while</span> <span style="color:#f92672">(</span>idx <span style="color:#f92672">&lt;=</span> n<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            res <span style="color:#f92672">+=</span> day<span style="color:#f92672">++;</span>
-            <span style="color:#75715e">// 说明要开始下一周了
-</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>idx <span style="color:#f92672">&gt;=</span> 7 <span style="color:#f92672">&amp;&amp;</span> idx <span style="color:#f92672">%</span> 7 <span style="color:#f92672">==</span> 0<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-                day <span style="color:#f92672">=</span> <span style="color:#f92672">++</span>pre<span style="color:#f92672">;</span>
-            <span style="color:#f92672">}</span>
-            idx<span style="color:#f92672">++;</span>   
-        <span style="color:#f92672">}</span>
-        <span style="color:#66d9ef">return</span> res<span style="color:#f92672">;</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><p><strong>复杂度分析</strong></p>
-<p>时间复杂度：$O(1)$</p>
-<p>空间复杂度：$O(N)$</p>
-<h4 id="t2删除子字符串的最大得分httpsleetcode-cncomproblemsmaximum-score-from-removing-substrings">T2：<a href="https://leetcode-cn.com/problems/maximum-score-from-removing-substrings/">删除子字符串的最大得分</a></h4>
-<p>思路：</p>
-<p>我们从字符串每删除一个 <code>ab</code> 子串，就可以得到 <code>x</code> 分。每删除一个 <code>ba</code> 子串，就可以得到 <code>y</code> 分。</p>
-<p>我们对字符串进行预处理，使得删除 <code>ab</code> 的得分是恒大于 <code>ba</code> 的得分。</p>
-<p>那么对于一段连续的仅含有 <code>ab</code> 的子字符串，我们要做的操作就是尽可能删除所有的<code>ab</code>  和 <code>ba</code>对 ，由于我们一定可以删除完毕(恰好删完，或者仅剩一个)，所以我们可以得到：$c * x + (min(a, b) - c) * y$。其中，$c$ 为删除 <code>ab</code> 的操作次数，对应的剩下的$min(a,b)-c$ 就是删除 <code>ba</code>的操作次数。</p>
-<p><strong>代码</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
-<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
-    <span style="color:#66d9ef">int</span> maximumGain(string s, <span style="color:#66d9ef">int</span> x, <span style="color:#66d9ef">int</span> y) {
-        <span style="color:#75715e">// 预处理
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> (x <span style="color:#f92672">&lt;</span> y) {
-            swap(x, y);
-            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">auto</span> <span style="color:#f92672">&amp;</span>c : s) {
-                <span style="color:#66d9ef">if</span> (c <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;a&#39;</span>) c <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;b&#39;</span>;
-                <span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span> (c <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;b&#39;</span>) c <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;a&#39;</span>;
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=content-security-policy content="upgrade-insecure-requests"><title>第43场双周赛 - Loving life and Coding</title><meta name=keywords content="wqy,独立,博客,程序员,个人,思考,分享,算法"><meta property="og:title" content="第43场双周赛"><meta property="og:site_name" content="Loving life and Coding"><meta property="og:image" content="/img/author.jpg"><meta name=title content="第43场双周赛 - Loving life and Coding"><meta name=description content="wqy | 博客 | 软件 | Java | 算法"><link rel="shortcut icon" href=/img/favicon.ico><link rel=apple-touch-icon href=/img/apple-touch-icon.png><link rel=apple-touch-icon-precomposed href=/img/apple-touch-icon.png><link href=//cdn.bootcdn.net/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css rel=stylesheet type=text/css><link href=//cdn.bootcdn.net/ajax/libs/imageviewer/0.1.0/viewer.min.css rel=stylesheet><link href=/css/main.css rel=stylesheet type=text/css><link href=/css/syntax.css rel=stylesheet type=text/css><link rel=stylesheet href=https://lisenhui.cn/css/custom.css></head><script type=text/javascript src=https://cdn.bootcdn.net/ajax/libs/highlight.js/10.5.0/highlight.min.js></script><script type=text/javascript src=https://cdn.bootcdn.net/ajax/libs/highlight.js/10.5.0/languages/java.min.js defer></script><script type=text/javascript src=https://cdn.bootcdn.net/ajax/libs/highlight.js/10.5.0/languages/javascript.min.js defer></script><script type=text/javascript src=https://cdn.bootcdn.net/ajax/libs/highlight.js/10.5.0/languages/cpp.min.js defer></script><script type=text/javascript src=https://cdn.bootcdn.net/ajax/libs/highlight.js/10.5.0/languages/c.min.js defer></script><script type=text/javascript src=https://cdn.bootcdn.net/ajax/libs/highlight.js/10.5.0/languages/go.min.js defer></script><script type=text/javascript src=https://cdn.bootcdn.net/ajax/libs/highlight.js/10.5.0/languages/shell.min.js defer></script><script type=text/javascript src=https://cdn.bootcdn.net/ajax/libs/highlight.js/10.5.0/languages/python.min.js defer></script><script>hljs.configure({tabReplace:'    ',classPrefix:''})
+hljs.initHighlightingOnLoad();</script><body itemscope itemtype=http://schema.org/WebPage lang=zh-hans><div class="container one-collumn sidebar-position-left page-home"><div class=headband></div><header id=header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class=site-meta><div class=custom-logo-site-title><a href=https://lisenhui.cn/ class=brand rel=start><span class=logo-line-before><i></i></span><span class=site-title>Loving life and Coding</span>
+<span class=logo-line-after><i></i></span></a></div><p class=site-subtitle>Talk is cheap, show me your code.</p></div><div class=site-nav-toggle><button>
+<span class=btn-bar></span><span class=btn-bar></span><span class=btn-bar></span></button></div><nav class=site-nav><ul id=menu class=menu><li class=menu-item><a href=/ rel=section><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class=menu-item><a href=/post/ rel=section><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class=menu-item><a href=/tags/ rel=section><i class="menu-item-icon fa fa-fw fa-tag"></i><br>标签</a></li><li class=menu-item><a href=/about/ rel=section><i class="menu-item-icon fa fa-fw fa-user"></i><br>关于</a></li><li class=menu-item><a href=/404.html rel=section target=_blank><i class="menu-item-icon fa fa-fw fa-heartbeat"></i><br>公益404</a></li><li class="menu-item menu-item-search"><a href=javascript:; class=popup-trigger><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class=site-search><div class="popup search-popup local-search-popup"><div class="local-search-header clearfix"><span class=search-icon><i class="fa fa-search"></i></span><span class=popup-btn-close><i class="fa fa-times-circle"></i></span><div class=local-search-input-wrapper><input autocomplete=off placeholder=搜索... spellcheck=false type=text id=local-search-input autocapitalize=none autocorrect=off></div></div><div id=local-search-result></div></div></div></nav></div></header><main id=main class=main><div class=main-inner><div class=content-wrap><div id=content class=content><section id=posts class=posts-expand><article class="post post-type-normal" itemscope itemtype=http://schema.org/Article><header class=post-header><h1 class=post-title itemprop="name headline"><a class=post-title-link href=https://lisenhui.cn/2021/01/12/%E7%AC%AC43%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/ itemprop=url>第43场双周赛</a></h1><div class=post-meta><span class=post-time><i class="fa fa-calendar-o fa-fw"></i><span class=post-meta-item-text>时间：</span>
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2021-01-12">2021-01-12</time></span>
+<span class=post-category>&nbsp; | &nbsp;
+<i class="fa fa-folder-o fa-fw"></i><span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/%E5%8A%9B%E6%89%A3 itemprop=url rel=index style=text-decoration:underline><span itemprop=name>力扣</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/%E7%AE%97%E6%B3%95 itemprop=url rel=index style=text-decoration:underline><span itemprop=name>算法</span></a>
+&nbsp;</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing><a href=/categories/%E5%91%A8%E8%B5%9B itemprop=url rel=index style=text-decoration:underline><span itemprop=name>周赛</span></a>
+&nbsp;</span></span>
+<span>|
+<i class="fa fa-file-word-o fa-fw"></i><span class=post-meta-item-text>字数：</span>
+<span class=leancloud-world-count>953 字</span></span>
+<span>|
+<i class="fa fa-eye fa-fw"></i><span class=post-meta-item-text>阅读：</span>
+<span class=leancloud-view-count>2分钟</span></span>
+<span id=/2021/01/12/%E7%AC%AC43%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/ class=leancloud_visitors data-flag-title=第43场双周赛>|
+<i class="fa fa-binoculars fa-fw"></i><span class=post-meta-item-text>阅读次数：</span>
+<span class=leancloud-visitors-count></span></span></div></header><div class=post-body itemprop=articleBody><p>题单：</p><ul><li><a href=https://leetcode-cn.com/problems/calculate-money-in-leetcode-bank/>计算力扣银行的钱</a></li><li><a href=https://leetcode-cn.com/problems/maximum-score-from-removing-substrings/>删除子字符串的最大得分</a></li><li><a href=https://leetcode-cn.com/problems/construct-the-lexicographically-largest-valid-sequence/>构建字典序最大的可行序列</a></li><li><a href=https://leetcode-cn.com/problems/number-of-ways-to-reconstruct-a-tree/>重构一棵树的方案数</a></li></ul><h4 id=t1计算力扣银行的钱httpsleetcode-cncomproblemscalculate-money-in-leetcode-bank>T1：<a href=https://leetcode-cn.com/problems/calculate-money-in-leetcode-bank/>计算力扣银行的钱</a></h4><p>思路：</p><p>第一周：<code>1, 2, 3, 4, 5, 6, 7</code></p><p>第二周：<code>2, 3, 4, 5, 6, 7, 8</code></p><p>&mldr;.</p><p>根据上述思路模拟即可。</p><p><strong>代码</strong></p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#a90d91>class</span> <span style=color:#3f6e75>Solution</span> <span style=color:#000>{</span>
+    <span style=color:#a90d91>public</span> <span style=color:#a90d91>int</span> <span style=color:#000>totalMoney</span><span style=color:#000>(</span><span style=color:#a90d91>int</span> <span style=color:#000>n</span><span style=color:#000>)</span> <span style=color:#000>{</span>
+        <span style=color:#a90d91>int</span> <span style=color:#000>res</span> <span style=color:#000>=</span> <span style=color:#000>0</span><span style=color:#000>;</span>
+        <span style=color:#177500>// 当前日期   计数      上周开头的钱
+</span><span style=color:#177500></span>        <span style=color:#a90d91>int</span> <span style=color:#000>day</span> <span style=color:#000>=</span> <span style=color:#000>1</span><span style=color:#000>,</span> <span style=color:#000>idx</span> <span style=color:#000>=</span> <span style=color:#000>1</span><span style=color:#000>,</span> <span style=color:#000>pre</span> <span style=color:#000>=</span> <span style=color:#000>1</span><span style=color:#000>;</span>
+        <span style=color:#a90d91>while</span> <span style=color:#000>(</span><span style=color:#000>idx</span> <span style=color:#000>&lt;=</span> <span style=color:#000>n</span><span style=color:#000>)</span> <span style=color:#000>{</span>
+            <span style=color:#000>res</span> <span style=color:#000>+=</span> <span style=color:#000>day</span><span style=color:#000>++;</span>
+            <span style=color:#177500>// 说明要开始下一周了
+</span><span style=color:#177500></span>            <span style=color:#a90d91>if</span> <span style=color:#000>(</span><span style=color:#000>idx</span> <span style=color:#000>&gt;=</span> <span style=color:#000>7</span> <span style=color:#000>&amp;&amp;</span> <span style=color:#000>idx</span> <span style=color:#000>%</span> <span style=color:#000>7</span> <span style=color:#000>==</span> <span style=color:#000>0</span><span style=color:#000>)</span> <span style=color:#000>{</span>
+                <span style=color:#000>day</span> <span style=color:#000>=</span> <span style=color:#000>++</span><span style=color:#000>pre</span><span style=color:#000>;</span>
+            <span style=color:#000>}</span>
+            <span style=color:#000>idx</span><span style=color:#000>++;</span>   
+        <span style=color:#000>}</span>
+        <span style=color:#a90d91>return</span> <span style=color:#000>res</span><span style=color:#000>;</span>
+    <span style=color:#000>}</span>
+<span style=color:#000>}</span>
+</code></pre></div><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(1)$</p><p>空间复杂度：$O(N)$</p><h4 id=t2删除子字符串的最大得分httpsleetcode-cncomproblemsmaximum-score-from-removing-substrings>T2：<a href=https://leetcode-cn.com/problems/maximum-score-from-removing-substrings/>删除子字符串的最大得分</a></h4><p>思路：</p><p>我们从字符串每删除一个 <code>ab</code> 子串，就可以得到 <code>x</code> 分。每删除一个 <code>ba</code> 子串，就可以得到 <code>y</code> 分。</p><p>我们对字符串进行预处理，使得删除 <code>ab</code> 的得分是恒大于 <code>ba</code> 的得分。</p><p>那么对于一段连续的仅含有 <code>ab</code> 的子字符串，我们要做的操作就是尽可能删除所有的<code>ab</code> 和 <code>ba</code>对 ，由于我们一定可以删除完毕(恰好删完，或者仅剩一个)，所以我们可以得到：$c * x + (min(a, b) - c) * y$。其中，$c$ 为删除 <code>ab</code> 的操作次数，对应的剩下的$min(a,b)-c$ 就是删除 <code>ba</code>的操作次数。</p><p><strong>代码</strong></p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=color:#a90d91>class</span> <span style=color:#3f6e75>Solution</span> {
+<span style=color:#a90d91>public</span><span style=color:#000>:</span>
+    <span style=color:#a90d91>int</span> <span style=color:#000>maximumGain</span>(<span style=color:#000>string</span> <span style=color:#000>s</span>, <span style=color:#a90d91>int</span> <span style=color:#000>x</span>, <span style=color:#a90d91>int</span> <span style=color:#000>y</span>) {
+        <span style=color:#177500>// 预处理
+</span><span style=color:#177500></span>        <span style=color:#a90d91>if</span> (<span style=color:#000>x</span> <span style=color:#000>&lt;</span> <span style=color:#000>y</span>) {
+            <span style=color:#000>swap</span>(<span style=color:#000>x</span>, <span style=color:#000>y</span>);
+            <span style=color:#a90d91>for</span> (<span style=color:#a90d91>auto</span> <span style=color:#000>&amp;</span><span style=color:#000>c</span> : <span style=color:#000>s</span>) {
+                <span style=color:#a90d91>if</span> (<span style=color:#000>c</span> <span style=color:#000>==</span> <span style=color:#2300ce>&#39;a&#39;</span>) <span style=color:#000>c</span> <span style=color:#000>=</span> <span style=color:#2300ce>&#39;b&#39;</span>;
+                <span style=color:#a90d91>else</span> <span style=color:#000>if</span> (<span style=color:#000>c</span> <span style=color:#000>==</span> <span style=color:#2300ce>&#39;b&#39;</span>) <span style=color:#000>c</span> <span style=color:#000>=</span> <span style=color:#2300ce>&#39;a&#39;</span>;
             }
         }
-        <span style="color:#66d9ef">int</span> res <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> s.size(); i<span style="color:#f92672">++</span>) {
-            <span style="color:#66d9ef">if</span> (s[i] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;a&#39;</span> <span style="color:#f92672">&amp;&amp;</span> s[i] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;b&#39;</span>) <span style="color:#66d9ef">continue</span>;
-            <span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
-            <span style="color:#66d9ef">while</span> (j <span style="color:#f92672">&lt;</span> s.size() <span style="color:#f92672">&amp;&amp;</span> (s[j] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;a&#39;</span> <span style="color:#f92672">||</span> s[j] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;b&#39;</span>)) j<span style="color:#f92672">++</span>;
-            <span style="color:#75715e">// 区间 [i,j] 为仅含 a，b的字符串
-</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, b <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, c <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, t <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> k <span style="color:#f92672">=</span> j <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; k <span style="color:#f92672">&gt;=</span> i; k<span style="color:#f92672">--</span>) {
-                <span style="color:#66d9ef">if</span> (s[k] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;a&#39;</span>) {
-                    a <span style="color:#f92672">++</span>;
-                    <span style="color:#66d9ef">if</span> (t) {
-                        t<span style="color:#f92672">--</span>;
-                        c<span style="color:#f92672">++</span>;
+        <span style=color:#a90d91>int</span> <span style=color:#000>res</span> <span style=color:#000>=</span> <span style=color:#1c01ce>0</span>;
+        <span style=color:#a90d91>for</span> (<span style=color:#a90d91>int</span> <span style=color:#000>i</span> <span style=color:#000>=</span> <span style=color:#1c01ce>0</span>; <span style=color:#000>i</span> <span style=color:#000>&lt;</span> <span style=color:#000>s</span>.<span style=color:#000>size</span>(); <span style=color:#000>i</span><span style=color:#000>++</span>) {
+            <span style=color:#a90d91>if</span> (<span style=color:#000>s</span>[<span style=color:#000>i</span>] <span style=color:#000>!=</span> <span style=color:#2300ce>&#39;a&#39;</span> <span style=color:#000>&amp;&amp;</span> <span style=color:#000>s</span>[<span style=color:#000>i</span>] <span style=color:#000>!=</span> <span style=color:#2300ce>&#39;b&#39;</span>) <span style=color:#a90d91>continue</span>;
+            <span style=color:#a90d91>int</span> <span style=color:#000>j</span> <span style=color:#000>=</span> <span style=color:#000>i</span> <span style=color:#000>+</span> <span style=color:#1c01ce>1</span>;
+            <span style=color:#a90d91>while</span> (<span style=color:#000>j</span> <span style=color:#000>&lt;</span> <span style=color:#000>s</span>.<span style=color:#000>size</span>() <span style=color:#000>&amp;&amp;</span> (<span style=color:#000>s</span>[<span style=color:#000>j</span>] <span style=color:#000>==</span> <span style=color:#2300ce>&#39;a&#39;</span> <span style=color:#000>||</span> <span style=color:#000>s</span>[<span style=color:#000>j</span>] <span style=color:#000>==</span> <span style=color:#2300ce>&#39;b&#39;</span>)) <span style=color:#000>j</span><span style=color:#000>++</span>;
+            <span style=color:#177500>// 区间 [i,j] 为仅含 a，b的字符串
+</span><span style=color:#177500></span>            <span style=color:#a90d91>int</span> <span style=color:#000>a</span> <span style=color:#000>=</span> <span style=color:#1c01ce>0</span>, <span style=color:#000>b</span> <span style=color:#000>=</span> <span style=color:#1c01ce>0</span>, <span style=color:#000>c</span> <span style=color:#000>=</span> <span style=color:#1c01ce>0</span>, <span style=color:#000>t</span> <span style=color:#000>=</span> <span style=color:#1c01ce>0</span>;
+            <span style=color:#a90d91>for</span> (<span style=color:#a90d91>int</span> <span style=color:#000>k</span> <span style=color:#000>=</span> <span style=color:#000>j</span> <span style=color:#000>-</span> <span style=color:#1c01ce>1</span>; <span style=color:#000>k</span> <span style=color:#000>&gt;=</span> <span style=color:#000>i</span>; <span style=color:#000>k</span><span style=color:#000>--</span>) {
+                <span style=color:#a90d91>if</span> (<span style=color:#000>s</span>[<span style=color:#000>k</span>] <span style=color:#000>==</span> <span style=color:#2300ce>&#39;a&#39;</span>) {
+                    <span style=color:#000>a</span> <span style=color:#000>++</span>;
+                    <span style=color:#a90d91>if</span> (<span style=color:#000>t</span>) {
+                        <span style=color:#000>t</span><span style=color:#000>--</span>;
+                        <span style=color:#000>c</span><span style=color:#000>++</span>;
                     }
-                } <span style="color:#66d9ef">else</span> {
-                    b <span style="color:#f92672">++</span>;
-                    t <span style="color:#f92672">++</span>;
+                } <span style=color:#a90d91>else</span> {
+                    <span style=color:#000>b</span> <span style=color:#000>++</span>;
+                    <span style=color:#000>t</span> <span style=color:#000>++</span>;
                 }
             }
-            <span style="color:#75715e">// 计算这段字符串可以产生的得分
-</span><span style="color:#75715e"></span>            res <span style="color:#f92672">+=</span> x <span style="color:#f92672">*</span> c <span style="color:#f92672">+</span> (min(a, b) <span style="color:#f92672">-</span> c) <span style="color:#f92672">*</span> y;
-            i <span style="color:#f92672">=</span> j <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+            <span style=color:#177500>// 计算这段字符串可以产生的得分
+</span><span style=color:#177500></span>            <span style=color:#000>res</span> <span style=color:#000>+=</span> <span style=color:#000>x</span> <span style=color:#000>*</span> <span style=color:#000>c</span> <span style=color:#000>+</span> (<span style=color:#000>min</span>(<span style=color:#000>a</span>, <span style=color:#000>b</span>) <span style=color:#000>-</span> <span style=color:#000>c</span>) <span style=color:#000>*</span> <span style=color:#000>y</span>;
+            <span style=color:#000>i</span> <span style=color:#000>=</span> <span style=color:#000>j</span> <span style=color:#000>-</span> <span style=color:#1c01ce>1</span>;
         }
-        <span style="color:#66d9ef">return</span> res;
+        <span style=color:#a90d91>return</span> <span style=color:#000>res</span>;
     }
 };
-</code></pre></div><p><strong>复杂度分析</strong></p>
-<p>时间复杂度：$O(N^2)$，其中最差的情况是，字符串中仅含<code>a</code>，<code>b</code></p>
-<p>空间复杂度：$O(1)$</p>
-<h4 id="t3构建字典序最大的可行序列httpsleetcode-cncomproblemsconstruct-the-lexicographically-largest-valid-sequence">T3：<a href="https://leetcode-cn.com/problems/construct-the-lexicographically-largest-valid-sequence/">构建字典序最大的可行序列</a></h4>
-<p>思路</p>
-<p>我们需要构造一个序列</p>
-<ul>
-<li><code>1</code> 只出现过一次</li>
-<li><code>[2, n]</code> 每个数是出现 两次</li>
-<li><code>[2, n]</code>每个数的出现位置间隔为 <code>i</code></li>
-</ul>
-<p>由于数据范围很小 $1 \le n \le 20$ ，所以我们可以直接暴力枚举</p>
-<p>代码</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
-<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</code></pre></div><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(N^2)$，其中最差的情况是，字符串中仅含<code>a</code>，<code>b</code></p><p>空间复杂度：$O(1)$</p><h4 id=t3构建字典序最大的可行序列httpsleetcode-cncomproblemsconstruct-the-lexicographically-largest-valid-sequence>T3：<a href=https://leetcode-cn.com/problems/construct-the-lexicographically-largest-valid-sequence/>构建字典序最大的可行序列</a></h4><p>思路</p><p>我们需要构造一个序列</p><ul><li><code>1</code> 只出现过一次</li><li><code>[2, n]</code> 每个数是出现 两次</li><li><code>[2, n]</code>每个数的出现位置间隔为 <code>i</code></li></ul><p>由于数据范围很小 $1 \le n \le 20$ ，所以我们可以直接暴力枚举</p><p>代码</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=color:#a90d91>class</span> <span style=color:#3f6e75>Solution</span> {
+<span style=color:#a90d91>public</span><span style=color:#000>:</span>
 
-    <span style="color:#66d9ef">int</span> n;
-    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;</span> st;
-    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> path;
+    <span style=color:#a90d91>int</span> <span style=color:#000>n</span>;
+    <span style=color:#000>vector</span><span style=color:#000>&lt;</span><span style=color:#a90d91>bool</span><span style=color:#000>&gt;</span> <span style=color:#000>st</span>;
+    <span style=color:#000>vector</span><span style=color:#000>&lt;</span><span style=color:#a90d91>int</span><span style=color:#000>&gt;</span> <span style=color:#000>path</span>;
 
-    <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">dfs</span>(<span style="color:#66d9ef">int</span> u) {
-        <span style="color:#66d9ef">if</span> (u <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">return</span> true;
-        <span style="color:#66d9ef">if</span> (path[u]) <span style="color:#66d9ef">return</span> dfs(u <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
-        <span style="color:#75715e">// 从最大的数开始，要求字典序最大
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> n ; i <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>; i<span style="color:#f92672">--</span>) {
-            <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>st[i] <span style="color:#f92672">&amp;&amp;</span> u <span style="color:#f92672">+</span> i <span style="color:#f92672">&lt;</span> n<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>path[u <span style="color:#f92672">+</span> i]) {
-                st[i] <span style="color:#f92672">=</span> true;
-                path[u] <span style="color:#f92672">=</span> path[u <span style="color:#f92672">+</span> i] <span style="color:#f92672">=</span> i;
-                <span style="color:#66d9ef">if</span> (dfs(u <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)) <span style="color:#66d9ef">return</span> true;
-                st[i] <span style="color:#f92672">=</span> false;
-                path[u] <span style="color:#f92672">=</span> path[u <span style="color:#f92672">+</span> i] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style=color:#a90d91>bool</span> <span style=color:#000>dfs</span>(<span style=color:#a90d91>int</span> <span style=color:#000>u</span>) {
+        <span style=color:#a90d91>if</span> (<span style=color:#000>u</span> <span style=color:#000>==</span> <span style=color:#1c01ce>2</span><span style=color:#000>*</span><span style=color:#000>n</span> <span style=color:#000>-</span> <span style=color:#1c01ce>1</span>) <span style=color:#a90d91>return</span> <span style=color:#a90d91>true</span>;
+        <span style=color:#a90d91>if</span> (<span style=color:#000>path</span>[<span style=color:#000>u</span>]) <span style=color:#a90d91>return</span> <span style=color:#000>dfs</span>(<span style=color:#000>u</span> <span style=color:#000>+</span> <span style=color:#1c01ce>1</span>);
+        <span style=color:#177500>// 从最大的数开始，要求字典序最大
+</span><span style=color:#177500></span>        <span style=color:#a90d91>for</span> (<span style=color:#a90d91>int</span> <span style=color:#000>i</span> <span style=color:#000>=</span> <span style=color:#000>n</span> ; <span style=color:#000>i</span> <span style=color:#000>&gt;</span> <span style=color:#1c01ce>1</span>; <span style=color:#000>i</span><span style=color:#000>--</span>) {
+            <span style=color:#a90d91>if</span> (<span style=color:#000>!</span><span style=color:#000>st</span>[<span style=color:#000>i</span>] <span style=color:#000>&amp;&amp;</span> <span style=color:#000>u</span> <span style=color:#000>+</span> <span style=color:#000>i</span> <span style=color:#000>&lt;</span> <span style=color:#000>n</span><span style=color:#000>*</span><span style=color:#1c01ce>2</span><span style=color:#000>-</span><span style=color:#1c01ce>1</span> <span style=color:#000>&amp;&amp;</span> <span style=color:#000>!</span><span style=color:#000>path</span>[<span style=color:#000>u</span> <span style=color:#000>+</span> <span style=color:#000>i</span>]) {
+                <span style=color:#000>st</span>[<span style=color:#000>i</span>] <span style=color:#000>=</span> <span style=color:#a90d91>true</span>;
+                <span style=color:#000>path</span>[<span style=color:#000>u</span>] <span style=color:#000>=</span> <span style=color:#000>path</span>[<span style=color:#000>u</span> <span style=color:#000>+</span> <span style=color:#000>i</span>] <span style=color:#000>=</span> <span style=color:#000>i</span>;
+                <span style=color:#a90d91>if</span> (<span style=color:#000>dfs</span>(<span style=color:#000>u</span> <span style=color:#000>+</span> <span style=color:#1c01ce>1</span>)) <span style=color:#a90d91>return</span> <span style=color:#a90d91>true</span>;
+                <span style=color:#000>st</span>[<span style=color:#000>i</span>] <span style=color:#000>=</span> <span style=color:#a90d91>false</span>;
+                <span style=color:#000>path</span>[<span style=color:#000>u</span>] <span style=color:#000>=</span> <span style=color:#000>path</span>[<span style=color:#000>u</span> <span style=color:#000>+</span> <span style=color:#000>i</span>] <span style=color:#000>=</span> <span style=color:#1c01ce>0</span>;
             }
         }
-        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>st[<span style="color:#ae81ff">1</span>]) {
-            st[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> true;
-            path[u] <span style="color:#f92672">=</span>  <span style="color:#ae81ff">1</span>;
-            <span style="color:#66d9ef">if</span> (dfs(u <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)) <span style="color:#66d9ef">return</span> true;
-            st[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> false;
-            path[u] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        <span style=color:#a90d91>if</span> (<span style=color:#000>!</span><span style=color:#000>st</span>[<span style=color:#1c01ce>1</span>]) {
+            <span style=color:#000>st</span>[<span style=color:#1c01ce>1</span>] <span style=color:#000>=</span> <span style=color:#a90d91>true</span>;
+            <span style=color:#000>path</span>[<span style=color:#000>u</span>] <span style=color:#000>=</span>  <span style=color:#1c01ce>1</span>;
+            <span style=color:#a90d91>if</span> (<span style=color:#000>dfs</span>(<span style=color:#000>u</span> <span style=color:#000>+</span> <span style=color:#1c01ce>1</span>)) <span style=color:#a90d91>return</span> <span style=color:#a90d91>true</span>;
+            <span style=color:#000>st</span>[<span style=color:#1c01ce>1</span>] <span style=color:#000>=</span> <span style=color:#a90d91>false</span>;
+            <span style=color:#000>path</span>[<span style=color:#000>u</span>] <span style=color:#000>=</span> <span style=color:#1c01ce>0</span>;
         }
-        <span style="color:#66d9ef">return</span> false;
+        <span style=color:#a90d91>return</span> <span style=color:#a90d91>false</span>;
     }
 
 
-    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> constructDistancedSequence(<span style="color:#66d9ef">int</span> _n) {
-        n <span style="color:#f92672">=</span> _n;
-        st.resize(n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, false);
-        path.resize(n <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
-        dfs(<span style="color:#ae81ff">0</span>);
-        <span style="color:#66d9ef">return</span> path;
+    <span style=color:#000>vector</span><span style=color:#000>&lt;</span><span style=color:#a90d91>int</span><span style=color:#000>&gt;</span> <span style=color:#000>constructDistancedSequence</span>(<span style=color:#a90d91>int</span> <span style=color:#000>_n</span>) {
+        <span style=color:#000>n</span> <span style=color:#000>=</span> <span style=color:#000>_n</span>;
+        <span style=color:#000>st</span>.<span style=color:#000>resize</span>(<span style=color:#000>n</span> <span style=color:#000>+</span> <span style=color:#1c01ce>1</span>, <span style=color:#a90d91>false</span>);
+        <span style=color:#000>path</span>.<span style=color:#000>resize</span>(<span style=color:#000>n</span> <span style=color:#000>*</span> <span style=color:#1c01ce>2</span> <span style=color:#000>-</span> <span style=color:#1c01ce>1</span>);
+        <span style=color:#000>dfs</span>(<span style=color:#1c01ce>0</span>);
+        <span style=color:#a90d91>return</span> <span style=color:#000>path</span>;
     }
 };
-</code></pre></div><p><strong>复杂度分析</strong></p>
-<p>时间复杂度：$O(N!)$，其中每个位置，我们都要至少检查 $N$ 次</p>
-<p>空间复杂度：$O(N)$</p>
-<h4 id="t4重构一棵树的方案数httpsleetcode-cncomproblemsnumber-of-ways-to-reconstruct-a-tree">T4：<a href="https://leetcode-cn.com/problems/number-of-ways-to-reconstruct-a-tree/">重构一棵树的方案数</a></h4>
-<p>暂无思路！</p>
-    </div>
-    <div class="article-footer">
-<blockquote class="mt-2x">
-  <ul class="post-copyright list-unstyled">
-    <li class="post-copyright-link hidden-xs">
-      <strong>本文链接: </strong>
-      <a href="https://qybit.gitee.io/2021/01/12/%E7%AC%AC43%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/" title="第43场双周赛" target="_blank" rel="external">https://qybit.gitee.io/2021/01/12/%E7%AC%AC43%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</a>
-    </li>
-    <li class="post-copyright-license">
-      <strong>License: </strong>
-        <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
-    </li>
-  </ul>
-</blockquote>
-
-<div class="panel panel-default panel-badger">
-  <div class="panel-body">
-    <figure class="media">
-      <div class="media-left">
-        <a href="https://github.com/qybit" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://img.imgdb.cn/item/5ed46731c2a9a83be565eadb.jpg" class="img-rounded w-full" alt="">
-        </a>
-      </div>
-      <div class="media-body">
-        <h3 class="media-heading"><a href="https://github.com/qybit" target="_blank"><span class="text-dark">wqy</span><small class="ml-1x">Talk is cheap, show me your code.</small></a></h3>
-        <div>Good Good Study, Day Day Up~</div>
-      </div>
-    </figure>
-  </div>
-</div>
-
-    </div>
-  </article>
-<section id="comments">
-    <div id="vcomments"></div>
-</section>
-
-</div><nav class="bar bar-footer clearfix" data-stick-bottom>
-    <div class="bar-inner">
-        <ul class="pager pull-left">
-            <li class="prev">
-                <a href="https://qybit.gitee.io/2021/01/03/%E7%AC%AC222%E5%9C%BA%E5%91%A8%E8%B5%9B/" title="第222场周赛"><i
-                        class="icon icon-angle-left"
-                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
-            </li>
-            <li class="next">
-                <a href="https://qybit.gitee.io/2021/01/17/%E7%AC%AC224%E5%9C%BA%E5%91%A8%E8%B5%9B/"
-                    title="第224场周赛"><span>上一篇&nbsp;&nbsp;</span><i
-                        class="icon icon-angle-right" aria-hidden="true"></i></a>
-            </li>
-            
-            <li class="toggle-toc">
-                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
-                    title="文章目录" role="button">
-                    <span>[&nbsp;</span><span>文章目录</span>
-                    <i class="text-collapsed icon icon-anchor"></i>
-                    <i class="text-in icon icon-close"></i>
-                    <span>]</span>
-                </a>
-            </li>
-        </ul>
-        
-        <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal"
-            data-target="#donateModal"><span>赏</span></button>
-        
-        <div class="bar-right">
-            <div class="share-component" data-sites="weibo,qq,wechat"
-                data-mobile-sites="weibo,qq,qzone"></div>
-        </div>
-    </div>
-</nav>
-
-
-<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content donate">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                    aria-hidden="true">&times;</span></button>
-            <div class="modal-body">
-                <div class="donate-box">
-                    <div class="donate-head">
-                        <p>感谢您的支持,我会继续努力的!</p>
-                    </div>
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane fade active in" id="alipay">
-                            <div class="donate-payimg">
-                                <img src="https://img.imgdb.cn/item/5ed38dc8c2a9a83be552f292.jpg"
-                                    alt="扫码支持" title="扫一扫" />
-                            </div>
-                            <p class="text-muted mv">扫码打赏, 多少你说了算~</p>
-                            <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦~</p>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="wechatpay">
-                            <div class="donate-payimg">
-                                <img src="https://img.imgdb.cn/item/5ed38dccc2a9a83be552f899.jpg"
-                                    alt="扫码支持" title="扫一扫" />
-                            </div>
-                            <p class="text-muted mv">扫码打赏, 多少你说了算~</p>
-                            <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
-                        </div>
-                    </div>
-                    <div class="donate-footer">
-                        <ul class="nav nav-tabs nav-justified" role="tablist">
-                            <li role="presentation" class="active">
-                                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay"
-                                    aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
-                            </li>
-                            <li role="presentation" class="">
-                                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab"
-                                    aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i>
-                                    微信支付</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
-<ul class="social-links">
-    <li><a href="https://github.com/qybit" target="_blank" title="github" data-toggle=tooltip data-placement=top >
-            <i class="icon icon-github"></i></a></li>
-    <li><a href="https://qybit.gitee.io/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
-            <i class="icon icon-rss"></i></a></li>
-</ul>
-  <div class="copyright">
-    &copy;2020  -
-    2021
-    <div class="publishby">
-        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
-    </div>
-  </div>
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
-<span id="busuanzi_container_site_pv">
-    本站总访问量<span id="busuanzi_value_site_pv"></span>次
-</span>
-</footer>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-            showMathMenu: false, //disables context menu
-            tex2jax: {
-            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
-           }
-    });
-</script>
-
-
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
-<script>
-    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
-</script>
-<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/10.0.0/highlight.min.js"></script>
-<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/10.0.0/languages/python.min.js" defer></script>
-<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/10.0.0/languages/css.min.js" defer></script>
-<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/10.0.0/languages/javascript.min.js" defer></script>
-<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/10.0.0/languages/cpp.min.js" defer></script>
-<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/10.0.0/languages/java.min.js" defer></script>
-<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/10.0.0/languages/go.min.js" defer></script><script>
-    hljs.configure({
-        tabReplace: '    ', 
-        classPrefix: ''     
-        
-    })
-    hljs.initHighlightingOnLoad();
-</script>
-<script src="https://qybit.gitee.io/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
-<script src="https://qybit.gitee.io/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
-
-<script>
-    (function (window) {
-        var INSIGHT_CONFIG = {
-            TRANSLATION: {
-                POSTS: '文章',
-                PAGES: '页面',
-                CATEGORIES: '分类',
-                TAGS: '标签',
-                UNTITLED: '(未命名)',
-            },
-            ROOT_URL: 'https:\/\/qybit.gitee.io\/',
-            CONTENT_URL: 'https:\/\/qybit.gitee.io\/\/searchindex.json ',
-        };
-        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-    })(window);
-</script>
-<script type="text/javascript" src="https://qybit.gitee.io/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
-<script>
-    tocbot.init({
-        
-        tocSelector: '.js-toc',
-        
-        contentSelector: '.js-toc-content',
-        
-        headingSelector: 'h1, h2, h3',
-        
-        hasInnerContainers: true,
-    });
-</script>
-
-<script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/valine"></script>
-<script type="text/javascript">
-    var GUEST = ['nick', 'mail', 'link'];
-    var meta = 'nick,mail';
-    meta = meta.split(',').filter(function (item) {
-        return GUEST.indexOf(item) > -1;
-    });
-    new Valine({
-        el: '#vcomments',
-        verify: false ,
-        notify: true ,
-        appId: 'bXWbbE9acJmnRcSYNkVRTEkE-gzGzoHsz',
-        appKey: 'oxKqCUaNn5TaVNdCjnX1pU2W',
-        placeholder: '欢迎说出你的想法~',
-        avatar: 'mm',
-        meta: meta,
-        pageSize: '10' || 10,
-        visitor: true 
-});
-</script>
-
-  </body>
-</html>
+</code></pre></div><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(N!)$，其中每个位置，我们都要至少检查 $N$ 次</p><p>空间复杂度：$O(N)$</p><h4 id=t4重构一棵树的方案数httpsleetcode-cncomproblemsnumber-of-ways-to-reconstruct-a-tree>T4：<a href=https://leetcode-cn.com/problems/number-of-ways-to-reconstruct-a-tree/>重构一棵树的方案数</a></h4><p>暂无思路！</p></div><div class=post-nav><div class=article-copyright><div class=article-copyright-img><img src=/img/qq_qrcode.png width=129px height=129px><div style=text-align:center>QQ扫一扫交流</div></div><div class=article-copyright-info><p><span>标题：</span>第43场双周赛</p><p><span>链接：</span>https://lisenhui.cn/2021/01/12/%E7%AC%AC43%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</p><p><span>作者：</span><a target=_blank href=/>wqy</a></p><p><span>声明：</span>本博客文章除特别声明外，均采用 <a href=https://creativecommons.org/licenses/by-nc-sa/3.0/ target=_blank style=text-decoration:underline>CC BY-NC-SA 3.0</a>许可协议，转载请注明出处！</p></div></div><div class=clear></div></div><div class=reward-qr-info><div>创作实属不易，如有帮助，那就打赏博主些许茶钱吧 ^_^</div><button id=rewardButton disable=enable onclick="var qr=document.getElementById('QR');if(qr.style.display==='none'){qr.style.display='block';}else{qr.style.display='none'}">
+<span>赏</span></button><div id=QR style=display:none><div id=wechat style=display:inline-block><img id=wechat_qr src=/img/wechat-pay.png alt="WeChat Pay"><p>微信打赏</p></div><div id=alipay style=display:inline-block><img id=alipay_qr src=/img/ali-pay.jpg alt=Alipay><p>支付宝打赏</p></div></div></div><footer class=post-footer><div class=post-tags><a href=/tags/%e8%b4%aa%e5%bf%83 rel=tag title=贪心>#贪心#</a>
+<a href=/tags/%e6%95%b0%e5%ad%a6 rel=tag title=数学>#数学#</a>
+<a href=/tags/%e5%9b%9e%e6%ba%af rel=tag title=回溯>#回溯#</a>
+<a href=/tags/%e9%80%92%e5%bd%92 rel=tag title=递归>#递归#</a>
+<a href=/tags/%e6%a0%91 rel=tag title=树>#树#</a>
+<a href=/tags/%e5%9b%be rel=tag title=图>#图#</a></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=https://lisenhui.cn/2021/01/17/%E7%AC%AC224%E5%9C%BA%E5%91%A8%E8%B5%9B/ rel=next title=第224场周赛><i class="fa fa-chevron-left"></i>第224场周赛</a></div><div class="post-nav-prev post-nav-item"><a href=https://lisenhui.cn/2021/01/03/%E7%AC%AC222%E5%9C%BA%E5%91%A8%E8%B5%9B/ rel=prev title=第222场周赛>第222场周赛 <i class="fa fa-chevron-right"></i></a></div></div><div id=vcomments></div></footer></article></section></div></div><div class=sidebar-toggle><div class=sidebar-toggle-line-wrap><span class="sidebar-toggle-line sidebar-toggle-line-first"></span><span class="sidebar-toggle-line sidebar-toggle-line-middle"></span><span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id=sidebar class=sidebar><div class=sidebar-inner><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target=post-toc-wrap>文章目录</li><li class=sidebar-nav-overview data-target=site-overview>站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image src=https://img.imgdb.cn/item/5ed46731c2a9a83be565eadb.jpg alt=wqy><p class=site-author-name itemprop=name>wqy</p><p class="site-description motion-element" itemprop=description>努力不一定会有结果，但至少不会让自己后悔。</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href=/post/><span class=site-state-item-count>29</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>7</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>44</span>
+<span class=site-state-item-name>标签</span></a></div></nav><div class="links-of-author motion-element"><span class=links-of-author-item><a href=https://github.com/qybit target=_blank title=GitHub><i class="fa fa-fw fa-github"></i>GitHub</a></span>
+<span class=links-of-author-item><a href=https://www.zhihu.com/people/fan-meng-xing-chen-1 target=_blank title=ZhiHu><i class="fa fa-fw fa-globe"></i>ZhiHu</a></span></div><div class="links-of-blogroll motion-element links-of-blogroll-inline"><div class=links-of-blogroll-title><i class="fa fa-fw fa-globe"></i>友情链接</div><ul class=links-of-blogroll-list><li class=links-of-blogroll-item><a href=https://lisenhui.cn/ title=凡梦星尘 target=_blank>凡梦星尘</a></li></ul></div><div class="tagcloud-of-blogroll motion-element tagcloud-of-blogroll-inline"><div class=tagcloud-of-blogroll-title><i class="fa fa-fw fa-tags"></i>标签云</div><ul class=tagcloud-of-blogroll-list><li class=tagcloud-of-blogroll-item><a href=/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2>字符串</a></li><li class=tagcloud-of-blogroll-item><a href=/tags/%E8%B4%AA%E5%BF%83>贪心</a></li><li class=tagcloud-of-blogroll-item><a href=/tags/%E6%95%B0%E7%BB%84>数组</a></li><li class=tagcloud-of-blogroll-item><a href=/tags/%E6%8E%92%E5%BA%8F>排序</a></li><li class=tagcloud-of-blogroll-item><a href=/tags/dp>Dp</a></li><li class=tagcloud-of-blogroll-item><a href=/tags/%E6%95%B0%E5%AD%A6>数学</a></li><li class=tagcloud-of-blogroll-item><a href=/tags/java>Java</a></li><li class=tagcloud-of-blogroll-item><a href=/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92>动态规划</a></li><li class=tagcloud-of-blogroll-item><a href=/tags/%E6%A0%88>栈</a></li><li class=tagcloud-of-blogroll-item><a href=/tags/%E5%8A%9B%E6%89%A3>力扣</a></li><li class=tagcloud-of-blogroll-item><a href=/tags/%E5%8F%8C%E6%8C%87%E9%92%88>双指针</a></li><li class=tagcloud-of-blogroll-item><a href=/tags/%E5%91%A8%E8%B5%9B>周赛</a></li><li class=tagcloud-of-blogroll-item><a href=/tags/%E5%93%88%E5%B8%8C%E8%A1%A8>哈希表</a></li><li class=tagcloud-of-blogroll-item><a href=/tags/%E5%9B%9E%E6%BA%AF>回溯</a></li><li class=tagcloud-of-blogroll-item><a href=/tags/%E8%AE%BE%E8%AE%A1>设计</a></li><li class=tagcloud-of-blogroll-item><a href=/tags/wheel>Wheel</a></li><li class=tagcloud-of-blogroll-item><a href=/tags/%E4%BA%8C%E5%88%86>二分</a></li><li class=tagcloud-of-blogroll-item><a href=/tags/%E4%BD%8D%E8%BF%90%E7%AE%97>位运算</a></li><li class=tagcloud-of-blogroll-item><a href=/tags/%E5%9B%BE>图</a></li><li class=tagcloud-of-blogroll-item><a href=/tags/%E5%A0%86>堆</a></li></ul></div><div class="links-of-blogroll motion-element inline"><script type=text/javascript src="//rf.revolvermaps.com/0/0/6.js?i=5s83wolvn69&m=7&c=e63100&cr1=ffffff&f=arial&l=0&bv=90&lx=-420&ly=420&hi=20&he=7&hc=a8ddff&rs=80" async></script></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class=post-toc><div class=post-toc-content><nav id=TableOfContents><ul><li><ul><li><ul><li><ul><li><a href=#t1计算力扣银行的钱httpsleetcode-cncomproblemscalculate-money-in-leetcode-bank>T1：<a href=https://leetcode-cn.com/problems/calculate-money-in-leetcode-bank/>计算力扣银行的钱</a></a></li><li><a href=#t2删除子字符串的最大得分httpsleetcode-cncomproblemsmaximum-score-from-removing-substrings>T2：<a href=https://leetcode-cn.com/problems/maximum-score-from-removing-substrings/>删除子字符串的最大得分</a></a></li><li><a href=#t3构建字典序最大的可行序列httpsleetcode-cncomproblemsconstruct-the-lexicographically-largest-valid-sequence>T3：<a href=https://leetcode-cn.com/problems/construct-the-lexicographically-largest-valid-sequence/>构建字典序最大的可行序列</a></a></li><li><a href=#t4重构一棵树的方案数httpsleetcode-cncomproblemsnumber-of-ways-to-reconstruct-a-tree>T4：<a href=https://leetcode-cn.com/problems/number-of-ways-to-reconstruct-a-tree/>重构一棵树的方案数</a></a></li></ul></li></ul></li></ul></li></ul></nav></div></div></section></div></aside></div></main><footer id=footer class=footer><div class=footer-inner><div class=copyright><span itemprop=copyrightYear>&copy; 2020 - 2021</span>
+<span class=with-love><i class="fa fa-heart"></i></span><span class=author itemprop=copyrightHolder>Loving life and Coding</span></div><div class=powered-by>Powered by - <a class=theme-link href=//gohugo.io target=_blank title=hugo>Hugo v0.80.0</a></div><div class=theme-info>Theme by - <a class=theme-link href=//github.com/elkan1788/hugo-theme-next target=_blank>NexT</a></div><div class=vistor-info><div class=busuanzi-count><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><span class=site-uv><i class="fa fa-user"></i><span class=busuanzi-value id=busuanzi_value_site_uv></span></span><span class=site-pv><i class="fa fa-eye"></i><span class=busuanzi-value id=busuanzi_value_site_pv></span></span></div></div><div style=margin-left:28%>Storage by
+<a href=https://www.qiniu.com style=font-weight:700 target=_blank>七牛云存储</a></div></div></footer><div class=back-to-top><i class="fa fa-arrow-up"></i><span id=scrollpercent><span>0</span>%</span></div></div><script type=text/javascript src=//cdn.bootcdn.net/ajax/libs/jquery/2.1.4/jquery.min.js></script><script src=//cdn.bootcdn.net/ajax/libs/imageviewer/0.1.0/viewer.min.js></script><script type=text/javascript src=/js/search.js></script><script type=text/javascript src=/js/affix.js></script><script type=text/javascript src=/js/scrollspy.js></script><script type=text/javascript>function getCntViewHeight(){var docHeight=$('#content').height(),winHeight=$(window).height(),cntViewHeight=(docHeight>winHeight)?(docHeight-winHeight):($(document).height()-winHeight);return cntViewHeight;}
+function getScrollbarWidth(){var $div=$('<div />').addClass('scrollbar-measure').prependTo('body');var div=$div[0];var scrollbarWidth=div.offsetWidth-div.clientWidth;$div.remove();return scrollbarWidth;}
+function registerBackTop(){var THRESHOLD=50;var $top=$('.back-to-top');$(window).on('scroll',function(){$top.toggleClass('back-to-top-on',window.pageYOffset>THRESHOLD);var scrollTop=$(window).scrollTop();var cntViewHeight=getCntViewHeight();var scrollPercent=(scrollTop)/(cntViewHeight);var scrollPercentRounded=Math.round(scrollPercent*100);var scrollPercentMaxed=(scrollPercentRounded>100)?100:scrollPercentRounded;$('#scrollpercent>span').html(scrollPercentMaxed);});$top.on('click',function(){$("html,body").animate({scrollTop:0,screenLeft:0,},800);});}
+function initScrollSpy(){var tocSelector='.post-toc';var $tocElement=$(tocSelector);var activeCurrentSelector='.active-current';$tocElement.on('activate.bs.scrollspy',function(){var $currentActiveElement=$(tocSelector+' .active').last();removeCurrentActiveClass();$currentActiveElement.addClass('active-current');}).on('clear.bs.scrollspy',removeCurrentActiveClass);$('body').scrollspy({target:tocSelector});function removeCurrentActiveClass(){$(tocSelector+' '+activeCurrentSelector).removeClass(activeCurrentSelector.substring(1));}}
+function initAffix(){var headerHeight=$('.header-inner').height();var footerOffset=parseInt($('.main').css('padding-bottom'),10);var sidebarTop=headerHeight+10;$('.sidebar-inner').affix({offset:{top:sidebarTop,bottom:footerOffset}});$(document).on('affixed.bs.affix',function(){updateTOCHeight(document.body.clientHeight-100);});}
+function initTOCDimension(){var updateTOCHeightTimer;$(window).on('resize',function(){updateTOCHeightTimer&&clearTimeout(updateTOCHeightTimer);updateTOCHeightTimer=setTimeout(function(){var tocWrapperHeight=document.body.clientHeight-100;updateTOCHeight(tocWrapperHeight);},0);});updateTOCHeight(document.body.clientHeight-100);var scrollbarWidth=getScrollbarWidth();$('.post-toc').css('width','calc(100% + '+scrollbarWidth+'px)');}
+function updateTOCHeight(height){height=height||'auto';$('.post-toc').css('max-height',height);}
+$(function(){var sidebarTop=$('.header-inner').height()+10;$('#sidebar').css({'margin-top':sidebarTop}).show();registerBackTop();initScrollSpy();initAffix();initTOCDimension();$('.post-body').viewer();$('.sidebar-nav-toc').click(function(){$(this).addClass('sidebar-nav-active');$(this).next().removeClass('sidebar-nav-active');$('.'+$(this).next().attr('data-target')).toggle(500);$('.'+$(this).attr('data-target')).toggle(500);});$('.sidebar-nav-overview').click(function(){$(this).addClass('sidebar-nav-active');$(this).prev().removeClass('sidebar-nav-active');$('.'+$(this).prev().attr('data-target')).toggle(500);$('.'+$(this).attr('data-target')).toggle(500);});});</script><script src=https://cdn.bootcdn.net/ajax/libs/valine/1.4.9/Valine.min.js></script><script type=text/javascript>new Valine({el:'#vcomments',appId:'bXWbbE9acJmnRcSYNkVRTEkE-gzGzoHsz',appKey:'oxKqCUaNn5TaVNdCjnX1pU2W',visitor:true,placeholder:'欢迎点评 ^_^',requiredFields:['nick','mail']});</script></body></html>

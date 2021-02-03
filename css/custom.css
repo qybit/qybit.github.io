@@ -1,4 +1,12 @@
+.hljs {
+    display: block;
+    overflow-x: auto;
+    padding: .5em;
+    color: #333;
+    background: #f8f8f8;
+}
+
 pre > code {
     font-family: "Sans Mono", "Consolas", "Courier", monospace;
-    font-size: 15.5px;
+    font-size: 14px;
 }
