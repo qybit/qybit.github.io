@@ -6,10 +6,27 @@
     <description>Recent content in Tags on wqy的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>CC BY 4.0 CN</copyright>
-    <lastBuildDate>Tue, 02 Feb 2021 20:25:15 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 03 Feb 2021 12:56:57 +0800</lastBuildDate>
     
         <atom:link href="https://qybit.gitee.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>第218场周赛</title>
+      <link>https://qybit.gitee.io/2020/12/06/%E7%AC%AC218%E5%9C%BA%E5%91%A8%E8%B5%9B/</link>
+      <pubDate>Sun, 06 Dec 2020 13:42:13 +0000</pubDate>
+      
+      <guid>https://qybit.gitee.io/2020/12/06/%E7%AC%AC218%E5%9C%BA%E5%91%A8%E8%B5%9B/</guid>
+      <description>&lt;h3 id=&#34;t1设计-goal-解析器httpsleetcode-cncomproblemsgoal-parser-interpretation&#34;&gt;T1：&lt;a href=&#34;https://leetcode-cn.com/problems/goal-parser-interpretation/&#34;&gt;设计 Goal 解析器&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;方法一：&lt;/strong&gt; 利用API&lt;/p&gt;
+&lt;p&gt;利用语言自带的API，进行替换操作。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Solution&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; String &lt;span style=&#34;color:#a6e22e&#34;&gt;interpret&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;String command&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; command&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;replace&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;()&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;o&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;).&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;replace&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;(al)&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;al&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
     
     <item>
       <title>第217场周赛</title>

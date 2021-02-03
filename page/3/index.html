@@ -34,7 +34,7 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://qybit.gitee.io/" />
-<meta property="og:updated_time" content="2021-02-02T20:25:15+08:00" />
+<meta property="og:updated_time" content="2021-02-03T12:56:57+08:00" />
 <meta itemprop="name" content="wqy的博客">
 <meta itemprop="description" content="">
 <meta name="twitter:card" content="summary"/>
@@ -191,8 +191,8 @@
                class="tag-list-count">2</span></a>
             
             
-            <a href="https://qybit.gitee.io/tags/%E4%BA%8C%E5%88%86/" class="tag-list-link" rel="1">二分<span
-               class="tag-list-count">1</span></a>
+            <a href="https://qybit.gitee.io/tags/%E4%BA%8C%E5%88%86/" class="tag-list-link" rel="2">二分<span
+               class="tag-list-count">2</span></a>
             
             
             <a href="https://qybit.gitee.io/tags/%E4%BA%8C%E5%88%86%E6%B3%95/" class="tag-list-link" rel="1">二分法<span
@@ -353,7 +353,7 @@ function tagCloud(where, min, max) {
         <ul class="category-list">
             <li class="category-list-item"><a href="https://qybit.gitee.io/categories/spring/" class="category-list-link">spring</a><span class="category-list-count">1</span></li>
             <li class="category-list-item"><a href="https://qybit.gitee.io/categories/%E5%89%8D%E7%AB%AF/" class="category-list-link">前端</a><span class="category-list-count">1</span></li>
-            <li class="category-list-item"><a href="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/" class="category-list-link">力扣</a><span class="category-list-count">23</span></li>
+            <li class="category-list-item"><a href="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/" class="category-list-link">力扣</a><span class="category-list-count">24</span></li>
             <li class="category-list-item"><a href="https://qybit.gitee.io/categories/%E5%91%A8%E8%B5%9B/" class="category-list-link">周赛</a><span class="category-list-count">17</span></li>
             <li class="category-list-item"><a href="https://qybit.gitee.io/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" class="category-list-link">技术分享</a><span class="category-list-count">2</span></li>
             <li class="category-list-item"><a href="https://qybit.gitee.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="category-list-link">数据结构</a><span class="category-list-count">2</span></li>
@@ -366,6 +366,16 @@ function tagCloud(where, min, max) {
     <h3 class="widget-title">最新文章</h3>
     <div class="widget-body">
         <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://qybit.gitee.io/2021/02/03/480/" class="title">480 滑动窗口中位数</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-02-03 12:56:57 &#43;0800 CST" itemprop="datePublished">2021-02-03</time>
+                    </p>
+                </div>
+            </li>
             <li>
                 <div class="item-inner">
                     <p class="item-title">
@@ -406,16 +416,6 @@ function tagCloud(where, min, max) {
                     </p>
                 </div>
             </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://qybit.gitee.io/2021/01/26/1128/" class="title">1128 等价多米诺骨牌对的数量</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2021-01-26 10:25:06 &#43;0000 UTC" itemprop="datePublished">2021-01-26</time>
-                    </p>
-                </div>
-            </li>
         </ul>
     </div>
 </div>
@@ -431,6 +431,64 @@ function tagCloud(where, min, max) {
     
     
     
+    <article
+      class="article article-type-page"
+      itemscope
+      itemtype="http://schema.org/BlogPosting"
+    >
+      <div class="article-header">
+        <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/2020/11/30/%E7%AC%AC217%E5%9C%BA%E5%91%A8%E8%B5%9B/"
+    >第217场周赛</a
+  >
+</h1>
+
+      </div>
+      <div class="article-entry text-muted" itemprop="description">
+        <h3 id="t1最富有客户的资产总量httpsleetcode-cncomproblemsrichest-customer-wealth">T1：<a href="https://leetcode-cn.com/problems/richest-customer-wealth/">最富有客户的资产总量</a></h3>
+<p>思路：暴力</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">maximumWealth</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">[][]</span> accounts<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">int</span> res <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> account <span style="color:#f92672">:</span> accounts<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            res <span style="color:#f92672">=</span> Math<span style="color:#f92672">.</span><span style="color:#a6e22e">max</span><span style="color:#f92672">(</span>res<span style="color:#f92672">,</span> Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">(</span>account<span style="color:#f92672">).</span><span style="color:#a6e22e">sum</span><span style="color:#f92672">());</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">return</span> res<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p><strong>复杂度分析：</strong></p>
+<p>时间复杂度：$O(n^2)$</p>
+<p>空间复杂度：$O(1)$</p>
+      </div>
+      <p class="article-meta">
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://qybit.gitee.io/2020/11/30/%E7%AC%AC217%E5%9C%BA%E5%91%A8%E8%B5%9B/" class="">
+  <time datetime="2020-11-30 15:43:56 &#43;0000 UTC" itemprop="datePublished">2020-11-30</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/%E5%8A%9B%E6%89%A3/"> 力扣 </a>
+  <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
+  <a class="article-category-link" href="/categories/%E5%91%A8%E8%B5%9B/"> 周赛 </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/%E6%95%B0%E7%BB%84/"> 数组 </a>
+    <a class="article-tag-link" href="/tags/%E6%A0%88/"> 栈 </a>
+    <a class="article-tag-link" href="/tags/%E8%B4%AA%E5%BF%83/"> 贪心 </a>
+    <a class="article-tag-link" href="/tags/%E5%A0%86/"> 堆 </a>
+    <a class="article-tag-link" href="/tags/orderedmap/"> OrderedMap </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="/2020/11/30/%E7%AC%AC217%E5%9C%BA%E5%91%A8%E8%B5%9B/#comments" class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1216字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3分 </span>
+      </p>
+    </article>
     <article
       class="article article-type-page"
       itemscope
