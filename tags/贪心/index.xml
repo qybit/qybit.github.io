@@ -1,29 +1,29 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>贪心 on Loving life and Coding</title><link>https://lisenhui.cn/tags/%E8%B4%AA%E5%BF%83/</link><description>Recent content in 贪心 on Loving life and Coding</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 02 Feb 2021 20:25:15 +0800</lastBuildDate><atom:link href="https://lisenhui.cn/tags/%E8%B4%AA%E5%BF%83/index.xml" rel="self" type="application/rss+xml"/><item><title>1540 K次操作转变字符串</title><link>https://lisenhui.cn/2021/02/02/1540/</link><pubDate>Tue, 02 Feb 2021 20:25:15 +0800</pubDate><guid>https://lisenhui.cn/2021/02/02/1540/</guid><description>&lt;p>原题链接：&lt;a href="https://leetcode-cn.com/problems/can-convert-string-in-k-moves/">K 次操作转变字符串&lt;/a>&lt;/p>
-&lt;p>我人傻了，A了这题就立马回小学重修语文。&lt;/p></description></item><item><title>第224场周赛</title><link>https://lisenhui.cn/2021/01/17/%E7%AC%AC224%E5%9C%BA%E5%91%A8%E8%B5%9B/</link><pubDate>Sun, 17 Jan 2021 15:09:09 +0000</pubDate><guid>https://lisenhui.cn/2021/01/17/%E7%AC%AC224%E5%9C%BA%E5%91%A8%E8%B5%9B/</guid><description>&lt;p>题单：&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>贪心 on Loving life and Coding</title><link>https://qybit.gitee.io/tags/%E8%B4%AA%E5%BF%83/</link><description>Recent content in 贪心 on Loving life and Coding</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 02 Feb 2021 20:25:15 +0800</lastBuildDate><atom:link href="https://qybit.gitee.io/tags/%E8%B4%AA%E5%BF%83/index.xml" rel="self" type="application/rss+xml"/><item><title>1540 K次操作转变字符串</title><link>https://qybit.gitee.io/2021/02/02/1540/</link><pubDate>Tue, 02 Feb 2021 20:25:15 +0800</pubDate><guid>https://qybit.gitee.io/2021/02/02/1540/</guid><description>&lt;p>原题链接：&lt;a href="https://leetcode-cn.com/problems/can-convert-string-in-k-moves/">K 次操作转变字符串&lt;/a>&lt;/p>
+&lt;p>我人傻了，A了这题就立马回小学重修语文。&lt;/p></description></item><item><title>第224场周赛</title><link>https://qybit.gitee.io/2021/01/17/%E7%AC%AC224%E5%9C%BA%E5%91%A8%E8%B5%9B/</link><pubDate>Sun, 17 Jan 2021 15:09:09 +0000</pubDate><guid>https://qybit.gitee.io/2021/01/17/%E7%AC%AC224%E5%9C%BA%E5%91%A8%E8%B5%9B/</guid><description>&lt;p>题单：&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="https://leetcode-cn.com/problems/number-of-rectangles-that-can-form-the-largest-square/">可以形成最大正方形的矩形数目&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://leetcode-cn.com/problems/tuple-with-same-product/">同积元组&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://leetcode-cn.com/problems/largest-submatrix-with-rearrangements/">重新排列后的最大子矩阵&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://leetcode-cn.com/problems/cat-and-mouse-ii/">猫和老鼠 II&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>第43场双周赛</title><link>https://lisenhui.cn/2021/01/12/%E7%AC%AC43%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</link><pubDate>Tue, 12 Jan 2021 14:06:02 +0000</pubDate><guid>https://lisenhui.cn/2021/01/12/%E7%AC%AC43%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</guid><description>&lt;p>题单：&lt;/p>
+&lt;/ul></description></item><item><title>第43场双周赛</title><link>https://qybit.gitee.io/2021/01/12/%E7%AC%AC43%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</link><pubDate>Tue, 12 Jan 2021 14:06:02 +0000</pubDate><guid>https://qybit.gitee.io/2021/01/12/%E7%AC%AC43%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</guid><description>&lt;p>题单：&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="https://leetcode-cn.com/problems/calculate-money-in-leetcode-bank/">计算力扣银行的钱&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://leetcode-cn.com/problems/maximum-score-from-removing-substrings/">删除子字符串的最大得分&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://leetcode-cn.com/problems/construct-the-lexicographically-largest-valid-sequence/">构建字典序最大的可行序列&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://leetcode-cn.com/problems/number-of-ways-to-reconstruct-a-tree/">重构一棵树的方案数&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>第222场周赛</title><link>https://lisenhui.cn/2021/01/03/%E7%AC%AC222%E5%9C%BA%E5%91%A8%E8%B5%9B/</link><pubDate>Sun, 03 Jan 2021 20:14:33 +0000</pubDate><guid>https://lisenhui.cn/2021/01/03/%E7%AC%AC222%E5%9C%BA%E5%91%A8%E8%B5%9B/</guid><description>&lt;p>题单：&lt;/p>
+&lt;/ul></description></item><item><title>第222场周赛</title><link>https://qybit.gitee.io/2021/01/03/%E7%AC%AC222%E5%9C%BA%E5%91%A8%E8%B5%9B/</link><pubDate>Sun, 03 Jan 2021 20:14:33 +0000</pubDate><guid>https://qybit.gitee.io/2021/01/03/%E7%AC%AC222%E5%9C%BA%E5%91%A8%E8%B5%9B/</guid><description>&lt;p>题单：&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="https://leetcode-cn.com/problems/maximum-units-on-a-truck/">卡车上的最大单元数&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://leetcode-cn.com/problems/count-good-meals/">大餐计数&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://leetcode-cn.com/problems/ways-to-split-array-into-three-subarrays/">将数组分成三个子数组的方案数&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://leetcode-cn.com/problems/minimum-operations-to-make-a-subsequence/">得到子序列的最少操作次数&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>第221场周赛</title><link>https://lisenhui.cn/2020/12/29/%E7%AC%AC221%E5%9C%BA%E5%91%A8%E8%B5%9B/</link><pubDate>Tue, 29 Dec 2020 11:06:13 +0000</pubDate><guid>https://lisenhui.cn/2020/12/29/%E7%AC%AC221%E5%9C%BA%E5%91%A8%E8%B5%9B/</guid><description>&lt;p>题单：&lt;/p>
+&lt;/ul></description></item><item><title>第221场周赛</title><link>https://qybit.gitee.io/2020/12/29/%E7%AC%AC221%E5%9C%BA%E5%91%A8%E8%B5%9B/</link><pubDate>Tue, 29 Dec 2020 11:06:13 +0000</pubDate><guid>https://qybit.gitee.io/2020/12/29/%E7%AC%AC221%E5%9C%BA%E5%91%A8%E8%B5%9B/</guid><description>&lt;p>题单：&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="https://leetcode-cn.com/problems/determine-if-string-halves-are-alike/">判断字符串的两半是否相似&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://leetcode-cn.com/problems/maximum-number-of-eaten-apples/">吃苹果的最大数目&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://leetcode-cn.com/problems/where-will-the-ball-fall/">球会落何处&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://leetcode-cn.com/problems/maximum-xor-with-an-element-from-array/">与数组中元素的最大异或值&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>第42场双周赛</title><link>https://lisenhui.cn/2020/12/28/%E7%AC%AC42%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</link><pubDate>Mon, 28 Dec 2020 10:28:40 +0000</pubDate><guid>https://lisenhui.cn/2020/12/28/%E7%AC%AC42%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</guid><description>&lt;p>题单：&lt;/p>
+&lt;/ul></description></item><item><title>第42场双周赛</title><link>https://qybit.gitee.io/2020/12/28/%E7%AC%AC42%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</link><pubDate>Mon, 28 Dec 2020 10:28:40 +0000</pubDate><guid>https://qybit.gitee.io/2020/12/28/%E7%AC%AC42%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</guid><description>&lt;p>题单：&lt;/p>
 &lt;ul>
 &lt;li>
 &lt;p>&lt;a href="https://leetcode-cn.com/problems/number-of-students-unable-to-eat-lunch/">无法吃午餐的学生数量&lt;/a>&lt;/p>
@@ -37,19 +37,19 @@
 &lt;li>
 &lt;p>&lt;a href="https://leetcode-cn.com/problems/minimum-adjacent-swaps-for-k-consecutive-ones/">得到连续 K 个 1 的最少相邻交换次数&lt;/a>&lt;/p>
 &lt;/li>
-&lt;/ul></description></item><item><title>第219场周赛</title><link>https://lisenhui.cn/2020/12/13/%E7%AC%AC219%E5%9C%BA%E5%91%A8%E8%B5%9B/</link><pubDate>Sun, 13 Dec 2020 17:31:54 +0000</pubDate><guid>https://lisenhui.cn/2020/12/13/%E7%AC%AC219%E5%9C%BA%E5%91%A8%E8%B5%9B/</guid><description>&lt;p>题单：&lt;/p>
+&lt;/ul></description></item><item><title>第219场周赛</title><link>https://qybit.gitee.io/2020/12/13/%E7%AC%AC219%E5%9C%BA%E5%91%A8%E8%B5%9B/</link><pubDate>Sun, 13 Dec 2020 17:31:54 +0000</pubDate><guid>https://qybit.gitee.io/2020/12/13/%E7%AC%AC219%E5%9C%BA%E5%91%A8%E8%B5%9B/</guid><description>&lt;p>题单：&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="https://leetcode-cn.com/problems/count-of-matches-in-tournament/">比赛中的配对次数&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://leetcode-cn.com/problems/partitioning-into-minimum-number-of-deci-binary-numbers/">十-二进制数的最少数目&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://leetcode-cn.com/problems/stone-game-vii/">石子游戏 VII&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://leetcode-cn.com/problems/maximum-height-by-stacking-cuboids/">堆叠长方体的最大高度&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>第41场双周赛</title><link>https://lisenhui.cn/2020/12/13/%E7%AC%AC41%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</link><pubDate>Sun, 13 Dec 2020 14:24:14 +0000</pubDate><guid>https://lisenhui.cn/2020/12/13/%E7%AC%AC41%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</guid><description>&lt;p>题单：&lt;/p>
+&lt;/ul></description></item><item><title>第41场双周赛</title><link>https://qybit.gitee.io/2020/12/13/%E7%AC%AC41%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</link><pubDate>Sun, 13 Dec 2020 14:24:14 +0000</pubDate><guid>https://qybit.gitee.io/2020/12/13/%E7%AC%AC41%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</guid><description>&lt;p>题单：&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="https://leetcode-cn.com/problems/count-the-number-of-consistent-strings/"> 统计一致字符串的数目&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://leetcode-cn.com/problems/sum-of-absolute-differences-in-a-sorted-array/">有序数组中差绝对值之和&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://leetcode-cn.com/problems/stone-game-vi/">石子游戏 VI&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://leetcode-cn.com/problems/delivering-boxes-from-storage-to-ports/">从仓库到码头运输箱子&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>第218场周赛</title><link>https://lisenhui.cn/2020/12/06/%E7%AC%AC218%E5%9C%BA%E5%91%A8%E8%B5%9B/</link><pubDate>Sun, 06 Dec 2020 13:42:13 +0000</pubDate><guid>https://lisenhui.cn/2020/12/06/%E7%AC%AC218%E5%9C%BA%E5%91%A8%E8%B5%9B/</guid><description>&lt;h3 id="t1设计-goal-解析器httpsleetcode-cncomproblemsgoal-parser-interpretation">T1：&lt;a href="https://leetcode-cn.com/problems/goal-parser-interpretation/">设计 Goal 解析器&lt;/a>&lt;/h3>
+&lt;/ul></description></item><item><title>第218场周赛</title><link>https://qybit.gitee.io/2020/12/06/%E7%AC%AC218%E5%9C%BA%E5%91%A8%E8%B5%9B/</link><pubDate>Sun, 06 Dec 2020 13:42:13 +0000</pubDate><guid>https://qybit.gitee.io/2020/12/06/%E7%AC%AC218%E5%9C%BA%E5%91%A8%E8%B5%9B/</guid><description>&lt;h3 id="t1设计-goal-解析器httpsleetcode-cncomproblemsgoal-parser-interpretation">T1：&lt;a href="https://leetcode-cn.com/problems/goal-parser-interpretation/">设计 Goal 解析器&lt;/a>&lt;/h3>
 &lt;p>&lt;strong>方法一：&lt;/strong> 利用API&lt;/p>
 &lt;p>利用语言自带的API，进行替换操作。&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#a90d91">class&lt;/span> &lt;span style="color:#3f6e75">Solution&lt;/span> &lt;span style="color:#000">{&lt;/span>
@@ -57,7 +57,7 @@
 &lt;span style="color:#a90d91">return&lt;/span> &lt;span style="color:#000">command&lt;/span>&lt;span style="color:#000">.&lt;/span>&lt;span style="color:#836c28">replace&lt;/span>&lt;span style="color:#000">(&lt;/span>&lt;span style="color:#c41a16">&amp;#34;()&amp;#34;&lt;/span>&lt;span style="color:#000">,&lt;/span> &lt;span style="color:#c41a16">&amp;#34;o&amp;#34;&lt;/span>&lt;span style="color:#000">).&lt;/span>&lt;span style="color:#836c28">replace&lt;/span>&lt;span style="color:#000">(&lt;/span>&lt;span style="color:#c41a16">&amp;#34;(al)&amp;#34;&lt;/span>&lt;span style="color:#000">,&lt;/span> &lt;span style="color:#c41a16">&amp;#34;al&amp;#34;&lt;/span>&lt;span style="color:#000">);&lt;/span>
 &lt;span style="color:#000">}&lt;/span>
 &lt;span style="color:#000">}&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>第217场周赛</title><link>https://lisenhui.cn/2020/11/30/%E7%AC%AC217%E5%9C%BA%E5%91%A8%E8%B5%9B/</link><pubDate>Mon, 30 Nov 2020 15:43:56 +0000</pubDate><guid>https://lisenhui.cn/2020/11/30/%E7%AC%AC217%E5%9C%BA%E5%91%A8%E8%B5%9B/</guid><description>&lt;h3 id="t1最富有客户的资产总量httpsleetcode-cncomproblemsrichest-customer-wealth">T1：&lt;a href="https://leetcode-cn.com/problems/richest-customer-wealth/">最富有客户的资产总量&lt;/a>&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>第217场周赛</title><link>https://qybit.gitee.io/2020/11/30/%E7%AC%AC217%E5%9C%BA%E5%91%A8%E8%B5%9B/</link><pubDate>Mon, 30 Nov 2020 15:43:56 +0000</pubDate><guid>https://qybit.gitee.io/2020/11/30/%E7%AC%AC217%E5%9C%BA%E5%91%A8%E8%B5%9B/</guid><description>&lt;h3 id="t1最富有客户的资产总量httpsleetcode-cncomproblemsrichest-customer-wealth">T1：&lt;a href="https://leetcode-cn.com/problems/richest-customer-wealth/">最富有客户的资产总量&lt;/a>&lt;/h3>
 &lt;p>思路：暴力&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#a90d91">class&lt;/span> &lt;span style="color:#3f6e75">Solution&lt;/span> &lt;span style="color:#000">{&lt;/span>
 &lt;span style="color:#a90d91">public&lt;/span> &lt;span style="color:#a90d91">int&lt;/span> &lt;span style="color:#000">maximumWealth&lt;/span>&lt;span style="color:#000">(&lt;/span>&lt;span style="color:#a90d91">int&lt;/span>&lt;span style="color:#000">[][]&lt;/span> &lt;span style="color:#000">accounts&lt;/span>&lt;span style="color:#000">)&lt;/span> &lt;span style="color:#000">{&lt;/span>

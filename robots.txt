@@ -3,7 +3,7 @@
   
   <entry>
     <title>480 滑动窗口中位数</title>
-    <url>https://lisenhui.cn/2021/02/03/480/</url>
+    <url>https://qybit.gitee.io/2021/02/03/480/</url>
     <categories>
       <category>力扣</category>
     </categories>
@@ -34,7 +34,7 @@ $ArrayList$ 将会使用到如下的两个方法。代码均节选自 jdk1.8 源
   
   <entry>
     <title>1540 K次操作转变字符串</title>
-    <url>https://lisenhui.cn/2021/02/02/1540/</url>
+    <url>https://qybit.gitee.io/2021/02/02/1540/</url>
     <categories>
       <category>力扣</category>
     </categories>
@@ -64,7 +64,7 @@ $ArrayList$ 将会使用到如下的两个方法。代码均节选自 jdk1.8 源
   
   <entry>
     <title>410 分割数组的最大值</title>
-    <url>https://lisenhui.cn/2021/02/02/410/</url>
+    <url>https://qybit.gitee.io/2021/02/02/410/</url>
     <categories>
       <category>力扣</category>
     </categories>
@@ -89,7 +89,7 @@ $ArrayList$ 将会使用到如下的两个方法。代码均节选自 jdk1.8 源
   
   <entry>
     <title>424 替换后的最长重复字符</title>
-    <url>https://lisenhui.cn/2021/02/02/424/</url>
+    <url>https://qybit.gitee.io/2021/02/02/424/</url>
     <categories>
       <category>力扣</category>
     </categories>
@@ -111,7 +111,7 @@ $ArrayList$ 将会使用到如下的两个方法。代码均节选自 jdk1.8 源
   
   <entry>
     <title>1128 等价多米诺骨牌对的数量</title>
-    <url>https://lisenhui.cn/2021/01/26/1128/</url>
+    <url>https://qybit.gitee.io/2021/01/26/1128/</url>
     <categories>
       <category>力扣</category><category>算法</category>
     </categories>
@@ -142,7 +142,7 @@ class Solution { public: int numEquivDominoPairs(vector&lt;vector&lt;int&gt;&gt;
   
   <entry>
     <title>关于Promise的学习笔记</title>
-    <url>https://lisenhui.cn/2021/01/24/%E5%85%B3%E4%BA%8Epromise%E7%9A%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <url>https://qybit.gitee.io/2021/01/24/%E5%85%B3%E4%BA%8Epromise%E7%9A%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <categories>
       <category>前端</category>
     </categories>
@@ -170,7 +170,7 @@ get(&#34;mock/user.json&#34;) .then((data) =&gt; { console.log(&#34;用户查询
   
   <entry>
     <title>第224场周赛</title>
-    <url>https://lisenhui.cn/2021/01/17/%E7%AC%AC224%E5%9C%BA%E5%91%A8%E8%B5%9B/</url>
+    <url>https://qybit.gitee.io/2021/01/17/%E7%AC%AC224%E5%9C%BA%E5%91%A8%E8%B5%9B/</url>
     <categories>
       <category>力扣</category><category>算法</category><category>周赛</category>
     </categories>
@@ -216,7 +216,7 @@ T4：猫和老鼠 II 暂无思路
   
   <entry>
     <title>第43场双周赛</title>
-    <url>https://lisenhui.cn/2021/01/12/%E7%AC%AC43%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</url>
+    <url>https://qybit.gitee.io/2021/01/12/%E7%AC%AC43%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</url>
     <categories>
       <category>力扣</category><category>算法</category><category>周赛</category>
     </categories>
@@ -266,7 +266,7 @@ T4：重构一棵树的方案数 暂无思路！
   
   <entry>
     <title>第222场周赛</title>
-    <url>https://lisenhui.cn/2021/01/03/%E7%AC%AC222%E5%9C%BA%E5%91%A8%E8%B5%9B/</url>
+    <url>https://qybit.gitee.io/2021/01/03/%E7%AC%AC222%E5%9C%BA%E5%91%A8%E8%B5%9B/</url>
     <categories>
       <category>力扣</category><category>算法</category><category>周赛</category>
     </categories>
@@ -338,7 +338,7 @@ class Solution { public: int minOperations(vector&lt;int&gt;&amp; target, vector
   
   <entry>
     <title>一文解决Tomcat开发中乱码的问题</title>
-    <url>https://lisenhui.cn/2020/12/31/%E4%B8%80%E6%96%87%E8%A7%A3%E5%86%B3tomcat%E5%BC%80%E5%8F%91%E4%B8%AD%E4%B9%B1%E7%A0%81%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <url>https://qybit.gitee.io/2020/12/31/%E4%B8%80%E6%96%87%E8%A7%A3%E5%86%B3tomcat%E5%BC%80%E5%8F%91%E4%B8%AD%E4%B9%B1%E7%A0%81%E7%9A%84%E9%97%AE%E9%A2%98/</url>
     <categories>
       <category>技术分享</category>
     </categories>
@@ -376,7 +376,7 @@ Windows下应该很少人用命令行启动 Tomcat ，而不用 IDE 启动吧。
   
   <entry>
     <title>第221场周赛</title>
-    <url>https://lisenhui.cn/2020/12/29/%E7%AC%AC221%E5%9C%BA%E5%91%A8%E8%B5%9B/</url>
+    <url>https://qybit.gitee.io/2020/12/29/%E7%AC%AC221%E5%9C%BA%E5%91%A8%E8%B5%9B/</url>
     <categories>
       <category>力扣</category><category>算法</category><category>周赛</category>
     </categories>
@@ -457,7 +457,7 @@ struct Node { int x, m, k; bool operator &lt; (Node&amp; t) const { return m &lt
   
   <entry>
     <title>第42场双周赛</title>
-    <url>https://lisenhui.cn/2020/12/28/%E7%AC%AC42%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</url>
+    <url>https://qybit.gitee.io/2020/12/28/%E7%AC%AC42%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</url>
     <categories>
       <category>力扣</category><category>算法</category><category>周赛</category>
     </categories>
@@ -547,7 +547,7 @@ class Solution { public int minMoves(int[] nums, int k) { List&lt;Integer&gt; a 
   
   <entry>
     <title>第220场周赛</title>
-    <url>https://lisenhui.cn/2020/12/20/%E7%AC%AC220%E5%9C%BA%E5%91%A8%E8%B5%9B/</url>
+    <url>https://qybit.gitee.io/2020/12/20/%E7%AC%AC220%E5%9C%BA%E5%91%A8%E8%B5%9B/</url>
     <categories>
       <category>力扣</category><category>算法</category><category>周赛</category>
     </categories>
@@ -619,7 +619,7 @@ const int N = 100010; struct Node { // a -&gt; 起点；b -&gt; 终点；c -&gt;
   
   <entry>
     <title>460 LFU缓存</title>
-    <url>https://lisenhui.cn/2020/12/14/460-lfu%E7%BC%93%E5%AD%98/</url>
+    <url>https://qybit.gitee.io/2020/12/14/460-lfu%E7%BC%93%E5%AD%98/</url>
     <categories>
       <category>力扣</category><category>算法</category>
     </categories>
@@ -646,7 +646,7 @@ class DoublyLinkedList { int freq; DoublyLinkedList pre; DoublyLinkedList next; 
   
   <entry>
     <title>第219场周赛</title>
-    <url>https://lisenhui.cn/2020/12/13/%E7%AC%AC219%E5%9C%BA%E5%91%A8%E8%B5%9B/</url>
+    <url>https://qybit.gitee.io/2020/12/13/%E7%AC%AC219%E5%9C%BA%E5%91%A8%E8%B5%9B/</url>
     <categories>
       <category>力扣</category><category>算法</category><category>周赛</category>
     </categories>
@@ -708,7 +708,7 @@ class Solution { public int maxHeight(int[][] cuboids) { for (int[] x : cuboids)
   
   <entry>
     <title>第41场双周赛</title>
-    <url>https://lisenhui.cn/2020/12/13/%E7%AC%AC41%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</url>
+    <url>https://qybit.gitee.io/2020/12/13/%E7%AC%AC41%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</url>
     <categories>
       <category>力扣</category><category>周赛</category><category>算法</category>
     </categories>
@@ -765,7 +765,7 @@ T4：从仓库到码头运输箱子 暂无思路。
   
   <entry>
     <title>Spring学习总结之 IOC</title>
-    <url>https://lisenhui.cn/2020/12/12/spring%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93%E4%B9%8B-ioc/</url>
+    <url>https://qybit.gitee.io/2020/12/12/spring%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93%E4%B9%8B-ioc/</url>
     <categories>
       <category>Spring</category><category>技术分享</category>
     </categories>
@@ -827,7 +827,7 @@ public Object instantiate(RootBeanDefinition bd, @Nullable String beanName, Bean
   
   <entry>
     <title>376 摆动序列</title>
-    <url>https://lisenhui.cn/2020/12/12/376-%E6%91%86%E5%8A%A8%E5%BA%8F%E5%88%97/</url>
+    <url>https://qybit.gitee.io/2020/12/12/376-%E6%91%86%E5%8A%A8%E5%BA%8F%E5%88%97/</url>
     <categories>
       <category>力扣</category><category>算法</category>
     </categories>
@@ -852,7 +852,7 @@ class Solution { public int wiggleMaxLength(int[] nums) { int n = nums.length; i
   
   <entry>
     <title>第218场周赛</title>
-    <url>https://lisenhui.cn/2020/12/06/%E7%AC%AC218%E5%9C%BA%E5%91%A8%E8%B5%9B/</url>
+    <url>https://qybit.gitee.io/2020/12/06/%E7%AC%AC218%E5%9C%BA%E5%91%A8%E8%B5%9B/</url>
     <categories>
       <category>力扣</category><category>算法</category><category>周赛</category>
     </categories>
@@ -887,7 +887,7 @@ class Solution: def concatenatedBinary(self, n: int) -&gt; int: res = &#39;&#39;
   
   <entry>
     <title>第217场周赛</title>
-    <url>https://lisenhui.cn/2020/11/30/%E7%AC%AC217%E5%9C%BA%E5%91%A8%E8%B5%9B/</url>
+    <url>https://qybit.gitee.io/2020/11/30/%E7%AC%AC217%E5%9C%BA%E5%91%A8%E8%B5%9B/</url>
     <categories>
       <category>力扣</category><category>算法</category><category>周赛</category>
     </categories>
@@ -934,7 +934,7 @@ T4：数组的最小偏移量 思路：
   
   <entry>
     <title>第40场双周赛</title>
-    <url>https://lisenhui.cn/2020/11/29/%E7%AC%AC40%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</url>
+    <url>https://qybit.gitee.io/2020/11/29/%E7%AC%AC40%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</url>
     <categories>
       <category>力扣</category><category>算法</category><category>周赛</category>
     </categories>
@@ -975,7 +975,7 @@ T4：得到山形数组的最少删除次数 思路：
   
   <entry>
     <title>Trie树</title>
-    <url>https://lisenhui.cn/2020/11/26/trie%E6%A0%91/</url>
+    <url>https://qybit.gitee.io/2020/11/26/trie%E6%A0%91/</url>
     <categories>
       <category>数据结构</category>
     </categories>
@@ -1021,7 +1021,7 @@ private static class TrieNode{ private boolean isEnd; private final TireNode[] n
   
   <entry>
     <title>手动实现LinkedList</title>
-    <url>https://lisenhui.cn/2020/11/25/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0linkedlist/</url>
+    <url>https://qybit.gitee.io/2020/11/25/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0linkedlist/</url>
     <categories>
       <category>数据结构</category>
     </categories>
@@ -1064,7 +1064,7 @@ cur = get(index=1) // 获得前驱节点和后继节点 prev = cur.prev next = c
   
   <entry>
     <title>第201场周赛</title>
-    <url>https://lisenhui.cn/2020/08/11/%E7%AC%AC201%E5%9C%BA%E5%91%A8%E8%B5%9B/</url>
+    <url>https://qybit.gitee.io/2020/08/11/%E7%AC%AC201%E5%9C%BA%E5%91%A8%E8%B5%9B/</url>
     <categories>
       <category>力扣</category><category>算法</category><category>周赛</category>
     </categories>
@@ -1095,7 +1095,7 @@ class Solution { public int maxNonOverlapping(int[] nums, int target) { Set&lt;I
   
   <entry>
     <title>第199场周赛</title>
-    <url>https://lisenhui.cn/2020/07/27/%E7%AC%AC199%E5%9C%BA%E5%91%A8%E8%B5%9B/</url>
+    <url>https://qybit.gitee.io/2020/07/27/%E7%AC%AC199%E5%9C%BA%E5%91%A8%E8%B5%9B/</url>
     <categories>
       <category>力扣</category><category>算法</category><category>周赛</category>
     </categories>
@@ -1124,7 +1124,7 @@ class Solution { public int countPairs(TreeNode root, int distance) { if (root =
   
   <entry>
     <title>第31场双周赛</title>
-    <url>https://lisenhui.cn/2020/07/27/%E7%AC%AC31%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</url>
+    <url>https://qybit.gitee.io/2020/07/27/%E7%AC%AC31%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</url>
     <categories>
       <category>力扣</category><category>周赛</category><category>算法</category>
     </categories>
@@ -1153,7 +1153,7 @@ class Solution { public int minNumberOperations(int[] target) { int res = target
   
   <entry>
     <title>第197场周赛</title>
-    <url>https://lisenhui.cn/2020/07/13/%E7%AC%AC197%E5%9C%BA%E5%91%A8%E8%B5%9B/</url>
+    <url>https://qybit.gitee.io/2020/07/13/%E7%AC%AC197%E5%9C%BA%E5%91%A8%E8%B5%9B/</url>
     <categories>
       <category>力扣</category><category>算法</category><category>周赛</category>
     </categories>
@@ -1197,7 +1197,7 @@ class Solution { class Node{ int id; double weight; Node() { } Node(int _id, dou
   
   <entry>
     <title>第30场双周赛</title>
-    <url>https://lisenhui.cn/2020/07/13/%E7%AC%AC30%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</url>
+    <url>https://qybit.gitee.io/2020/07/13/%E7%AC%AC30%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/</url>
     <categories>
       <category>周赛</category><category>力扣</category><category>算法</category>
     </categories>
@@ -1232,7 +1232,7 @@ class Solution { Map&lt;Integer, Boolean&gt; map = new HashMap&lt;&gt;(); public
   
   <entry>
     <title>第192场周赛</title>
-    <url>https://lisenhui.cn/2020/06/07/%E7%AC%AC192%E5%9C%BA%E5%91%A8%E8%B5%9B/</url>
+    <url>https://qybit.gitee.io/2020/06/07/%E7%AC%AC192%E5%9C%BA%E5%91%A8%E8%B5%9B/</url>
     <categories>
       <category>力扣</category><category>算法</category><category>周赛</category>
     </categories>
