@@ -5,9 +5,15 @@
     <title>1208 尽可能使字符串相等</title>
     <url>https://qybit.gitee.io/2021/02/05/1208/</url>
     <categories>
-      
+      <category>力扣</category>
     </categories>
     <tags>
+      
+      <tag>二分</tag>
+      
+      <tag>前缀和</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     <content type="html"> 力扣链接：尽可能使字符串相等
