@@ -2,6 +2,44 @@
 <search>
   
   <entry>
+    <title>1208 尽可能使字符串相等</title>
+    <url>https://qybit.gitee.io/2021/02/05/1208/</url>
+    <categories>
+      
+    </categories>
+    <tags>
+      
+    </tags>
+    <content type="html"> 力扣链接：尽可能使字符串相等
+昨晚睡前没仔细读题，以为挺难做的，没想到也不难做。
+1、方法一：双指针 1、开头 首先确定，字符串s 和 t 的长度是相同，而且不存在 SB 的用例。数据范围是 $10^5$ 级别。那么，我们的算法时间复杂度上限为 $O(NlogN)$ ，至少 $N^2$ 是没法过的。
+题目说的 开销(cost) 是指：s中的第i个字符转变为t中第i个字符，即s[i] 转变为 t[i] 时，|s[i] - t[i]| 两个字符 ASCII 的差的绝对值。这里的隐含信息就是，我们的开销中都是非负正整数。
+在不超过预算 maxCost 下，可以转变的最大字符串长度。这里面的隐含信息就是，我们转变连续的字符串一定是连续的。
+2、编码思路 上述分析，在$cost \le maxCost$ 的前提下（其中 $cost$ 为转变的开销），我们要转变一段连续最大长度的字符串。
+我们可以使用双指针来维护一个区间，$left$ 和 $right$ 分别表示子数组的左端点和右端点，这个子数组的元素转变开销满足 $\sum_{left}^{right}|s[i] - t[i]| \le maxCost$ ，那么区间长度就是 $right - left + 1$ 。
+我们要根据这个子数组内的开销总和，来决定如何移动指针。
+为了得到最大长度的子数组，我们在移动过程中应该遵循以下原则：
+ 当左端点 $left$ 的值固定时，右端点 $right$ 的值尽可能的大； 当右端点 $right$ 的值固定时，左端点 $left$ 的值要尽可能的小。  3、代码思路 基于上述原则，双指针的具体做法如下：
+ 使用一个变量 $cost$ 记录子数组内的开销总和，$cost += abs(s[i]-t[i])$ 如果 $cost \le maxCost$ ，当前子数组的长度为 $right-left+1$，我们更新为最大子数组长度 如果 $cost \gt maxCost$， 此时不满足条件，需要移动左端点的指针 $left$ ，并更新 $cost$ 的值，直到 $cost \le maxCost$ ，此时子数组的长度为 $right-left+1$， 我们更新为最大子数组长度 移动右端点指针 $right$， 重复上述操作，直至遍历整个字符串。  遍历结束后，就可以得到最大子数组的长度。即字符串可以转变的最大长度。
+4、代码 class Solution { public: int equalSubstring(string s, string t, int maxCost) { int left = 0, right = 0; int cost = 0, n = s.size(); int res = 0; while (right &lt; n) { cost += abs(s[right] - t[right]); while (cost &gt; maxCost) { cost -= abs(s[left] - t[left]); left++; } res = max(res, right - left + 1); right++; } return res; } }; 复杂度分析
+时间复杂度：$O(N)$，其中 $N$ 为数组长度。数组中的任意一个元素，我们访问最多都不会超过 $N$ 次。
+空间复杂度：$O(1)$，我们只使用了常数级的空间。
+2、方法二：前缀和+二分 1、开头 这个思路就比较难想到，脑洞大开。
+设 $diff[i] = abs(s[i] - t[i])$ 表示第 i 个位置 s[i] 转变为 t[i] 的开销。
+当 $1\le i \le n$，定义数组 $accDiff[i]$ 为字符串前 $i$ 个的开销总和，即 $$ diff[i] = \sum_{j=0}^{i-1}|diff[j]| $$ 我们借助 **两数之和** 的思想，当有一个下标 $j$ 固定时，我们希望找到一个更小的下标 $k (k \le j)$ ，使得 $diff$ 从下标 $k$ 到 $j$ 的元素和不超过 $maxCost$ ，此时子数组的长度为 $j-k+1$，我们已经计算出了 $diff$ 的前缀和数组 $accDiff$ ，因为可以推导出 $diff$ 从下标 $k$ 到 $j$ 的前缀和： $$ \begin {align} &amp;\sum_{i=k}^j diff[k] \\
+=&amp; \sum_{i=0}^jdiff[i] - \sum_{i=0}^{k-1}diff[i] \\
+=&amp; accDiff[j + 1] - accDiff[k] \end {align} $$ 因为找 $diff$ 从下标 $k$ 到 $j$ 的前缀和，不超过 $maxCost$ ，就等价于 $accDiff[j + 1] - accDiff[k] \le maxCost$。
+2、编码思路 由上述推到，我们可以得出对于一个固定下标 $j$ ，我们希望可以找到一个下标 $k(k \le j)$，使得 $accDiff[j+1] - accDiff[k] \le maxCost$。
+对于下标$j$， 我们要在前缀和数组$accDiff$中寻找这样一个下标$k$，满足 $accDiff[k] \ge maxCost - accDiff[j+1]$。由于 $accDiff$ 前缀和数组是单调递增的，因此我们可以直接在 $accDiff$ 内进行二分查找，来找到最小的一个下标 $k$。
+3、代码思路 遍历整个数组，对于每一个下标 $i$ ，我们都将其作为子数组的右端点，然后希望能找到最小的一个 $k$， 那么此时的子数组长度为 $i - k$。
+我们查找的条件为 $accDiff[k] \ge accDiff[i] - maxCost$，每找到一个符合条件的下标 $k$，我们更新子数组的最大长度。换句话说，我们要在 $accDiff$ 中找到第一个大于等于 $x = accDiff[i] - maxCost$ 的下标。
+4、代码 class Solution { public: int equalSubstring(string s, string t, int maxCost) { int n = s.size(); vector&lt;int&gt; accDiff(n + 1); for (int i = 1; i &lt;= n; i ++) { accDiff[i] = accDiff[i-1] + abs(s[i-1] - t[i-1]); } int res = 0; for (int i = 1; i &lt;= n; i ++) { int x = accDiff[i] - maxCost; int k = binary_search(accDiff, x); res = max(res, i - k); } return res; } int binary_search(vector&lt;int&gt; &amp;nums, int target) { int left = 0, right = nums.size() - 1; while (left &lt; right) { int mid = left + right &gt;&gt; 1; if (nums[mid] &lt; target) { left = mid + 1; } else { right = mid; } } return left; } }; 复杂度分析
+时间复杂度：$O(NlogN)$ ，其中 $N$ 为数组的长度，计算前缀和数组时间复杂度$O(N)$，遍历数组再做 $N$ 次二分查找，每一次二分查找时间复杂度为 $O(logN)$，所以最终时间复杂度 $O(NlogN)$。
+空间复杂度：$O(N)$，其中$N$为前缀和数组的长度。我们需要存储前缀和数组的值。
+</content>
+  </entry>
+  
+  <entry>
     <title>480 滑动窗口中位数</title>
     <url>https://qybit.gitee.io/2021/02/03/480/</url>
     <categories>
