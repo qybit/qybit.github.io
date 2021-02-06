@@ -2,6 +2,37 @@
 <search>
   
   <entry>
+    <title>1625 执行操作后字典序最小的字符串</title>
+    <url>https://qybit.gitee.io/2021/02/06/1625/</url>
+    <categories>
+      <category>力扣</category>
+    </categories>
+    <tags>
+      
+      <tag>BFS</tag>
+      
+    </tags>
+    <content type="html"> 广度优先搜索（BFS）的优势在于当问题存在最优解的情况下，一定可以找到最优解。因此常用于最短路问题。
+这道题数据比较弱，所以暴力搜索也不会超时。
+力扣链接：执行操作后字典序最小的字符串
+相似题目推荐：
+ 面试题 17.22. 单词转换 127. 单词接龙  方法一：BFS爆搜 开头 我们将任意一个字符串都看成图中的一个点，不同点之间的边由 累加 和 轮转 两个操作产生。
+在图中任意一个点可以有如下的操作：
+ 累加：给字符串下标为奇数的元素都加上 a ，如果超过 9 则归 0 轮转：将字符串向右旋转 b 位  首先要知道：
+ 任何一个数经过10次以内的累加操作，一定会循环； 原始字符串经过N次轮转之后，一定会循环。  所以图中点的数量是有限可以确定的，而且数据比较弱，完全可以爆搜。
+编码思路 无
+代码思路 给出我个人最习惯写的一个 $BFS$ 模板
+c++
+queue&lt;int&gt; q; int depth = 0; while (q.size()) { // 搜索树的层数 depth，也可以表示为搜索路径的步数  depth ++; int sz = q.size(); while (sz--) { // do something ....  } } java
+LinkedList&lt;Integer&gt; q = new LinkedList&lt;&gt;(); int depth = 0; while (!q.isEmpty()) { depth ++; int sz = q.size(); while(sz-- &gt; 0) { // do something ...  } } 我们可以使用一个变量记录下，字典序最小的一个字符串。
+或者使用有序的 $set$ 集合，然后返回 $set$ 集合的第一个元素。
+代码 class Solution { public: string findLexSmallestString(string s, int a, int b) { set&lt;string&gt; vis; queue&lt;string&gt; q; q.push(s); vis.insert(s); while (q.size()) { int sz = q.size(); while (sz--) { auto p = q.front(); q.pop(); string t = p; for (int i = 1; i &lt; t.size(); i += 2) { t[i] = (t[i] - &#39;0&#39; + a) % 10 + &#39;0&#39;; } if (!vis.count(t)) { q.push(t); vis.insert(t); } int n = p.size(); t = p.substr(n - b) + p.substr(0, n - b); if (!vis.count(t)) { q.push(t); vis.insert(t); } } } return *vis.begin(); } }; 复杂度分析
+时间复杂度：$O(N * 2^{depth})$ ，其中$N$ 为字符串的长度， $depth$ 为第二层循环的次数，最差的情况下，我们的搜索树到最后一层才能找到字典序最小的那个字符串。所以我们的 $depth$ 是不确定的，但是我们开头说了两个操作是存在循环的，因此不会存在一个字符串经过操作后可以无限的产生新的点，再加上数据范围很弱，所以理想上是可以通过本题。
+空间复杂度：$O(N * 2^{depth})$，我们要存储这颗完全二叉树的所有字符串信息。
+</content>
+  </entry>
+  
+  <entry>
     <title>1208 尽可能使字符串相等</title>
     <url>https://qybit.gitee.io/2021/02/05/1208/</url>
     <categories>
