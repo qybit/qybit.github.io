@@ -2,6 +2,30 @@
 <search>
   
   <entry>
+    <title>127 单词接龙</title>
+    <url>https://qybit.gitee.io/2021/02/06/127/</url>
+    <categories>
+      <category>力扣</category>
+    </categories>
+    <tags>
+      
+      <tag>BFS</tag>
+      
+    </tags>
+    <content type="html"> 力扣链接：单词接龙
+这是一道求最短路径的题目，BFS 是我们用来解决最短路问题的强心剂。
+方法一：BFS 开头 拿这个例子来举例如何建图
+输入：beginWord = &#34;hit&#34;, endWord = &#34;cog&#34;, wordList = [&#34;hot&#34;,&#34;dot&#34;,&#34;dog&#34;,&#34;lot&#34;,&#34;log&#34;,&#34;cog&#34;] 输出：5 解释：一个最短转换序列是 &#34;hit&#34; -&gt; &#34;hot&#34; -&gt; &#34;dot&#34; -&gt; &#34;dog&#34; -&gt; &#34;cog&#34;, 返回它的长度 5。 上述用例所示的图如下，构建的图是一个无向（无权）图。特意画成一颗”树“的形状。
+我们需要找到 从 hit 出发到 cog 的最短路径
+编码思路 我们不必从一开始就要把这个图全部构建完毕，如果一开始建图完毕再去遍历的话，时间开销会非常的大。这样建图的具体做法为：枚举一个字符串，然后和剩余所有的字符串进行比较，如果相差为一个字符的话，那么我们就可以创建一条边，时间复杂度为 $O(N \times C)$，其中 $N$ 为字符串的数量，$C$ 为字符串的长度。我们不推荐这么做。
+我们的做法是，一边遍历一边建图。我们每一次转换只能改变一个字母，对于一个字符串我们枚举出所有可能的改变情况那么这个时间复杂度为 $O(26 \times C)$，其中$C$ 为字符串的长度。如 hit，我们枚举出 *it 、h*t 和 hi*。尽可能的枚举出在单词表中出现过的字符串，然后延伸到下一个点。
+代码思路  当 $endWord$ 不在 $wordList$ 时，我们不必进行下一步，此时不存在转换序列，直接返回 $0$； 我们还需要一个 $vis$ 哈希表，来记录我们走过的节点，防止死循环；  代码 class Solution { public: int ladderLength(string beginWord, string endWord, vector&lt;string&gt;&amp; wordList) { unordered_set&lt;string&gt; wordSet(wordList.begin(), wordList.end()); if (!wordSet.count(endWord)) return 0; queue&lt;string&gt; q; q.push(beginWord); unordered_set&lt;string&gt; vis; vis.insert(beginWord); int step = 0; while (q.size()) { int sz = q.size(); step ++; while (sz--) { auto p = q.front(); q.pop(); for (int i = 0; i &lt; p.size(); i ++) { char c = p[i]; for (char k = &#39;a&#39;; k &lt;= &#39;z&#39;; k ++) { if (c == k) continue; p[i] = k; if (p == endWord) return step + 1; if (!vis.count(p)) { vis.insert(p); if (wordSet.count(p)) { q.push(p); } } } p[i] = c; } } } return 0; } }; 复杂度分析
+时间复杂度：$O(N \times C^2)$，其中 $N$ 为 $wordList$ 的长度，$C$ 为列表中单词的长度（列表中单词长度相同）。
+ 建图过程中，我们从一个字符串枚举出另一个在字典序存在的字符串，此过程时间复杂度为 $O(C)$（常数很小可忽略），还要将这些节点都加入到哈希表中记录 $O(N \times C)$，总时间复杂度为 $O(N \times C)$. 广度优先搜索的最坏情况是 $O(N \times C)$。我们对于每个节点都需要枚举出个 $O(C)$ 个新节点，因此时间复杂度为 $O(N \times C)$。  空间复杂度：$O(N \times C^2)$，其中 $N$ 为 $wordList$ 的长度，$C$ 为列表中单词的长度。哈希表中包含 $O(N \times C)$ 个节点，每个节点包含 $O(C)$ 个空间，因此空间复杂度为 $O(N \times C^2)$。
+</content>
+  </entry>
+  
+  <entry>
     <title>1625 执行操作后字典序最小的字符串</title>
     <url>https://qybit.gitee.io/2021/02/06/1625/</url>
     <categories>
@@ -16,7 +40,7 @@
 这道题数据比较弱，所以暴力搜索也不会超时。
 力扣链接：执行操作后字典序最小的字符串
 相似题目推荐：
- 力扣 127. 单词接龙 AcWing 1101.献给阿尔吉侬的花束  方法一：BFS爆搜 开头 我们将任意一个字符串都看成图中的一个点，不同点之间的边由 累加 和 轮转 两个操作产生。
+ 力扣 127. 单词接龙 AcWing 1101.献给阿尔吉侬的花束 力扣 面试题 17.22. 单词转换  方法一：BFS爆搜 开头 我们将任意一个字符串都看成图中的一个点，不同点之间的边由 累加 和 轮转 两个操作产生。
 在图中任意一个点可以有如下的操作：
  累加：给字符串下标为奇数的元素都加上 a ，如果超过 9 则归 0 轮转：将字符串向右旋转 b 位  首先要知道：
  任何一个数经过10次以内的累加操作，一定会循环； 原始字符串经过N次轮转之后，一定会循环。  所以图中点的数量是有限可以确定的，而且数据比较弱，完全可以爆搜。
@@ -26,10 +50,10 @@ c++
 queue&lt;int&gt; q; int depth = 0; while (q.size()) { // 搜索树的层数 depth，也可以表示为搜索路径的步数  depth ++; int sz = q.size(); while (sz--) { // do something ....  } } java
 LinkedList&lt;Integer&gt; q = new LinkedList&lt;&gt;(); int depth = 0; while (!q.isEmpty()) { depth ++; int sz = q.size(); while(sz-- &gt; 0) { // do something ...  } } 我们可以使用一个变量记录下，字典序最小的一个字符串。
 或者使用有序的 $set$ 集合，然后返回 $set$ 集合的第一个元素。
-代码 class Solution { public: string findLexSmallestString(string s, int a, int b) { set&lt;string&gt; vis; queue&lt;string&gt; q; q.push(s); vis.insert(s); while (q.size()) { int sz = q.size(); while (sz--) { auto p = q.front(); q.pop(); string t = p; for (int i = 1; i &lt; t.size(); i += 2) { t[i] = (t[i] - &#39;0&#39; + a) % 10 + &#39;0&#39;; } if (!vis.count(t)) { q.push(t); vis.insert(t); } int n = p.size(); t = p.substr(n - b) + p.substr(0, n - b); if (!vis.count(t)) { q.push(t); vis.insert(t); } } } return *vis.begin(); } }; 复杂度分析
+代码 class Solution { public: string findLexSmallestString(string s, int a, int b) { set&lt;string&gt; vis; queue&lt;string&gt; q; q.push(s); vis.insert(s); while (q.size()) { int sz = q.size(); while (sz--) { auto p = q.front(); q.pop(); string t = p; for (int i = 1; i &lt; t.size(); i += 2) { t[i] = (t[i] - &#39;0&#39; + a) % 10 + &#39;0&#39;; } if (!vis.count(t)) { q.push(t); vis.insert(t); } int n = p.size(); t = p.substr(n - b) + p.substr(0, n - b); if (!vis.count(t)) { q.push(t); vis.insert(t); } } } return *vis.begin(); } }; 复杂度分析（存疑，仅供参考）
 时间复杂度：$O(N * 2^{depth})$ ，其中$N$ 为字符串的长度， $depth$ 为第二层循环的次数，最差的情况下，我们的搜索树到最后一层才能找到字典序最小的那个字符串。所以我们的 $depth$ 是不确定的，但是我们开头说了两个操作是存在循环的，因此不会存在一个字符串经过操作后可以无限的产生新的点，再加上数据范围很弱，所以理想上是可以通过本题。
 空间复杂度：$O(N * 2^{depth})$，我们要存储这颗完全二叉树的所有字符串信息。
-</content>
+ 我们爆搜枚举出来搜索树的是一颗完全二叉树。 </content>
   </entry>
   
   <entry>
