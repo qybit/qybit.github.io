@@ -3,8 +3,8 @@
 &lt;p>力扣链接：&lt;a href="https://leetcode-cn.com/problems/lexicographically-smallest-string-after-applying-operations/">执行操作后字典序最小的字符串&lt;/a>&lt;/p>
 &lt;p>相似题目推荐：&lt;/p>
 &lt;ol>
-&lt;li>&lt;a href="https://leetcode-cn.com/problems/word-transformer-lcci/">面试题 17.22. 单词转换&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://leetcode-cn.com/problems/word-ladder/">127. 单词接龙&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://leetcode-cn.com/problems/word-ladder/">力扣 127. 单词接龙&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.acwing.com/problem/content/1103/">AcWing 1101.献给阿尔吉侬的花束&lt;/a>&lt;/li>
 &lt;/ol></description></item><item><title>1208 尽可能使字符串相等</title><link>https://qybit.gitee.io/2021/02/05/1208/</link><pubDate>Fri, 05 Feb 2021 09:40:56 +0800</pubDate><guid>https://qybit.gitee.io/2021/02/05/1208/</guid><description>&lt;p>力扣链接：&lt;a href="https://leetcode-cn.com/problems/get-equal-substrings-within-budget/">尽可能使字符串相等&lt;/a>&lt;/p>
 &lt;p>昨晚睡前没仔细读题，以为挺难做的，没想到也不难做。&lt;/p></description></item><item><title>480 滑动窗口中位数</title><link>https://qybit.gitee.io/2021/02/03/480/</link><pubDate>Wed, 03 Feb 2021 12:56:57 +0800</pubDate><guid>https://qybit.gitee.io/2021/02/03/480/</guid><description>&lt;p>&lt;em>官方题解十分的鬼畜，但是这道题用二分也是可以做的&lt;/em>&lt;/p>
 &lt;p>力扣链接： &lt;a href="https://leetcode-cn.com/problems/sliding-window-median/">滑动窗口中位数&lt;/a>&lt;/p>
