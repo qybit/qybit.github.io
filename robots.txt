@@ -2,6 +2,40 @@
 <search>
   
   <entry>
+    <title>665 非递减数列</title>
+    <url>https://qybit.gitee.io/2021/02/07/665/</url>
+    <categories>
+      <category>力扣</category>
+    </categories>
+    <tags>
+      
+      <tag>数组</tag>
+      
+    </tags>
+    <content type="html"> 力扣链接：665. 非递减数列
+这道题很坑，虽然是 easy，但是测试用例很好。
+方法一：模拟 开头 在本题中，我们只能修改一个元素的大小。这也就意味着我们给定的数组中，至多只能存在一个 i(0 &lt;= i &lt;= n - 2) 满足 nums[i] &gt; nums[i+1] 。
+证明如下：
+假设存在两个不同的下标 $i$ 和 $j$ 满足上述式子，使得 $i \lt j$：
+若 $i + 1 \lt j$ ，此时我们修改 $nums[i]$ 或 $nums[i+1]$，对于 $nums[j]$ 和 $nums[j+1]$ 之间的关系都不会造成影响；对于 $nums[j]$ 或 $nums[j+1]$ 也是同理，当我们修改其中一个时，对于 $nums[i]$ 和 $nums[i+1]$ 之间的关系都不会造成影响；
+若 $i + 1 = j$，则有 $nums[i] \gt nums[i+1] \gt nums[i+2]$。无论我们如何修改其中一个数，都无法使得 $nums[i] \le nums[i+1] \le nums[i+2]$。
+因此，至多只能存在一个下标 $i$ ，满足 $nums[i] \gt nums[i+1]$。
+编码思路 由上述证明，我们只需要简单的统计一下这样的下标存在多少个即可。
+前面说了，这道题的数据很强。存在这样一个用例 $[3,4,2,3]$ 可以推翻我们上述的思路。
+我们在编码的过程中，如果找到一个下标满足 $nums[i] \gt nums[i+1]$ ，我们修改了 $nums[i]$ 或 $nums[i+1]$ 后，还需要检查一下整个数组是否满足非递减。
+对于 $nums[i]$ 而言我们希望 $nums[i] \le nums[i+1]$，但 $nums[i]$ 还要不小于之前的数，所以$nums[i]$ 越大越好。因此将 $nums[i]$ 修改为 $nums[i+1]$ 更合适。同理，对于 $nums[i+1]$ 我们将 $nums[i+1]$ 修改成 $nums[i]$ 最合适。
+上述思路我们需要遍历两遍数组，我们也不必遍历两遍数组。
+当找到这样的一个下标后，我们会修改 $nums[i]$ 或 $nums[i+1]$，还需要保证 $nums[i-1] \le nums[i]$ 成立，即 $nums[i-1] \le nums[i+1]$。若不等式不成立，那么我们需要修改 $nums[i+1]$ 为 $nums[i]$。那么此时，数组仍然是非递减的，我们可以继续遍历数组。
+[3, 4,	2,	3] i-1 i i+1 $nums[i] \gt nums[i+1]$，假设我们修改了 $nums[i]$ 为 $nums[i+1]$ 后，此时 [3,2,2,3]。
+因此，当 $nums[i-1] &gt; nums[i+1]$ 时，我们需要修改 $nums[i+1]$ 为 $nums[i]$，此时 [3,4,4,3]。
+代码思路 值得注意的是，当我们找到多个下标 $i$ 满足 $nums[i] \gt nums[i+1]$，此时是无法构造非递减数列。
+代码 class Solution { public: bool checkPossibility(vector&lt;int&gt;&amp; nums) { int n = nums.size(); int cnt = 0; for (int i = 0; i + 1 &lt; n; i ++) { if (nums[i] &gt; nums[i+1]) { cnt++; if (cnt &gt; 1) return false; if (i &gt; 0 &amp;&amp; nums[i - 1] &gt; nums[i + 1]) { nums[i + 1] = nums[i]; } } } return true; } }; 复杂度分析
+时间复杂度：$O(N)$，其中 $N$ 为数组的长度。
+空间复杂度：$O(1)$
+</content>
+  </entry>
+  
+  <entry>
     <title>127 单词接龙</title>
     <url>https://qybit.gitee.io/2021/02/06/127/</url>
     <categories>
