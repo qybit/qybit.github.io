@@ -4630,7 +4630,7 @@ _:future,
   z-index: 22;
 }
 #vcomment textarea {
-  background: url("/mydata/comment_bg.png") 100% 100% no-repeat;
+  background: url("https://cdn.jsdelivr.net/gh/qybit/CDN@master/Photo/jerryc127/comment_bg.png") 100% 100% no-repeat;
 }
 #vcomment textarea:focus {
   background-image: none;

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://qybit.gitee.io/"/>
-  <updated>2021-02-07T10:58:18.335Z</updated>
+  <updated>2021-02-08T04:36:19.228Z</updated>
   <id>https://qybit.gitee.io/</id>
   
   <author>
@@ -17,9 +17,34 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>978. 最长湍流子数组</title>
+    <link href="https://qybit.gitee.io/2021/02/08/978/"/>
+    <id>https://qybit.gitee.io/2021/02/08/978/</id>
+    <published>2021-02-08T03:21:16.000Z</published>
+    <updated>2021-02-08T04:36:19.228Z</updated>
+    
+    <content type="html"><![CDATA[<p>力扣链接：<a href="https://leetcode-cn.com/problems/longest-turbulent-subarray/">最长湍流子数组</a></p><p>相似题目推荐：</p><ul><li> <a href="https://leetcode-cn.com/problems/wiggle-subsequence/">力扣376. 摆动序列</a></li></ul><h1 id="方法一：双指针"><a href="#方法一：双指针" class="headerlink" title="方法一：双指针"></a>方法一：双指针</h1><h2 id="开头"><a href="#开头" class="headerlink" title="开头"></a>开头</h2><p>设数组 $arr$的长度为 $n$，存在一个子数组区间$[left, right]$，定义为<em>湍流子数组</em> 。</p><p>根据题意 <em>湍流子数组</em> 的定义如下，假设 $0\lt right \lt n - 1$：</p><ul><li>如果 $arr[right - 1] \gt arr[right]$ 且 $arr[right] \lt arr[right + 1]$，则$[left, right + 1]$ 构成湍流子数组，右指针$right$可以右移一位。湍流子数组长度加1;</li><li>如果 $arr[right - 1] \gt arr[right]$ 且 $arr[right] \lt arr[right+1]$，则 $[left, right+1]$ 也构成湍流子数组，同理$right$需要右移一位。</li><li>否则，$[right-1,right+1]$无法构成湍流子数组，此时我们需要移动左指针$left$，使得$left=right$。</li></ul><h2 id="编码思路"><a href="#编码思路" class="headerlink" title="编码思路"></a>编码思路</h2><p>值得注意的是，当 $left == right$，也就是湍流子数组的长度为 $1$ 时。只要$arr[right] \neq arr[right+1]$不相等，我们就可以移动右指针，否则$left$和$right$都要移动。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxTurbulenceSize</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n = arr.size();</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (right &lt; n - <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (left == right) &#123;</span><br><span class="line">                <span class="keyword">if</span> (arr[left] == arr[left + <span class="number">1</span>]) &#123;</span><br><span class="line">                    left ++;</span><br><span class="line">                &#125;</span><br><span class="line">                right ++;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (arr[right - <span class="number">1</span>] &lt; arr[right] &amp;&amp; arr[right] &gt; arr[right + <span class="number">1</span>]) &#123;</span><br><span class="line">                    right ++;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (arr[right - <span class="number">1</span>] &gt; arr[right] &amp;&amp; arr[right] &lt; arr[right + <span class="number">1</span>]) &#123;</span><br><span class="line">                    right ++;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    left = right;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; </span><br><span class="line">            res = max(res, right - left + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(N)$，其中 $N$ 为数组的长度。对于数组的任意一个元素，我们至多不会访问 $N$ 次。</p><p>空间复杂度：$O(1)$</p><h1 id="方法二：动态规划-DP"><a href="#方法二：动态规划-DP" class="headerlink" title="方法二：动态规划(DP)"></a>方法二：动态规划(DP)</h1><p>类似题目：<a href="https://leetcode-cn.com/problems/wiggle-subsequence/">力扣376. 摆动序列</a></p><h2 id="开头-1"><a href="#开头-1" class="headerlink" title="开头"></a>开头</h2><p><strong>状态定义：</strong></p><ul><li>$increased[i]$ 表示以 $i$ 结尾的，并且 $arr[i-1] &lt; arr[i]$的子数组长度</li><li>$decreased[i]$表示以 $i$ 结尾的，并且 $arr[i-1] &gt; arr[i]$ 的子数组长度</li></ul><p><strong>状态转移：</strong></p><p><strong>伪代码(风格采用Python)</strong></p><p>对于 $increased[i]$：<br>$$<br>\begin{align}<br>if &amp;\ \ \ i \gt 0 \ and \ arr[i-1] \lt arr[i]: \\<br>&amp; increased[i] = decreased[i-1] + 1 \<br>\end{align}<br>$$<br>对于 $decreased[i]$：<br>$$<br>\begin{align}<br>if &amp;\ \ \ i \gt 0 \ and \ arr[i-1] \gt arr[i]: \\<br>&amp; decreased[i] = increased[i-1] + 1 \<br>\end{align}<br>$$</p><h2 id="编码思路-1"><a href="#编码思路-1" class="headerlink" title="编码思路"></a>编码思路</h2><p>注意边界情况：</p><ul><li>初始值时 $increased[0] = decreased[0] = 1$；</li><li>当都不满足转移条件时，此时应该将$increased[0] = decreased[0] = 1$，都置为 $1$，以方便后续转移。</li></ul><h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxTurbulenceSize</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = arr.size();</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">2</span>) <span class="keyword">return</span> n;</span><br><span class="line">        vector&lt;int&gt; increased(n), decreased(n);</span><br><span class="line">        increased[<span class="number">0</span>] = decreased[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[i - <span class="number">1</span>] &gt; arr[i]) &#123;</span><br><span class="line">                decreased[i] = increased[i - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">                increased[i] = <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (arr[i - <span class="number">1</span>] &lt; arr[i]) &#123;</span><br><span class="line">                increased[i] = decreased[i - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">                decreased[i] = <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                increased[i] = decreased[i] = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            res = max(res, max(increased[i], decreased[i]));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>代码优化：</p><ul><li>我们注意到了对于数组中的元素，我们每次只会使用到上一次的状态，因此可以对空间进行优化</li></ul><p><strong>优化后的代码</strong></p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxTurbulenceSize</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = arr.size();</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">2</span>) <span class="keyword">return</span> n;</span><br><span class="line">        <span class="keyword">int</span> increased = <span class="number">1</span>, decreased = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[i - <span class="number">1</span>] &gt; arr[i]) &#123;</span><br><span class="line">                decreased = increased + <span class="number">1</span>;</span><br><span class="line">                increased = <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (arr[i - <span class="number">1</span>] &lt; arr[i]) &#123;</span><br><span class="line">                increased = decreased + <span class="number">1</span>;</span><br><span class="line">                decreased = <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                increased = decreased = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            res = max(res, max(increased, decreased));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(N)$，其中 $N$ 为数组的长度。我们只会遍历一次数组。</p><p>空间复杂度：$O(1)$，我们只使用了常数空间。</p>]]></content>
+    
+    <summary type="html">
+    
+      力扣978题题解
+    
+    </summary>
+    
+    
+      <category term="力扣" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/"/>
+    
+    
+      <category term="双指针" scheme="https://qybit.gitee.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
+    
+      <category term="DP" scheme="https://qybit.gitee.io/tags/DP/"/>
+    
+  </entry>
+  
+  <entry>
     <title>665 非递减数列</title>
-    <link href="https://qybit.gitee.io/2021/02/07/ckkv7o0lv000y3gtp4uir67xv/"/>
-    <id>https://qybit.gitee.io/2021/02/07/ckkv7o0lv000y3gtp4uir67xv/</id>
+    <link href="https://qybit.gitee.io/2021/02/07/ckkw6nwle000xgotp1gdy7axv/"/>
+    <id>https://qybit.gitee.io/2021/02/07/ckkw6nwle000xgotp1gdy7axv/</id>
     <published>2021-02-06T19:02:36.000Z</published>
     <updated>2021-02-07T10:58:18.335Z</updated>
     
@@ -42,8 +67,8 @@
   
   <entry>
     <title>127 单词接龙</title>
-    <link href="https://qybit.gitee.io/2021/02/06/ckkv7o0ld00073gtpbgzdeocy/"/>
-    <id>https://qybit.gitee.io/2021/02/06/ckkv7o0ld00073gtpbgzdeocy/</id>
+    <link href="https://qybit.gitee.io/2021/02/06/ckkw6nwkw0007gotpdfve0ua2/"/>
+    <id>https://qybit.gitee.io/2021/02/06/ckkw6nwkw0007gotpdfve0ua2/</id>
     <published>2021-02-06T00:52:41.000Z</published>
     <updated>2021-02-07T10:58:18.338Z</updated>
     
@@ -66,8 +91,8 @@
   
   <entry>
     <title>1625 执行操作后字典序最小的字符串</title>
-    <link href="https://qybit.gitee.io/2021/02/06/ckkv7o0lj00093gtp17yh7jm0/"/>
-    <id>https://qybit.gitee.io/2021/02/06/ckkv7o0lj00093gtp17yh7jm0/</id>
+    <link href="https://qybit.gitee.io/2021/02/06/ckkw6nwl1000bgotp2lw1cya1/"/>
+    <id>https://qybit.gitee.io/2021/02/06/ckkw6nwl1000bgotp2lw1cya1/</id>
     <published>2021-02-05T23:30:40.000Z</published>
     <updated>2021-02-07T10:58:18.340Z</updated>
     
@@ -97,8 +122,8 @@
   
   <entry>
     <title>1208 尽可能使字符串相等</title>
-    <link href="https://qybit.gitee.io/2021/02/05/ckkv7o0l900033gtpc5w54y21/"/>
-    <id>https://qybit.gitee.io/2021/02/05/ckkv7o0l900033gtpc5w54y21/</id>
+    <link href="https://qybit.gitee.io/2021/02/05/ckkw6nwkr0003gotp5h6ff6tx/"/>
+    <id>https://qybit.gitee.io/2021/02/05/ckkw6nwkr0003gotp5h6ff6tx/</id>
     <published>2021-02-04T17:40:56.000Z</published>
     <updated>2021-02-07T10:58:18.342Z</updated>
     
@@ -125,8 +150,8 @@
   
   <entry>
     <title>480 滑动窗口中位数</title>
-    <link href="https://qybit.gitee.io/2021/02/03/ckkv7o0lu000w3gtp7uymaasb/"/>
-    <id>https://qybit.gitee.io/2021/02/03/ckkv7o0lu000w3gtp7uymaasb/</id>
+    <link href="https://qybit.gitee.io/2021/02/03/ckkw6nwld000vgotpck1y9jf6/"/>
+    <id>https://qybit.gitee.io/2021/02/03/ckkw6nwld000vgotpck1y9jf6/</id>
     <published>2021-02-02T20:56:57.000Z</published>
     <updated>2021-02-07T10:58:18.344Z</updated>
     
@@ -153,8 +178,8 @@
   
   <entry>
     <title>1540 K次操作转变字符串</title>
-    <link href="https://qybit.gitee.io/2021/02/02/ckkv7o0lk000b3gtpfqz2ei07/"/>
-    <id>https://qybit.gitee.io/2021/02/02/ckkv7o0lk000b3gtpfqz2ei07/</id>
+    <link href="https://qybit.gitee.io/2021/02/02/ckkw6nwkx0009gotp42ut5bhe/"/>
+    <id>https://qybit.gitee.io/2021/02/02/ckkw6nwkx0009gotp42ut5bhe/</id>
     <published>2021-02-02T04:25:15.000Z</published>
     <updated>2021-02-07T10:58:18.346Z</updated>
     
@@ -179,8 +204,8 @@
   
   <entry>
     <title>410 分割数组的最大值</title>
-    <link href="https://qybit.gitee.io/2021/02/02/ckkv7o0lq000i3gtp10ge7ufc/"/>
-    <id>https://qybit.gitee.io/2021/02/02/ckkv7o0lq000i3gtp10ge7ufc/</id>
+    <link href="https://qybit.gitee.io/2021/02/02/ckkw6nwl7000igotpfmbeb8jb/"/>
+    <id>https://qybit.gitee.io/2021/02/02/ckkw6nwl7000igotpfmbeb8jb/</id>
     <published>2021-02-01T19:39:36.000Z</published>
     <updated>2021-02-07T10:58:18.348Z</updated>
     
@@ -202,8 +227,8 @@
   
   <entry>
     <title>424 替换后的最长重复字符</title>
-    <link href="https://qybit.gitee.io/2021/02/02/ckkv7o0lr000n3gtp2bg9h1m6/"/>
-    <id>https://qybit.gitee.io/2021/02/02/ckkv7o0lr000n3gtp2bg9h1m6/</id>
+    <link href="https://qybit.gitee.io/2021/02/02/ckkw6nwl9000ngotp8ruygrqn/"/>
+    <id>https://qybit.gitee.io/2021/02/02/ckkw6nwl9000ngotp8ruygrqn/</id>
     <published>2021-02-01T18:50:03.000Z</published>
     <updated>2021-02-07T10:58:18.349Z</updated>
     
@@ -225,8 +250,8 @@
   
   <entry>
     <title>1128 等价多米诺骨牌对的数量</title>
-    <link href="https://qybit.gitee.io/2021/01/26/ckkv7o0l200013gtpcmikarqm/"/>
-    <id>https://qybit.gitee.io/2021/01/26/ckkv7o0l200013gtpcmikarqm/</id>
+    <link href="https://qybit.gitee.io/2021/01/26/ckkw6nwkn0001gotphhl043pb/"/>
+    <id>https://qybit.gitee.io/2021/01/26/ckkw6nwkn0001gotphhl043pb/</id>
     <published>2021-01-26T02:25:06.000Z</published>
     <updated>2021-02-07T10:58:21.472Z</updated>
     
@@ -251,8 +276,8 @@
   
   <entry>
     <title>关于Promise的学习笔记</title>
-    <link href="https://qybit.gitee.io/2021/01/24/ckkv7o0m3001a3gtpbhp5efl0/"/>
-    <id>https://qybit.gitee.io/2021/01/24/ckkv7o0m3001a3gtpbhp5efl0/</id>
+    <link href="https://qybit.gitee.io/2021/01/24/ckkw6nwln001dgotpgtzr7g1y/"/>
+    <id>https://qybit.gitee.io/2021/01/24/ckkw6nwln001dgotpgtzr7g1y/</id>
     <published>2021-01-24T08:58:11.000Z</published>
     <updated>2021-02-07T10:58:21.492Z</updated>
     
@@ -279,8 +304,8 @@
   
   <entry>
     <title>第224场周赛</title>
-    <link href="https://qybit.gitee.io/2021/01/17/ckkv7o0mi002f3gtphirk5ict/"/>
-    <id>https://qybit.gitee.io/2021/01/17/ckkv7o0mi002f3gtphirk5ict/</id>
+    <link href="https://qybit.gitee.io/2021/01/17/ckkw6nwma002dgotpgkgxdqhp/"/>
+    <id>https://qybit.gitee.io/2021/01/17/ckkw6nwma002dgotpgkgxdqhp/</id>
     <published>2021-01-17T07:09:09.000Z</published>
     <updated>2021-02-07T11:07:46.055Z</updated>
     
@@ -316,8 +341,8 @@
   
   <entry>
     <title>第43场双周赛</title>
-    <link href="https://qybit.gitee.io/2021/01/12/ckkv7o0mr002z3gtp2p8q3rw6/"/>
-    <id>https://qybit.gitee.io/2021/01/12/ckkv7o0mr002z3gtp2p8q3rw6/</id>
+    <link href="https://qybit.gitee.io/2021/01/12/ckkw6nwmk002zgotpfzx30404/"/>
+    <id>https://qybit.gitee.io/2021/01/12/ckkw6nwmk002zgotpfzx30404/</id>
     <published>2021-01-12T06:06:02.000Z</published>
     <updated>2021-02-07T10:58:21.489Z</updated>
     
@@ -359,8 +384,8 @@
   
   <entry>
     <title>第222场周赛</title>
-    <link href="https://qybit.gitee.io/2021/01/03/ckkv7o0mh002d3gtp3cl4g2tk/"/>
-    <id>https://qybit.gitee.io/2021/01/03/ckkv7o0mh002d3gtp3cl4g2tk/</id>
+    <link href="https://qybit.gitee.io/2021/01/03/ckkw6nwmb002igotp1k5c6fse/"/>
+    <id>https://qybit.gitee.io/2021/01/03/ckkw6nwmb002igotp1k5c6fse/</id>
     <published>2021-01-03T12:14:33.000Z</published>
     <updated>2021-02-07T11:07:46.054Z</updated>
     
@@ -400,8 +425,8 @@
   
   <entry>
     <title>一文解决Tomcat开发中乱码的问题</title>
-    <link href="https://qybit.gitee.io/2020/12/31/ckkv7o0lw00133gtpc6t0hovs/"/>
-    <id>https://qybit.gitee.io/2020/12/31/ckkv7o0lw00133gtpc6t0hovs/</id>
+    <link href="https://qybit.gitee.io/2020/12/31/ckkw6nwli0015gotp8w557093/"/>
+    <id>https://qybit.gitee.io/2020/12/31/ckkw6nwli0015gotp8w557093/</id>
     <published>2020-12-31T07:20:40.000Z</published>
     <updated>2021-02-07T10:58:21.476Z</updated>
     
@@ -433,8 +458,8 @@
   
   <entry>
     <title>第221场周赛</title>
-    <link href="https://qybit.gitee.io/2020/12/29/ckkv7o0mg00293gtpfh1ibfng/"/>
-    <id>https://qybit.gitee.io/2020/12/29/ckkv7o0mg00293gtpfh1ibfng/</id>
+    <link href="https://qybit.gitee.io/2020/12/29/ckkw6nwma002fgotpdn5a66nn/"/>
+    <id>https://qybit.gitee.io/2020/12/29/ckkw6nwma002fgotpdn5a66nn/</id>
     <published>2020-12-29T03:06:13.000Z</published>
     <updated>2021-02-07T10:58:21.497Z</updated>
     
@@ -476,8 +501,8 @@
   
   <entry>
     <title>第42场双周赛</title>
-    <link href="https://qybit.gitee.io/2020/12/28/ckkv7o0mp002v3gtpb2n47g0r/"/>
-    <id>https://qybit.gitee.io/2020/12/28/ckkv7o0mp002v3gtpb2n47g0r/</id>
+    <link href="https://qybit.gitee.io/2020/12/28/ckkw6nwmm0033gotp6pn96obl/"/>
+    <id>https://qybit.gitee.io/2020/12/28/ckkw6nwmm0033gotp6pn96obl/</id>
     <published>2020-12-28T02:28:40.000Z</published>
     <updated>2021-02-07T10:58:21.498Z</updated>
     
@@ -519,8 +544,8 @@
   
   <entry>
     <title>第220场周赛</title>
-    <link href="https://qybit.gitee.io/2020/12/20/ckkv7o0mf00273gtp726uga57/"/>
-    <id>https://qybit.gitee.io/2020/12/20/ckkv7o0mf00273gtp726uga57/</id>
+    <link href="https://qybit.gitee.io/2020/12/20/ckkw6nwm70026gotpcrbf2w4v/"/>
+    <id>https://qybit.gitee.io/2020/12/20/ckkw6nwm70026gotpcrbf2w4v/</id>
     <published>2020-12-20T11:44:32.000Z</published>
     <updated>2021-02-07T10:58:21.496Z</updated>
     
@@ -561,8 +586,8 @@
   
   <entry>
     <title>460 LFU缓存</title>
-    <link href="https://qybit.gitee.io/2020/12/14/ckkv7o0lt000r3gtp3an98m4z/"/>
-    <id>https://qybit.gitee.io/2020/12/14/ckkv7o0lt000r3gtp3an98m4z/</id>
+    <link href="https://qybit.gitee.io/2020/12/14/ckkw6nwlc000rgotphazt6fe5/"/>
+    <id>https://qybit.gitee.io/2020/12/14/ckkw6nwlc000rgotphazt6fe5/</id>
     <published>2020-12-14T02:47:21.000Z</published>
     <updated>2021-02-07T10:58:21.475Z</updated>
     
@@ -591,8 +616,8 @@
   
   <entry>
     <title>第219场周赛</title>
-    <link href="https://qybit.gitee.io/2020/12/13/ckkv7o0md00223gtp5rs36h64/"/>
-    <id>https://qybit.gitee.io/2020/12/13/ckkv7o0md00223gtp5rs36h64/</id>
+    <link href="https://qybit.gitee.io/2020/12/13/ckkw6nwm80029gotpe905fxyn/"/>
+    <id>https://qybit.gitee.io/2020/12/13/ckkw6nwm80029gotpe905fxyn/</id>
     <published>2020-12-13T09:31:54.000Z</published>
     <updated>2021-02-07T10:58:21.482Z</updated>
     
@@ -627,43 +652,6 @@
       <category term="回溯" scheme="https://qybit.gitee.io/tags/%E5%9B%9E%E6%BA%AF/"/>
     
       <category term="动态规划" scheme="https://qybit.gitee.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>第41场双周赛</title>
-    <link href="https://qybit.gitee.io/2020/12/13/ckkv7o0mo002r3gtp50bl4742/"/>
-    <id>https://qybit.gitee.io/2020/12/13/ckkv7o0mo002r3gtp50bl4742/</id>
-    <published>2020-12-13T06:24:14.000Z</published>
-    <updated>2021-02-07T10:58:21.490Z</updated>
-    
-    <content type="html"><![CDATA[<p>题单：</p><ul><li> <a href="https://leetcode-cn.com/problems/count-the-number-of-consistent-strings/"> 统计一致字符串的数目</a></li><li> <a href="https://leetcode-cn.com/problems/sum-of-absolute-differences-in-a-sorted-array/">有序数组中差绝对值之和</a></li><li> <a href="https://leetcode-cn.com/problems/stone-game-vi/">石子游戏 VI</a></li><li> <a href="https://leetcode-cn.com/problems/delivering-boxes-from-storage-to-ports/">从仓库到码头运输箱子</a></li></ul><a id="more"></a><h3 id="T1-统计一致字符串的数目"><a href="#T1-统计一致字符串的数目" class="headerlink" title="T1: 统计一致字符串的数目"></a>T1:<a href="https://leetcode-cn.com/problems/count-the-number-of-consistent-strings/"> 统计一致字符串的数目</a></h3><p><strong>方法一</strong>：暴力</p><p>题目意思就是给定一个字典单词，再查询单词中是否全部都是由字典单词构成，找出所有这种单词的个数。</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">countConsistentStrings</span><span class="params">(String allowed, String[] words)</span> </span>&#123;</span><br><span class="line">        Set&lt;Character&gt; h = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> c : allowed.toCharArray()) h.add(c);</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (String word : words) &#123;</span><br><span class="line">            <span class="keyword">boolean</span> f= <span class="keyword">true</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">char</span> c : word.toCharArray()) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!h.contains(c)) &#123;</span><br><span class="line">                    f = <span class="keyword">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (f) res++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>空间优化，考虑到给定的字符串仅限于小写英文字母。因此可以将 Set 集合改成数组来实现</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">countConsistentStrings</span><span class="params">(String allowed, String[] words)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] f = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">26</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> c : allowed.toCharArray()) f[c-<span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">        <span class="keyword">int</span> res= <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (String word : words) &#123;</span><br><span class="line">            <span class="keyword">boolean</span> g = <span class="keyword">true</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">char</span> c : word.toCharArray()) &#123;</span><br><span class="line">                <span class="keyword">if</span> (f[c-<span class="string">&#x27;a&#x27;</span>] == <span class="number">0</span>) &#123;</span><br><span class="line">                    g = <span class="keyword">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (g) res++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong>：</p><p>时间复杂度：$O(n^2)$，其中n为字符串数组的长度</p><p>空间复杂度：$O(1)$</p><h3 id="T2：有序数组中差绝对值之和"><a href="#T2：有序数组中差绝对值之和" class="headerlink" title="T2：有序数组中差绝对值之和"></a>T2：<a href="https://leetcode-cn.com/problems/sum-of-absolute-differences-in-a-sorted-array/">有序数组中差绝对值之和</a></h3><p>题意：</p><p>返回一个数组，数组 $res[i] = nums[i] + abs(nums[i] - others[j]) , 0 \le  j\le nums.length-1 且 i \ne j$</p><p>观察数组范围，可以发现时 $10^5$ 级别的，因此暴力是不可能通过的，所以必须把时间复杂度降到 $O(nlogn)$ 甚至是 $O(n)$ 才行。</p><p>观察数组，数组为一个 <strong>非递减</strong> 的数组，即递增数组，下面进行公式推导：</p><p>对数组中任意一个元素 $nums[i]$  </p><p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5fd5b9363ffa7d37b3359baf.png"></p><p>在范围 $0 \le left \le i$ 存在</p><p> $(nums[i-1] - nums[0]) + (nums[i-1] - nums[1]) + …+(nums[i-1] - nums[i-2])$ </p><p>$ = (nums[i-1] * i) - Sum_i$ ，其中  $Sum $ 为前缀和</p><p>在范围 $i \lt right \le n-1$ 存在</p><p>$(nums[i-1] - nums[n-1]) + (nums[i-1] - nums[n-2]) +…+(nums[i-1]-nums[i])$</p><p>$= Sum_n - Sum_i - (nums[i-1] * (n-i))$</p><p>那么对于结果数组 $res[i] = left + right$</p><p><strong>代码</strong></p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] getSumAbsoluteDifferences(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.length;</span><br><span class="line">        <span class="keyword">int</span>[] s = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) s[i] = s[i-<span class="number">1</span>] + nums[i-<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        <span class="keyword">int</span> idx = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> left = (i * nums[i-<span class="number">1</span>]) - s[i];</span><br><span class="line">            <span class="keyword">int</span> right = s[n] - s[i] - (nums[i-<span class="number">1</span>] * (n-i));</span><br><span class="line">            res[idx++] = left+right;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong>：</p><p>时间复杂度：$O(n)$，其中n为数组长度</p><p>空间复杂度：$O(n)$</p><h3 id="T3：石子游戏-VI"><a href="#T3：石子游戏-VI" class="headerlink" title="T3：石子游戏 VI"></a>T3：<a href="https://leetcode-cn.com/problems/stone-game-vi/">石子游戏 VI</a></h3><p>题意：</p><p>Alice 和 Bob 又在玩一个游戏，Alice先手选择。</p><p>在一堆石子里选石头，Alice 和 Bob 对石子的价值观是不同的，每轮一个玩家选出一个石头，当石头全部都取完后，计算各自的价值，如果相等就返回 0，Alice 大就返回1，否则就返回  -1。</p><p>这个游戏的精髓就是：每次都拿走对于自己，也对于对手都较大价值的石头，让对手也无路可走。因为两人对石头的估价不同，我每次都拿对自己和别人都大的，可以让自己价值更多，也让对手只能选择较小价值的，这样我就可以获胜。</p><p>依据以上的脏心理。进行简略的证明。</p><p>对于两块石头进行分析，对于Alice 和 Bob 的价值分别为 $a_1 和 a_2 ，b_1 和 b_2$</p><ul><li>方案一是Ailce 选石头一，Bob 选石头二，价值为 $c = a_1 - b_2$</li><li>方案二是Alice 选石头二，Bob 选石头二，价值为 $c = a_2 - b_1$</li></ul><p>此时的价值差为 $ c = c_1 - c_2 = (a_1 - b_2) - (a_2 - b_1) = (a_1 + b_1) - (a_2 + b_2)$</p><p>分析一下 $c$ </p><ul><li>如果 c == 0， 那么怎么选都是可以的</li><li>c &gt; 0的话， 此时选择方案一</li><li>c &lt; 0 的话，选择方案二</li></ul><p>那么两种方案的优劣就是 $a_1 + b_1$ 与 $a_2 + b_2$ 的优劣了。</p><p>对于Bob而言，也是同理的。</p><p>对数组进行重构，按照 $a_i + b_i$ 的值从大到小排序，然后分别计算各自的分数。</p><p><strong>代码</strong></p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">stoneGameVI</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span>[] b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = a.length;</span><br><span class="line">        <span class="keyword">int</span>[][] c = <span class="keyword">new</span> <span class="keyword">int</span>[n][];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            c[i] = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;a[i] + b[i], a[i], b[i]&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        Arrays.sort(c, (o1, o2) -&gt; o2[<span class="number">0</span>] - o1[<span class="number">0</span>]);</span><br><span class="line">        <span class="comment">// as 为 Alice 得分，bs 为 Bob 得分</span></span><br><span class="line">        <span class="keyword">int</span> as = <span class="number">0</span>, bs = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i%<span class="number">2</span>==<span class="number">0</span>) as += c[i][<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">else</span> bs += c[i][<span class="number">2</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (as == bs) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (as &gt; bs) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>复杂度分析：</p><p>时间复杂度：$O(NlogN)$，排序$O(NlogN) + O(n)$ </p><p>空间复杂度：$O(n)$，虽然是二维数组，但是第二维仅有3个元素</p><h3 id="T4：从仓库到码头运输箱子"><a href="#T4：从仓库到码头运输箱子" class="headerlink" title="T4：从仓库到码头运输箱子"></a>T4：<a href="https://leetcode-cn.com/problems/delivering-boxes-from-storage-to-ports/">从仓库到码头运输箱子</a></h3><p>暂无思路。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;题单：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt; &lt;a href=&quot;https://leetcode-cn.com/problems/count-the-number-of-consistent-strings/&quot;&gt; 统计一致字符串的数目&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt; &lt;a href=&quot;https://leetcode-cn.com/problems/sum-of-absolute-differences-in-a-sorted-array/&quot;&gt;有序数组中差绝对值之和&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt; &lt;a href=&quot;https://leetcode-cn.com/problems/stone-game-vi/&quot;&gt;石子游戏 VI&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt; &lt;a href=&quot;https://leetcode-cn.com/problems/delivering-boxes-from-storage-to-ports/&quot;&gt;从仓库到码头运输箱子&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="力扣" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/"/>
-    
-      <category term="周赛" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/%E5%91%A8%E8%B5%9B/"/>
-    
-      <category term="算法" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/%E5%91%A8%E8%B5%9B/%E7%AE%97%E6%B3%95/"/>
-    
-    
-      <category term="字符串" scheme="https://qybit.gitee.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
-      <category term="贪心" scheme="https://qybit.gitee.io/tags/%E8%B4%AA%E5%BF%83/"/>
-    
-      <category term="数学" scheme="https://qybit.gitee.io/tags/%E6%95%B0%E5%AD%A6/"/>
     
   </entry>
   
