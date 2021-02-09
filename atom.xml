@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://qybit.gitee.io/"/>
-  <updated>2021-02-08T04:36:19.228Z</updated>
+  <updated>2021-02-09T07:16:50.339Z</updated>
   <id>https://qybit.gitee.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>992. K 个不同整数的子数组</title>
+    <link href="https://qybit.gitee.io/2021/02/09/992/"/>
+    <id>https://qybit.gitee.io/2021/02/09/992/</id>
+    <published>2021-02-09T06:39:46.000Z</published>
+    <updated>2021-02-09T07:16:50.339Z</updated>
+    
+    <content type="html"><![CDATA[<p>力扣链接：<a href="https://leetcode-cn.com/problems/subarrays-with-k-different-integers/">992. K 个不同整数的子数组</a></p><p>相似题目推荐：</p><ul><li><a href="https://leetcode-cn.com/problems/minimum-window-substring/">76. 最小覆盖子串</a></li><li><a href="https://leetcode-cn.com/problems/longest-repeating-character-replacement/">424. 替换后的最长重复字符</a></li></ul><h1 id="方法一：双指针"><a href="#方法一：双指针" class="headerlink" title="方法一：双指针"></a>方法一：双指针</h1><h2 id="开头"><a href="#开头" class="headerlink" title="开头"></a>开头</h2><p>按照我们做双指针题目的经验，可以很快的想到，定义两个指针一前一后的交替遍历数组，即可找出<strong>最大</strong>不同整数的子数组。</p><p>注意是<strong>最大</strong>，而本题中要询问的某个子数组中不同整数的个数<strong>恰好</strong>为 $K$ 的个数。</p><p>对于例子：$A = [1,2,1,2,3], K = 2$，你很快就可以发现，使用双指针的思路，是找不到子数组 $[2,1]$ 的。</p><p>这是因为一个符合要求的区间，当其左端点固定时，其右端点是不固定的。</p><p>当 左端点为 $left = 1$ 时，其右端点可以是 $right=2$ 也可以是$right=3$。因为子数组$[2,1,2]$ 也是符合要求的。</p><p>因此，我们需要转换思路，将问题转换一下。</p><h2 id="编码思路"><a href="#编码思路" class="headerlink" title="编码思路"></a>编码思路</h2><p>我们把原问题的<strong>恰好</strong>包含 $K$ 个不同整数，改成 <strong>最多</strong> 包含 $K$ 个不同整数的。那么要求的原问题，就成了一个子问题。它等价于 [最多包含$K$ 个不同整数] - [最多包含$K-1$个不同整数]。</p><p>可以确定集合 ${[最多包含K个不同整数] }$，是由 ${[恰好包含1种不同整数] , [恰好包含2种不同整数],… ,[恰好包含K种不同整数] }$等元素组成。</p><p>那么 $[恰好包含K个不同整数] = [最多包含K 个不同整数] - [最多包含K-1个不同整数]$</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">subarraysWithKDistinct</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; A, <span class="keyword">int</span> K)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> get(A, K) - get(A, K - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">get</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; A, <span class="keyword">int</span> K)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = A.size();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">freq</span><span class="params">(n + <span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (right &lt; n) &#123;</span><br><span class="line">            <span class="keyword">int</span> x = A[right];</span><br><span class="line">            <span class="keyword">if</span> (freq[x] == <span class="number">0</span>) &#123;</span><br><span class="line">                count ++;</span><br><span class="line">            &#125;</span><br><span class="line">            freq[x] ++;</span><br><span class="line">            right++;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (count &gt; K) &#123;</span><br><span class="line">                <span class="keyword">int</span> y = A[left];</span><br><span class="line">                freq[y] --;</span><br><span class="line">                <span class="keyword">if</span> (freq[y] == <span class="number">0</span>) &#123;</span><br><span class="line">                    count--;</span><br><span class="line">                &#125;</span><br><span class="line">                left++;</span><br><span class="line">            &#125;</span><br><span class="line">            res += right - left + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      力扣992题题解
+    
+    </summary>
+    
+    
+      <category term="力扣" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/"/>
+    
+    
+      <category term="双指针" scheme="https://qybit.gitee.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
+    
+  </entry>
   
   <entry>
     <title>978. 最长湍流子数组</title>
@@ -43,8 +66,8 @@
   
   <entry>
     <title>665 非递减数列</title>
-    <link href="https://qybit.gitee.io/2021/02/07/ckkw7ovf3000xw8tpa9t086jv/"/>
-    <id>https://qybit.gitee.io/2021/02/07/ckkw7ovf3000xw8tpa9t086jv/</id>
+    <link href="https://qybit.gitee.io/2021/02/07/ckkxo9kh90010v4tp3cnw68af/"/>
+    <id>https://qybit.gitee.io/2021/02/07/ckkxo9kh90010v4tp3cnw68af/</id>
     <published>2021-02-06T19:02:36.000Z</published>
     <updated>2021-02-07T10:58:18.335Z</updated>
     
@@ -67,8 +90,8 @@
   
   <entry>
     <title>127 单词接龙</title>
-    <link href="https://qybit.gitee.io/2021/02/06/ckkw7ovem0007w8tpfvsrcf9s/"/>
-    <id>https://qybit.gitee.io/2021/02/06/ckkw7ovem0007w8tpfvsrcf9s/</id>
+    <link href="https://qybit.gitee.io/2021/02/06/ckkxo9kgv000bv4tpgq6564ie/"/>
+    <id>https://qybit.gitee.io/2021/02/06/ckkxo9kgv000bv4tpgq6564ie/</id>
     <published>2021-02-06T00:52:41.000Z</published>
     <updated>2021-02-07T10:58:18.338Z</updated>
     
@@ -91,8 +114,8 @@
   
   <entry>
     <title>1625 执行操作后字典序最小的字符串</title>
-    <link href="https://qybit.gitee.io/2021/02/06/ckkw7ovep000bw8tp7weld6nj/"/>
-    <id>https://qybit.gitee.io/2021/02/06/ckkw7ovep000bw8tp7weld6nj/</id>
+    <link href="https://qybit.gitee.io/2021/02/06/ckkxo9kgu0009v4tpb8uz405x/"/>
+    <id>https://qybit.gitee.io/2021/02/06/ckkxo9kgu0009v4tpb8uz405x/</id>
     <published>2021-02-05T23:30:40.000Z</published>
     <updated>2021-02-07T10:58:18.340Z</updated>
     
@@ -122,8 +145,8 @@
   
   <entry>
     <title>1208 尽可能使字符串相等</title>
-    <link href="https://qybit.gitee.io/2021/02/05/ckkw7ovea0001w8tp8ikdej40/"/>
-    <id>https://qybit.gitee.io/2021/02/05/ckkw7ovea0001w8tp8ikdej40/</id>
+    <link href="https://qybit.gitee.io/2021/02/05/ckkxo9kgq0005v4tperh5gcw4/"/>
+    <id>https://qybit.gitee.io/2021/02/05/ckkxo9kgq0005v4tperh5gcw4/</id>
     <published>2021-02-04T17:40:56.000Z</published>
     <updated>2021-02-07T10:58:18.342Z</updated>
     
@@ -150,8 +173,8 @@
   
   <entry>
     <title>480 滑动窗口中位数</title>
-    <link href="https://qybit.gitee.io/2021/02/03/ckkw7ovez000pw8tphvst67m0/"/>
-    <id>https://qybit.gitee.io/2021/02/03/ckkw7ovez000pw8tphvst67m0/</id>
+    <link href="https://qybit.gitee.io/2021/02/03/ckkxo9kh6000wv4tp9c8059nm/"/>
+    <id>https://qybit.gitee.io/2021/02/03/ckkxo9kh6000wv4tp9c8059nm/</id>
     <published>2021-02-02T20:56:57.000Z</published>
     <updated>2021-02-07T10:58:18.344Z</updated>
     
@@ -178,8 +201,8 @@
   
   <entry>
     <title>1540 K次操作转变字符串</title>
-    <link href="https://qybit.gitee.io/2021/02/02/ckkw7oveo0009w8tp2hr9391p/"/>
-    <id>https://qybit.gitee.io/2021/02/02/ckkw7oveo0009w8tp2hr9391p/</id>
+    <link href="https://qybit.gitee.io/2021/02/02/ckkxo9kh0000iv4tpaqrx56d5/"/>
+    <id>https://qybit.gitee.io/2021/02/02/ckkxo9kh0000iv4tpaqrx56d5/</id>
     <published>2021-02-02T04:25:15.000Z</published>
     <updated>2021-02-07T10:58:18.346Z</updated>
     
@@ -204,8 +227,8 @@
   
   <entry>
     <title>410 分割数组的最大值</title>
-    <link href="https://qybit.gitee.io/2021/02/02/ckkw7ovex000mw8tp09m2c32g/"/>
-    <id>https://qybit.gitee.io/2021/02/02/ckkw7ovex000mw8tp09m2c32g/</id>
+    <link href="https://qybit.gitee.io/2021/02/02/ckkxo9kh2000kv4tp3qp7e07d/"/>
+    <id>https://qybit.gitee.io/2021/02/02/ckkxo9kh2000kv4tp3qp7e07d/</id>
     <published>2021-02-01T19:39:36.000Z</published>
     <updated>2021-02-07T10:58:18.348Z</updated>
     
@@ -227,8 +250,8 @@
   
   <entry>
     <title>424 替换后的最长重复字符</title>
-    <link href="https://qybit.gitee.io/2021/02/02/ckkw7oveu000hw8tp5qgcdv0f/"/>
-    <id>https://qybit.gitee.io/2021/02/02/ckkw7oveu000hw8tp5qgcdv0f/</id>
+    <link href="https://qybit.gitee.io/2021/02/02/ckkxo9kh3000ov4tpa5h8903p/"/>
+    <id>https://qybit.gitee.io/2021/02/02/ckkxo9kh3000ov4tpa5h8903p/</id>
     <published>2021-02-01T18:50:03.000Z</published>
     <updated>2021-02-07T10:58:18.349Z</updated>
     
@@ -250,8 +273,8 @@
   
   <entry>
     <title>1128 等价多米诺骨牌对的数量</title>
-    <link href="https://qybit.gitee.io/2021/01/26/ckkw7oveh0003w8tpblo3ad3f/"/>
-    <id>https://qybit.gitee.io/2021/01/26/ckkw7oveh0003w8tpblo3ad3f/</id>
+    <link href="https://qybit.gitee.io/2021/01/26/ckkxo9kgm0003v4tp1kr50m2s/"/>
+    <id>https://qybit.gitee.io/2021/01/26/ckkxo9kgm0003v4tp1kr50m2s/</id>
     <published>2021-01-26T02:25:06.000Z</published>
     <updated>2021-02-07T10:58:21.472Z</updated>
     
@@ -276,8 +299,8 @@
   
   <entry>
     <title>关于Promise的学习笔记</title>
-    <link href="https://qybit.gitee.io/2021/01/24/ckkw7ovfb001dw8tpal8j1tms/"/>
-    <id>https://qybit.gitee.io/2021/01/24/ckkw7ovfb001dw8tpal8j1tms/</id>
+    <link href="https://qybit.gitee.io/2021/01/24/ckkxo9khb0016v4tp6xvm0cb2/"/>
+    <id>https://qybit.gitee.io/2021/01/24/ckkxo9khb0016v4tp6xvm0cb2/</id>
     <published>2021-01-24T08:58:11.000Z</published>
     <updated>2021-02-07T10:58:21.492Z</updated>
     
@@ -304,8 +327,8 @@
   
   <entry>
     <title>第224场周赛</title>
-    <link href="https://qybit.gitee.io/2021/01/17/ckkw7ovfw002iw8tphwygeleh/"/>
-    <id>https://qybit.gitee.io/2021/01/17/ckkw7ovfw002iw8tphwygeleh/</id>
+    <link href="https://qybit.gitee.io/2021/01/17/ckkxo9khs002gv4tp12rk6n2b/"/>
+    <id>https://qybit.gitee.io/2021/01/17/ckkxo9khs002gv4tp12rk6n2b/</id>
     <published>2021-01-17T07:09:09.000Z</published>
     <updated>2021-02-07T11:07:46.055Z</updated>
     
@@ -341,8 +364,8 @@
   
   <entry>
     <title>第43场双周赛</title>
-    <link href="https://qybit.gitee.io/2021/01/12/ckkw7ovg50033w8tphd921adx/"/>
-    <id>https://qybit.gitee.io/2021/01/12/ckkw7ovg50033w8tphd921adx/</id>
+    <link href="https://qybit.gitee.io/2021/01/12/ckkxo9ki30035v4tpguq635cn/"/>
+    <id>https://qybit.gitee.io/2021/01/12/ckkxo9ki30035v4tpguq635cn/</id>
     <published>2021-01-12T06:06:02.000Z</published>
     <updated>2021-02-07T10:58:21.489Z</updated>
     
@@ -384,8 +407,8 @@
   
   <entry>
     <title>第222场周赛</title>
-    <link href="https://qybit.gitee.io/2021/01/03/ckkw7ovfu002gw8tpaz7h5u8n/"/>
-    <id>https://qybit.gitee.io/2021/01/03/ckkw7ovfu002gw8tpaz7h5u8n/</id>
+    <link href="https://qybit.gitee.io/2021/01/03/ckkxo9kht002jv4tp60i18pgk/"/>
+    <id>https://qybit.gitee.io/2021/01/03/ckkxo9kht002jv4tp60i18pgk/</id>
     <published>2021-01-03T12:14:33.000Z</published>
     <updated>2021-02-07T11:07:46.054Z</updated>
     
@@ -411,9 +434,9 @@
       <category term="周赛" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/%E7%AE%97%E6%B3%95/%E5%91%A8%E8%B5%9B/"/>
     
     
-      <category term="双指针" scheme="https://qybit.gitee.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
-    
       <category term="数组" scheme="https://qybit.gitee.io/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="双指针" scheme="https://qybit.gitee.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
     
       <category term="贪心" scheme="https://qybit.gitee.io/tags/%E8%B4%AA%E5%BF%83/"/>
     
@@ -425,8 +448,8 @@
   
   <entry>
     <title>一文解决Tomcat开发中乱码的问题</title>
-    <link href="https://qybit.gitee.io/2020/12/31/ckkw7ovf70018w8tp7g6icmc2/"/>
-    <id>https://qybit.gitee.io/2020/12/31/ckkw7ovf70018w8tp7g6icmc2/</id>
+    <link href="https://qybit.gitee.io/2020/12/31/ckkxo9khd001ev4tp6r2o3j37/"/>
+    <id>https://qybit.gitee.io/2020/12/31/ckkxo9khd001ev4tp6r2o3j37/</id>
     <published>2020-12-31T07:20:40.000Z</published>
     <updated>2021-02-07T10:58:21.476Z</updated>
     
@@ -458,8 +481,8 @@
   
   <entry>
     <title>第221场周赛</title>
-    <link href="https://qybit.gitee.io/2020/12/29/ckkw7ovfs002cw8tp9fc6h3bd/"/>
-    <id>https://qybit.gitee.io/2020/12/29/ckkw7ovfs002cw8tp9fc6h3bd/</id>
+    <link href="https://qybit.gitee.io/2020/12/29/ckkxo9khu002mv4tpcqor88lc/"/>
+    <id>https://qybit.gitee.io/2020/12/29/ckkxo9khu002mv4tpcqor88lc/</id>
     <published>2020-12-29T03:06:13.000Z</published>
     <updated>2021-02-07T10:58:21.497Z</updated>
     
@@ -501,8 +524,8 @@
   
   <entry>
     <title>第42场双周赛</title>
-    <link href="https://qybit.gitee.io/2020/12/28/ckkw7ovg30030w8tp0gut1er0/"/>
-    <id>https://qybit.gitee.io/2020/12/28/ckkw7ovg30030w8tp0gut1er0/</id>
+    <link href="https://qybit.gitee.io/2020/12/28/ckkxo9ki10031v4tp4fud4kb0/"/>
+    <id>https://qybit.gitee.io/2020/12/28/ckkxo9ki10031v4tp4fud4kb0/</id>
     <published>2020-12-28T02:28:40.000Z</published>
     <updated>2021-02-07T10:58:21.498Z</updated>
     
@@ -544,8 +567,8 @@
   
   <entry>
     <title>第220场周赛</title>
-    <link href="https://qybit.gitee.io/2020/12/20/ckkw7ovfr0029w8tp48puf9bl/"/>
-    <id>https://qybit.gitee.io/2020/12/20/ckkw7ovfr0029w8tp48puf9bl/</id>
+    <link href="https://qybit.gitee.io/2020/12/20/ckkxo9khp0028v4tp6zxbbkol/"/>
+    <id>https://qybit.gitee.io/2020/12/20/ckkxo9khp0028v4tp6zxbbkol/</id>
     <published>2020-12-20T11:44:32.000Z</published>
     <updated>2021-02-07T10:58:21.496Z</updated>
     
@@ -586,8 +609,8 @@
   
   <entry>
     <title>460 LFU缓存</title>
-    <link href="https://qybit.gitee.io/2020/12/14/ckkw7ovf1000uw8tpesr7edrz/"/>
-    <id>https://qybit.gitee.io/2020/12/14/ckkw7ovf1000uw8tpesr7edrz/</id>
+    <link href="https://qybit.gitee.io/2020/12/14/ckkxo9kh5000uv4tphkna87ni/"/>
+    <id>https://qybit.gitee.io/2020/12/14/ckkxo9kh5000uv4tphkna87ni/</id>
     <published>2020-12-14T02:47:21.000Z</published>
     <updated>2021-02-07T10:58:21.475Z</updated>
     
@@ -611,47 +634,6 @@
       <category term="LFU" scheme="https://qybit.gitee.io/tags/LFU/"/>
     
       <category term="设计" scheme="https://qybit.gitee.io/tags/%E8%AE%BE%E8%AE%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>第219场周赛</title>
-    <link href="https://qybit.gitee.io/2020/12/13/ckkw7ovfq0025w8tpfn56dfbn/"/>
-    <id>https://qybit.gitee.io/2020/12/13/ckkw7ovfq0025w8tpfn56dfbn/</id>
-    <published>2020-12-13T09:31:54.000Z</published>
-    <updated>2021-02-07T10:58:21.482Z</updated>
-    
-    <content type="html"><![CDATA[<p>题单：</p><ul><li> <a href="https://leetcode-cn.com/problems/count-of-matches-in-tournament/">比赛中的配对次数</a></li><li> <a href="https://leetcode-cn.com/problems/partitioning-into-minimum-number-of-deci-binary-numbers/">十-二进制数的最少数目</a></li><li> <a href="https://leetcode-cn.com/problems/stone-game-vii/">石子游戏 VII</a></li><li> <a href="https://leetcode-cn.com/problems/maximum-height-by-stacking-cuboids/">堆叠长方体的最大高度</a></li></ul><a id="more"></a><h3 id="T1：比赛中的配对次数"><a href="#T1：比赛中的配对次数" class="headerlink" title="T1：比赛中的配对次数"></a>T1：<a href="https://leetcode-cn.com/problems/count-of-matches-in-tournament/">比赛中的配对次数</a></h3><p><strong>方法一</strong>：模拟</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numberOfMatches</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (n &gt; <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (n % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">                res += n/<span class="number">2</span>;</span><br><span class="line">                n /= <span class="number">2</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                res += (n-<span class="number">1</span>)/<span class="number">2</span>;</span><br><span class="line">                n = (n-<span class="number">1</span>)/<span class="number">2</span> + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong>：</p><p>时间复杂度：$O(logN)$</p><p>空间复杂度：$O(1)$</p><h3 id="T2：十-二进制数的最少数目"><a href="#T2：十-二进制数的最少数目" class="headerlink" title="T2：十-二进制数的最少数目"></a>T2：<a href="https://leetcode-cn.com/problems/partitioning-into-minimum-number-of-deci-binary-numbers/">十-二进制数的最少数目</a></h3><p><strong>开头</strong></p><p>对于 n = “123”</p><p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5fd5f3b23ffa7d37b375d1eb.png"></p><p>可以发现，最少也需要 <code>k = 3</code> 个，二进制串。<code>123 = 111 + 11 + 1</code></p><p>由于 n 是十进制数，所以 k 最大值为 9。即 $0 \le k \le 9$</p><p>我们还可以发现，这几个二进制串之间是独立的，不存在进位的情况，所以对于任意一个十进制数，我们只需要找到其中的最大值即可。</p><p><strong>代码</strong></p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minPartitions</span><span class="params">(String n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> c : n.toCharArray()) res = Math.max(res, c-<span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong>：</p><p>时间复杂度：$O(n)$</p><p>空间复杂度：$O(1)$</p><h3 id="T3：石子游戏-VII"><a href="#T3：石子游戏-VII" class="headerlink" title="T3：石子游戏 VII"></a>T3：<a href="https://leetcode-cn.com/problems/stone-game-vii/">石子游戏 VII</a></h3><p><strong>开头</strong></p><p>首先，仍然是 Alice 先手。</p><p>这次的游戏规则是</p><ul><li>对这排石子，两人只能 <strong>移除</strong> 最左边或者最右边的石头。</li><li>得分是计算 <strong>剩余所有石子的值</strong>。</li><li>Alice 的目标是 <strong>最大的扩大得分</strong>， Bob 的目标是 <strong>尽可能的减少得分的差距</strong></li></ul><p>如何理解<strong>尽可能的减少得分的差距</strong>，例如 <code>stones=[4,3,5]</code></p><p>在 Alice 操作的情况下</p><ul><li>第一步移除 <code>4</code>，得分 5+ 3 = 8，此时 <code>stones=[5,3]</code></li><li>Bob 操作时，Bob 会移除 <code>3</code> ，所以 Bob 得分 5，此时 <code>stones=[5]</code></li><li>第二步移除 <code>5</code>，得分 0</li></ul><p>所以在 Alice 的操作下，最大得分为 8，Bob 得分 5。此时的得分差距是 3</p><p><strong>方法一</strong>：动态规划</p><p>这是属于 <strong>博弈DP</strong> 的一种，博弈中决策的出发点：就是在最坏的情况中选择最好的结果</p><p>定义 $f[i][j]$ 为区间 $[i, j]$ 先手减去后手的最大差值。</p><p>定义 $s[i]$ 为区间 $[0, i]$之间的区间和。</p><p>下面开始推状态转移方程：</p><p>从 Alice 视角开始出发，当 Alice 面对的局面时 $[i, j]$ 时</p><ul><li>当 Alice 移除最左边的元素时，此时 Alice 的得分 $Sum[i, j]$，而下一手对于 Bob 而言，他面对的情况就是 $[i+1, j]$ </li><li>当 Alice 移除最右边的元素时，此时 Alice 的得分是 $Sum[i-1, j-1]$，而下一手对于 Bob 而言，他面对的情况就是 $[i, j-1]$</li><li>Alice 面对的最坏的情况就是留给 Bob 的最好的情况，我们需要选取两者中最高的得分。</li></ul><p><strong>代码</strong></p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">stoneGameVII</span><span class="params">(<span class="keyword">int</span>[] stones)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n =  stones.length;</span><br><span class="line">        <span class="keyword">int</span>[] s = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) s[i] = s[i-<span class="number">1</span>] + stones[i-<span class="number">1</span>];</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span>[][] f = <span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>][n+<span class="number">1</span>];</span><br><span class="line">        <span class="comment">// 区间</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> len = <span class="number">2</span>; len &lt;= n; len++) &#123;</span><br><span class="line">            <span class="comment">// 左右边界</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i + len - <span class="number">1</span> &lt;= n; i++) &#123;</span><br><span class="line">                <span class="keyword">int</span> j = i + len - <span class="number">1</span>;</span><br><span class="line">                f[i][j] = Math.max(s[j]-s[i]-f[i+<span class="number">1</span>][j], s[j-<span class="number">1</span>]-s[i-<span class="number">1</span>]-f[i][j-<span class="number">1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f[<span class="number">1</span>][n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong>：</p><p>时间复杂度：$O(n^2)$</p><p>空间复杂度：$O(n^2)$</p><h3 id="T4：堆叠长方体的最大高度"><a href="#T4：堆叠长方体的最大高度" class="headerlink" title="T4：堆叠长方体的最大高度"></a>T4：<a href="https://leetcode-cn.com/problems/maximum-height-by-stacking-cuboids/">堆叠长方体的最大高度</a></h3><p><strong>开头</strong></p><p>任意一个长方体是可以随意沿着 <code>x, y, z</code> 进行旋转操作的，我们必须要实现，从最底层开始长方体的高是逐渐递减的。</p><p><strong>方法一</strong>：动态规划</p><p>先把每个长方体的长宽高升序排序，然后再以第一个元素，第二个元素，第三个元素优先级升序排序。</p><p><strong>代码</strong></p><p>cpp</p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxHeight</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; w)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;x : w) sort(x.begin(), x.end());</span><br><span class="line">        sort(w.begin(), w.end(), greater&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;());</span><br><span class="line">        <span class="keyword">int</span> n = w.size();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">f</span><span class="params">(n)</span></span>;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            f[i] = w[i][<span class="number">2</span>];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (w[j][<span class="number">0</span>] &gt;= w[i][<span class="number">0</span>] &amp;&amp; w[j][<span class="number">1</span>] &gt;= w[i][<span class="number">1</span>] &amp;&amp; w[j][<span class="number">2</span>] &gt;= w[i][<span class="number">2</span>]) &#123;</span><br><span class="line">                    f[i] = max(f[i], f[j]+w[i][<span class="number">2</span>]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            res = max(res, f[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>java</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxHeight</span><span class="params">(<span class="keyword">int</span>[][] cuboids)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] x : cuboids) &#123;</span><br><span class="line">            Arrays.sort(x);</span><br><span class="line">        &#125;</span><br><span class="line">        Arrays.sort(cuboids, ((o1, o2) -&gt; &#123;</span><br><span class="line">            <span class="keyword">if</span> (o1[<span class="number">0</span>] == o2[<span class="number">0</span>]) &#123;</span><br><span class="line">                <span class="keyword">if</span> (o1[<span class="number">1</span>] == o2[<span class="number">1</span>]) &#123;</span><br><span class="line">                    <span class="keyword">return</span> o2[<span class="number">2</span>] - o1[<span class="number">2</span>];</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> o2[<span class="number">1</span>] - o1[<span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> o2[<span class="number">0</span>] - o1[<span class="number">0</span>];</span><br><span class="line">        &#125;));</span><br><span class="line">        <span class="comment">//  for (int[] ints : cuboids) &#123;</span></span><br><span class="line">        <span class="comment">//     System.out.println(Arrays.toString(ints));</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line">        <span class="keyword">int</span> n = cuboids.length;</span><br><span class="line">        <span class="keyword">int</span>[] f = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span> ;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            f[i] = cuboids[i][<span class="number">2</span>];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (cuboids[j][<span class="number">0</span>] &gt;= cuboids[i][<span class="number">0</span>] &amp;&amp; cuboids[j][<span class="number">1</span>] &gt;= cuboids[i][<span class="number">1</span>] </span><br><span class="line">                &amp;&amp; cuboids[j][<span class="number">2</span>] &gt;= cuboids[i][<span class="number">2</span>]) &#123;</span><br><span class="line">                    f[i] = Math.max(f[i], f[j] + cuboids[i][<span class="number">2</span>]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            res = Math.max(f[i], res);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>复杂度分析</p><p>时间复杂度：$O(N^2logN)$</p><p>空间复杂度：$O(N)$</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;题单：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt; &lt;a href=&quot;https://leetcode-cn.com/problems/count-of-matches-in-tournament/&quot;&gt;比赛中的配对次数&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt; &lt;a href=&quot;https://leetcode-cn.com/problems/partitioning-into-minimum-number-of-deci-binary-numbers/&quot;&gt;十-二进制数的最少数目&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt; &lt;a href=&quot;https://leetcode-cn.com/problems/stone-game-vii/&quot;&gt;石子游戏 VII&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt; &lt;a href=&quot;https://leetcode-cn.com/problems/maximum-height-by-stacking-cuboids/&quot;&gt;堆叠长方体的最大高度&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="力扣" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/"/>
-    
-      <category term="算法" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="周赛" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/%E7%AE%97%E6%B3%95/%E5%91%A8%E8%B5%9B/"/>
-    
-    
-      <category term="贪心" scheme="https://qybit.gitee.io/tags/%E8%B4%AA%E5%BF%83/"/>
-    
-      <category term="DP" scheme="https://qybit.gitee.io/tags/DP/"/>
-    
-      <category term="排序" scheme="https://qybit.gitee.io/tags/%E6%8E%92%E5%BA%8F/"/>
-    
-      <category term="回溯" scheme="https://qybit.gitee.io/tags/%E5%9B%9E%E6%BA%AF/"/>
-    
-      <category term="动态规划" scheme="https://qybit.gitee.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
   </entry>
   
