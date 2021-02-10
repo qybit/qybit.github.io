@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://qybit.gitee.io/"/>
-  <updated>2021-02-09T07:16:50.339Z</updated>
+  <updated>2021-02-10T04:26:16.183Z</updated>
   <id>https://qybit.gitee.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>567. 字符串的排列</title>
+    <link href="https://qybit.gitee.io/2021/02/10/567/"/>
+    <id>https://qybit.gitee.io/2021/02/10/567/</id>
+    <published>2021-02-10T02:58:01.000Z</published>
+    <updated>2021-02-10T04:26:16.183Z</updated>
+    
+    <content type="html"><![CDATA[<p>力扣链接：<a href="https://leetcode-cn.com/problems/permutation-in-string/">567. 字符串的排列</a></p><p>相似题目推荐：</p><ul><li> <a href="https://leetcode-cn.com/problems/minimum-window-substring/">76. 最小覆盖子串</a></li></ul><a id="more"></a><h1 id="方法一：双指针"><a href="#方法一：双指针" class="headerlink" title="方法一：双指针"></a>方法一：双指针</h1><h2 id="开头"><a href="#开头" class="headerlink" title="开头"></a>开头</h2><p>题目的意思很清楚，我们需要在字符串 <code>s2</code> 中找到一段连续的子数组包含字符串 <code>s1</code> 中所有的字符，不论顺序。</p><h2 id="编码思路"><a href="#编码思路" class="headerlink" title="编码思路"></a>编码思路</h2><p>双指针的具体做法：</p><ul><li>我们要求的是排列，因此我们只需要考虑<strong>种类</strong>和<strong>数量</strong>；</li><li>使用两个指针$left$ 和 $right$，表示我们在$s2$上遍历的区间$[left,right]$，使用一个变量$count$ 表示当遍历区间时，区间内字符出现在$s1$的种类数：<ul><li>如果一个字符的出现次数恰好等于字符串$s1$的出现次数，那么 $count+=1$</li><li>当左端点移动时，某个字符出现次数减少了，恰好小于$s1$的出现次数，那么 $count-=1$</li><li>当区间$[left, right]$内出现的字符种类数和$s1$的字符种类数相同时，我们固定$right$。然后移动$left$，使得$right-left == |s1|$，其中$|s1|$为字符串$s1$的长度。这样我们就找到了$s1$在$s2$的一个排列。</li></ul></li></ul><p>暴力是否可行？</p><p>这道题的数据范围比较小，才 $10^4$，因此暴力的时间复杂度是$O(N^2)$，计算量是 $10^8$，在力扣应该够用的。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">checkInclusion</span><span class="params">(<span class="built_in">string</span> s1, <span class="built_in">string</span> s2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = s1.size();</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n = s2.size();</span><br><span class="line">        <span class="keyword">int</span> preCount = <span class="number">0</span>;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">hash</span><span class="params">(<span class="number">26</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">need</span><span class="params">(<span class="number">26</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;x : s1) need[x - <span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (need[i] &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                preCount++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (right &lt; n) &#123;</span><br><span class="line">            <span class="keyword">char</span> c1 = s2[right++];</span><br><span class="line">            <span class="keyword">if</span> (need[c1 - <span class="string">&#x27;a&#x27;</span>] &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                hash[c1 - <span class="string">&#x27;a&#x27;</span>] ++;</span><br><span class="line">                <span class="keyword">if</span> (hash[c1 - <span class="string">&#x27;a&#x27;</span>] == need[c1 - <span class="string">&#x27;a&#x27;</span>]) &#123;</span><br><span class="line">                    count++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (count == preCount) &#123;</span><br><span class="line">                <span class="keyword">if</span> (right - left == len) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">char</span> c2 = s2[left++];</span><br><span class="line">                <span class="keyword">if</span> (need[c2 - <span class="string">&#x27;a&#x27;</span>] &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    hash[c2 - <span class="string">&#x27;a&#x27;</span>]--;</span><br><span class="line">                    <span class="keyword">if</span> (hash[c2 - <span class="string">&#x27;a&#x27;</span>] &lt; need[c2 - <span class="string">&#x27;a&#x27;</span>]) &#123;</span><br><span class="line">                        count--;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(|s1| + |s2| + |\sum|)$，其中 $|s1|$表示字符串$s1$的长度，$|s2|$表示字符串$s2$的长度，其中$\sum$表示我们存储的小写字母的数量，其中$\sum$表示我们存储的字母出现次数，其大小取决于出现的字母 $ASCII$ 的最大值和最小值。</p><ul><li>我们会遍历字符串$s1$，时间复杂度$O(|s1|)$</li><li>我们还会遍历字符串$s1$的哈希数组，时间复杂度$O(|\sum|)$</li><li>双指针需要遍历字符串$s2$，时间复杂度$O(|s2|)$</li></ul><p>空间复杂度：$O(|\sum|)$</p><h2 id="暴力代码"><a href="#暴力代码" class="headerlink" title="暴力代码"></a>暴力代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">checkInclusion</span><span class="params">(<span class="built_in">string</span> s1, <span class="built_in">string</span> s2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (s1.size() &gt; s2.size()) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">int</span> len = s1.size();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">hash</span><span class="params">(<span class="number">26</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;x : s1) hash[x - <span class="string">&#x27;a&#x27;</span>] ++;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= s2.size() - len; i ++) &#123;</span><br><span class="line">            <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">f</span><span class="params">(<span class="number">26</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &lt; i + len; j++) &#123;</span><br><span class="line">                f[s2[j] - <span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">bool</span> flag = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">26</span>; j ++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (f[j] != hash[j]) &#123;</span><br><span class="line">                    flag = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (flag) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(|s1| + |s2| \times |s1|)$</p><ul><li>我们需要在字符串$s2$ 上，暴力枚举 $|s2| - |s1|$ 次，来找子区间是否为字符串$s1$的一个排列。</li></ul><p>空间复杂度：$O(\sum)$，其中$\sum$为字符集大小。</p>]]></content>
+    
+    <summary type="html">
+    
+      力扣567题题解
+    
+    </summary>
+    
+    
+      <category term="力扣" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/"/>
+    
+    
+      <category term="双指针" scheme="https://qybit.gitee.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
+    
+  </entry>
   
   <entry>
     <title>992. K 个不同整数的子数组</title>
@@ -66,8 +89,8 @@
   
   <entry>
     <title>665 非递减数列</title>
-    <link href="https://qybit.gitee.io/2021/02/07/ckkxo9kh90010v4tp3cnw68af/"/>
-    <id>https://qybit.gitee.io/2021/02/07/ckkxo9kh90010v4tp3cnw68af/</id>
+    <link href="https://qybit.gitee.io/2021/02/07/ckkyxmbew0015ygtp1wr41o7v/"/>
+    <id>https://qybit.gitee.io/2021/02/07/ckkyxmbew0015ygtp1wr41o7v/</id>
     <published>2021-02-06T19:02:36.000Z</published>
     <updated>2021-02-07T10:58:18.335Z</updated>
     
@@ -90,8 +113,8 @@
   
   <entry>
     <title>127 单词接龙</title>
-    <link href="https://qybit.gitee.io/2021/02/06/ckkxo9kgv000bv4tpgq6564ie/"/>
-    <id>https://qybit.gitee.io/2021/02/06/ckkxo9kgv000bv4tpgq6564ie/</id>
+    <link href="https://qybit.gitee.io/2021/02/06/ckkyxmbea0009ygtp6iyn8t4q/"/>
+    <id>https://qybit.gitee.io/2021/02/06/ckkyxmbea0009ygtp6iyn8t4q/</id>
     <published>2021-02-06T00:52:41.000Z</published>
     <updated>2021-02-07T10:58:18.338Z</updated>
     
@@ -114,8 +137,8 @@
   
   <entry>
     <title>1625 执行操作后字典序最小的字符串</title>
-    <link href="https://qybit.gitee.io/2021/02/06/ckkxo9kgu0009v4tpb8uz405x/"/>
-    <id>https://qybit.gitee.io/2021/02/06/ckkxo9kgu0009v4tpb8uz405x/</id>
+    <link href="https://qybit.gitee.io/2021/02/06/ckkyxmbeb000bygtp0ofvacm4/"/>
+    <id>https://qybit.gitee.io/2021/02/06/ckkyxmbeb000bygtp0ofvacm4/</id>
     <published>2021-02-05T23:30:40.000Z</published>
     <updated>2021-02-07T10:58:18.340Z</updated>
     
@@ -145,8 +168,8 @@
   
   <entry>
     <title>1208 尽可能使字符串相等</title>
-    <link href="https://qybit.gitee.io/2021/02/05/ckkxo9kgq0005v4tperh5gcw4/"/>
-    <id>https://qybit.gitee.io/2021/02/05/ckkxo9kgq0005v4tperh5gcw4/</id>
+    <link href="https://qybit.gitee.io/2021/02/05/ckkyxmbe20003ygtphkga9bm0/"/>
+    <id>https://qybit.gitee.io/2021/02/05/ckkyxmbe20003ygtphkga9bm0/</id>
     <published>2021-02-04T17:40:56.000Z</published>
     <updated>2021-02-07T10:58:18.342Z</updated>
     
@@ -173,8 +196,8 @@
   
   <entry>
     <title>480 滑动窗口中位数</title>
-    <link href="https://qybit.gitee.io/2021/02/03/ckkxo9kh6000wv4tp9c8059nm/"/>
-    <id>https://qybit.gitee.io/2021/02/03/ckkxo9kh6000wv4tp9c8059nm/</id>
+    <link href="https://qybit.gitee.io/2021/02/03/ckkyxmbem000nygtp4fwq5467/"/>
+    <id>https://qybit.gitee.io/2021/02/03/ckkyxmbem000nygtp4fwq5467/</id>
     <published>2021-02-02T20:56:57.000Z</published>
     <updated>2021-02-07T10:58:18.344Z</updated>
     
@@ -201,8 +224,8 @@
   
   <entry>
     <title>1540 K次操作转变字符串</title>
-    <link href="https://qybit.gitee.io/2021/02/02/ckkxo9kh0000iv4tpaqrx56d5/"/>
-    <id>https://qybit.gitee.io/2021/02/02/ckkxo9kh0000iv4tpaqrx56d5/</id>
+    <link href="https://qybit.gitee.io/2021/02/02/ckkyxmbe80007ygtp9g4m840y/"/>
+    <id>https://qybit.gitee.io/2021/02/02/ckkyxmbe80007ygtp9g4m840y/</id>
     <published>2021-02-02T04:25:15.000Z</published>
     <updated>2021-02-07T10:58:18.346Z</updated>
     
@@ -227,8 +250,8 @@
   
   <entry>
     <title>410 分割数组的最大值</title>
-    <link href="https://qybit.gitee.io/2021/02/02/ckkxo9kh2000kv4tp3qp7e07d/"/>
-    <id>https://qybit.gitee.io/2021/02/02/ckkxo9kh2000kv4tp3qp7e07d/</id>
+    <link href="https://qybit.gitee.io/2021/02/02/ckkyxmbej000iygtpcee3azha/"/>
+    <id>https://qybit.gitee.io/2021/02/02/ckkyxmbej000iygtpcee3azha/</id>
     <published>2021-02-01T19:39:36.000Z</published>
     <updated>2021-02-07T10:58:18.348Z</updated>
     
@@ -250,8 +273,8 @@
   
   <entry>
     <title>424 替换后的最长重复字符</title>
-    <link href="https://qybit.gitee.io/2021/02/02/ckkxo9kh3000ov4tpa5h8903p/"/>
-    <id>https://qybit.gitee.io/2021/02/02/ckkxo9kh3000ov4tpa5h8903p/</id>
+    <link href="https://qybit.gitee.io/2021/02/02/ckkyxmbeo000rygtpcacjbn1b/"/>
+    <id>https://qybit.gitee.io/2021/02/02/ckkyxmbeo000rygtpcacjbn1b/</id>
     <published>2021-02-01T18:50:03.000Z</published>
     <updated>2021-02-07T10:58:18.349Z</updated>
     
@@ -273,8 +296,8 @@
   
   <entry>
     <title>1128 等价多米诺骨牌对的数量</title>
-    <link href="https://qybit.gitee.io/2021/01/26/ckkxo9kgm0003v4tp1kr50m2s/"/>
-    <id>https://qybit.gitee.io/2021/01/26/ckkxo9kgm0003v4tp1kr50m2s/</id>
+    <link href="https://qybit.gitee.io/2021/01/26/ckkyxmbdw0001ygtp88a7brh1/"/>
+    <id>https://qybit.gitee.io/2021/01/26/ckkyxmbdw0001ygtp88a7brh1/</id>
     <published>2021-01-26T02:25:06.000Z</published>
     <updated>2021-02-07T10:58:21.472Z</updated>
     
@@ -299,8 +322,8 @@
   
   <entry>
     <title>关于Promise的学习笔记</title>
-    <link href="https://qybit.gitee.io/2021/01/24/ckkxo9khb0016v4tp6xvm0cb2/"/>
-    <id>https://qybit.gitee.io/2021/01/24/ckkxo9khb0016v4tp6xvm0cb2/</id>
+    <link href="https://qybit.gitee.io/2021/01/24/ckkyxmbf6001kygtpem0i3azb/"/>
+    <id>https://qybit.gitee.io/2021/01/24/ckkyxmbf6001kygtpem0i3azb/</id>
     <published>2021-01-24T08:58:11.000Z</published>
     <updated>2021-02-07T10:58:21.492Z</updated>
     
@@ -327,8 +350,8 @@
   
   <entry>
     <title>第224场周赛</title>
-    <link href="https://qybit.gitee.io/2021/01/17/ckkxo9khs002gv4tp12rk6n2b/"/>
-    <id>https://qybit.gitee.io/2021/01/17/ckkxo9khs002gv4tp12rk6n2b/</id>
+    <link href="https://qybit.gitee.io/2021/01/17/ckkyxmbfp002oygtp5hiu1ima/"/>
+    <id>https://qybit.gitee.io/2021/01/17/ckkyxmbfp002oygtp5hiu1ima/</id>
     <published>2021-01-17T07:09:09.000Z</published>
     <updated>2021-02-07T11:07:46.055Z</updated>
     
@@ -364,8 +387,8 @@
   
   <entry>
     <title>第43场双周赛</title>
-    <link href="https://qybit.gitee.io/2021/01/12/ckkxo9ki30035v4tpguq635cn/"/>
-    <id>https://qybit.gitee.io/2021/01/12/ckkxo9ki30035v4tpguq635cn/</id>
+    <link href="https://qybit.gitee.io/2021/01/12/ckkyxmbg5003aygtpeawud8po/"/>
+    <id>https://qybit.gitee.io/2021/01/12/ckkyxmbg5003aygtpeawud8po/</id>
     <published>2021-01-12T06:06:02.000Z</published>
     <updated>2021-02-07T10:58:21.489Z</updated>
     
@@ -407,8 +430,8 @@
   
   <entry>
     <title>第222场周赛</title>
-    <link href="https://qybit.gitee.io/2021/01/03/ckkxo9kht002jv4tp60i18pgk/"/>
-    <id>https://qybit.gitee.io/2021/01/03/ckkxo9kht002jv4tp60i18pgk/</id>
+    <link href="https://qybit.gitee.io/2021/01/03/ckkyxmbfo002nygtpf8iwdj0w/"/>
+    <id>https://qybit.gitee.io/2021/01/03/ckkyxmbfo002nygtpf8iwdj0w/</id>
     <published>2021-01-03T12:14:33.000Z</published>
     <updated>2021-02-07T11:07:46.054Z</updated>
     
@@ -448,8 +471,8 @@
   
   <entry>
     <title>一文解决Tomcat开发中乱码的问题</title>
-    <link href="https://qybit.gitee.io/2020/12/31/ckkxo9khd001ev4tp6r2o3j37/"/>
-    <id>https://qybit.gitee.io/2020/12/31/ckkxo9khd001ev4tp6r2o3j37/</id>
+    <link href="https://qybit.gitee.io/2020/12/31/ckkyxmbf2001cygtp6rg5c68x/"/>
+    <id>https://qybit.gitee.io/2020/12/31/ckkyxmbf2001cygtp6rg5c68x/</id>
     <published>2020-12-31T07:20:40.000Z</published>
     <updated>2021-02-07T10:58:21.476Z</updated>
     
@@ -481,8 +504,8 @@
   
   <entry>
     <title>第221场周赛</title>
-    <link href="https://qybit.gitee.io/2020/12/29/ckkxo9khu002mv4tpcqor88lc/"/>
-    <id>https://qybit.gitee.io/2020/12/29/ckkxo9khu002mv4tpcqor88lc/</id>
+    <link href="https://qybit.gitee.io/2020/12/29/ckkyxmbfn002jygtpglpla63x/"/>
+    <id>https://qybit.gitee.io/2020/12/29/ckkyxmbfn002jygtpglpla63x/</id>
     <published>2020-12-29T03:06:13.000Z</published>
     <updated>2021-02-07T10:58:21.497Z</updated>
     
@@ -524,8 +547,8 @@
   
   <entry>
     <title>第42场双周赛</title>
-    <link href="https://qybit.gitee.io/2020/12/28/ckkxo9ki10031v4tp4fud4kb0/"/>
-    <id>https://qybit.gitee.io/2020/12/28/ckkxo9ki10031v4tp4fud4kb0/</id>
+    <link href="https://qybit.gitee.io/2020/12/28/ckkyxmbg10033ygtp1y9i0q84/"/>
+    <id>https://qybit.gitee.io/2020/12/28/ckkyxmbg10033ygtp1y9i0q84/</id>
     <published>2020-12-28T02:28:40.000Z</published>
     <updated>2021-02-07T10:58:21.498Z</updated>
     
@@ -567,8 +590,8 @@
   
   <entry>
     <title>第220场周赛</title>
-    <link href="https://qybit.gitee.io/2020/12/20/ckkxo9khp0028v4tp6zxbbkol/"/>
-    <id>https://qybit.gitee.io/2020/12/20/ckkxo9khp0028v4tp6zxbbkol/</id>
+    <link href="https://qybit.gitee.io/2020/12/20/ckkyxmbfm002hygtp7bi93ylp/"/>
+    <id>https://qybit.gitee.io/2020/12/20/ckkyxmbfm002hygtp7bi93ylp/</id>
     <published>2020-12-20T11:44:32.000Z</published>
     <updated>2021-02-07T10:58:21.496Z</updated>
     
@@ -604,36 +627,6 @@
       <category term="单调队列" scheme="https://qybit.gitee.io/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/"/>
     
       <category term="并查集" scheme="https://qybit.gitee.io/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>460 LFU缓存</title>
-    <link href="https://qybit.gitee.io/2020/12/14/ckkxo9kh5000uv4tphkna87ni/"/>
-    <id>https://qybit.gitee.io/2020/12/14/ckkxo9kh5000uv4tphkna87ni/</id>
-    <published>2020-12-14T02:47:21.000Z</published>
-    <updated>2021-02-07T10:58:21.475Z</updated>
-    
-    <content type="html"><![CDATA[<p><strong>开头</strong></p><p>采用自定义的双向链表来实现</p><p>Node：存储每一个 key, value, freq </p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> key;</span><br><span class="line">    <span class="keyword">int</span> value;</span><br><span class="line">    <span class="keyword">int</span> freq = <span class="number">1</span>;</span><br><span class="line">    Node pre;</span><br><span class="line">    Node next;</span><br><span class="line">    DoublyLinkedList linkedList;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(<span class="keyword">int</span> key, <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.key = key;</span><br><span class="line">        <span class="keyword">this</span>.value = value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><a id="more"></a><p>DoublyLinkedList：存储所有 freq 相同频率的节点对象</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DoublyLinkedList</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> freq;</span><br><span class="line">    DoublyLinkedList pre;</span><br><span class="line">    DoublyLinkedList next;</span><br><span class="line">    Node head;</span><br><span class="line">    Node tail;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DoublyLinkedList</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        head = <span class="keyword">new</span> Node();</span><br><span class="line">        tail = <span class="keyword">new</span> Node();</span><br><span class="line">        head.next = tail;</span><br><span class="line">        tail.pre = head;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DoublyLinkedList</span><span class="params">(<span class="keyword">int</span> freq)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.freq = freq;</span><br><span class="line">        head = <span class="keyword">new</span> Node();</span><br><span class="line">        tail = <span class="keyword">new</span> Node();</span><br><span class="line">        head.next = tail;</span><br><span class="line">        tail.pre = head;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addNode</span><span class="params">(Node node)</span> </span>&#123;</span><br><span class="line">        node.next = head.next;</span><br><span class="line">        head.next.pre = node;</span><br><span class="line">        head.next = node;</span><br><span class="line">        node.pre = head;</span><br><span class="line">        node.linkedList = <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeNode</span><span class="params">(Node node)</span> </span>&#123;</span><br><span class="line">        node.pre.next = node.next;</span><br><span class="line">        node.next.pre = node.pre;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>下面是算法实现的结构图：</p><p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5fd6d30e3ffa7d37b33e19f4.png"></p><p><strong>算法思路</strong></p><ul><li><p>初始化的时候，将 freq 链表的虚拟头尾节点全部初始化。</p></li><li><p>get 操作时，如果 HashMap 缓存中不存在 key 时，将返回 -1。如果存在，那么更新频率 freq ，此时需要考虑</p><ul><li>如果未更新前 freq 链表移除这个 Node 节点后，链表为空，此时需要删除原链表。</li><li>如果更新后的 freq 没有对应的链表，此时需要创建新的 freq 链表，然后添加。</li></ul></li><li><p>put 操作时，先检查容量。再检查缓存中是否存在值，如果存在那么说明 freq 链表是一定存在的，所以直接更新频率即可。</p><ul><li><p>如果缓存中不存在值，那么有两种可能，如果缓存的容量满了，那么需要删除最后一个节点，如图中红色标识的节点，然后再添加进入 freq = 1 的链表</p></li><li><p>如果还可以加入节点的话，先检查是否存在 freq = 1的链表，如果不存在先创建 freq=1 的链表，然后加入节点。存在 freq = 1 的链表，就直接加入。</p><p>以上就是整个 LFU-缓存 算法的详细思路。</p></li></ul><p>  <strong>代码</strong></p></li></ul><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> qybit</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@create</span> 2020-12-14 9:14</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Since</span> 1.0.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LFUCache</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    Map&lt;Integer, Node&gt; cache;</span><br><span class="line">    DoublyLinkedList firstLinkedList;</span><br><span class="line">    DoublyLinkedList lastLinkedList;</span><br><span class="line">    <span class="keyword">int</span> size;</span><br><span class="line">    <span class="keyword">int</span> capacity;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LFUCache</span><span class="params">(<span class="keyword">int</span> capacity)</span> </span>&#123;</span><br><span class="line">        cache = <span class="keyword">new</span> HashMap&lt;&gt;(capacity);</span><br><span class="line">        firstLinkedList = <span class="keyword">new</span> DoublyLinkedList();</span><br><span class="line">        lastLinkedList = <span class="keyword">new</span> DoublyLinkedList();</span><br><span class="line">        <span class="keyword">this</span>.capacity = capacity;</span><br><span class="line">        firstLinkedList.next = lastLinkedList;</span><br><span class="line">        lastLinkedList.pre = firstLinkedList;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">get</span><span class="params">(<span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line">        Node node = cache.get(key);</span><br><span class="line">        <span class="keyword">if</span> (node == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 访问频率 +1</span></span><br><span class="line">        freInc(node);</span><br><span class="line">        <span class="keyword">return</span> node.value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">(<span class="keyword">int</span> key, <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (capacity == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Node node = cache.get(key);</span><br><span class="line">        <span class="keyword">if</span> (node != <span class="keyword">null</span>) &#123;</span><br><span class="line">            node.value = value;</span><br><span class="line">            <span class="comment">// 频率 +1</span></span><br><span class="line">            freInc(node);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 若 key 不存在</span></span><br><span class="line">            <span class="keyword">if</span> (size == capacity) &#123;</span><br><span class="line">                <span class="comment">// 如果容量满了，此时需要移除最小访问频率的那个key</span></span><br><span class="line">                cache.remove(lastLinkedList.pre.tail.pre.key);</span><br><span class="line">                lastLinkedList.removeNode(lastLinkedList.pre.tail.pre);</span><br><span class="line">                size--;</span><br><span class="line">                <span class="comment">// 如果为空了，此时需要删除链表</span></span><br><span class="line">                <span class="keyword">if</span> (lastLinkedList.pre.head.next == lastLinkedList.pre.tail) &#123;</span><br><span class="line">                    removeDoublyLinkedList(lastLinkedList.pre);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 新节点，如果没有 freq == 1的链表则添加，</span></span><br><span class="line">            Node newNode = <span class="keyword">new</span> Node(key, value);</span><br><span class="line">            cache.put(key, newNode);</span><br><span class="line">            <span class="keyword">if</span> (lastLinkedList.pre.freq != <span class="number">1</span>) &#123;</span><br><span class="line">                DoublyLinkedList doublyLinkedList = <span class="keyword">new</span> DoublyLinkedList(<span class="number">1</span>);</span><br><span class="line">                addDoublyLinkedList(doublyLinkedList, lastLinkedList.pre);</span><br><span class="line">                doublyLinkedList.addNode(newNode);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                lastLinkedList.pre.addNode(newNode);</span><br><span class="line">            &#125;</span><br><span class="line">            size++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">addDoublyLinkedList</span><span class="params">(DoublyLinkedList doublyLinkedList, DoublyLinkedList preLinkedList)</span> </span>&#123;</span><br><span class="line">        doublyLinkedList.next = preLinkedList.next;</span><br><span class="line">        doublyLinkedList.next.pre = doublyLinkedList;</span><br><span class="line">        doublyLinkedList.pre = preLinkedList;</span><br><span class="line">        preLinkedList.next = doublyLinkedList;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">removeDoublyLinkedList</span><span class="params">(DoublyLinkedList doublyLinkedList)</span> </span>&#123;</span><br><span class="line">        doublyLinkedList.pre.next = doublyLinkedList.next;</span><br><span class="line">        doublyLinkedList.next.pre = doublyLinkedList.pre;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">freInc</span><span class="params">(Node node)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 先从原链表中 移除 node ，然后放入前一个节点，如果移除后，链表为空则删除，如果前一个链表不存在则创建新链表</span></span><br><span class="line">        DoublyLinkedList doublyLinkedList = node.linkedList;</span><br><span class="line">        DoublyLinkedList preDoublyLinkedList = doublyLinkedList.pre;</span><br><span class="line">        doublyLinkedList.removeNode(node);</span><br><span class="line">        <span class="keyword">if</span> (doublyLinkedList.head.next == doublyLinkedList.tail) &#123;</span><br><span class="line">            removeDoublyLinkedList(doublyLinkedList);</span><br><span class="line">        &#125;</span><br><span class="line">        node.freq++;</span><br><span class="line">        <span class="keyword">if</span> (preDoublyLinkedList.freq != node.freq) &#123;</span><br><span class="line">            DoublyLinkedList linkedList = <span class="keyword">new</span> DoublyLinkedList(node.freq);</span><br><span class="line">            addDoublyLinkedList(linkedList, preDoublyLinkedList);</span><br><span class="line">            linkedList.addNode(node);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            preDoublyLinkedList.addNode(node);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> key;</span><br><span class="line">    <span class="keyword">int</span> value;</span><br><span class="line">    <span class="keyword">int</span> freq = <span class="number">1</span>;</span><br><span class="line">    Node pre;</span><br><span class="line">    Node next;</span><br><span class="line">    DoublyLinkedList linkedList;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(<span class="keyword">int</span> key, <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.key = key;</span><br><span class="line">        <span class="keyword">this</span>.value = value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DoublyLinkedList</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> freq;</span><br><span class="line">    DoublyLinkedList pre;</span><br><span class="line">    DoublyLinkedList next;</span><br><span class="line">    Node head;</span><br><span class="line">    Node tail;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DoublyLinkedList</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        head = <span class="keyword">new</span> Node();</span><br><span class="line">        tail = <span class="keyword">new</span> Node();</span><br><span class="line">        head.next = tail;</span><br><span class="line">        tail.pre = head;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DoublyLinkedList</span><span class="params">(<span class="keyword">int</span> freq)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.freq = freq;</span><br><span class="line">        head = <span class="keyword">new</span> Node();</span><br><span class="line">        tail = <span class="keyword">new</span> Node();</span><br><span class="line">        head.next = tail;</span><br><span class="line">        tail.pre = head;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addNode</span><span class="params">(Node node)</span> </span>&#123;</span><br><span class="line">        node.next = head.next;</span><br><span class="line">        head.next.pre = node;</span><br><span class="line">        head.next = node;</span><br><span class="line">        node.pre = head;</span><br><span class="line">        node.linkedList = <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeNode</span><span class="params">(Node node)</span> </span>&#123;</span><br><span class="line">        node.pre.next = node.next;</span><br><span class="line">        node.next.pre = node.pre;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;strong&gt;开头&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;采用自定义的双向链表来实现&lt;/p&gt;
-&lt;p&gt;Node：存储每一个 key, value, freq &lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Node&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; key;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; value;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; freq = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Node pre;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Node next;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    DoublyLinkedList linkedList;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Node&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Node&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; key, &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; value)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.key = key;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.value = value;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-    
-      <category term="力扣" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/"/>
-    
-      <category term="算法" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/%E7%AE%97%E6%B3%95/"/>
-    
-    
-      <category term="LFU" scheme="https://qybit.gitee.io/tags/LFU/"/>
-    
-      <category term="设计" scheme="https://qybit.gitee.io/tags/%E8%AE%BE%E8%AE%A1/"/>
     
   </entry>
   
