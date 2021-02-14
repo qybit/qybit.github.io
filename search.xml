@@ -1,6 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>第228场周赛</title>
+    <url>/2021/02/14/w228/</url>
+    <content><![CDATA[<p>#</p>
+<p>比赛链接：<a href="https://leetcode-cn.com/contest/weekly-contest-228/">第 228 场周赛</a></p>
+<p>题目单：</p>
+<ul>
+<li><a href="https://leetcode-cn.com/problems/minimum-changes-to-make-alternating-binary-string/">生成交替二进制字符串的最少操作数</a></li>
+<li><a href="https://leetcode-cn.com/problems/count-number-of-homogenous-substrings/">统计同构子字符串的数目</a></li>
+<li><a href="https://leetcode-cn.com/problems/minimum-limit-of-balls-in-a-bag/"> 袋子里最少数目的球</a></li>
+<li><a href="https://leetcode-cn.com/problems/minimum-degree-of-a-connected-trio-in-a-graph/"> 一个图中连通三元组的最小度数</a></li>
+</ul>
+<h1 id="T1：生成交替二进制字符串的最少操作数"><a href="#T1：生成交替二进制字符串的最少操作数" class="headerlink" title="T1：生成交替二进制字符串的最少操作数"></a>T1：<a href="https://leetcode-cn.com/problems/minimum-changes-to-make-alternating-binary-string/">生成交替二进制字符串的最少操作数</a></h1><p>由交替字符串的定义，我们可以知道像 $010101…$ 和 $101010…$ 这种字符串是<strong>交替二进制字符串</strong>。</p>
+<p>那么， 我们的标准只有两个，要么是变成 $0101$ 交替组成的字符串，要么是变成 $1010$ 交替组成的字符串。</p>
+<p>因此，我们同时变换成两种标准的交替二进制字符串，然后取最小值。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>其中 $n1$ 代表的是 $1010…$ ，$n2$ 代表的是 $0101…$</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minOperations</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n1 = <span class="number">0</span>, n2 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="comment">// 010101  101010</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i % <span class="number">2</span>) &#123;</span><br><span class="line">                n2 += s[i] == <span class="string">&#x27;1&#x27;</span> ? <span class="number">0</span> : <span class="number">1</span>;</span><br><span class="line">                n1 += s[i] == <span class="string">&#x27;0&#x27;</span> ? <span class="number">0</span> : <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                n2 += s[i] == <span class="string">&#x27;0&#x27;</span> ? <span class="number">0</span> : <span class="number">1</span>;</span><br><span class="line">                n1 += s[i] == <span class="string">&#x27;1&#x27;</span> ? <span class="number">0</span> : <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> min(n1, n2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>复杂度分析</strong></p>
+<p>时间复杂度：$O(N)$，其中$N$ 为字符串的长度。我们只会遍历一次字符串。</p>
+<p>空间复杂度：$O(1)$</p>
+<h1 id="T2：统计同构子字符串的数目"><a href="#T2：统计同构子字符串的数目" class="headerlink" title="T2：统计同构子字符串的数目"></a>T2：<a href="https://leetcode-cn.com/problems/count-number-of-homogenous-substrings/">统计同构子字符串的数目</a></h1><blockquote>
+<p>​    同构字符串：如果一个字符串种的所有字符都相同，那么该字符串就是同构字符串</p>
+</blockquote>
+<p>观察用例 <code>s = abbcccaa</code></p>
+<p><code>c</code> 出现 $3$ 次，<code>cc</code> 出现 $2$ 次，<code>ccc</code> 出现 $1$ 次。</p>
+<p>假设 <code>ccc....c</code> 存在 $n$ 个连续的字串，那么：</p>
+<ol>
+<li>$n$ 个 <code>c</code></li>
+<li>$n-1$ 个 <code>cc</code></li>
+<li>$n - 2$ 个 <code>ccc</code></li>
+<li>…..</li>
+<li>$1$ 个 <code>ccc....c</code></li>
+</ol>
+<p>所以，这段连续 $n$ 个 <code>ccc....c</code> 一共贡献了<br>$$<br>1 + 2 + 3 + 4 + … +n = \frac{n \times (n + 1)}{2}<br>$$<br>$\frac{n \times (n + 1)}{2}$ 个同构字符串。</p>
+<h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><p>注意了，假设用例中存在全是同一个字符的情况下，那么 $10 ^ 5 \times (10 ^ 5 + 1)$，此时会爆 <code>int</code>。所以需要用 <code>long long</code>，64位的整数变量。</p>
+ <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">countHomogenous</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line">        <span class="keyword">int</span> mod = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line">        LL ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++) &#123;</span><br><span class="line">            <span class="keyword">int</span> j = i;</span><br><span class="line">            <span class="keyword">while</span> (j &lt; n &amp;&amp; s[i] == s[j]) j++;</span><br><span class="line">            LL count = j - i;</span><br><span class="line">            ans += count * (count + <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">            ans %= mod;</span><br><span class="line">            i = j - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans % mod;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>复杂度分析</strong></p>
+<p>时间复杂度：$O(N)$，其中 $N$ 为字符串的长度。我们至多只有遍历一次字符串。</p>
+<p>空间复杂度：$O(1)$</p>
+<h1 id="T3：袋子里最少数目的球"><a href="#T3：袋子里最少数目的球" class="headerlink" title="T3：袋子里最少数目的球"></a>T3：<a href="https://leetcode-cn.com/problems/minimum-limit-of-balls-in-a-bag/">袋子里最少数目的球</a></h1><p>我们可以转换一下问题。</p>
+<blockquote>
+<p>​    在不超过 $maxOperations$ 的操作次数下，使得每个袋子里球的<strong>最大数目</strong>不超过 $y$  个。</p>
+</blockquote>
+<p>当 $y$ 增加时，我们的操作次数就会减少，那么 $y$ 的大小就具有单调性。因此可以二分进行查找。</p>
+<p>假设对于单个袋子里的 $x$ 个球：</p>
+<ul>
+<li>如果 $x \ mod  \ y = 0$，此时可以整除 $y$ 时，可以进行 $\frac{x}{y}$ 操作。</li>
+<li>如果 $x \ mod \ y \ne 0$，此时不能整除 $y$ 时，我们直接下取整 $\lfloor \frac{x}{y} \rfloor$</li>
+</ul>
+<p>那么，分类讨论后，我们可以发现 $\lfloor \frac{x - 1}{y} \rfloor$ 和上述讨论的结果实际上是等价的。</p>
+<p>因此，对于数组中的 $N$ 个袋子，我们都有上述的操作方案。那么：<br>$$<br>\sum_{x \ \in \ nums} \lfloor \frac{x - 1}{y} \rfloor \le maxOperations<br>$$</p>
+<h2 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums, <span class="keyword">int</span> y, <span class="keyword">int</span> maxOperations)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> &amp;x : nums) &#123;</span><br><span class="line">            count += (x - <span class="number">1</span>) / y;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count &lt;= maxOperations;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minimumSize</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> maxOperations)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">1</span>, right = <span class="number">1e9</span>;</span><br><span class="line">        <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">            <span class="keyword">int</span> y = left + right &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; y &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">            <span class="keyword">if</span> (check(nums, y, maxOperations)) right = y;</span><br><span class="line">            <span class="keyword">else</span> left = y + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> left;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>复杂度分析</strong></p>
+<p>时间复杂度：$O(N logC)$，其中 $N$ 为数组的长度，$C$ 为 $max(nums)$ 数组中的最大值，$C$ 不超过 $10^9$。</p>
+<ul>
+<li><p>我们会进行 $logC$ 次二分查找。</p>
+</li>
+<li><p>每一次二分查找，我们需要遍历数组验证操作数是否超过 $maxOperations$的次数。时间复杂度$O(N)$。</p>
+</li>
+</ul>
+<p>空间复杂度：$O(1)$</p>
+<h1 id="T4：一个图中连通三元组的最小度数"><a href="#T4：一个图中连通三元组的最小度数" class="headerlink" title="T4：一个图中连通三元组的最小度数"></a>T4：<a href="https://leetcode-cn.com/problems/minimum-degree-of-a-connected-trio-in-a-graph/">一个图中连通三元组的最小度数</a></h1><blockquote>
+<p>​    三元组：是指三个点组成的集合，且三个点之间是两两存在边的</p>
+<p>​    联通三元组的度数：是指将这个三元组的集合视作一个“点” 。然后这个“点“ 和其他点的度数之和（无向图只要某个点存在一条边，那么这个点的度数就可以 +2），集合内部点的度数则不参与计算。</p>
+</blockquote>
+<p>先了解上述概念后，在看看数据范围，实际上才 $400$ 个点<del>（看不起谁呢？[doge]）</del>。 我们的算法很暴力，差不多是$400^3$，这个计算出来是 6400万，因此在力扣是完全够用的。</p>
+<p>我们直接暴力枚举三个点，检查一下是否构成三元组，然后再计算出最小的度数。</p>
+<p>值得注意的是，三元组可能是不存在的，因此我们需要特判一下。</p>
+<p>我们的算法时间复杂度很高，这么做纯粹是这题数据很弱，正确的做法尚待学习！</p>
+<h2 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h2><p>三元组的度数，不包含内部之间的入度和出度。因此需要减去 $6$。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minTrioDegree</span><span class="params">(<span class="keyword">int</span> n, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; edges)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; graph(n + <span class="number">1</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n + <span class="number">1</span>, <span class="number">0</span>));</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">degree</span><span class="params">(n + <span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;edge : edges) &#123;</span><br><span class="line">            <span class="keyword">int</span> a = edge[<span class="number">0</span>], b = edge[<span class="number">1</span>];</span><br><span class="line">            graph[a][b] = graph[b][a] = <span class="number">1</span>;</span><br><span class="line">            degree[a] ++ , degree[b] ++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">1e9</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt;= n; j ++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (graph[i][j]) &#123;</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> k = j + <span class="number">1</span>; k &lt;= n; k ++) &#123;</span><br><span class="line">                        <span class="keyword">if</span> (graph[j][k] &amp;&amp; graph[i][k]) &#123;</span><br><span class="line">                            ans = min(ans, degree[i] + degree[j] + degree[k] - <span class="number">6</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (ans == <span class="number">1e9</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>复杂度分析</strong></p>
+<p>时间复杂度：$O(N^3)$ ，其中 $N$ 是图中点的数量。我们会枚举所有可能的三元组。</p>
+<p>空间复杂度：$O(N^2)$，我们需要存储所有的边，以及每个点的入度和出度之和。</p>
+]]></content>
+      <categories>
+        <category>力扣</category>
+        <category>周赛</category>
+      </categories>
+      <tags>
+        <tag>二分</tag>
+        <tag>字符串</tag>
+        <tag>贪心</tag>
+        <tag>图</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>567. 字符串的排列</title>
     <url>/2021/02/10/567/</url>
     <content><![CDATA[<p>力扣链接：<a href="https://leetcode-cn.com/problems/permutation-in-string/">567. 字符串的排列</a></p>
@@ -129,7 +215,7 @@
   </entry>
   <entry>
     <title>665 非递减数列</title>
-    <url>/2021/02/07/ckkyxmbew0015ygtp1wr41o7v/</url>
+    <url>/2021/02/07/ckl4w58ek00127ctpg8xld8x8/</url>
     <content><![CDATA[<p>力扣链接：<a href="https://leetcode-cn.com/problems/non-decreasing-array/">665. 非递减数列</a></p>
 <p>这道题很坑，虽然是 <code>easy</code>，但是测试用例很好。</p>
 <a id="more"></a>
@@ -164,7 +250,7 @@
   </entry>
   <entry>
     <title>127 单词接龙</title>
-    <url>/2021/02/06/ckkyxmbea0009ygtp6iyn8t4q/</url>
+    <url>/2021/02/06/ckl4w58ds00037ctp370u3blf/</url>
     <content><![CDATA[<p>力扣链接：<a href="https://leetcode-cn.com/problems/word-ladder/">单词接龙</a></p>
 <p>这是一道求最短路径的题目，BFS 是我们用来解决最短路问题的强心剂。</p>
 <a id="more"></a>
@@ -199,7 +285,7 @@
   </entry>
   <entry>
     <title>1625 执行操作后字典序最小的字符串</title>
-    <url>/2021/02/06/ckkyxmbeb000bygtp0ofvacm4/</url>
+    <url>/2021/02/06/ckl4w58e7000g7ctp0gyq7dzh/</url>
     <content><![CDATA[<p>广度优先搜索（BFS）的优势在于当问题存在最优解的情况下，一定可以找到最优解。因此常用于最短路问题。</p>
 <p>这道题数据比较弱，所以暴力搜索也不会超时。</p>
 <p>力扣链接：<a href="https://leetcode-cn.com/problems/lexicographically-smallest-string-after-applying-operations/">执行操作后字典序最小的字符串</a></p>
@@ -248,7 +334,7 @@
   </entry>
   <entry>
     <title>1208 尽可能使字符串相等</title>
-    <url>/2021/02/05/ckkyxmbe20003ygtphkga9bm0/</url>
+    <url>/2021/02/05/ckl4w58dx00077ctp658rguah/</url>
     <content><![CDATA[<p>力扣链接：<a href="https://leetcode-cn.com/problems/get-equal-substrings-within-budget/">尽可能使字符串相等</a></p>
 <p>昨晚睡前没仔细读题，以为挺难做的，没想到也不难做。</p>
 <a id="more"></a>
@@ -299,7 +385,7 @@
   </entry>
   <entry>
     <title>480 滑动窗口中位数</title>
-    <url>/2021/02/03/ckkyxmbem000nygtp4fwq5467/</url>
+    <url>/2021/02/03/ckl4w58ec000r7ctpejxvf4gt/</url>
     <content><![CDATA[<p><em>官方题解十分的鬼畜，但是这道题用二分也是可以做的</em></p>
 <p>力扣链接： <a href="https://leetcode-cn.com/problems/sliding-window-median/">滑动窗口中位数</a></p>
 <p>相似题目推荐：</p>
@@ -341,7 +427,7 @@
   </entry>
   <entry>
     <title>1540 K次操作转变字符串</title>
-    <url>/2021/02/02/ckkyxmbe80007ygtp9g4m840y/</url>
+    <url>/2021/02/02/ckl4w58e000097ctp4f349vh3/</url>
     <content><![CDATA[<p>原题链接：<a href="https://leetcode-cn.com/problems/can-convert-string-in-k-moves/">K 次操作转变字符串</a></p>
 <p>我人傻了，A了这题就立马回小学重修语文。</p>
 <a id="more"></a>
@@ -370,7 +456,7 @@
   </entry>
   <entry>
     <title>410 分割数组的最大值</title>
-    <url>/2021/02/02/ckkyxmbej000iygtpcee3azha/</url>
+    <url>/2021/02/02/ckl4w58e9000i7ctpej180pq9/</url>
     <content><![CDATA[<p>力扣410链接：<a href="https://leetcode-cn.com/problems/split-array-largest-sum/">分割数组的最大值</a></p>
 <a id="more"></a>
 
@@ -399,7 +485,7 @@
   </entry>
   <entry>
     <title>424 替换后的最长重复字符</title>
-    <url>/2021/02/02/ckkyxmbeo000rygtpcacjbn1b/</url>
+    <url>/2021/02/02/ckl4w58eb000o7ctpczigcm5x/</url>
     <content><![CDATA[<p>力扣424链接：<a href="https://leetcode-cn.com/problems/longest-repeating-character-replacement/">替换后的最长重复字符</a></p>
 <a id="more"></a>
 
@@ -422,7 +508,7 @@
   </entry>
   <entry>
     <title>1128 等价多米诺骨牌对的数量</title>
-    <url>/2021/01/26/ckkyxmbdw0001ygtp88a7brh1/</url>
+    <url>/2021/01/26/ckl4w58dm00017ctpb5se2qlg/</url>
     <content><![CDATA[<p>一道比较有意思的题目，足够简单但是时间复杂度卡得很紧。</p>
 <p>原题链接：<a href="https://leetcode-cn.com/problems/number-of-equivalent-domino-pairs/">等价多米诺骨牌对的数量</a></p>
 <a id="more"></a>
@@ -455,7 +541,7 @@
   </entry>
   <entry>
     <title>关于Promise的学习笔记</title>
-    <url>/2021/01/24/ckkyxmbf6001kygtpem0i3azb/</url>
+    <url>/2021/01/24/ckl4w58eq001e7ctp4c0rfuly/</url>
     <content><![CDATA[<p><strong>Promise</strong> 的出现是为了解决 “<strong>回调地狱</strong>”，这种重度嵌套<strong>回调函数</strong>的代码风格而出现的。如下图</p>
 <p><img src= "/img/loading.gif" data-lazy-src="https://img.imgdb.cn/item/600d36fb3ffa7d37b349ce45.jpg"></p>
 <p>借助 <strong>Promise</strong> ,我们就可以避免这种风格的代码，从而让代码变成丝滑如顺链式编程。如</p>
@@ -491,7 +577,7 @@
   </entry>
   <entry>
     <title>第224场周赛</title>
-    <url>/2021/01/17/ckkyxmbfp002oygtp5hiu1ima/</url>
+    <url>/2021/01/17/ckl4w58gn00507ctp59knabwz/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/number-of-rectangles-that-can-form-the-largest-square/">可以形成最大正方形的矩形数目</a></li>
@@ -546,7 +632,7 @@
   </entry>
   <entry>
     <title>第43场双周赛</title>
-    <url>/2021/01/12/ckkyxmbg5003aygtpeawud8po/</url>
+    <url>/2021/01/12/ckl4w58gx005q7ctp1ke00la9/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/calculate-money-in-leetcode-bank/">计算力扣银行的钱</a></li>
@@ -606,7 +692,7 @@
   </entry>
   <entry>
     <title>第222场周赛</title>
-    <url>/2021/01/03/ckkyxmbfo002nygtpf8iwdj0w/</url>
+    <url>/2021/01/03/ckl4w58gm004w7ctp12gg4gzo/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/maximum-units-on-a-truck/">卡车上的最大单元数</a></li>
@@ -689,7 +775,7 @@
   </entry>
   <entry>
     <title>一文解决Tomcat开发中乱码的问题</title>
-    <url>/2020/12/31/ckkyxmbf2001cygtp6rg5c68x/</url>
+    <url>/2020/12/31/ckl4w58es001j7ctpawxg1tdg/</url>
     <content><![CDATA[<p>开发环境：</p>
 <ul>
 <li>Windows 10，idea</li>
@@ -734,7 +820,7 @@
   </entry>
   <entry>
     <title>第221场周赛</title>
-    <url>/2020/12/29/ckkyxmbfn002jygtpglpla63x/</url>
+    <url>/2020/12/29/ckl4w58gl004t7ctp5n5cczbx/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/determine-if-string-halves-are-alike/">判断字符串的两半是否相似</a></li>
@@ -830,7 +916,7 @@
   </entry>
   <entry>
     <title>第42场双周赛</title>
-    <url>/2020/12/28/ckkyxmbg10033ygtp1y9i0q84/</url>
+    <url>/2020/12/28/ckl4w58gv005n7ctp3y5g3p0h/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li><p> <a href="https://leetcode-cn.com/problems/number-of-students-unable-to-eat-lunch/">无法吃午餐的学生数量</a></p>
@@ -933,7 +1019,7 @@
   </entry>
   <entry>
     <title>第220场周赛</title>
-    <url>/2020/12/20/ckkyxmbfm002hygtp7bi93ylp/</url>
+    <url>/2020/12/20/ckl4w58gj004p7ctp3uu686vf/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li><a href="https://leetcode-cn.com/problems/reformat-phone-number/">重新格式化电话号码</a></li>
@@ -1025,7 +1111,7 @@
   </entry>
   <entry>
     <title>460 LFU缓存</title>
-    <url>/2020/12/14/ckkyxmbeq000wygtp6yar8yoj/</url>
+    <url>/2020/12/14/ckl4w58eh000v7ctph3cj9wl6/</url>
     <content><![CDATA[<p><strong>开头</strong></p>
 <p>采用自定义的双向链表来实现</p>
 <p>Node：存储每一个 key, value, freq </p>
@@ -1070,7 +1156,7 @@
   </entry>
   <entry>
     <title>第219场周赛</title>
-    <url>/2020/12/13/ckkyxmbfk002dygtp7ptsdgky/</url>
+    <url>/2020/12/13/ckl4w58gi004n7ctpf28qahcv/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/count-of-matches-in-tournament/">比赛中的配对次数</a></li>
@@ -1156,7 +1242,7 @@
   </entry>
   <entry>
     <title>第41场双周赛</title>
-    <url>/2020/12/13/ckkyxmbg30038ygtp0j8me6kg/</url>
+    <url>/2020/12/13/ckl4w58gu005i7ctp3a5t04vw/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/count-the-number-of-consistent-strings/"> 统计一致字符串的数目</a></li>
@@ -1232,7 +1318,7 @@
   </entry>
   <entry>
     <title>Spring学习总结之 IOC</title>
-    <url>/2020/12/12/ckkyxmbhs009aygtp9sir3jki/</url>
+    <url>/2020/12/12/ckl4w58hk008v7ctpgtcd9tjn/</url>
     <content><![CDATA[<p>Spring的两大核心技术就是 <strong>IoC</strong> 和 <strong>Aop</strong> 。</p>
 <p>​    由于篇幅，本篇仅就  <strong>IoC</strong> 进行描述。</p>
 <p>​    <strong>IoC</strong> (Inversion of Controll)，翻译过来就是 <strong>控制反转</strong> ，所谓的控制反转就是说，不再由我们程序员自己去通过 <strong>new</strong>  操作符，创建对象然后自己使用。控制反转的实现方法有很多。在Spring中，使用的是 <strong>IoC容器</strong> 。它可以在对象生成或初始化时直接将数据注入对象，或者将对象注入对象的数据域中的方式来注入对方法的调用的依赖。这种依赖注入是可以递归的。即要实例化当前对象时，必须要先实例化该对象所有的依赖。</p>
@@ -1353,7 +1439,7 @@
   </entry>
   <entry>
     <title>376 摆动序列</title>
-    <url>/2020/12/12/ckkyxmbeg000gygtp3qee8l02/</url>
+    <url>/2020/12/12/ckl4w58e3000b7ctp6f605r00/</url>
     <content><![CDATA[<p><strong>开头</strong></p>
 <p><strong>摆动序列：</strong></p>
 <ul>
@@ -1394,7 +1480,7 @@
   </entry>
   <entry>
     <title>第218场周赛</title>
-    <url>/2020/12/06/ckkyxmbfi002aygtphxi544go/</url>
+    <url>/2020/12/06/ckl4w58gh004m7ctp7rph0zie/</url>
     <content><![CDATA[<h3 id="T1：设计-Goal-解析器"><a href="#T1：设计-Goal-解析器" class="headerlink" title="T1：设计 Goal 解析器"></a>T1：<a href="https://leetcode-cn.com/problems/goal-parser-interpretation/">设计 Goal 解析器</a></h3><p><strong>方法一：</strong> 利用API</p>
 <p>利用语言自带的API，进行替换操作。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">interpret</span><span class="params">(String command)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> command.replace(<span class="string">&quot;()&quot;</span>, <span class="string">&quot;o&quot;</span>).replace(<span class="string">&quot;(al)&quot;</span>, <span class="string">&quot;al&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1434,7 +1520,7 @@
   </entry>
   <entry>
     <title>第217场周赛</title>
-    <url>/2020/11/30/ckkyxmbfg0026ygtpenic2fwf/</url>
+    <url>/2020/11/30/ckl4w58gf004k7ctp909qb981/</url>
     <content><![CDATA[<h3 id="T1：最富有客户的资产总量"><a href="#T1：最富有客户的资产总量" class="headerlink" title="T1：最富有客户的资产总量"></a>T1：<a href="https://leetcode-cn.com/problems/richest-customer-wealth/">最富有客户的资产总量</a></h3><p>思路：暴力</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maximumWealth</span><span class="params">(<span class="keyword">int</span>[][] accounts)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] account : accounts) &#123;</span><br><span class="line">            res = Math.max(res, Arrays.stream(account).sum());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>复杂度分析：</strong></p>
@@ -1507,7 +1593,7 @@
   </entry>
   <entry>
     <title>第40场双周赛</title>
-    <url>/2020/11/29/ckkyxmbfy0030ygtpgty1880t/</url>
+    <url>/2020/11/29/ckl4w58gt005f7ctphtuk8a0g/</url>
     <content><![CDATA[<p>难度不大，很常规的题目。最后一题动态规划仍需要多练。</p>
 <a id="more"></a>
 
@@ -1567,7 +1653,7 @@
   </entry>
   <entry>
     <title>Trie树</title>
-    <url>/2020/11/26/ckkyxmbf3001fygtp2rwofekz/</url>
+    <url>/2020/11/26/ckl4w58ep001b7ctp4tr1adra/</url>
     <content><![CDATA[<p>Trie树是一种特殊的数据结构，它常用于在数据中检索字符串。也可以叫做字典树和前缀树等等。</p>
 <a id="more"></a>
 
@@ -1633,7 +1719,7 @@
   </entry>
   <entry>
     <title>手动实现LinkedList</title>
-    <url>/2020/11/25/ckkyxmbf7001nygtp7gce14ol/</url>
+    <url>/2020/11/25/ckl4w58et001m7ctp27hx0r8c/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>链表是与线性表相对应的一种特殊的数据结构，它的各个节点在物理内存上可以是连续的也可以是不连续的，逻辑上链表是连续的。</p>
 <p><strong>优点</strong></p>
 <ul>
@@ -1750,7 +1836,7 @@
   </entry>
   <entry>
     <title>第201场周赛</title>
-    <url>/2020/08/11/ckkyxmbff0023ygtp0g886gqo/</url>
+    <url>/2020/08/11/ckl4w58ge004j7ctp1mam2c3b/</url>
     <content><![CDATA[<p>题目标题即原题地址，点击查看原题。代码主要为Java和cpp，部分tricky题目会使用py来解决</p>
 <a id="more"></a>
 
@@ -1782,7 +1868,7 @@
   </entry>
   <entry>
     <title>第199场周赛</title>
-    <url>/2020/07/27/ckkyxmbfd001zygtp0iaz7cnw/</url>
+    <url>/2020/07/27/ckl4w58ez001x7ctpgftocbnp/</url>
     <content><![CDATA[<p>题目标题即原题地址，点击查看原题。</p>
 <a id="more"></a>
 
@@ -1813,7 +1899,7 @@
   </entry>
   <entry>
     <title>第31场双周赛</title>
-    <url>/2020/07/27/ckkyxmbfv002vygtpgl0qhe32/</url>
+    <url>/2020/07/27/ckl4w58gs005a7ctp5ek701ny/</url>
     <content><![CDATA[<p>题目标题即原题地址，点击查看原题。</p>
 <a id="more"></a>
 
@@ -1844,7 +1930,7 @@
   </entry>
   <entry>
     <title>第197场周赛</title>
-    <url>/2020/07/13/ckkyxmbfa001rygtp8d590g7t/</url>
+    <url>/2020/07/13/ckl4w58ey001t7ctp3lw239pz/</url>
     <content><![CDATA[<p>字节又来了，感觉自己把第三题想的太复杂了。第四题是否有些超纲呢？</p>
 <a id="more"></a>
 
@@ -1887,7 +1973,7 @@
   </entry>
   <entry>
     <title>第30场双周赛</title>
-    <url>/2020/07/13/ckkyxmbft002sygtpa4vu66or/</url>
+    <url>/2020/07/13/ckl4w58gq00577ctp0iu9defz/</url>
     <content><![CDATA[<p>这场比赛的题目不是很难，即使第一次接触的话，AC前两题应该也是没有问题的。废话不多说，看代码。</p>
 <h4 id="题目一：转变日期格式"><a href="#题目一：转变日期格式" class="headerlink" title="题目一：转变日期格式"></a>题目一：<a href="https://leetcode-cn.com/problems/reformat-date/">转变日期格式</a></h4><p>这个题，我是不知道有什么API可以调用，但是看它给出的<code>YYYY-MM-DD</code>的格式，其实稍微想想还是硬解析的。无脑暴力即可。注意日期和月份小于10时，需要补0；</p>
 <a id="more"></a>
@@ -1923,7 +2009,7 @@
   </entry>
   <entry>
     <title>第192场周赛</title>
-    <url>/2020/06/07/ckkyxmbfc001vygtpdx3phb6q/</url>
+    <url>/2020/06/07/ckl4w58ew001p7ctpfqyqhg6x/</url>
     <content><![CDATA[<p>这一场发挥的不错，AC了三题。一开始做的时候感觉很难，第一题慌慌张张的花了7分钟才AC了，我在c++和java之间换了两次，最后还是c++更容易实现其实用java也是可以的，上来我就在选择语言上飘摇不定了。这也是一个问题，做题的心理问题，看完问题，分析思路完毕后，中途不能再切换语言了，使用一个语言解决它！主要是没有数论的题，一般的数据结构的问题，hard除外，我基本都是可以AC的。</p>
 <p>周赛题目考察点：<strong>数组、数组/排序、设计/栈(我的思路是这个，设计类的题目思路很开放)</strong></p>
 <a id="more"></a>
@@ -2032,9 +2118,9 @@ nums.length == 2n
         <tag>数组</tag>
         <tag>设计</tag>
         <tag>力扣</tag>
-        <tag>周赛</tag>
         <tag>题解</tag>
         <tag>解题思路</tag>
+        <tag>周赛</tag>
         <tag>栈</tag>
         <tag>排序</tag>
       </tags>
