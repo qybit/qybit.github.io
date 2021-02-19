@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://qybit.gitee.io/"/>
-  <updated>2021-02-18T08:43:00.214Z</updated>
+  <updated>2021-02-19T02:47:45.831Z</updated>
   <id>https://qybit.gitee.io/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="https://qybit.gitee.io/2021/02/18/1/"/>
     <id>https://qybit.gitee.io/2021/02/18/1/</id>
     <published>2021-02-18T07:42:46.000Z</published>
-    <updated>2021-02-18T08:43:00.214Z</updated>
+    <updated>2021-02-19T02:47:45.831Z</updated>
     
-    <content type="html"><![CDATA[<p>当年我的劝退题目~，第一次做力扣被这道题卡了近一个小时。半天憋不出来一个可以 <code>AC</code> 的代码。</p><p>今天有必要给它写个题解，来纪念一下。</p><p>本文，将会分别从不同的时间复杂度来解决问题，如下 $O(N^2)$、$O(NlogN)$、$O(N)$ 的解决思路。</p><a id="more"></a><h1 id="开头"><a href="#开头" class="headerlink" title="开头"></a>开头</h1><p>我们需要在一个数组中，找到两个不同的下标使得下标对应的元素和等于 $targert$。</p><p>假设存在两个下标 $i$ 和 $j$ （$i \ne j$），使得 $nums[i] + nums[j] = target (i \ne j)$，其中 $nums$ 表示为数组。</p><h1 id="方法一：暴力"><a href="#方法一：暴力" class="headerlink" title="方法一：暴力"></a>方法一：暴力</h1><p>说来惭愧，第一次做这个题目，我连暴力都没能想到。</p><p>思路如下：</p><ul><li>第一层循环，我们固定一个下标 $i$。</li><li>第二层循环，我们在下标 $i$ 固定的前提下，再寻找一个下标 $j$，使得 $nums[i] + nums[j] = target (i \ne j)$。</li></ul><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i ++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; nums.size(); j ++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (i == j) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">if</span> (nums[i] + nums[j] == target) </span><br><span class="line">                    <span class="keyword">return</span> &#123;i, j&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(N^2)$，其中 $N$ 为数组的长度。对于数组中的每个元素，我们在最坏的情况下需要访问 $N$ 次。</p><p>空间复杂度：$O(1)$</p><h1 id="方法二：排序-双指针"><a href="#方法二：排序-双指针" class="headerlink" title="方法二：排序 + 双指针"></a>方法二：排序 + 双指针</h1><p>我们先将数组排序后，再使用双指针分别从数组 <strong>头部</strong> 和 <strong>尾部</strong> 夹逼寻找符合条件的两个元素。</p><p>由于排序后会打乱其原本的信息，因此我们必须要重新存储一下数组的元素，并维护其原本的位置。这一步我们可以使用结构体或者类来实现。</p><p>那么为什么可以使用双指针呢？证明如下：</p><ul><li>对于数组中的两个指针 $left(left \ge 0)$ 和 $right(right \le n - 1)$，其中 $n$ 为数组长度。存在如下情况：<ul><li>​    $q[left] + q[right] \gt target$，那么此时指针 $right$ 必不可能是向右移动的，因为对于 $q[right] \le q[right + 1] (right \le n -2)$ 一定成立。为了使得 $left$ 和 $right$ 所指元素 <strong>等于</strong> $target$  ，$right$ 只能单调向左移动。</li><li>$q[left] + q[right] \lt target$，对于 $left$ 指针而言也是同理。对于 $q[left - 1] \le q[left](left &gt; 0)$ 一定成立。为了使得 $left$ 和 $right$ 所指元素 等于 $target$。$left$ 只能单调向右移动。</li><li>$q[left] + q[right] = target$ ，那么皆大欢喜，我们找到两个符合条件的下标。返回 $left$ 和 $right$ 所指元素的原本下标位置即可。</li></ul></li><li>只有满足了指针移动的单调性，我们才可以使用双指针来解决此类问题。</li></ul><p>类似题目推荐：</p><ul><li> <a href="https://leetcode-cn.com/problems/container-with-most-water/">力扣 11.盛最多水的容器</a></li></ul><h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1010</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Ele</span> &#123;</span></span><br><span class="line">    <span class="comment">// a 表示数组元素， k 表示该元素在原数组的位置</span></span><br><span class="line">    <span class="keyword">int</span> a, k;</span><br><span class="line">    <span class="comment">// 重载操作符，方便排序 </span></span><br><span class="line">    <span class="comment">// 按照数组元素大小升序排列</span></span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (Ele &amp;t) <span class="keyword">const</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> a &lt; t.a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;q[N];</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++) &#123;</span><br><span class="line">            q[i] = &#123;nums[i], i&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        sort(q, q + n);</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>, right = n - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">            <span class="keyword">int</span> sum = q[left].a + q[right].a;</span><br><span class="line">            <span class="keyword">if</span> (sum &gt; target) &#123;</span><br><span class="line">                right--;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sum &lt; target) &#123;</span><br><span class="line">                left ++;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> &#123;q[left].k, q[right].k&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(NlogN)$，其中 $N$ 为数组的长度。</p><ul><li>我们第一次遍历数组，备份各元素原本下标的位置。时间复杂度$O(N)$。</li><li>我们对<strong>新数组</strong>元素进行排序操作，此处的时间复杂度为 $O(NlogN)$。</li><li>我们还要双指针遍历<strong>新数组</strong>，来寻找符合条件的两个下标，并返回<strong>原本</strong>的下标位置。时间复杂度$O(N)$。</li><li>我们对于所有数组中的任意一个元素，在最坏的情况下都不会访问到达 $N$ 次。因此时间复杂度为 $O(NlogN)$。</li></ul><p>空间复杂度：$O(N)$，我们需要备份原来的数组的信息。</p><h1 id="方法三：哈希表-这个方法应该是最优解"><a href="#方法三：哈希表-这个方法应该是最优解" class="headerlink" title="方法三：哈希表 (这个方法应该是最优解)"></a>方法三：哈希表 (这个方法应该是最优解)</h1><p>假设存在两个下标 $i$ 和 $j$ $(i \ne j)$，满足 $a = nums[i], b = nums[j]$，那么此时 $a + b = target$。</p><p>对于数组中的元素，我们固定一个下标并假设其为 $i$ ，如下图</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.imgdb.cn/item/602e232d99aa8726f2955d70.jpg"></p><p>那么我们的最终目标其实是，询问 $b (nums[j])$ 是否存在于区间 $[0, i - 1]$ 中，并且这个操作必须是 $O(1)$ 时间复杂度的。</p><p>因此我们不难想到用 <strong>哈希表</strong> 来优化。考虑到本题中，存在负数，因此不可以使用数组来充当哈希表，我们只能使用 <code>Map</code> 结构来实现。</p><p>类似题目推荐：</p><ul><li> <a href="https://leetcode-cn.com/problems/n-repeated-element-in-size-2n-array/">961. 重复 N 次的元素</a></li><li> <a href="https://leetcode-cn.com/problems/single-number/">136. 只出现一次的数字</a></li><li> <a href="https://leetcode-cn.com/problems/sort-characters-by-frequency/">451. 根据字符出现频率排序</a></li></ul><h2 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; f;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i ++) &#123;</span><br><span class="line">            <span class="keyword">int</span> x = target - nums[i];</span><br><span class="line">            <span class="keyword">if</span> (f.find(x) != f.end()) &#123;</span><br><span class="line">                <span class="keyword">return</span> &#123;i, f[x]&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            f[nums[i]] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(N)$，其中 $N$ 为数组长度。我们至多只会遍历一遍数组。</p><p>空间复杂度：$O(N)$，其中 $N$ 为数组长度。我们需要使用 <strong>哈希表</strong> 维护数组元素和下标。</p>]]></content>
+    <content type="html"><![CDATA[<p>当年我的劝退题目~，第一次做力扣被这道题卡了近一个小时。半天憋不出来一个可以 <code>AC</code> 的代码。</p><p>今天有必要给它写个题解，来纪念一下。</p><p>本文，将会分别从不同的时间复杂度来解决问题，如下 $O(N^2)$、$O(NlogN)$、$O(N)$ 的解决思路。</p><a id="more"></a><h1 id="开头"><a href="#开头" class="headerlink" title="开头"></a>开头</h1><p>我们需要在一个数组中，找到两个不同的下标使得下标对应的元素和等于 $targert$。</p><p>假设存在两个下标 $i$ 和 $j$ （$i \ne j$），使得 $nums[i] + nums[j] = target (i \ne j)$，其中 $nums$ 表示为数组。</p><h1 id="方法一：暴力"><a href="#方法一：暴力" class="headerlink" title="方法一：暴力"></a>方法一：暴力</h1><p>说来惭愧，第一次做这个题目，我连暴力都没能想到。</p><p>思路如下：</p><ul><li>第一层循环，我们固定一个下标 $i$。</li><li>第二层循环，我们在下标 $i$ 固定的前提下，再寻找一个下标 $j$，使得 $nums[i] + nums[j] = target (i \ne j)$。</li></ul><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i ++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; nums.size(); j ++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (i == j) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">if</span> (nums[i] + nums[j] == target) </span><br><span class="line">                    <span class="keyword">return</span> &#123;i, j&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(N^2)$，其中 $N$ 为数组的长度。对于数组中的每个元素，我们在最坏的情况下需要访问 $N$ 次。</p><p>空间复杂度：$O(1)$</p><h1 id="方法二：排序-双指针"><a href="#方法二：排序-双指针" class="headerlink" title="方法二：排序 + 双指针"></a>方法二：排序 + 双指针</h1><p>我们先将数组排序后，再使用双指针分别从数组 <strong>头部</strong> 和 <strong>尾部</strong> 夹逼寻找符合条件的两个元素。</p><p>由于排序后会打乱其原本的信息，因此我们必须要重新存储一下数组的元素，并维护其原本的位置。这一步我们可以使用结构体或者类来实现。</p><p>那么为什么可以使用双指针呢？证明如下：</p><ul><li>对于数组中的两个指针 $left(left \ge 0)$ 和 $right(right \le n - 1)$，其中 $n$ 为数组长度。存在如下情况：<ul><li>​    $q[left] + q[right] \gt target$，那么此时指针 $right$ 必不可能是向右移动的，因为对于 $q[right] \le q[right + 1] (right \le n -2)$ 一定成立。为了使得 $left$ 和 $right$ 所指元素 <strong>等于</strong> $target$  ，$right$ 只能单调向左移动。</li><li>$q[left] + q[right] \lt target$，对于 $left$ 指针而言也是同理。对于 $q[left - 1] \le q[left](left &gt; 0)$ 一定成立。为了使得 $left$ 和 $right$ 所指元素 <strong>等于</strong> $target$。$left$ 只能单调向右移动。</li><li>$q[left] + q[right] = target$ ，那么皆大欢喜，我们找到两个符合条件的下标。返回 $left$ 和 $right$ 所指元素的原本下标位置即可。</li></ul></li><li>只有满足了指针移动的单调性，我们才可以使用双指针来解决此类问题。</li></ul><p>类似题目推荐：</p><ul><li> <a href="https://leetcode-cn.com/problems/container-with-most-water/">力扣 11.盛最多水的容器</a></li></ul><h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1010</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Ele</span> &#123;</span></span><br><span class="line">    <span class="comment">// a 表示数组元素， k 表示该元素在原数组的位置</span></span><br><span class="line">    <span class="keyword">int</span> a, k;</span><br><span class="line">    <span class="comment">// 重载操作符，方便排序 </span></span><br><span class="line">    <span class="comment">// 按照数组元素大小升序排列</span></span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (Ele &amp;t) <span class="keyword">const</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> a &lt; t.a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;q[N];</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++) &#123;</span><br><span class="line">            q[i] = &#123;nums[i], i&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        sort(q, q + n);</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>, right = n - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">            <span class="keyword">int</span> sum = q[left].a + q[right].a;</span><br><span class="line">            <span class="keyword">if</span> (sum &gt; target) &#123;</span><br><span class="line">                right--;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sum &lt; target) &#123;</span><br><span class="line">                left ++;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> &#123;q[left].k, q[right].k&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(NlogN)$，其中 $N$ 为数组的长度。</p><ul><li>我们第一次遍历数组，备份各元素原本下标的位置。时间复杂度$O(N)$。</li><li>我们对<strong>新数组</strong>元素进行排序操作，此处的时间复杂度为 $O(NlogN)$。</li><li>我们还要双指针遍历<strong>新数组</strong>，来寻找符合条件的两个下标，并返回<strong>原本</strong>的下标位置。时间复杂度$O(N)$。</li><li>我们对于所有数组中的任意一个元素，在最坏的情况下都不会访问到达 $N$ 次。因此时间复杂度为 $O(NlogN)$。</li></ul><p>空间复杂度：$O(N)$，我们需要备份原来的数组的信息。</p><h1 id="方法三：哈希表-这个方法应该是最优解"><a href="#方法三：哈希表-这个方法应该是最优解" class="headerlink" title="方法三：哈希表 (这个方法应该是最优解)"></a>方法三：哈希表 (这个方法应该是最优解)</h1><p>假设存在两个下标 $i$ 和 $j$ $(i \ne j)$，满足 $a = nums[i], b = nums[j]$，那么此时 $a + b = target$。</p><p>对于数组中的元素，我们固定一个下标并假设其为 $i$ ，如下图</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.imgdb.cn/item/602e232d99aa8726f2955d70.jpg"></p><p>那么我们的最终目标其实是，询问 $b (nums[j])$ 是否存在于区间 $[0, i - 1]$ 中，并且这个操作必须是 $O(1)$ 时间复杂度的。</p><p>因此我们不难想到用 <strong>哈希表</strong> 来优化。考虑到本题中，存在负数，因此不可以使用数组来充当哈希表，我们只能使用 <code>Map</code> 结构来实现。</p><p>类似题目推荐：</p><ul><li> <a href="https://leetcode-cn.com/problems/n-repeated-element-in-size-2n-array/">961. 重复 N 次的元素</a></li><li> <a href="https://leetcode-cn.com/problems/single-number/">136. 只出现一次的数字</a></li><li> <a href="https://leetcode-cn.com/problems/sort-characters-by-frequency/">451. 根据字符出现频率排序</a></li></ul><h2 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; f;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i ++) &#123;</span><br><span class="line">            <span class="keyword">int</span> x = target - nums[i];</span><br><span class="line">            <span class="keyword">if</span> (f.find(x) != f.end()) &#123;</span><br><span class="line">                <span class="keyword">return</span> &#123;i, f[x]&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            f[nums[i]] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(N)$，其中 $N$ 为数组长度。我们至多只会遍历一遍数组。</p><p>空间复杂度：$O(N)$，其中 $N$ 为数组长度。我们需要使用 <strong>哈希表</strong> 维护数组元素和下标。</p>]]></content>
     
     <summary type="html">
     
@@ -64,11 +64,11 @@
       <category term="周赛" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/%E5%91%A8%E8%B5%9B/"/>
     
     
+      <category term="二分" scheme="https://qybit.gitee.io/tags/%E4%BA%8C%E5%88%86/"/>
+    
       <category term="字符串" scheme="https://qybit.gitee.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
       <category term="贪心" scheme="https://qybit.gitee.io/tags/%E8%B4%AA%E5%BF%83/"/>
-    
-      <category term="二分" scheme="https://qybit.gitee.io/tags/%E4%BA%8C%E5%88%86/"/>
     
       <category term="图" scheme="https://qybit.gitee.io/tags/%E5%9B%BE/"/>
     
@@ -147,8 +147,8 @@
   
   <entry>
     <title>665 非递减数列</title>
-    <link href="https://qybit.gitee.io/2021/02/07/cklamc1mm0016u8tp9ilo4rhz/"/>
-    <id>https://qybit.gitee.io/2021/02/07/cklamc1mm0016u8tp9ilo4rhz/</id>
+    <link href="https://qybit.gitee.io/2021/02/07/cklbpei7a0016rstp70dugb6y/"/>
+    <id>https://qybit.gitee.io/2021/02/07/cklbpei7a0016rstp70dugb6y/</id>
     <published>2021-02-06T19:02:36.000Z</published>
     <updated>2021-02-07T10:58:18.335Z</updated>
     
@@ -171,8 +171,8 @@
   
   <entry>
     <title>127 单词接龙</title>
-    <link href="https://qybit.gitee.io/2021/02/06/cklamc1lw0003u8tpcjxe27vr/"/>
-    <id>https://qybit.gitee.io/2021/02/06/cklamc1lw0003u8tpcjxe27vr/</id>
+    <link href="https://qybit.gitee.io/2021/02/06/cklbpei6t0007rstp4nbwh7hu/"/>
+    <id>https://qybit.gitee.io/2021/02/06/cklbpei6t0007rstp4nbwh7hu/</id>
     <published>2021-02-06T00:52:41.000Z</published>
     <updated>2021-02-07T10:58:18.338Z</updated>
     
@@ -195,8 +195,8 @@
   
   <entry>
     <title>1625 执行操作后字典序最小的字符串</title>
-    <link href="https://qybit.gitee.io/2021/02/06/cklamc1m7000gu8tp9vyj2yvd/"/>
-    <id>https://qybit.gitee.io/2021/02/06/cklamc1m7000gu8tp9vyj2yvd/</id>
+    <link href="https://qybit.gitee.io/2021/02/06/cklbpei6y000frstp1cb815xo/"/>
+    <id>https://qybit.gitee.io/2021/02/06/cklbpei6y000frstp1cb815xo/</id>
     <published>2021-02-05T23:30:40.000Z</published>
     <updated>2021-02-07T10:58:18.340Z</updated>
     
@@ -226,8 +226,8 @@
   
   <entry>
     <title>1208 尽可能使字符串相等</title>
-    <link href="https://qybit.gitee.io/2021/02/05/cklamc1m3000bu8tpcs2tetbq/"/>
-    <id>https://qybit.gitee.io/2021/02/05/cklamc1m3000bu8tpcs2tetbq/</id>
+    <link href="https://qybit.gitee.io/2021/02/05/cklbpei6v0009rstp93nqhp72/"/>
+    <id>https://qybit.gitee.io/2021/02/05/cklbpei6v0009rstp93nqhp72/</id>
     <published>2021-02-04T17:40:56.000Z</published>
     <updated>2021-02-07T10:58:18.342Z</updated>
     
@@ -254,8 +254,8 @@
   
   <entry>
     <title>480 滑动窗口中位数</title>
-    <link href="https://qybit.gitee.io/2021/02/03/cklamc1mi000zu8tpd9bl21nw/"/>
-    <id>https://qybit.gitee.io/2021/02/03/cklamc1mi000zu8tpd9bl21nw/</id>
+    <link href="https://qybit.gitee.io/2021/02/03/cklbpei76000yrstp7fe87fjt/"/>
+    <id>https://qybit.gitee.io/2021/02/03/cklbpei76000yrstp7fe87fjt/</id>
     <published>2021-02-02T20:56:57.000Z</published>
     <updated>2021-02-07T10:58:18.344Z</updated>
     
@@ -282,8 +282,8 @@
   
   <entry>
     <title>1540 K次操作转变字符串</title>
-    <link href="https://qybit.gitee.io/2021/02/02/cklamc1m20009u8tp65531okm/"/>
-    <id>https://qybit.gitee.io/2021/02/02/cklamc1m20009u8tp65531okm/</id>
+    <link href="https://qybit.gitee.io/2021/02/02/cklbpei6w000brstpg07igy8q/"/>
+    <id>https://qybit.gitee.io/2021/02/02/cklbpei6w000brstpg07igy8q/</id>
     <published>2021-02-02T04:25:15.000Z</published>
     <updated>2021-02-07T10:58:18.346Z</updated>
     
@@ -308,8 +308,8 @@
   
   <entry>
     <title>410 分割数组的最大值</title>
-    <link href="https://qybit.gitee.io/2021/02/02/cklamc1me000ou8tp62x7d3iq/"/>
-    <id>https://qybit.gitee.io/2021/02/02/cklamc1me000ou8tp62x7d3iq/</id>
+    <link href="https://qybit.gitee.io/2021/02/02/cklbpei70000hrstp5cg02vjv/"/>
+    <id>https://qybit.gitee.io/2021/02/02/cklbpei70000hrstp5cg02vjv/</id>
     <published>2021-02-01T19:39:36.000Z</published>
     <updated>2021-02-07T10:58:18.348Z</updated>
     
@@ -331,8 +331,8 @@
   
   <entry>
     <title>424 替换后的最长重复字符</title>
-    <link href="https://qybit.gitee.io/2021/02/02/cklamc1mf000su8tp1nqxgx6k/"/>
-    <id>https://qybit.gitee.io/2021/02/02/cklamc1mf000su8tp1nqxgx6k/</id>
+    <link href="https://qybit.gitee.io/2021/02/02/cklbpei73000qrstp0xue3b81/"/>
+    <id>https://qybit.gitee.io/2021/02/02/cklbpei73000qrstp0xue3b81/</id>
     <published>2021-02-01T18:50:03.000Z</published>
     <updated>2021-02-07T10:58:18.349Z</updated>
     
@@ -354,8 +354,8 @@
   
   <entry>
     <title>1128 等价多米诺骨牌对的数量</title>
-    <link href="https://qybit.gitee.io/2021/01/26/cklamc1lo0001u8tpbark9kmg/"/>
-    <id>https://qybit.gitee.io/2021/01/26/cklamc1lo0001u8tpbark9kmg/</id>
+    <link href="https://qybit.gitee.io/2021/01/26/cklbpei6o0003rstp3ayf33i0/"/>
+    <id>https://qybit.gitee.io/2021/01/26/cklbpei6o0003rstp3ayf33i0/</id>
     <published>2021-01-26T02:25:06.000Z</published>
     <updated>2021-02-07T10:58:21.472Z</updated>
     
@@ -380,8 +380,8 @@
   
   <entry>
     <title>关于Promise的学习笔记</title>
-    <link href="https://qybit.gitee.io/2021/01/24/cklamc1n1001ou8tpcg2o04ek/"/>
-    <id>https://qybit.gitee.io/2021/01/24/cklamc1n1001ou8tpcg2o04ek/</id>
+    <link href="https://qybit.gitee.io/2021/01/24/cklbpei7g001krstp9llb0d4s/"/>
+    <id>https://qybit.gitee.io/2021/01/24/cklbpei7g001krstp9llb0d4s/</id>
     <published>2021-01-24T08:58:11.000Z</published>
     <updated>2021-02-07T10:58:21.492Z</updated>
     
@@ -408,8 +408,8 @@
   
   <entry>
     <title>第224场周赛</title>
-    <link href="https://qybit.gitee.io/2021/01/17/cklamc1nt002tu8tpdxd3aki6/"/>
-    <id>https://qybit.gitee.io/2021/01/17/cklamc1nt002tu8tpdxd3aki6/</id>
+    <link href="https://qybit.gitee.io/2021/01/17/cklbpei7z002urstp2efhcplv/"/>
+    <id>https://qybit.gitee.io/2021/01/17/cklbpei7z002urstp2efhcplv/</id>
     <published>2021-01-17T07:09:09.000Z</published>
     <updated>2021-02-07T11:07:46.055Z</updated>
     
@@ -445,8 +445,8 @@
   
   <entry>
     <title>第43场双周赛</title>
-    <link href="https://qybit.gitee.io/2021/01/12/cklamc1o7003hu8tp9mty3o5w/"/>
-    <id>https://qybit.gitee.io/2021/01/12/cklamc1o7003hu8tp9mty3o5w/</id>
+    <link href="https://qybit.gitee.io/2021/01/12/cklbpei8b003grstpghyzg6e0/"/>
+    <id>https://qybit.gitee.io/2021/01/12/cklbpei8b003grstpghyzg6e0/</id>
     <published>2021-01-12T06:06:02.000Z</published>
     <updated>2021-02-07T10:58:21.489Z</updated>
     
@@ -488,8 +488,8 @@
   
   <entry>
     <title>第222场周赛</title>
-    <link href="https://qybit.gitee.io/2021/01/03/cklamc1nr002qu8tpchmqd0vr/"/>
-    <id>https://qybit.gitee.io/2021/01/03/cklamc1nr002qu8tpchmqd0vr/</id>
+    <link href="https://qybit.gitee.io/2021/01/03/cklbpei7y002qrstp22ljf8qg/"/>
+    <id>https://qybit.gitee.io/2021/01/03/cklbpei7y002qrstp22ljf8qg/</id>
     <published>2021-01-03T12:14:33.000Z</published>
     <updated>2021-02-07T11:07:46.054Z</updated>
     
@@ -515,11 +515,11 @@
       <category term="周赛" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/%E7%AE%97%E6%B3%95/%E5%91%A8%E8%B5%9B/"/>
     
     
-      <category term="数组" scheme="https://qybit.gitee.io/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="双指针" scheme="https://qybit.gitee.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
     
       <category term="哈希表" scheme="https://qybit.gitee.io/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
+    
+      <category term="数组" scheme="https://qybit.gitee.io/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="贪心" scheme="https://qybit.gitee.io/tags/%E8%B4%AA%E5%BF%83/"/>
     
@@ -529,8 +529,8 @@
   
   <entry>
     <title>一文解决Tomcat开发中乱码的问题</title>
-    <link href="https://qybit.gitee.io/2020/12/31/cklamc1mz001ku8tpbr3vg26r/"/>
-    <id>https://qybit.gitee.io/2020/12/31/cklamc1mz001ku8tpbr3vg26r/</id>
+    <link href="https://qybit.gitee.io/2020/12/31/cklbpei7h001nrstp3e7ggsjz/"/>
+    <id>https://qybit.gitee.io/2020/12/31/cklbpei7h001nrstp3e7ggsjz/</id>
     <published>2020-12-31T07:20:40.000Z</published>
     <updated>2021-02-07T10:58:21.476Z</updated>
     
@@ -562,8 +562,8 @@
   
   <entry>
     <title>第221场周赛</title>
-    <link href="https://qybit.gitee.io/2020/12/29/cklamc1no002nu8tp523kade6/"/>
-    <id>https://qybit.gitee.io/2020/12/29/cklamc1no002nu8tp523kade6/</id>
+    <link href="https://qybit.gitee.io/2020/12/29/cklbpei7x002orstph9gm8qco/"/>
+    <id>https://qybit.gitee.io/2020/12/29/cklbpei7x002orstph9gm8qco/</id>
     <published>2020-12-29T03:06:13.000Z</published>
     <updated>2021-02-07T10:58:21.497Z</updated>
     
