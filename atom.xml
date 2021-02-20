@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://qybit.gitee.io/"/>
-  <updated>2021-02-19T02:47:45.831Z</updated>
+  <updated>2021-02-20T13:04:19.201Z</updated>
   <id>https://qybit.gitee.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>848. 字母移位</title>
+    <link href="https://qybit.gitee.io/2021/02/20/848/"/>
+    <id>https://qybit.gitee.io/2021/02/20/848/</id>
+    <published>2021-02-20T12:33:33.000Z</published>
+    <updated>2021-02-20T13:04:19.201Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="开头"><a href="#开头" class="headerlink" title="开头"></a>开头</h1><p>给定一个字符串和数组，且二者长度是相同的。</p><p>移位过程中，字母表是环绕的，即超过 <code>z</code> 的部分，将会从 <code>a</code> 重新开始计数。</p><p><code>shifts[i] = x</code> ，表示的是我们将 <code>S</code> 中的前 <code>i + 1</code> 个字母移位 <code>x</code> 次。</p><p><strong>移位</strong>操作我们定义为 $shift$ 函数处理。</p><h1 id="方法一：暴力"><a href="#方法一：暴力" class="headerlink" title="方法一：暴力"></a>方法一：暴力</h1><p>我们发现了数据范围，实际上是 $2 \times 10 ^ 4$，而我们的暴力做法时间复杂度将会达到 $N^2$ ，也就是 $4 \times 10^8$ 计算次数。那么对于一道中等题，显而易见是会 $TLE$ 超时的。</p><p>先看看暴力的做法。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">shiftingLetters</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; shifts)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = shifts.size();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++) &#123;</span><br><span class="line">            <span class="keyword">int</span> k = shifts[i] % <span class="number">26</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= i; j ++) &#123;</span><br><span class="line">                s[j] = shift(s[j], k);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> s;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">char</span> <span class="title">shift</span><span class="params">(<span class="keyword">char</span> c, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;a&#x27;</span> + (c + k - <span class="string">&#x27;a&#x27;</span>) % <span class="number">26</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><h2 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h2><p>时间复杂度：$O(N^2)$，其中 $N$ 表示数组和字符串的长度。</p><p>空间复杂度：$O(1)$</p><h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p>对于 $shifts[i] \ (0 \le i \le n-1)，其中 n 为数组长度$ 而言，我们的<strong>移位</strong>操作次数实际上是<br>$$<br>\sum_{k=i}^{n-1} shift(S[k], shifts[k])，其中 \ S \ 为字符串<br>$$<br>因此，我们可以采用<strong>后缀和</strong>来优化这一过程。</p><p>与前缀和最好相反，后缀和 我们定义为 $Sum[i]$，表示为区间 $[i, n -1]$ 的总和。</p><h1 id="方法二：后缀和"><a href="#方法二：后缀和" class="headerlink" title="方法二：后缀和"></a>方法二：后缀和</h1><p>我们定义 $Sum[i]$ 表示为<br>$$<br>\sum_{k=i}^{n-1}arr[k]<br>$$<br>这样就可以在 $O(1)$ 时间复杂度，获得第 $i$ 个字符一共<strong>移位</strong>多少次。</p><h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">shiftingLetters</span><span class="params">(<span class="built_in">string</span> S, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; shifts)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = shifts.size();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = n - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i --) &#123;</span><br><span class="line">            shifts[i] %= <span class="number">26</span>;</span><br><span class="line">            shifts[i] += shifts[i + <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++) S[i] = shift(S[i], shifts[i]);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> S;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">char</span> <span class="title">shift</span><span class="params">(<span class="keyword">char</span> c, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;a&#x27;</span> + (c + k - <span class="string">&#x27;a&#x27;</span>) % <span class="number">26</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><h2 id="复杂度分析-1"><a href="#复杂度分析-1" class="headerlink" title="复杂度分析"></a>复杂度分析</h2><p>时间复杂度：$O(N)$，其中 $N$ 为数组和字符串的长度。</p><ul><li>我们会遍历一次 $shifts$ 数组，计算出后缀和。时间复杂度 $O(N)$</li><li>我们遍历字符串，给每一个字符进行<strong>移位</strong>操作，<strong>移位</strong>操作时间复杂度为 $O(1)$。所以遍历字符串的时间复杂度为 $O(N)$。</li><li>我们对于数组或者字符串中的任意一个元素，至多只会遍历一次。</li></ul><p>空间复杂度：$O(1)$，我们直接使用的 $shifts$ 数组的空间。</p>]]></content>
+    
+    <summary type="html">
+    
+      力扣848-字母移位
+    
+    </summary>
+    
+    
+      <category term="力扣" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/"/>
+    
+    
+      <category term="字符串" scheme="https://qybit.gitee.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+  </entry>
   
   <entry>
     <title>1.两数之和</title>
@@ -147,8 +170,8 @@
   
   <entry>
     <title>665 非递减数列</title>
-    <link href="https://qybit.gitee.io/2021/02/07/cklbpei7a0016rstp70dugb6y/"/>
-    <id>https://qybit.gitee.io/2021/02/07/cklbpei7a0016rstp70dugb6y/</id>
+    <link href="https://qybit.gitee.io/2021/02/07/ckldqhvbe0019s0tphz7fadia/"/>
+    <id>https://qybit.gitee.io/2021/02/07/ckldqhvbe0019s0tphz7fadia/</id>
     <published>2021-02-06T19:02:36.000Z</published>
     <updated>2021-02-07T10:58:18.335Z</updated>
     
@@ -171,8 +194,8 @@
   
   <entry>
     <title>127 单词接龙</title>
-    <link href="https://qybit.gitee.io/2021/02/06/cklbpei6t0007rstp4nbwh7hu/"/>
-    <id>https://qybit.gitee.io/2021/02/06/cklbpei6t0007rstp4nbwh7hu/</id>
+    <link href="https://qybit.gitee.io/2021/02/06/ckldqhvav0009s0tphu219p74/"/>
+    <id>https://qybit.gitee.io/2021/02/06/ckldqhvav0009s0tphu219p74/</id>
     <published>2021-02-06T00:52:41.000Z</published>
     <updated>2021-02-07T10:58:18.338Z</updated>
     
@@ -195,8 +218,8 @@
   
   <entry>
     <title>1625 执行操作后字典序最小的字符串</title>
-    <link href="https://qybit.gitee.io/2021/02/06/cklbpei6y000frstp1cb815xo/"/>
-    <id>https://qybit.gitee.io/2021/02/06/cklbpei6y000frstp1cb815xo/</id>
+    <link href="https://qybit.gitee.io/2021/02/06/ckldqhvaw000bs0tpcsyr1k73/"/>
+    <id>https://qybit.gitee.io/2021/02/06/ckldqhvaw000bs0tpcsyr1k73/</id>
     <published>2021-02-05T23:30:40.000Z</published>
     <updated>2021-02-07T10:58:18.340Z</updated>
     
@@ -226,8 +249,8 @@
   
   <entry>
     <title>1208 尽可能使字符串相等</title>
-    <link href="https://qybit.gitee.io/2021/02/05/cklbpei6v0009rstp93nqhp72/"/>
-    <id>https://qybit.gitee.io/2021/02/05/cklbpei6v0009rstp93nqhp72/</id>
+    <link href="https://qybit.gitee.io/2021/02/05/ckldqhvap0003s0tp65c9ezr2/"/>
+    <id>https://qybit.gitee.io/2021/02/05/ckldqhvap0003s0tp65c9ezr2/</id>
     <published>2021-02-04T17:40:56.000Z</published>
     <updated>2021-02-07T10:58:18.342Z</updated>
     
@@ -254,8 +277,8 @@
   
   <entry>
     <title>480 滑动窗口中位数</title>
-    <link href="https://qybit.gitee.io/2021/02/03/cklbpei76000yrstp7fe87fjt/"/>
-    <id>https://qybit.gitee.io/2021/02/03/cklbpei76000yrstp7fe87fjt/</id>
+    <link href="https://qybit.gitee.io/2021/02/03/ckldqhvba000ys0tp8yr6ac7v/"/>
+    <id>https://qybit.gitee.io/2021/02/03/ckldqhvba000ys0tp8yr6ac7v/</id>
     <published>2021-02-02T20:56:57.000Z</published>
     <updated>2021-02-07T10:58:18.344Z</updated>
     
@@ -282,8 +305,8 @@
   
   <entry>
     <title>1540 K次操作转变字符串</title>
-    <link href="https://qybit.gitee.io/2021/02/02/cklbpei6w000brstpg07igy8q/"/>
-    <id>https://qybit.gitee.io/2021/02/02/cklbpei6w000brstpg07igy8q/</id>
+    <link href="https://qybit.gitee.io/2021/02/02/ckldqhvb0000fs0tpf9evbc8c/"/>
+    <id>https://qybit.gitee.io/2021/02/02/ckldqhvb0000fs0tpf9evbc8c/</id>
     <published>2021-02-02T04:25:15.000Z</published>
     <updated>2021-02-07T10:58:18.346Z</updated>
     
@@ -308,8 +331,8 @@
   
   <entry>
     <title>410 分割数组的最大值</title>
-    <link href="https://qybit.gitee.io/2021/02/02/cklbpei70000hrstp5cg02vjv/"/>
-    <id>https://qybit.gitee.io/2021/02/02/cklbpei70000hrstp5cg02vjv/</id>
+    <link href="https://qybit.gitee.io/2021/02/02/ckldqhvb5000ms0tpb7u371zo/"/>
+    <id>https://qybit.gitee.io/2021/02/02/ckldqhvb5000ms0tpb7u371zo/</id>
     <published>2021-02-01T19:39:36.000Z</published>
     <updated>2021-02-07T10:58:18.348Z</updated>
     
@@ -331,8 +354,8 @@
   
   <entry>
     <title>424 替换后的最长重复字符</title>
-    <link href="https://qybit.gitee.io/2021/02/02/cklbpei73000qrstp0xue3b81/"/>
-    <id>https://qybit.gitee.io/2021/02/02/cklbpei73000qrstp0xue3b81/</id>
+    <link href="https://qybit.gitee.io/2021/02/02/ckldqhvb7000qs0tpgrg5htm5/"/>
+    <id>https://qybit.gitee.io/2021/02/02/ckldqhvb7000qs0tpgrg5htm5/</id>
     <published>2021-02-01T18:50:03.000Z</published>
     <updated>2021-02-07T10:58:18.349Z</updated>
     
@@ -354,8 +377,8 @@
   
   <entry>
     <title>1128 等价多米诺骨牌对的数量</title>
-    <link href="https://qybit.gitee.io/2021/01/26/cklbpei6o0003rstp3ayf33i0/"/>
-    <id>https://qybit.gitee.io/2021/01/26/cklbpei6o0003rstp3ayf33i0/</id>
+    <link href="https://qybit.gitee.io/2021/01/26/ckldqhvat0007s0tpcmy1agy5/"/>
+    <id>https://qybit.gitee.io/2021/01/26/ckldqhvat0007s0tpcmy1agy5/</id>
     <published>2021-01-26T02:25:06.000Z</published>
     <updated>2021-02-07T10:58:21.472Z</updated>
     
@@ -380,8 +403,8 @@
   
   <entry>
     <title>关于Promise的学习笔记</title>
-    <link href="https://qybit.gitee.io/2021/01/24/cklbpei7g001krstp9llb0d4s/"/>
-    <id>https://qybit.gitee.io/2021/01/24/cklbpei7g001krstp9llb0d4s/</id>
+    <link href="https://qybit.gitee.io/2021/01/24/ckldqhvcd002ns0tp9vteco6k/"/>
+    <id>https://qybit.gitee.io/2021/01/24/ckldqhvcd002ns0tp9vteco6k/</id>
     <published>2021-01-24T08:58:11.000Z</published>
     <updated>2021-02-07T10:58:21.492Z</updated>
     
@@ -408,8 +431,8 @@
   
   <entry>
     <title>第224场周赛</title>
-    <link href="https://qybit.gitee.io/2021/01/17/cklbpei7z002urstp2efhcplv/"/>
-    <id>https://qybit.gitee.io/2021/01/17/cklbpei7z002urstp2efhcplv/</id>
+    <link href="https://qybit.gitee.io/2021/01/17/ckldqhvcs003is0tpd5aea4ts/"/>
+    <id>https://qybit.gitee.io/2021/01/17/ckldqhvcs003is0tpd5aea4ts/</id>
     <published>2021-01-17T07:09:09.000Z</published>
     <updated>2021-02-07T11:07:46.055Z</updated>
     
@@ -445,8 +468,8 @@
   
   <entry>
     <title>第43场双周赛</title>
-    <link href="https://qybit.gitee.io/2021/01/12/cklbpei8b003grstpghyzg6e0/"/>
-    <id>https://qybit.gitee.io/2021/01/12/cklbpei8b003grstpghyzg6e0/</id>
+    <link href="https://qybit.gitee.io/2021/01/12/ckldqhvd2003ws0tpg6csbomi/"/>
+    <id>https://qybit.gitee.io/2021/01/12/ckldqhvd2003ws0tpg6csbomi/</id>
     <published>2021-01-12T06:06:02.000Z</published>
     <updated>2021-02-07T10:58:21.489Z</updated>
     
@@ -488,8 +511,8 @@
   
   <entry>
     <title>第222场周赛</title>
-    <link href="https://qybit.gitee.io/2021/01/03/cklbpei7y002qrstp22ljf8qg/"/>
-    <id>https://qybit.gitee.io/2021/01/03/cklbpei7y002qrstp22ljf8qg/</id>
+    <link href="https://qybit.gitee.io/2021/01/03/ckldqhvcp003cs0tpcb9h50tr/"/>
+    <id>https://qybit.gitee.io/2021/01/03/ckldqhvcp003cs0tpcb9h50tr/</id>
     <published>2021-01-03T12:14:33.000Z</published>
     <updated>2021-02-07T11:07:46.054Z</updated>
     
@@ -529,8 +552,8 @@
   
   <entry>
     <title>一文解决Tomcat开发中乱码的问题</title>
-    <link href="https://qybit.gitee.io/2020/12/31/cklbpei7h001nrstp3e7ggsjz/"/>
-    <id>https://qybit.gitee.io/2020/12/31/cklbpei7h001nrstp3e7ggsjz/</id>
+    <link href="https://qybit.gitee.io/2020/12/31/ckldqhvc5002cs0tpdg2ygwsw/"/>
+    <id>https://qybit.gitee.io/2020/12/31/ckldqhvc5002cs0tpdg2ygwsw/</id>
     <published>2020-12-31T07:20:40.000Z</published>
     <updated>2021-02-07T10:58:21.476Z</updated>
     
@@ -557,49 +580,6 @@
       <category term="JavaWeb" scheme="https://qybit.gitee.io/tags/JavaWeb/"/>
     
       <category term="Tomcat" scheme="https://qybit.gitee.io/tags/Tomcat/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>第221场周赛</title>
-    <link href="https://qybit.gitee.io/2020/12/29/cklbpei7x002orstph9gm8qco/"/>
-    <id>https://qybit.gitee.io/2020/12/29/cklbpei7x002orstph9gm8qco/</id>
-    <published>2020-12-29T03:06:13.000Z</published>
-    <updated>2021-02-07T10:58:21.497Z</updated>
-    
-    <content type="html"><![CDATA[<p>题单：</p><ul><li> <a href="https://leetcode-cn.com/problems/determine-if-string-halves-are-alike/">判断字符串的两半是否相似</a></li><li> <a href="https://leetcode-cn.com/problems/maximum-number-of-eaten-apples/">吃苹果的最大数目</a></li><li> <a href="https://leetcode-cn.com/problems/where-will-the-ball-fall/">球会落何处</a></li><li> <a href="https://leetcode-cn.com/problems/maximum-xor-with-an-element-from-array/">与数组中元素的最大异或值</a></li></ul><a id="more"></a><h4 id="T1：判断字符串的两半是否相似"><a href="#T1：判断字符串的两半是否相似" class="headerlink" title="T1：判断字符串的两半是否相似"></a>T1：<a href="https://leetcode-cn.com/problems/determine-if-string-halves-are-alike/">判断字符串的两半是否相似</a></h4><p>方法一：模拟</p><p>同时遍历，字符串的前一部分和后一部分，统计出现的元音字符，然后判断相等即可</p><p><strong>代码</strong></p><p>c++</p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">halvesAreAlike</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="built_in">unordered_set</span>&lt;<span class="keyword">char</span>&gt; <span class="title">ss</span><span class="params">(&#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;e&#x27;</span>, <span class="string">&#x27;i&#x27;</span>, <span class="string">&#x27;o&#x27;</span>, <span class="string">&#x27;u&#x27;</span>&#125;)</span></span>;</span><br><span class="line">        <span class="keyword">int</span> s1 = <span class="number">0</span>, s2 = <span class="number">0</span>, n = s.size();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n/<span class="number">2</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">char</span> c1 = <span class="built_in">tolower</span>(s[i]);</span><br><span class="line">            <span class="keyword">char</span> c2 = <span class="built_in">tolower</span>(s[n<span class="number">-1</span>-i]);</span><br><span class="line">            <span class="keyword">if</span> (ss.count(c1)) s1++;</span><br><span class="line">            <span class="keyword">if</span> (ss.count(c2)) s2++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> s1 == s2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(n)$</p><p>空间复杂度：$O(1)$，<code>unordered_set</code>  空间是固定大小</p><h4 id="T2：吃苹果的最大数目"><a href="#T2：吃苹果的最大数目" class="headerlink" title="T2：吃苹果的最大数目"></a>T2：<a href="https://leetcode-cn.com/problems/maximum-number-of-eaten-apples/">吃苹果的最大数目</a></h4><p>方法一：贪心 + 优先队列</p><p><strong>开头</strong></p><p>观察数据范围，可以发现是 $10^4$ 级别的。$1 \le n \le 2 * 10^4$ ，$0 \le days[i] \le 2 * 10^4$，所以我们最多可以吃掉 $4 * 10^4$ 个苹果。算法时间复杂度得保证为 $O(NlogN) $ 或者 $O(N)$。</p><p><strong>思路</strong></p><p>贪心策略：对于任意一天 <code>i</code> ，我们都应该选择 <strong>吃最先要过期的苹果</strong> 。</p><p>那么如何证明贪心解是符合最优解呢？将贪心解替换为最优解</p><p>假设在某一天 <code>i</code> 时，</p><p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5fea7fc13ffa7d37b3aa6bda.png"></p><p>对于贪心解，我们选择吃掉的是 $T_i $ 天要过期的苹果，而最优解吃掉的是 $T_j$ 天要过期的苹果。对于贪心解我们的策略是吃掉要过期的苹果，因此可以假设 $T_i \le T_j$ ，把贪心解替换为 $T_j$，由于此时的 $T_i \le T_j$ 的，所以贪心是符合的。所以 $T_j$ 替换 $T_j$ 是可行的，因此贪心是符合最优解的。</p><p>在构思代码时，需要借助优先队列这一数据结构实现每次<strong>吃最先要过期的苹果</strong>，以此降低时间复杂度。</p><p><strong>代码</strong></p><p>c++</p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">eatenApples</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; apples, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; days)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">typedef</span> <span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; pii;</span><br><span class="line">        <span class="comment">// 小顶堆</span></span><br><span class="line">        <span class="built_in">priority_queue</span>&lt;pii, <span class="built_in">vector</span>&lt;pii&gt;, greater&lt;pii&gt;&gt; heap;</span><br><span class="line">        <span class="keyword">int</span> n = apples.size();</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 本题目，最多可以吃 40000 个苹果</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">40000</span>; i++) &#123;</span><br><span class="line">            <span class="comment">// 今天有长出的新苹果，加入优先队列</span></span><br><span class="line">            <span class="keyword">if</span> (i &lt; n &amp;&amp; apples[i] &gt; <span class="number">0</span>) </span><br><span class="line">                heap.push(&#123;i + days[i] - <span class="number">1</span>, apples[i]&#125;);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 把过期的苹果都扔掉</span></span><br><span class="line">            <span class="keyword">while</span> (heap.size() &amp;&amp; heap.top().first &lt; i) heap.pop();</span><br><span class="line">            <span class="keyword">if</span> (heap.empty()) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="comment">// 今天有苹果可以吃</span></span><br><span class="line">            <span class="keyword">auto</span> top = heap.top();</span><br><span class="line">            heap.pop();</span><br><span class="line">            res++;</span><br><span class="line">            <span class="comment">// 如果未过期就加入队列</span></span><br><span class="line">            <span class="keyword">if</span> (--top.second)</span><br><span class="line">                heap.push(top);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(NlogN)$，优先队列调整子节点，时间复杂度为 $O(logN)$，一共有 $N = 40000$次。</p><p>空间复杂度：$O(N)$</p><h4 id="T3：球会落何处"><a href="#T3：球会落何处" class="headerlink" title="T3：球会落何处"></a>T3：<a href="https://leetcode-cn.com/problems/where-will-the-ball-fall/">球会落何处</a></h4><p>方法一：模拟</p><p>对于网格的任意一栏 $column_i$，我们在第一行的所有列都放下一个球，然后记录从该 $column_i$栏放下球后，球的最终出口位置 $column_j$。如果不能到达最后一行，则返回 -1。</p><p>那么分析之后，球在下落的过程中，有以下几种情况：</p><ol><li><p>这种情况下，球会被卡死，我们记录为 -1</p><p> <img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5fea85473ffa7d37b3b0ba96.png"></p></li><li><p>在边界的情况下，球也会被卡死</p><p> <img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5fea85b63ffa7d37b3b15871.png"></p><p> <img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5fea85e13ffa7d37b3b19492.png"></p></li></ol><p>在以上三种情况下，球才会卡死。我们在模拟下落时，避开这三种情况即可。</p><p><strong>代码</strong></p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">findBall</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = grid.size(), n = grid[<span class="number">0</span>].size();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">res</span><span class="params">(n)</span></span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> x = <span class="number">0</span>, y = i;</span><br><span class="line">            <span class="keyword">while</span> (x &lt; m &amp;&amp; y &lt; n) &#123;</span><br><span class="line">                <span class="keyword">if</span> (grid[x][y] == <span class="number">1</span>) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (y == n <span class="number">-1</span> || grid[x][y+<span class="number">1</span>] == <span class="number">-1</span>) <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">else</span> x++, y++;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> (y == <span class="number">0</span> || grid[x][y<span class="number">-1</span>] == <span class="number">1</span>) <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">else</span> x++, y--;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (x &gt;= m) res[i] = y;</span><br><span class="line">            <span class="keyword">else</span> res[i] = <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(N^2)$</p><p>空间复杂度：$O(N)$</p><h4 id="T4：与数组中元素的最大异或值"><a href="#T4：与数组中元素的最大异或值" class="headerlink" title="T4：与数组中元素的最大异或值"></a>T4：<a href="https://leetcode-cn.com/problems/maximum-xor-with-an-element-from-array/">与数组中元素的最大异或值</a></h4><p><strong>开头</strong></p><p>观察数据的规模，确认是 $10^5$ 级别的数据量。因此任何 $O(N^2)$ 的算法，都不可能通过本题。但是，这里仍然给出 $TLE$ 代码，然后再后续优化算法。</p><p>方法一：暴力（TLE）</p><p>直接暴力循环，枚举所有的情况。</p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">maximizeXor</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; queries)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size(), m = queries.size();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">ans</span><span class="params">(m)</span></span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span> ;i &lt; m; i++) &#123;</span><br><span class="line">            <span class="keyword">auto</span> query = queries[i];</span><br><span class="line">            <span class="keyword">int</span> x = query[<span class="number">0</span>], m = query[<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">int</span> res = INT_MIN, f = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[j] &lt;= m) &#123;</span><br><span class="line">                    f = <span class="number">1</span>;</span><br><span class="line">                    res = max(res, nums[j] ^ x);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            ans[i] = f ? res : <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(N^2)$</p><p>空间复杂度：$O(N)$</p><p>方法二：贪心 + 前缀树（Trie）</p><p><strong>开头</strong></p><p><strong>异或规则</strong>：相同为0，不同为1。</p><p>本题 $0 \le nums[i] \le 10^9$，所以二进制数一共有 <strong>31</strong> 位。本题的前缀树和经典的前缀树不同，该题中要构造的前缀树的子节点仅含 <code>0</code> 和 <code>1</code>，是一个数从最高位开始，向下延申。因此对于 $10^5$ 且 数据本身为 $10^9$ 的数据量，我们需要构造的字典树大小为 <code>3100000 * 2</code> 这是最为保险的估计量。</p><p>在本题，我们需要计算出在不大于 $queries[i][1]$ 的情况下，计算每一个查询中$max \{ queries[i][0] \ \ XOR \ \ nums[j] \}$。那么根据<strong>异或规则</strong>，我们要尽可能的让每一位都不同，这样才能让结果产生更多的1，那么结果就更大。</p><p>比如$A = 101010101 …. 101$ 时，假设 $A$ 为某一个 31 位二进制数，我要尽可能在不大于 $queries[i][1]$ 的集合中，找出这样一个数<br>$$<br>A = 101010101 …. 101 \\<br>B = 010101010 …. 010 \\<br>res = 111111111 …. 111<br>$$<br>在理想情况下，我们可以找到一个 $B$ 满足恰好每一位都与 $A$ 都是相反的，得到的 $res$ 所有位全为 <code>1</code>。</p><p>现实情况是，我们要尽可能找到一个 $B$ ，使得 $B$ 中有更多位满足上述情况。这是贪心策略的体现。</p><p>对于前缀树，对于任何一位上的 <code>0</code> 或者 <code>1</code>，我们的选择树如下：</p><p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5fea956b3ffa7d37b3c8d80d.png"></p><p>root 表示为 查询数 $X$ 的某一位，如果 $root == 1$ ，在子树 <code>0</code> 存在的下，我们将会抛弃子树 <code>1</code>  来剪枝。那么对于原本的集合，我们将会去掉 <code>1</code> 那部分。</p><p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5fea95d53ffa7d37b3c989bd.png"></p><p>对于集合的另一部分，<code>0</code> 也是同理，不断缩小集合范围，最终找到最大的 $XOR$ 值。</p><p>值得注意的是，本题中是<strong>已经给出了所有的查询</strong>，因此查询本身的顺序并不重要，所以我们可以对查询进行预处理。</p><p><strong>代码</strong></p><p>c++</p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> x, m, k;</span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (Node&amp; t) <span class="keyword">const</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> m &lt; t.m;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;q[<span class="number">100010</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> son[<span class="number">3100000</span>][<span class="number">2</span>];</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span> idx = <span class="number">0</span>;</span><br><span class="line"><span class="comment">// 从最高位 开始插入</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> p = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 数据本身 最高31 位，因此移动30位</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">30</span>; ~i; i--) &#123;</span><br><span class="line">            <span class="keyword">int</span> u = x &gt;&gt; i &amp; <span class="number">1</span>;</span><br><span class="line">            <span class="comment">// 不存在路径，就创建</span></span><br><span class="line">            <span class="keyword">if</span> (!son[p][u]) son[p][u] = ++idx;</span><br><span class="line">            p = son[p][u];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">search</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 路径不存在</span></span><br><span class="line">        <span class="keyword">if</span> (!idx) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>, p = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">30</span>; ~i; i--) &#123;</span><br><span class="line">            <span class="comment">// 取反去最高位</span></span><br><span class="line">            <span class="keyword">int</span> u = !(x &gt;&gt; i &amp; <span class="number">1</span>);</span><br><span class="line">            <span class="comment">// 该位 贡献一个1</span></span><br><span class="line">            <span class="keyword">if</span> (son[p][u]) p = son[p][u], res += <span class="number">1</span> &lt;&lt; i;</span><br><span class="line">            <span class="comment">// 相反的数，不存在，只能去相同的路径</span></span><br><span class="line">            <span class="keyword">else</span> p = son[p][!u];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">maximizeXor</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; queries)</span> </span>&#123;</span><br><span class="line">        idx = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">memset</span>(son, <span class="number">0</span>, <span class="keyword">sizeof</span> son);</span><br><span class="line">        <span class="keyword">int</span> n = nums.size(), m = queries.size();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">            q[i] = &#123;queries[i][<span class="number">0</span>], queries[i][<span class="number">1</span>], i&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 预处理</span></span><br><span class="line">        sort(q, q+m);</span><br><span class="line">        sort(nums.begin(), nums.end());</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">res</span><span class="params">(m)</span></span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>; j &lt; m; j++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (i &lt; n &amp;&amp; nums[i] &lt;= q[j].m) insert(nums[i++]);</span><br><span class="line">            res[q[j].k] = search(q[j].x);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(NlogN) + O(MlogM)$，其中 N 为数组长度， M 为查询次数。</p><p>空间复杂度：$O(31<em>2</em>N + M)$，其中<code>31</code>表示 <code>int</code> 范围内，二进制数的位数。<code>M</code> 为查询次数</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;题单：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt; &lt;a href=&quot;https://leetcode-cn.com/problems/determine-if-string-halves-are-alike/&quot;&gt;判断字符串的两半是否相似&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt; &lt;a href=&quot;https://leetcode-cn.com/problems/maximum-number-of-eaten-apples/&quot;&gt;吃苹果的最大数目&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt; &lt;a href=&quot;https://leetcode-cn.com/problems/where-will-the-ball-fall/&quot;&gt;球会落何处&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt; &lt;a href=&quot;https://leetcode-cn.com/problems/maximum-xor-with-an-element-from-array/&quot;&gt;与数组中元素的最大异或值&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="力扣" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/"/>
-    
-      <category term="算法" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="周赛" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/%E7%AE%97%E6%B3%95/%E5%91%A8%E8%B5%9B/"/>
-    
-    
-      <category term="字符串" scheme="https://qybit.gitee.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
-      <category term="贪心" scheme="https://qybit.gitee.io/tags/%E8%B4%AA%E5%BF%83/"/>
-    
-      <category term="堆" scheme="https://qybit.gitee.io/tags/%E5%A0%86/"/>
-    
-      <category term="动态规划" scheme="https://qybit.gitee.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
-    
-      <category term="位运算" scheme="https://qybit.gitee.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
-    
-      <category term="字典树" scheme="https://qybit.gitee.io/tags/%E5%AD%97%E5%85%B8%E6%A0%91/"/>
     
   </entry>
   
