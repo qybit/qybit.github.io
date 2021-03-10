@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://qybit.gitee.io/"/>
-  <updated>2021-02-22T16:08:15.583Z</updated>
+  <updated>2021-03-07T03:12:59.963Z</updated>
   <id>https://qybit.gitee.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>131. 分割回文串</title>
+    <link href="https://qybit.gitee.io/2021/03/07/259/"/>
+    <id>https://qybit.gitee.io/2021/03/07/259/</id>
+    <published>2021-03-07T02:47:14.000Z</published>
+    <updated>2021-03-07T03:12:59.963Z</updated>
+    
+    <content type="html"><![CDATA[<p>#</p><h1 id="方法一：回溯-剪枝优化"><a href="#方法一：回溯-剪枝优化" class="headerlink" title="方法一：回溯 + 剪枝优化"></a>方法一：回溯 + 剪枝优化</h1><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>对于本题，我们要找出字符串 $s$ 中，所有可能的回文子串，因此我们需要搜索与回溯遍历所有可能的字串。</p><p>对于字符串中某个下标 $i$ ，我们可以假设其 $[0,i]$ 的部分，已经全部是回文子串并且加入答案数组 $res$ 中。那么，对于区间 $<a href="n%E4%B8%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%95%BF%E5%BA%A6">i,n</a>$，我们可以枚举出所有可能的长度 $len (1 \le len \le n-i+1)$，并使用双指针检查是否为回文子串。</p><p>如果为回文子串，我们把该字串加入到答案数组，然后我们下一次搜索时就可以跳过这一个回文字串，从下标 $i + len$ 开始重复上述过程，直到 $i \ge n$ 为止。当以该字串为回文串的路径，搜索完毕后，我们再删除该字串，然后再重新以另一个可能存在的回文串重复上述过程。</p><p>直到，没有存在可能的回文串才会结束我们的算法。即我们从头扫到尾，都未发现回文串时。</p><h3 id="剪枝的体现："><a href="#剪枝的体现：" class="headerlink" title="剪枝的体现："></a>剪枝的体现：</h3><ul><li>当我们对于任意一个下标 $i$ 进行枚举时，我们会枚举出所有可能的切割长度所产生的字串，但是我们只会选择属于回文子串的路径进行搜索。而不是回文子串的路径，则会被抛弃。</li></ul><h2 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h2><p>对于回溯的题目，我们脑海中需要有一颗递归树。请以 <strong>自行脑部/画出递归树</strong> 的方式来理解本题的解法。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(<span class="built_in">string</span> &amp;s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n / <span class="number">2</span>; i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (s[i] != s[n - <span class="number">1</span> - i]) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; &amp;res, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;path, <span class="keyword">int</span> idx, <span class="built_in">string</span> &amp;s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="keyword">if</span> (idx == n) &#123;</span><br><span class="line">            res.push_back(path);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n - idx + <span class="number">1</span>; i ++) &#123;</span><br><span class="line">            <span class="built_in">string</span> sub = s.substr(idx, i);</span><br><span class="line">            <span class="keyword">if</span> (check(sub)) &#123;</span><br><span class="line">                path.push_back(sub);</span><br><span class="line">                dfs(res, path, idx + i, s);</span><br><span class="line">                path.pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; partition(<span class="built_in">string</span> s) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; res;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; path;</span><br><span class="line">        dfs(res, path, <span class="number">0</span>, s);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><p>时间复杂度：$O(N \times 2^N)$，其中 $N$ 是字符串 $s$ 的长度。</p><ul><li><p>我们需要利用双指针检查是否为回文子串，时间复杂度为 $O(N)$。</p></li><li><p>在最坏的情况下，字符串 $s$ 是由 $N$ 个相同的字符所组成的。那么我们要面临的划分方案为 $2^{N-1} = O(2^N)$ 。而对于任意一个划分的字串，我们都必须要利用双指针检查是否为回文子串。所以时间复杂度为 $O(N \times 2^N)$。</p></li></ul><p>空间复杂度：$O(N \times 2^N)$，我们需要存储所有可能的回文子串。</p>]]></content>
+    
+    <summary type="html">
+    
+      回溯
+    
+    </summary>
+    
+    
+      <category term="力扣" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/"/>
+    
+    
+      <category term="回溯" scheme="https://qybit.gitee.io/tags/%E5%9B%9E%E6%BA%AF/"/>
+    
+  </entry>
   
   <entry>
     <title>第46场双周赛</title>
@@ -39,11 +62,11 @@
     
       <category term="数组" scheme="https://qybit.gitee.io/tags/%E6%95%B0%E7%BB%84/"/>
     
-      <category term="BFS" scheme="https://qybit.gitee.io/tags/BFS/"/>
-    
       <category term="字符串" scheme="https://qybit.gitee.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
       <category term="贪心" scheme="https://qybit.gitee.io/tags/%E8%B4%AA%E5%BF%83/"/>
+    
+      <category term="BFS" scheme="https://qybit.gitee.io/tags/BFS/"/>
     
       <category term="图" scheme="https://qybit.gitee.io/tags/%E5%9B%BE/"/>
     
@@ -81,13 +104,13 @@
     <link href="https://qybit.gitee.io/2021/02/18/1/"/>
     <id>https://qybit.gitee.io/2021/02/18/1/</id>
     <published>2021-02-18T07:42:46.000Z</published>
-    <updated>2021-02-19T02:47:45.831Z</updated>
+    <updated>2021-03-10T01:19:43.290Z</updated>
     
-    <content type="html"><![CDATA[<p>当年我的劝退题目~，第一次做力扣被这道题卡了近一个小时。半天憋不出来一个可以 <code>AC</code> 的代码。</p><p>今天有必要给它写个题解，来纪念一下。</p><p>本文，将会分别从不同的时间复杂度来解决问题，如下 $O(N^2)$、$O(NlogN)$、$O(N)$ 的解决思路。</p><a id="more"></a><h1 id="开头"><a href="#开头" class="headerlink" title="开头"></a>开头</h1><p>我们需要在一个数组中，找到两个不同的下标使得下标对应的元素和等于 $targert$。</p><p>假设存在两个下标 $i$ 和 $j$ （$i \ne j$），使得 $nums[i] + nums[j] = target (i \ne j)$，其中 $nums$ 表示为数组。</p><h1 id="方法一：暴力"><a href="#方法一：暴力" class="headerlink" title="方法一：暴力"></a>方法一：暴力</h1><p>说来惭愧，第一次做这个题目，我连暴力都没能想到。</p><p>思路如下：</p><ul><li>第一层循环，我们固定一个下标 $i$。</li><li>第二层循环，我们在下标 $i$ 固定的前提下，再寻找一个下标 $j$，使得 $nums[i] + nums[j] = target (i \ne j)$。</li></ul><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i ++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; nums.size(); j ++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (i == j) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">if</span> (nums[i] + nums[j] == target) </span><br><span class="line">                    <span class="keyword">return</span> &#123;i, j&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(N^2)$，其中 $N$ 为数组的长度。对于数组中的每个元素，我们在最坏的情况下需要访问 $N$ 次。</p><p>空间复杂度：$O(1)$</p><h1 id="方法二：排序-双指针"><a href="#方法二：排序-双指针" class="headerlink" title="方法二：排序 + 双指针"></a>方法二：排序 + 双指针</h1><p>我们先将数组排序后，再使用双指针分别从数组 <strong>头部</strong> 和 <strong>尾部</strong> 夹逼寻找符合条件的两个元素。</p><p>由于排序后会打乱其原本的信息，因此我们必须要重新存储一下数组的元素，并维护其原本的位置。这一步我们可以使用结构体或者类来实现。</p><p>那么为什么可以使用双指针呢？证明如下：</p><ul><li>对于数组中的两个指针 $left(left \ge 0)$ 和 $right(right \le n - 1)$，其中 $n$ 为数组长度。存在如下情况：<ul><li>​    $q[left] + q[right] \gt target$，那么此时指针 $right$ 必不可能是向右移动的，因为对于 $q[right] \le q[right + 1] (right \le n -2)$ 一定成立。为了使得 $left$ 和 $right$ 所指元素 <strong>等于</strong> $target$  ，$right$ 只能单调向左移动。</li><li>$q[left] + q[right] \lt target$，对于 $left$ 指针而言也是同理。对于 $q[left - 1] \le q[left](left &gt; 0)$ 一定成立。为了使得 $left$ 和 $right$ 所指元素 <strong>等于</strong> $target$。$left$ 只能单调向右移动。</li><li>$q[left] + q[right] = target$ ，那么皆大欢喜，我们找到两个符合条件的下标。返回 $left$ 和 $right$ 所指元素的原本下标位置即可。</li></ul></li><li>只有满足了指针移动的单调性，我们才可以使用双指针来解决此类问题。</li></ul><p>类似题目推荐：</p><ul><li> <a href="https://leetcode-cn.com/problems/container-with-most-water/">力扣 11.盛最多水的容器</a></li></ul><h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1010</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Ele</span> &#123;</span></span><br><span class="line">    <span class="comment">// a 表示数组元素， k 表示该元素在原数组的位置</span></span><br><span class="line">    <span class="keyword">int</span> a, k;</span><br><span class="line">    <span class="comment">// 重载操作符，方便排序 </span></span><br><span class="line">    <span class="comment">// 按照数组元素大小升序排列</span></span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (Ele &amp;t) <span class="keyword">const</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> a &lt; t.a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;q[N];</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++) &#123;</span><br><span class="line">            q[i] = &#123;nums[i], i&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        sort(q, q + n);</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>, right = n - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">            <span class="keyword">int</span> sum = q[left].a + q[right].a;</span><br><span class="line">            <span class="keyword">if</span> (sum &gt; target) &#123;</span><br><span class="line">                right--;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sum &lt; target) &#123;</span><br><span class="line">                left ++;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> &#123;q[left].k, q[right].k&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(NlogN)$，其中 $N$ 为数组的长度。</p><ul><li>我们第一次遍历数组，备份各元素原本下标的位置。时间复杂度$O(N)$。</li><li>我们对<strong>新数组</strong>元素进行排序操作，此处的时间复杂度为 $O(NlogN)$。</li><li>我们还要双指针遍历<strong>新数组</strong>，来寻找符合条件的两个下标，并返回<strong>原本</strong>的下标位置。时间复杂度$O(N)$。</li><li>我们对于所有数组中的任意一个元素，在最坏的情况下都不会访问到达 $N$ 次。因此时间复杂度为 $O(NlogN)$。</li></ul><p>空间复杂度：$O(N)$，我们需要备份原来的数组的信息。</p><h1 id="方法三：哈希表-这个方法应该是最优解"><a href="#方法三：哈希表-这个方法应该是最优解" class="headerlink" title="方法三：哈希表 (这个方法应该是最优解)"></a>方法三：哈希表 (这个方法应该是最优解)</h1><p>假设存在两个下标 $i$ 和 $j$ $(i \ne j)$，满足 $a = nums[i], b = nums[j]$，那么此时 $a + b = target$。</p><p>对于数组中的元素，我们固定一个下标并假设其为 $i$ ，如下图</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.imgdb.cn/item/602e232d99aa8726f2955d70.jpg"></p><p>那么我们的最终目标其实是，询问 $b (nums[j])$ 是否存在于区间 $[0, i - 1]$ 中，并且这个操作必须是 $O(1)$ 时间复杂度的。</p><p>因此我们不难想到用 <strong>哈希表</strong> 来优化。考虑到本题中，存在负数，因此不可以使用数组来充当哈希表，我们只能使用 <code>Map</code> 结构来实现。</p><p>类似题目推荐：</p><ul><li> <a href="https://leetcode-cn.com/problems/n-repeated-element-in-size-2n-array/">961. 重复 N 次的元素</a></li><li> <a href="https://leetcode-cn.com/problems/single-number/">136. 只出现一次的数字</a></li><li> <a href="https://leetcode-cn.com/problems/sort-characters-by-frequency/">451. 根据字符出现频率排序</a></li></ul><h2 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; f;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i ++) &#123;</span><br><span class="line">            <span class="keyword">int</span> x = target - nums[i];</span><br><span class="line">            <span class="keyword">if</span> (f.find(x) != f.end()) &#123;</span><br><span class="line">                <span class="keyword">return</span> &#123;i, f[x]&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            f[nums[i]] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(N)$，其中 $N$ 为数组长度。我们至多只会遍历一遍数组。</p><p>空间复杂度：$O(N)$，其中 $N$ 为数组长度。我们需要使用 <strong>哈希表</strong> 维护数组元素和下标。</p>]]></content>
+    <content type="html"><![CDATA[<p>当年我的劝退题目~，第一次做力扣被这道题卡到劝退。半天憋不出来一个可以 <code>AC</code> 的代码。</p><p>今天有必要给它写个题解，来纪念一下。</p><p>本文，将会分别从不同的时间复杂度来解决问题，如下 $O(N^2)$、$O(NlogN)$、$O(N)$ 的解决思路。</p><a id="more"></a><h1 id="开头"><a href="#开头" class="headerlink" title="开头"></a>开头</h1><p>我们需要在一个数组中，找到两个不同的下标使得下标对应的元素和等于 $targert$。</p><p>假设存在两个下标 $i$ 和 $j$ （$i \ne j$），使得 $nums[i] + nums[j] = target (i \ne j)$，其中 $nums$ 表示为数组。</p><h1 id="方法一：暴力"><a href="#方法一：暴力" class="headerlink" title="方法一：暴力"></a>方法一：暴力</h1><p>思路如下：</p><ul><li>第一层循环，我们固定一个下标 $i$。</li><li>第二层循环，我们在下标 $i$ 固定的前提下，再寻找一个下标 $j$，使得 $nums[i] + nums[j] = target (i \ne j)$。</li></ul><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i ++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; nums.size(); j ++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (i == j) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">if</span> (nums[i] + nums[j] == target) </span><br><span class="line">                    <span class="keyword">return</span> &#123;i, j&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(N^2)$，其中 $N$ 为数组的长度。对于数组中的每个元素，我们在最坏的情况下需要访问 $N$ 次。</p><p>空间复杂度：$O(1)$</p><h1 id="方法二：排序-双指针"><a href="#方法二：排序-双指针" class="headerlink" title="方法二：排序 + 双指针"></a>方法二：排序 + 双指针</h1><p>我们先将数组排序后，再使用双指针分别从数组 <strong>头部</strong> 和 <strong>尾部</strong> 夹逼寻找符合条件的两个元素。</p><p>由于排序后会打乱其原本的信息，因此我们必须要重新存储一下数组的元素，并维护其原本的位置。这一步我们可以使用结构体或者类来实现。</p><p>那么为什么可以使用双指针呢？证明如下：</p><ul><li>对于数组中的两个指针 $left(left \ge 0)$ 和 $right(right \le n - 1)$，其中 $n$ 为数组长度。存在如下情况：<ul><li>​    $q[left] + q[right] \gt target$，那么此时指针 $right$ 必不可能是向右移动的，因为对于 $q[right] \le q[right + 1] (right \le n -2)$ 一定成立。为了使得 $left$ 和 $right$ 所指元素 <strong>等于</strong> $target$  ，$right$ 只能单调向左移动。</li><li>$q[left] + q[right] \lt target$，对于 $left$ 指针而言也是同理。对于 $q[left - 1] \le q[left](left &gt; 0)$ 一定成立。为了使得 $left$ 和 $right$ 所指元素 <strong>等于</strong> $target$。$left$ 只能单调向右移动。</li><li>$q[left] + q[right] = target$ ，那么皆大欢喜，我们找到两个符合条件的下标。返回 $left$ 和 $right$ 所指元素的原本下标位置即可。</li></ul></li><li>只有满足了指针移动的单调性，我们才可以使用双指针来解决此类问题。</li></ul><p>类似题目推荐：</p><ul><li> <a href="https://leetcode-cn.com/problems/container-with-most-water/">力扣 11.盛最多水的容器</a></li></ul><h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1010</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Ele</span> &#123;</span></span><br><span class="line">    <span class="comment">// a 表示数组元素， k 表示该元素在原数组的位置</span></span><br><span class="line">    <span class="keyword">int</span> a, k;</span><br><span class="line">    <span class="comment">// 重载操作符，方便排序 </span></span><br><span class="line">    <span class="comment">// 按照数组元素大小升序排列</span></span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (Ele &amp;t) <span class="keyword">const</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> a &lt; t.a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;q[N];</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++) &#123;</span><br><span class="line">            q[i] = &#123;nums[i], i&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        sort(q, q + n);</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>, right = n - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">            <span class="keyword">int</span> sum = q[left].a + q[right].a;</span><br><span class="line">            <span class="keyword">if</span> (sum &gt; target) &#123;</span><br><span class="line">                right--;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sum &lt; target) &#123;</span><br><span class="line">                left ++;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> &#123;q[left].k, q[right].k&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(NlogN)$，其中 $N$ 为数组的长度。</p><ul><li>我们第一次遍历数组，备份各元素原本下标的位置。时间复杂度$O(N)$。</li><li>我们对<strong>新数组</strong>元素进行排序操作，此处的时间复杂度为 $O(NlogN)$。</li><li>我们还要双指针遍历<strong>新数组</strong>，来寻找符合条件的两个下标，并返回<strong>原本</strong>的下标位置。时间复杂度$O(N)$。</li><li>我们对于所有数组中的任意一个元素，在最坏的情况下都不会访问到达 $N$ 次。因此时间复杂度为 $O(NlogN)$。</li></ul><p>空间复杂度：$O(N)$，我们需要备份原来的数组的信息。</p><h1 id="方法三：哈希表-这个方法应该是最优解"><a href="#方法三：哈希表-这个方法应该是最优解" class="headerlink" title="方法三：哈希表 (这个方法应该是最优解)"></a>方法三：哈希表 (这个方法应该是最优解)</h1><p>假设存在两个下标 $i$ 和 $j$ $(i \ne j)$，满足 $a = nums[i], b = nums[j]$，那么此时 $a + b = target$。</p><p>对于数组中的元素，我们固定一个下标并假设其为 $i$ ，如下图</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.imgdb.cn/item/602e232d99aa8726f2955d70.jpg"></p><p>那么我们的最终目标其实是，询问 $b (nums[j])$ 是否存在于区间 $[0, i - 1]$ 中，并且这个操作必须是 $O(1)$ 时间复杂度的。</p><p>因此我们不难想到用 <strong>哈希表</strong> 来优化。考虑到本题中，存在负数，因此不可以使用数组来充当哈希表，我们只能使用 <code>Map</code> 结构来实现。</p><p>类似题目推荐：</p><ul><li> <a href="https://leetcode-cn.com/problems/n-repeated-element-in-size-2n-array/">961. 重复 N 次的元素</a></li><li> <a href="https://leetcode-cn.com/problems/single-number/">136. 只出现一次的数字</a></li><li> <a href="https://leetcode-cn.com/problems/sort-characters-by-frequency/">451. 根据字符出现频率排序</a></li></ul><h2 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; f;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i ++) &#123;</span><br><span class="line">            <span class="keyword">int</span> x = target - nums[i];</span><br><span class="line">            <span class="keyword">if</span> (f.find(x) != f.end()) &#123;</span><br><span class="line">                <span class="keyword">return</span> &#123;i, f[x]&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            f[nums[i]] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(N)$，其中 $N$ 为数组长度。我们至多只会遍历一遍数组。</p><p>空间复杂度：$O(N)$，其中 $N$ 为数组长度。我们需要使用 <strong>哈希表</strong> 维护数组元素和下标。</p>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;当年我的劝退题目~，第一次做力扣被这道题卡了近一个小时。半天憋不出来一个可以 &lt;code&gt;AC&lt;/code&gt; 的代码。&lt;/p&gt;
+      &lt;p&gt;当年我的劝退题目~，第一次做力扣被这道题卡到劝退。半天憋不出来一个可以 &lt;code&gt;AC&lt;/code&gt; 的代码。&lt;/p&gt;
 &lt;p&gt;今天有必要给它写个题解，来纪念一下。&lt;/p&gt;
 &lt;p&gt;本文，将会分别从不同的时间复杂度来解决问题，如下 $O(N^2)$、$O(NlogN)$、$O(N)$ 的解决思路。&lt;/p&gt;
     
@@ -207,8 +230,8 @@
   
   <entry>
     <title>665 非递减数列</title>
-    <link href="https://qybit.gitee.io/2021/02/07/cklgry2i10016s4tpat2p8vo8/"/>
-    <id>https://qybit.gitee.io/2021/02/07/cklgry2i10016s4tpat2p8vo8/</id>
+    <link href="https://qybit.gitee.io/2021/02/07/ckm2rdkkm001cagtp5qqqd3c9/"/>
+    <id>https://qybit.gitee.io/2021/02/07/ckm2rdkkm001cagtp5qqqd3c9/</id>
     <published>2021-02-06T19:02:36.000Z</published>
     <updated>2021-02-07T10:58:18.335Z</updated>
     
@@ -231,8 +254,8 @@
   
   <entry>
     <title>127 单词接龙</title>
-    <link href="https://qybit.gitee.io/2021/02/06/cklgry2hl0009s4tpeid3fdsj/"/>
-    <id>https://qybit.gitee.io/2021/02/06/cklgry2hl0009s4tpeid3fdsj/</id>
+    <link href="https://qybit.gitee.io/2021/02/06/ckm2rdkk1000bagtp2a1s3rez/"/>
+    <id>https://qybit.gitee.io/2021/02/06/ckm2rdkk1000bagtp2a1s3rez/</id>
     <published>2021-02-06T00:52:41.000Z</published>
     <updated>2021-02-07T10:58:18.338Z</updated>
     
@@ -255,8 +278,8 @@
   
   <entry>
     <title>1625 执行操作后字典序最小的字符串</title>
-    <link href="https://qybit.gitee.io/2021/02/06/cklgry2hp000fs4tp1d6w0uvw/"/>
-    <id>https://qybit.gitee.io/2021/02/06/cklgry2hp000fs4tp1d6w0uvw/</id>
+    <link href="https://qybit.gitee.io/2021/02/06/ckm2rdkk6000iagtphapp88jl/"/>
+    <id>https://qybit.gitee.io/2021/02/06/ckm2rdkk6000iagtphapp88jl/</id>
     <published>2021-02-05T23:30:40.000Z</published>
     <updated>2021-02-07T10:58:18.340Z</updated>
     
@@ -286,8 +309,8 @@
   
   <entry>
     <title>1208 尽可能使字符串相等</title>
-    <link href="https://qybit.gitee.io/2021/02/05/cklgry2hj0007s4tp72vu8wdl/"/>
-    <id>https://qybit.gitee.io/2021/02/05/cklgry2hj0007s4tp72vu8wdl/</id>
+    <link href="https://qybit.gitee.io/2021/02/05/ckm2rdkjx0007agtpgrymd4xp/"/>
+    <id>https://qybit.gitee.io/2021/02/05/ckm2rdkjx0007agtpgrymd4xp/</id>
     <published>2021-02-04T17:40:56.000Z</published>
     <updated>2021-02-07T10:58:18.342Z</updated>
     
@@ -314,8 +337,8 @@
   
   <entry>
     <title>480 滑动窗口中位数</title>
-    <link href="https://qybit.gitee.io/2021/02/03/cklgry2hz000ys4tp3cgu4bfg/"/>
-    <id>https://qybit.gitee.io/2021/02/03/cklgry2hz000ys4tp3cgu4bfg/</id>
+    <link href="https://qybit.gitee.io/2021/02/03/ckm2rdkkh0012agtp7ljt4m11/"/>
+    <id>https://qybit.gitee.io/2021/02/03/ckm2rdkkh0012agtp7ljt4m11/</id>
     <published>2021-02-02T20:56:57.000Z</published>
     <updated>2021-02-07T10:58:18.344Z</updated>
     
@@ -342,8 +365,8 @@
   
   <entry>
     <title>1540 K次操作转变字符串</title>
-    <link href="https://qybit.gitee.io/2021/02/02/cklgry2hm000bs4tp1lvbhlnb/"/>
-    <id>https://qybit.gitee.io/2021/02/02/cklgry2hm000bs4tp1lvbhlnb/</id>
+    <link href="https://qybit.gitee.io/2021/02/02/ckm2rdkk00009agtpguji6l13/"/>
+    <id>https://qybit.gitee.io/2021/02/02/ckm2rdkk00009agtpguji6l13/</id>
     <published>2021-02-02T04:25:15.000Z</published>
     <updated>2021-02-07T10:58:18.346Z</updated>
     
@@ -368,8 +391,8 @@
   
   <entry>
     <title>410 分割数组的最大值</title>
-    <link href="https://qybit.gitee.io/2021/02/02/cklgry2hu000ms4tp882fgty9/"/>
-    <id>https://qybit.gitee.io/2021/02/02/cklgry2hu000ms4tp882fgty9/</id>
+    <link href="https://qybit.gitee.io/2021/02/02/ckm2rdkk8000nagtp0robe75j/"/>
+    <id>https://qybit.gitee.io/2021/02/02/ckm2rdkk8000nagtp0robe75j/</id>
     <published>2021-02-01T19:39:36.000Z</published>
     <updated>2021-02-07T10:58:18.348Z</updated>
     
@@ -391,8 +414,8 @@
   
   <entry>
     <title>424 替换后的最长重复字符</title>
-    <link href="https://qybit.gitee.io/2021/02/02/cklgry2hw000qs4tp5s70897s/"/>
-    <id>https://qybit.gitee.io/2021/02/02/cklgry2hw000qs4tp5s70897s/</id>
+    <link href="https://qybit.gitee.io/2021/02/02/ckm2rdkke000xagtpd8zn60ym/"/>
+    <id>https://qybit.gitee.io/2021/02/02/ckm2rdkke000xagtpd8zn60ym/</id>
     <published>2021-02-01T18:50:03.000Z</published>
     <updated>2021-02-07T10:58:18.349Z</updated>
     
@@ -414,8 +437,8 @@
   
   <entry>
     <title>1128 等价多米诺骨牌对的数量</title>
-    <link href="https://qybit.gitee.io/2021/01/26/cklgry2hf0003s4tp2g3s36zv/"/>
-    <id>https://qybit.gitee.io/2021/01/26/cklgry2hf0003s4tp2g3s36zv/</id>
+    <link href="https://qybit.gitee.io/2021/01/26/ckm2rdkjp0001agtp0gi912r9/"/>
+    <id>https://qybit.gitee.io/2021/01/26/ckm2rdkjp0001agtp0gi912r9/</id>
     <published>2021-01-26T02:25:06.000Z</published>
     <updated>2021-02-07T10:58:21.472Z</updated>
     
@@ -440,8 +463,8 @@
   
   <entry>
     <title>关于Promise的学习笔记</title>
-    <link href="https://qybit.gitee.io/2021/01/24/cklgry2ib001ns4tp6q4b7jjm/"/>
-    <id>https://qybit.gitee.io/2021/01/24/cklgry2ib001ns4tp6q4b7jjm/</id>
+    <link href="https://qybit.gitee.io/2021/01/24/ckm2rdkkw001xagtpb0qa2p08/"/>
+    <id>https://qybit.gitee.io/2021/01/24/ckm2rdkkw001xagtpb0qa2p08/</id>
     <published>2021-01-24T08:58:11.000Z</published>
     <updated>2021-02-07T10:58:21.492Z</updated>
     
@@ -468,8 +491,8 @@
   
   <entry>
     <title>第224场周赛</title>
-    <link href="https://qybit.gitee.io/2021/01/17/cklgry2iv002us4tp6jzr0gsi/"/>
-    <id>https://qybit.gitee.io/2021/01/17/cklgry2iv002us4tp6jzr0gsi/</id>
+    <link href="https://qybit.gitee.io/2021/01/17/ckm2rdklb0031agtp5lwb3mdx/"/>
+    <id>https://qybit.gitee.io/2021/01/17/ckm2rdklb0031agtp5lwb3mdx/</id>
     <published>2021-01-17T07:09:09.000Z</published>
     <updated>2021-02-07T11:07:46.055Z</updated>
     
@@ -505,8 +528,8 @@
   
   <entry>
     <title>第43场双周赛</title>
-    <link href="https://qybit.gitee.io/2021/01/12/cklgry2k90099s4tpdi1g90s0/"/>
-    <id>https://qybit.gitee.io/2021/01/12/cklgry2k90099s4tpdi1g90s0/</id>
+    <link href="https://qybit.gitee.io/2021/01/12/ckm2rdklm003oagtp5hm66h7a/"/>
+    <id>https://qybit.gitee.io/2021/01/12/ckm2rdklm003oagtp5hm66h7a/</id>
     <published>2021-01-12T06:06:02.000Z</published>
     <updated>2021-02-07T10:58:21.489Z</updated>
     
@@ -534,56 +557,15 @@
     
       <category term="贪心" scheme="https://qybit.gitee.io/tags/%E8%B4%AA%E5%BF%83/"/>
     
+      <category term="回溯" scheme="https://qybit.gitee.io/tags/%E5%9B%9E%E6%BA%AF/"/>
+    
       <category term="数学" scheme="https://qybit.gitee.io/tags/%E6%95%B0%E5%AD%A6/"/>
     
       <category term="图" scheme="https://qybit.gitee.io/tags/%E5%9B%BE/"/>
     
-      <category term="回溯" scheme="https://qybit.gitee.io/tags/%E5%9B%9E%E6%BA%AF/"/>
-    
       <category term="递归" scheme="https://qybit.gitee.io/tags/%E9%80%92%E5%BD%92/"/>
     
       <category term="树" scheme="https://qybit.gitee.io/tags/%E6%A0%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>第222场周赛</title>
-    <link href="https://qybit.gitee.io/2021/01/03/cklgry2iw002ws4tp18v6hhi7/"/>
-    <id>https://qybit.gitee.io/2021/01/03/cklgry2iw002ws4tp18v6hhi7/</id>
-    <published>2021-01-03T12:14:33.000Z</published>
-    <updated>2021-02-07T11:07:46.054Z</updated>
-    
-    <content type="html"><![CDATA[<p>题单：</p><ul><li> <a href="https://leetcode-cn.com/problems/maximum-units-on-a-truck/">卡车上的最大单元数</a></li><li> <a href="https://leetcode-cn.com/problems/count-good-meals/">大餐计数</a></li><li> <a href="https://leetcode-cn.com/problems/ways-to-split-array-into-three-subarrays/">将数组分成三个子数组的方案数</a></li><li> <a href="https://leetcode-cn.com/problems/minimum-operations-to-make-a-subsequence/">得到子序列的最少操作次数</a></li></ul><a id="more"></a><h4 id="T1：卡车上的最大单元数"><a href="#T1：卡车上的最大单元数" class="headerlink" title="T1：卡车上的最大单元数"></a>T1：<a href="https://leetcode-cn.com/problems/maximum-units-on-a-truck/">卡车上的最大单元数</a></h4><p>方法一：贪心算法</p><p>贪心策略：我们优先装载单元数量最多的箱子。</p><p>如何证明贪心是最优解？</p><p>因为卡车只能装载 $truckSize$ 个箱子，也就是说我们只能选择固定数量的箱子，而每一个箱子装载的单元格数量是不同的，因此我们只要先装载单元格多的箱子，就可以装载最大总数的单元格。</p><p><strong>代码</strong></p><p>Java</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maximumUnits</span><span class="params">(<span class="keyword">int</span>[][] boxTypes, <span class="keyword">int</span> truckSize)</span> </span>&#123;</span><br><span class="line">        Arrays.sort(boxTypes, (o1, o2) -&gt; o2[<span class="number">1</span>] - o1[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] box : boxTypes) &#123;</span><br><span class="line">            <span class="keyword">if</span> (truckSize &lt; box[<span class="number">0</span>]) &#123;</span><br><span class="line">                res += truckSize * box[<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            res +=  box[<span class="number">0</span>] * box[<span class="number">1</span>];</span><br><span class="line">            truckSize -= box[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(NlogN)$</p><p>空间复杂度：$O(1)$</p><h4 id="T2：大餐计数"><a href="#T2：大餐计数" class="headerlink" title="T2：大餐计数"></a>T2：<a href="https://leetcode-cn.com/problems/count-good-meals/">大餐计数</a></h4><p><strong>开头</strong></p><p><strong>大餐</strong>的定义：数组中两个数的和恰好是 <code>2</code> 的幂。假设数组中存在两个数 <code>2</code> 和 <code>6</code> ，它们下标不同，<code>2 + 6 = 8</code> 这就是一个<strong>大餐</strong>。 </p><p>注意观察数据量，数组长度为 $10^5$ 且 数组中的值最大为 $2^{20}$。那么也就是说，两数之和的最大值为 $2^{21}$ 。</p><p>方法一：哈希表</p><p>假设在数组中要找出 $x + t = 2^k$ ，那么我们直接枚举 $[0, k], 0 \le k \le 21$ ，反过来寻找 $t = 2^k - x$ 。我们还需要统计每一个 $t$  的出现次数，找到了就直接加上出现次数。</p><p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ff1b9c03ffa7d37b3cf951f.jpg"></p><p><strong>代码</strong></p><p>c++</p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">countPairs</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; d)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; hash;</span><br><span class="line">        <span class="keyword">int</span> mod = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x : d) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; <span class="number">22</span>; k++) &#123;</span><br><span class="line">                <span class="keyword">int</span> t = (<span class="number">1</span> &lt;&lt; k) - x;</span><br><span class="line">                <span class="keyword">if</span> (hash.count(t)) res = (res + hash[t]) % mod;</span><br><span class="line">            &#125;</span><br><span class="line">            hash[x]++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(22*N)$</p><p>空间复杂度：$O(N)$</p><h4 id="T3：将数组分成三个子数组的方案数"><a href="#T3：将数组分成三个子数组的方案数" class="headerlink" title="T3：将数组分成三个子数组的方案数"></a>T3：<a href="https://leetcode-cn.com/problems/ways-to-split-array-into-three-subarrays/">将数组分成三个子数组的方案数</a></h4><p>方法一：前缀和 + 双指针</p><p><strong>开头</strong></p><p>我们需要把数组划分为三个部分，分别为 $[0, left], [left+1, mid], [mid+1, right]$ ，使得 $Sum[0, left] &lt;= Sum[left+1, mid] \ &amp; \ Sum[left+1, mid] \le Sum[mid+1, right] $。$Sum$ 表示区间和。</p><p>在 快速求得连续区间的和，我们可以借助前缀和在 $O(1)$ 时间实现，剩下的事情就是如何划分区间的问题。</p><p>假设存在如下一种划分情况，区间 $A \le B \le C$</p><p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ff1bc8a3ffa7d37b3d3f8a3.jpg"></p><p>如下图，存在一种分割方案$A = Sum[0, x-1], B = Sum[x, i-1], C = Sum[i, n-1]$</p><p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ff1bd263ffa7d37b3d4d511.jpg"></p><p>此时是满足 $A \le B \le C$，对于某一个位置 $i$ 而言，存在一个合理的分割方案 $x$ ，我们可以找出 $x$ 的下界 $j$ 。换句话就是，$x$ 的最小范围取值可以是多少。对于 $k$ 也是同理，我们可以找出 $x$ 的最大范围可以取多少。</p><p>由于数组中都是非负整数，因此存在单调性。</p><p>不难发现，当 $j$ 向左边移动时， $A$ 是不断减少的，即 $B$ 是在不断增加的。我们要保证 $B \le C$。那么相反的，我们让 $j$ 不断向右移动，$B$ 是不断减少的，当 $B \le C$ 时我们就可以停止。</p><p>对于 $k$ 来说，当 $k$ 不断向右移动时，此时的 $A$ 是不断增加的，$B$ 是不断减小的，因此我们要保证 $A \le B$ 。</p><p>找出对于固定的 $i$  来说，存在一个 $x$ ，我们只要找出其上下界 $[j, k]$ ，那么在 $i$ 贡献的分割方案为 $k - j + 1$。</p><p><strong>代码</strong></p><p>c++</p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">waysToSplit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> mod = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">s</span><span class="params">(n + <span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) s[i] = s[i<span class="number">-1</span>] + nums[i<span class="number">-1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">3</span>, j = <span class="number">2</span>, k = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="comment">// 如果 B &gt; C 向右移动，减小 B</span></span><br><span class="line">            <span class="keyword">while</span> (s[n] - s[i<span class="number">-1</span>] &lt; s[i<span class="number">-1</span>] - s[j<span class="number">-1</span>]) j++;</span><br><span class="line">            <span class="comment">// 如果 A &lt;= B 的情况下，k 最大能到哪个位置 </span></span><br><span class="line">            <span class="keyword">while</span> (k + <span class="number">1</span> &lt; i &amp;&amp; s[k] &lt;= s[i<span class="number">-1</span>] - s[k]) k++;</span><br><span class="line">            <span class="keyword">if</span> (j &lt;= k &amp;&amp; s[k<span class="number">-1</span>] &lt;= s[i<span class="number">-1</span>] - s[j<span class="number">-1</span>] &amp;&amp; s[i<span class="number">-1</span>] - s[j<span class="number">-1</span>] &lt;= s[n] - s[i<span class="number">-1</span>]) </span><br><span class="line">                res = (res + k - j + <span class="number">1</span>) % mod;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(N)$</p><p>空间复杂度：$O(N)$</p><h4 id="T4：得到子序列的最少操作次数"><a href="#T4：得到子序列的最少操作次数" class="headerlink" title="T4：得到子序列的最少操作次数"></a>T4：<a href="https://leetcode-cn.com/problems/minimum-operations-to-make-a-subsequence/">得到子序列的最少操作次数</a></h4><p>方法一：动态规划 + 二分</p><p><strong>开头</strong></p><p>在 $arr$ 中插入若干个整数后，可以在 $arr$ 中找到 $target$ 子序列。简而言之，就是去除掉 $target$ 和 $arr$ 的公共部分后，$target$ 中还剩下多少个元素的问题。</p><p>那么问题就可以转换为，$arr$ 和 $target$ 的最长公共子序列问题。</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">target = [<span class="number">5</span>, <span class="number">1</span>, <span class="number">3</span>]</span><br><span class="line">  <span class="number">0</span>  <span class="number">1</span>  <span class="number">2</span></span><br><span class="line"><span class="comment">// arr 下标为 target 中的下标</span></span><br><span class="line">arr = [<span class="number">5</span>, <span class="number">9</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">   <span class="number">0</span>  <span class="number">0</span>  <span class="number">1</span><span class="number">0</span>  <span class="number">0</span>  <span class="number">2</span>  <span class="number">0</span>  </span><br><span class="line">  </span><br></pre></td></tr></table></figure><p>可以发现，$target$ 子序列的出现位置，在 $arr$ 中仍然是递增的特性。那么反过来，相应的，假如在 $target$ 中存在$arr$ 的子序列，$[1, 3]$ ，那么其对应下标在 $arr$ 中也仍然是递增的。 </p><p>那么求两个数组的最长公共子序列，该算法的时间复杂度为 $O(N^2)$ 的，显然是不能通过代码。</p><p>定义：$q[i]$ 为长度为 $i$ 的最长上升子序列，$q[i]$ 是严格递增的。</p><p>对于 $target[i]$ ，如果出现在 $arr$ 中，则统计其下标。</p><p>那么对于任意一个 $a[i]$ 来说，我们在 $q[i]$ 中二分找出比 $a[i]$ 大的下标，如果不存在就把 $a[i]$ 加入末尾元素。</p><p><strong>代码</strong></p><p>c++</p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minOperations</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; target, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; arr)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; pos;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; target.size(); i++) pos[target[i]] = i;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; a;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x : arr) &#123;</span><br><span class="line">            <span class="keyword">if</span> (pos.count(x)) a.push_back(pos[x]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// len 为最长上升子序列的长度</span></span><br><span class="line">        <span class="keyword">int</span> len = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n = a.size();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">q</span><span class="params">(n + <span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x : a) &#123;</span><br><span class="line">            <span class="keyword">int</span> l = <span class="number">0</span>, r = len;</span><br><span class="line">            <span class="comment">// 尝试在 a[i] 中寻找比 q[len-1] 大的数</span></span><br><span class="line">            <span class="keyword">while</span> (l &lt; r) &#123;</span><br><span class="line">                <span class="keyword">int</span> mid = (l + r + <span class="number">1</span>)&gt;&gt; <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">if</span> (q[mid] &lt; x) l = mid;</span><br><span class="line">                <span class="keyword">else</span> r = mid - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 在末尾更新</span></span><br><span class="line">            len = max(len, r + <span class="number">1</span>);</span><br><span class="line">            q[r+<span class="number">1</span>] = x;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// len 为最长公共子序列的长度，要插入数据为 target.size() - len</span></span><br><span class="line">        <span class="keyword">return</span> target.size() - len;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(NlogN)$</p><p>空间复杂度：$O(N)$</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;题单：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt; &lt;a href=&quot;https://leetcode-cn.com/problems/maximum-units-on-a-truck/&quot;&gt;卡车上的最大单元数&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt; &lt;a href=&quot;https://leetcode-cn.com/problems/count-good-meals/&quot;&gt;大餐计数&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt; &lt;a href=&quot;https://leetcode-cn.com/problems/ways-to-split-array-into-three-subarrays/&quot;&gt;将数组分成三个子数组的方案数&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt; &lt;a href=&quot;https://leetcode-cn.com/problems/minimum-operations-to-make-a-subsequence/&quot;&gt;得到子序列的最少操作次数&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="力扣" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/"/>
-    
-      <category term="算法" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="周赛" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/%E7%AE%97%E6%B3%95/%E5%91%A8%E8%B5%9B/"/>
-    
-    
-      <category term="双指针" scheme="https://qybit.gitee.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
-    
-      <category term="哈希表" scheme="https://qybit.gitee.io/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
-    
-      <category term="数组" scheme="https://qybit.gitee.io/tags/%E6%95%B0%E7%BB%84/"/>
-    
-      <category term="贪心" scheme="https://qybit.gitee.io/tags/%E8%B4%AA%E5%BF%83/"/>
-    
-      <category term="二分法" scheme="https://qybit.gitee.io/tags/%E4%BA%8C%E5%88%86%E6%B3%95/"/>
     
   </entry>
   
