@@ -1,9 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>第 232 场周赛</title>
+    <url>/2021/03/15/w232/</url>
+    <content><![CDATA[<p>题目清单：</p>
+<ul>
+<li> <a href="https://leetcode-cn.com/problems/check-if-one-string-swap-can-make-strings-equal/">仅执行一次字符串交换能否使两个字符串相等</a></li>
+<li> <a href="https://leetcode-cn.com/problems/find-center-of-star-graph/">找出星型图的中心节点</a></li>
+<li> <a href="https://leetcode-cn.com/problems/maximum-average-pass-ratio/">最大平均通过率</a></li>
+<li> <a href="https://leetcode-cn.com/problems/maximum-average-pass-ratio/">最大平均通过率</a></li>
+</ul>
+<h1 id="T1：仅执行一次字符串交换能否使两个字符串相等"><a href="#T1：仅执行一次字符串交换能否使两个字符串相等" class="headerlink" title="T1：仅执行一次字符串交换能否使两个字符串相等"></a>T1：<a href="https://leetcode-cn.com/problems/check-if-one-string-swap-can-make-strings-equal/">仅执行一次字符串交换能否使两个字符串相等</a></h1><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>由于数据范围比较小，$1 \le s1.length, s2.length \le 100$，我们可以直接暴力的枚举字符串 $s1$ 或者 字符串 $s2$ 的交换字符的下标，然后再判断是否相等即可。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">areAlmostEqual</span><span class="params">(<span class="built_in">string</span> s1, <span class="built_in">string</span> s2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s1.size();</span><br><span class="line">        <span class="keyword">if</span> (s2.size() != n) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span> (s1 == s2) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j ++) &#123;</span><br><span class="line">                swap(s1[i], s1[j]);</span><br><span class="line">                <span class="keyword">if</span> (s1 == s2) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                swap(s1[i], s1[j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><p>时间复杂度：$O(N^3)$ ，其中 $N$ 为字符串 $s1$ 或者 $s2$ 的长度。</p>
+<ul>
+<li>字符串的下标交换方式一共存在 $N^2$ 种，我们每一次交换都需要判断字符串 $s1$ 和 $s2$ 是否相等。</li>
+<li>判断字符串是否相等，只能遍历两字符串。因此时间复杂度一共为 $O(N^3)$。</li>
+</ul>
+<p>空间复杂度：$O(1)$</p>
+<h1 id="T2：找出星型图的中心节点"><a href="#T2：找出星型图的中心节点" class="headerlink" title="T2：找出星型图的中心节点"></a>T2：<a href="https://leetcode-cn.com/problems/find-center-of-star-graph/">找出星型图的中心节点</a></h1><h2 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h2><h3 id="方法一：dfs"><a href="#方法一：dfs" class="headerlink" title="方法一：dfs"></a>方法一：dfs</h3><p>直接对给定的边，建图进行 dfs，遍历。</p>
+<p>从某一个节点出发，找到一个可以到达所有的节点的点。</p>
+<p>时间复杂度为 $O(N^2)$，空间复杂度为 $O(N^2)$</p>
+<h3 id="方法二：建图优化"><a href="#方法二：建图优化" class="headerlink" title="方法二：建图优化"></a>方法二：建图优化</h3><p>我们不必去写繁杂的 dfs 代码，建图的过程中我们可以选择 <strong>邻接矩阵</strong>，存储图。然后遍历每一行，判断该行与其他列，是否都存在边。</p>
+<p>时间复杂度为 $O(N^2)$，空间复杂度为 $O(N^2)$</p>
+<h3 id="方法三：统计每个点的度数"><a href="#方法三：统计每个点的度数" class="headerlink" title="方法三：统计每个点的度数"></a>方法三：统计每个点的度数</h3><p>我们甚至都不必去存储所有的图的节点信息，我们可以注意到<strong>星型图</strong>的中心节点，是与所有的点都存在边，当我们找到<strong>某个点的度数等于边数</strong>时，即表示该点为中心节点。</p>
+<h4 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findCenter</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; edges)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = edges.size() + <span class="number">2</span>;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">deg</span><span class="params">(n)</span></span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;e : edges) &#123;</span><br><span class="line">            <span class="keyword">int</span> a = e[<span class="number">0</span>], b = e[<span class="number">1</span>];</span><br><span class="line">            deg[a] ++, deg[b] ++;</span><br><span class="line">            <span class="keyword">if</span> (deg[a] == n) <span class="keyword">return</span> a;</span><br><span class="line">            <span class="keyword">if</span> (deg[b] == n) <span class="keyword">return</span> b; </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (deg[i] == edges.size()) <span class="keyword">return</span> i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h5 id="复杂度分析-1"><a href="#复杂度分析-1" class="headerlink" title="复杂度分析"></a>复杂度分析</h5><p>时间复杂度：$O(N)$，其中 $N$ 为点的数量。</p>
+<p>空间复杂度：$O(N)$。</p>
+<h1 id="T3：最大平均通过率"><a href="#T3：最大平均通过率" class="headerlink" title="T3：最大平均通过率"></a>T3：<a href="https://leetcode-cn.com/problems/maximum-average-pass-ratio/">最大平均通过率</a></h1><h2 id="思路：-1"><a href="#思路：-1" class="headerlink" title="思路："></a>思路：</h2><h3 id="方法一：贪心"><a href="#方法一：贪心" class="headerlink" title="方法一：贪心"></a>方法一：贪心</h3><p>对于某一个班级 $calsses[i] = [x_i, y_i]$ 而言，其原本的通过率为 $\frac{x}{y}$。那么我们加入一个保证能够过线学生后，存在<br>$$<br>\theta =  \frac{x + 1}{y + 1} - \frac{x}{y}，\theta (0 \lt \theta \lt1) \ 表示添加学生后，通过率增长幅度<br>$$<br>当我们在该班级继续加入学生后，存在<br>$$<br>\theta_1 = \frac{x_2 + 1}{y_2 + 1} - \frac{x_1}{y_1}， \<br>\theta_2 = \frac{x_4 + 1}{y_4 + 1} - \frac{x_3}{y_3}， \<br>\theta_2 \gt \theta_1<br>$$<br>即班级的通过率是单调递增的。</p>
+<p>当某个班级的通过率呈现最大化后，即表示所有班级的平均通过率最大。</p>
+<p>贪心的体现为：</p>
+<p>当所有的班级都呈现通过率 $\theta$ 单调递增时，假设我们现在将一个学生加入班级，那么我们需要在 $N$ 个班级中，快速选择出一个 $\theta$ 最大的班级(借助堆优化)。这样就可以使所有班级的平均通过率最大。</p>
+<h4 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">        <span class="keyword">double</span> w;</span><br><span class="line">        <span class="keyword">int</span> a, b;</span><br><span class="line">        <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> Node &amp;t) <span class="keyword">const</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> w &lt; t.w;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">double</span> <span class="title">cal</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ((x + <span class="number">1.0</span>) / (y + <span class="number">1.0</span>)) - ((<span class="keyword">double</span>)x / y);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">double</span> <span class="title">maxAverageRatio</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; classes, <span class="keyword">int</span> extraStudents)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">priority_queue</span>&lt;Node&gt; heap;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">double</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;c : classes) &#123;</span><br><span class="line">            <span class="keyword">int</span> x = c[<span class="number">0</span>], y = c[<span class="number">1</span>];</span><br><span class="line">            ans += (<span class="keyword">double</span>)x / y;</span><br><span class="line">            heap.push(&#123;cal(x, y), x, y&#125;); </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (extraStudents --) &#123;</span><br><span class="line">            <span class="keyword">auto</span> t = heap.top();</span><br><span class="line">            heap.pop();</span><br><span class="line">            ans += t.w;</span><br><span class="line">            <span class="keyword">int</span> x = t.a + <span class="number">1</span>, y = t.b + <span class="number">1</span>;</span><br><span class="line">            heap.push(&#123;cal(x, y), x, y&#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans / classes.size();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h5 id="复杂度分析-2"><a href="#复杂度分析-2" class="headerlink" title="复杂度分析"></a>复杂度分析</h5><p>时间复杂度：$O(N logN)$，其中 $N$ 表示为额外添加的学生数量。</p>
+<ul>
+<li>我们需要预处理所有的班级，计算出最初始的增长幅度，然后加入到 <strong>堆</strong> 中维护。时间复杂度 $O(NlogN)$</li>
+<li>我们要把这些额外的学生，分别都加入到 <strong>堆顶</strong> 的第一个班级里去，并且重新计算增长幅度。时间复杂度 $O(NlogN)$</li>
+</ul>
+<p>空间复杂度：$O(N)$，我们使用结构体存储班级，并维护额外的信息。</p>
+<h1 id="T4：好子数组的最大分数"><a href="#T4：好子数组的最大分数" class="headerlink" title="T4：好子数组的最大分数"></a>T4：<a href="https://leetcode-cn.com/problems/maximum-score-of-a-good-subarray/">好子数组的最大分数</a></h1><h2 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h2><h2 id="方法二：双指针-贪心"><a href="#方法二：双指针-贪心" class="headerlink" title="方法二：双指针 + 贪心"></a>方法二：双指针 + 贪心</h2><p>子数组的定义为： $min{ nums[i], nums[i+1],…,nums[j]} \times (j - i + 1)$。且满足 $i \le k \le j$。</p>
+<p>算法实现流程：</p>
+<ul>
+<li>我们直接以下标 $k$ 为可能区间 $[i, j]$ 的中心点，然后分别以指针 $left$, 指令 $right$ 左右扩展<ul>
+<li>当 $ left &gt;= 0 \ 时 \ nums[k] \le nums[left]$，指针 $left$ 恒向左扫描。</li>
+<li>当 $right &lt; n \ 时 \ nums[k] \le nums[right]$，指针 $right$ 恒向右扫描。</li>
+<li>当 指针 $left \lt 0 \ 且 \ right \gt n$ 时，表示我们已经扫描完整个数组。</li>
+<li>当 $left \ge 0 \ 且 \ right \lt n$ ， 表示我们还未扩展到边界，为了求得最大值，我们以左右边界中任意一个最大值，作为中心点继续扩展。</li>
+<li>当 $left \lt 0$ ，表示左边界已经没有元素，将右边界定义为中心点。</li>
+<li>当 $right \ge n$ ，表示右边界已经没有元素，同理。</li>
+<li>我们循环上述操作，直至在数组中找到一个最小值，然后扩展至整个数组后退出。</li>
+</ul>
+</li>
+</ul>
+<p>贪心的体现：</p>
+<p>当我们扫描到边界值时 (且满足 $left \ge 0 \ 或 \ right \lt n$)，我们会在左右边界选择一个最大值，作为新区间的中心点。</p>
+<h3 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maximumScore</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> l = k, r = k, mi = nums[k];</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="keyword">while</span> (r &lt; n &amp;&amp; nums[r] &gt;= nums[k]) r ++;</span><br><span class="line">            <span class="keyword">while</span> (l &gt;= <span class="number">0</span> &amp;&amp; nums[l] &gt;= nums[k]) l --;</span><br><span class="line">            ans = max(ans, (r - l - <span class="number">1</span>) * nums[k]);</span><br><span class="line">            <span class="keyword">if</span> (l &lt; <span class="number">0</span> &amp;&amp; r &gt;= n) <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">if</span> (l &gt;= <span class="number">0</span> &amp;&amp; r &lt; n) nums[k] = max(nums[l], nums[r]);</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (l &lt; <span class="number">0</span>) nums[k] = nums[r];</span><br><span class="line">            <span class="keyword">else</span> nums[k] = nums[l];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="复杂度分析-3"><a href="#复杂度分析-3" class="headerlink" title="复杂度分析"></a>复杂度分析</h4><p>时间复杂度：$O(N)$，其中 $N$ 为数组的长度。</p>
+<ul>
+<li>对于数组中的元素任意一个元素，我们在最坏的情况下，都不会访问达到 $N$ 次。</li>
+</ul>
+<p>空间复杂度：$O(1)$</p>
+]]></content>
+      <categories>
+        <category>力扣</category>
+        <category>周赛</category>
+      </categories>
+      <tags>
+        <tag>字符串</tag>
+        <tag>贪心</tag>
+        <tag>图</tag>
+        <tag>堆</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>10. 正则表达式匹配</title>
     <url>/2021/03/11/259/</url>
-    <content><![CDATA[<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h1 id="方法一：递归-双指针"><a href="#方法一：递归-双指针" class="headerlink" title="方法一：递归 + 双指针"></a>方法一：递归 + 双指针</h1><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>对于只存在 <code>.</code> 的字符，我们很容易去判断字符串 $p$ 是否可以匹配 $s$。</p>
+    <content><![CDATA[<h1 id="方法一：递归-双指针"><a href="#方法一：递归-双指针" class="headerlink" title="方法一：递归 + 双指针"></a>方法一：递归 + 双指针</h1><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>对于只存在 <code>.</code> 的字符，我们很容易去判断字符串 $p$ 是否可以匹配 $s$。</p>
 <p>对于 <code>*</code> 字符，我们必须结合前一个字符来判断是否可以完成匹配。</p>
 <p>具体实现：</p>
 <ul>
@@ -339,8 +411,7 @@
   <entry>
     <title>131. 分割回文串</title>
     <url>/2021/03/07/259/</url>
-    <content><![CDATA[<p>#</p>
-<h1 id="方法一：回溯-剪枝优化"><a href="#方法一：回溯-剪枝优化" class="headerlink" title="方法一：回溯 + 剪枝优化"></a>方法一：回溯 + 剪枝优化</h1><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>对于本题，我们要找出字符串 $s$ 中，所有可能的回文子串，因此我们需要搜索与回溯遍历所有可能的字串。</p>
+    <content><![CDATA[<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h1 id="方法一：回溯-剪枝优化"><a href="#方法一：回溯-剪枝优化" class="headerlink" title="方法一：回溯 + 剪枝优化"></a>方法一：回溯 + 剪枝优化</h1><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>对于本题，我们要找出字符串 $s$ 中，所有可能的回文子串，因此我们需要搜索与回溯遍历所有可能的字串。</p>
 <p>对于字符串中某个下标 $i$ ，我们可以假设其 $[0,i]$ 的部分，已经全部是回文子串并且加入答案数组 $res$ 中。那么，对于区间 $<a href="n%E4%B8%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%95%BF%E5%BA%A6">i,n</a>$，我们可以枚举出所有可能的长度 $len (1 \le len \le n-i+1)$，并使用双指针检查是否为回文子串。</p>
 <p>如果为回文子串，我们把该字串加入到答案数组，然后我们下一次搜索时就可以跳过这一个回文字串，从下标 $i + len$ 开始重复上述过程，直到 $i \ge n$ 为止。当以该字串为回文串的路径，搜索完毕后，我们再删除该字串，然后再重新以另一个可能存在的回文串重复上述过程。</p>
 <p>直到，没有存在可能的回文串才会结束我们的算法。即我们从头扫到尾，都未发现回文串时。</p>
@@ -577,8 +648,7 @@
   <entry>
     <title>第228场周赛</title>
     <url>/2021/02/14/w228/</url>
-    <content><![CDATA[<p>#</p>
-<p>比赛链接：<a href="https://leetcode-cn.com/contest/weekly-contest-228/">第 228 场周赛</a></p>
+    <content><![CDATA[<h1 id=""><a href="#" class="headerlink" title=""></a></h1><p>比赛链接：<a href="https://leetcode-cn.com/contest/weekly-contest-228/">第 228 场周赛</a></p>
 <p>题目单：</p>
 <ul>
 <li><a href="https://leetcode-cn.com/problems/minimum-changes-to-make-alternating-binary-string/">生成交替二进制字符串的最少操作数</a></li>
@@ -789,7 +859,7 @@
   </entry>
   <entry>
     <title>665 非递减数列</title>
-    <url>/2021/02/07/ckm504er8001fnctpeliihwyl/</url>
+    <url>/2021/02/07/ckmacojp4001cdgtphrh53hjp/</url>
     <content><![CDATA[<p>力扣链接：<a href="https://leetcode-cn.com/problems/non-decreasing-array/">665. 非递减数列</a></p>
 <p>这道题很坑，虽然是 <code>easy</code>，但是测试用例很好。</p>
 <a id="more"></a>
@@ -824,7 +894,7 @@
   </entry>
   <entry>
     <title>127 单词接龙</title>
-    <url>/2021/02/06/ckm504eqk000bnctp09sz7eqw/</url>
+    <url>/2021/02/06/ckmacojog000bdgtpdida187v/</url>
     <content><![CDATA[<p>力扣链接：<a href="https://leetcode-cn.com/problems/word-ladder/">单词接龙</a></p>
 <p>这是一道求最短路径的题目，BFS 是我们用来解决最短路问题的强心剂。</p>
 <a id="more"></a>
@@ -859,7 +929,7 @@
   </entry>
   <entry>
     <title>1625 执行操作后字典序最小的字符串</title>
-    <url>/2021/02/06/ckm504equ000nnctph83l4xpy/</url>
+    <url>/2021/02/06/ckmacojoq000mdgtp4y3q42ze/</url>
     <content><![CDATA[<p>广度优先搜索（BFS）的优势在于当问题存在最优解的情况下，一定可以找到最优解。因此常用于最短路问题。</p>
 <p>这道题数据比较弱，所以暴力搜索也不会超时。</p>
 <p>力扣链接：<a href="https://leetcode-cn.com/problems/lexicographically-smallest-string-after-applying-operations/">执行操作后字典序最小的字符串</a></p>
@@ -908,7 +978,7 @@
   </entry>
   <entry>
     <title>1208 尽可能使字符串相等</title>
-    <url>/2021/02/05/ckm504eqj0009nctp8vs8h1gl/</url>
+    <url>/2021/02/05/ckmacojoe0009dgtpgnbd116j/</url>
     <content><![CDATA[<p>力扣链接：<a href="https://leetcode-cn.com/problems/get-equal-substrings-within-budget/">尽可能使字符串相等</a></p>
 <p>昨晚睡前没仔细读题，以为挺难做的，没想到也不难做。</p>
 <a id="more"></a>
@@ -959,7 +1029,7 @@
   </entry>
   <entry>
     <title>480 滑动窗口中位数</title>
-    <url>/2021/02/03/ckm504er10015nctpfxfbhr5a/</url>
+    <url>/2021/02/03/ckmacojp00018dgtp57c75slu/</url>
     <content><![CDATA[<p><em>官方题解十分的鬼畜，但是这道题用二分也是可以做的</em></p>
 <p>力扣链接： <a href="https://leetcode-cn.com/problems/sliding-window-median/">滑动窗口中位数</a></p>
 <p>相似题目推荐：</p>
@@ -1001,7 +1071,7 @@
   </entry>
   <entry>
     <title>1540 K次操作转变字符串</title>
-    <url>/2021/02/02/ckm504eqs000inctp3omfaigl/</url>
+    <url>/2021/02/02/ckmacojok000fdgtp3x3ldqli/</url>
     <content><![CDATA[<p>原题链接：<a href="https://leetcode-cn.com/problems/can-convert-string-in-k-moves/">K 次操作转变字符串</a></p>
 <p>我人傻了，A了这题就立马回小学重修语文。</p>
 <a id="more"></a>
@@ -1030,7 +1100,7 @@
   </entry>
   <entry>
     <title>410 分割数组的最大值</title>
-    <url>/2021/02/02/ckm504eqy000unctpgqre7azv/</url>
+    <url>/2021/02/02/ckmacojou000udgtp977z5b8s/</url>
     <content><![CDATA[<p>力扣410链接：<a href="https://leetcode-cn.com/problems/split-array-largest-sum/">分割数组的最大值</a></p>
 <a id="more"></a>
 
@@ -1059,7 +1129,7 @@
   </entry>
   <entry>
     <title>424 替换后的最长重复字符</title>
-    <url>/2021/02/02/ckm504eqz000xnctp973t3woa/</url>
+    <url>/2021/02/02/ckmacojov000ydgtp8xuz04q6/</url>
     <content><![CDATA[<p>力扣424链接：<a href="https://leetcode-cn.com/problems/longest-repeating-character-replacement/">替换后的最长重复字符</a></p>
 <a id="more"></a>
 
@@ -1082,7 +1152,7 @@
   </entry>
   <entry>
     <title>1128 等价多米诺骨牌对的数量</title>
-    <url>/2021/01/26/ckm504eq80001nctp32zhduiz/</url>
+    <url>/2021/01/26/ckmacojod0007dgtp1fz227cf/</url>
     <content><![CDATA[<p>一道比较有意思的题目，足够简单但是时间复杂度卡得很紧。</p>
 <p>原题链接：<a href="https://leetcode-cn.com/problems/number-of-equivalent-domino-pairs/">等价多米诺骨牌对的数量</a></p>
 <a id="more"></a>
@@ -1115,7 +1185,7 @@
   </entry>
   <entry>
     <title>关于Promise的学习笔记</title>
-    <url>/2021/01/24/ckm504erf001znctpdyzf6rka/</url>
+    <url>/2021/01/24/ckmacojpc001ydgtpcocrbs23/</url>
     <content><![CDATA[<p><strong>Promise</strong> 的出现是为了解决 “<strong>回调地狱</strong>”，这种重度嵌套<strong>回调函数</strong>的代码风格而出现的。如下图</p>
 <p><img src= "/img/loading.gif" data-lazy-src="https://img.imgdb.cn/item/600d36fb3ffa7d37b349ce45.jpg"></p>
 <p>借助 <strong>Promise</strong> ,我们就可以避免这种风格的代码，从而让代码变成丝滑如顺链式编程。如</p>
@@ -1151,7 +1221,7 @@
   </entry>
   <entry>
     <title>第224场周赛</title>
-    <url>/2021/01/17/ckm504ery0031nctp2igy45lw/</url>
+    <url>/2021/01/17/ckmacojq30036dgtpati6gnqx/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/number-of-rectangles-that-can-form-the-largest-square/">可以形成最大正方形的矩形数目</a></li>
@@ -1206,7 +1276,7 @@
   </entry>
   <entry>
     <title>第43场双周赛</title>
-    <url>/2021/01/12/ckm504ese003lnctpaw2b12av/</url>
+    <url>/2021/01/12/ckmacojqm003vdgtp99ju9fzo/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/calculate-money-in-leetcode-bank/">计算力扣银行的钱</a></li>
@@ -1256,17 +1326,17 @@
         <category>周赛</category>
       </categories>
       <tags>
-        <tag>回溯</tag>
         <tag>贪心</tag>
-        <tag>数学</tag>
+        <tag>回溯</tag>
         <tag>图</tag>
+        <tag>数学</tag>
         <tag>递归</tag>
         <tag>树</tag>
       </tags>
   </entry>
   <entry>
     <title>第222场周赛</title>
-    <url>/2021/01/03/ckm504erx002znctp5tj30ybd/</url>
+    <url>/2021/01/03/ckmacojq10033dgtp5euq8tf3/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/maximum-units-on-a-truck/">卡车上的最大单元数</a></li>
@@ -1340,16 +1410,16 @@
         <category>周赛</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>双指针</tag>
         <tag>哈希表</tag>
+        <tag>数组</tag>
         <tag>贪心</tag>
         <tag>二分法</tag>
       </tags>
   </entry>
   <entry>
     <title>一文解决Tomcat开发中乱码的问题</title>
-    <url>/2020/12/31/ckm504erc001onctpc0u64gze/</url>
+    <url>/2020/12/31/ckmacojpa001tdgtpejo6eq73/</url>
     <content><![CDATA[<p>开发环境：</p>
 <ul>
 <li>Windows 10，idea</li>
@@ -1394,7 +1464,7 @@
   </entry>
   <entry>
     <title>第221场周赛</title>
-    <url>/2020/12/29/ckm504erw002vnctpdxhi9dhs/</url>
+    <url>/2020/12/29/ckmacojpy002zdgtp53ezg4dr/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/determine-if-string-halves-are-alike/">判断字符串的两半是否相似</a></li>
@@ -1490,7 +1560,7 @@
   </entry>
   <entry>
     <title>第42场双周赛</title>
-    <url>/2020/12/28/ckm504esf003pnctp9v7shlag/</url>
+    <url>/2020/12/28/ckmacojqj003qdgtpdkph2gde/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li><p> <a href="https://leetcode-cn.com/problems/number-of-students-unable-to-eat-lunch/">无法吃午餐的学生数量</a></p>
@@ -1593,7 +1663,7 @@
   </entry>
   <entry>
     <title>第220场周赛</title>
-    <url>/2020/12/20/ckm504erv002snctp4aap9q3j/</url>
+    <url>/2020/12/20/ckmacojpw002wdgtpcwvj8e23/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li><a href="https://leetcode-cn.com/problems/reformat-phone-number/">重新格式化电话号码</a></li>
@@ -1685,7 +1755,7 @@
   </entry>
   <entry>
     <title>460 LFU缓存</title>
-    <url>/2020/12/14/ckm504er00012nctp040ghuah/</url>
+    <url>/2020/12/14/ckmacojox0011dgtp4qd1blfb/</url>
     <content><![CDATA[<p><strong>开头</strong></p>
 <p>采用自定义的双向链表来实现</p>
 <p>Node：存储每一个 key, value, freq </p>
@@ -1708,12 +1778,10 @@
 </li>
 <li><p>put 操作时，先检查容量。再检查缓存中是否存在值，如果存在那么说明 freq 链表是一定存在的，所以直接更新频率即可。</p>
 <ul>
-<li><p>如果缓存中不存在值，那么有两种可能，如果缓存的容量满了，那么需要删除最后一个节点，如图中红色标识的节点，然后再添加进入 freq = 1 的链表</p>
-</li>
-<li><p>如果还可以加入节点的话，先检查是否存在 freq = 1的链表，如果不存在先创建 freq=1 的链表，然后加入节点。存在 freq = 1 的链表，就直接加入。</p>
-<p>以上就是整个 LFU-缓存 算法的详细思路。</p>
-</li>
+<li>如果缓存中不存在值，那么有两种可能，如果缓存的容量满了，那么需要删除最后一个节点，如图中红色标识的节点，然后再添加进入 freq = 1 的链表</li>
+<li>如果还可以加入节点的话，先检查是否存在 freq = 1的链表，如果不存在先创建 freq=1 的链表，然后加入节点。存在 freq = 1 的链表，就直接加入。</li>
 </ul>
+<p>  以上就是整个 LFU-缓存 算法的详细思路。</p>
 <p>  <strong>代码</strong></p>
 </li>
 </ul>
@@ -1730,7 +1798,7 @@
   </entry>
   <entry>
     <title>第219场周赛</title>
-    <url>/2020/12/13/ckm504ert002nnctp88mifwcw/</url>
+    <url>/2020/12/13/ckmacojpv002tdgtp0q81czwd/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/count-of-matches-in-tournament/">比赛中的配对次数</a></li>
@@ -1807,8 +1875,8 @@
         <category>周赛</category>
       </categories>
       <tags>
-        <tag>回溯</tag>
         <tag>贪心</tag>
+        <tag>回溯</tag>
         <tag>DP</tag>
         <tag>排序</tag>
         <tag>动态规划</tag>
@@ -1816,7 +1884,7 @@
   </entry>
   <entry>
     <title>第41场双周赛</title>
-    <url>/2020/12/13/ckm504esb003enctp1bdrfphs/</url>
+    <url>/2020/12/13/ckmacojqh003odgtpcnmybuiz/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/count-the-number-of-consistent-strings/"> 统计一致字符串的数目</a></li>
@@ -1892,7 +1960,7 @@
   </entry>
   <entry>
     <title>Spring学习总结之 IOC</title>
-    <url>/2020/12/12/ckm504etz00alnctpcz3t257y/</url>
+    <url>/2020/12/12/ckmacojsp00amdgtpgocn3up9/</url>
     <content><![CDATA[<p>Spring的两大核心技术就是 <strong>IoC</strong> 和 <strong>Aop</strong> 。</p>
 <p>​    由于篇幅，本篇仅就  <strong>IoC</strong> 进行描述。</p>
 <p>​    <strong>IoC</strong> (Inversion of Controll)，翻译过来就是 <strong>控制反转</strong> ，所谓的控制反转就是说，不再由我们程序员自己去通过 <strong>new</strong>  操作符，创建对象然后自己使用。控制反转的实现方法有很多。在Spring中，使用的是 <strong>IoC容器</strong> 。它可以在对象生成或初始化时直接将数据注入对象，或者将对象注入对象的数据域中的方式来注入对方法的调用的依赖。这种依赖注入是可以递归的。即要实例化当前对象时，必须要先实例化该对象所有的依赖。</p>
@@ -2013,7 +2081,7 @@
   </entry>
   <entry>
     <title>376 摆动序列</title>
-    <url>/2020/12/12/ckm504eqw000qnctpg5p7cjw3/</url>
+    <url>/2020/12/12/ckmacojos000qdgtp6z6z6v00/</url>
     <content><![CDATA[<p><strong>开头</strong></p>
 <p><strong>摆动序列：</strong></p>
 <ul>
@@ -2054,7 +2122,7 @@
   </entry>
   <entry>
     <title>第218场周赛</title>
-    <url>/2020/12/06/ckm504err002gnctp26auao34/</url>
+    <url>/2020/12/06/ckmacojps002pdgtpafqf967s/</url>
     <content><![CDATA[<h3 id="T1：设计-Goal-解析器"><a href="#T1：设计-Goal-解析器" class="headerlink" title="T1：设计 Goal 解析器"></a>T1：<a href="https://leetcode-cn.com/problems/goal-parser-interpretation/">设计 Goal 解析器</a></h3><p><strong>方法一：</strong> 利用API</p>
 <p>利用语言自带的API，进行替换操作。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">interpret</span><span class="params">(String command)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> command.replace(<span class="string">&quot;()&quot;</span>, <span class="string">&quot;o&quot;</span>).replace(<span class="string">&quot;(al)&quot;</span>, <span class="string">&quot;al&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -2086,15 +2154,15 @@
       </categories>
       <tags>
         <tag>哈希表</tag>
-        <tag>回溯</tag>
         <tag>字符串</tag>
         <tag>贪心</tag>
+        <tag>回溯</tag>
         <tag>数学</tag>
       </tags>
   </entry>
   <entry>
     <title>第217场周赛</title>
-    <url>/2020/11/30/ckm504ert002knctp8d233rhd/</url>
+    <url>/2020/11/30/ckmacojpq002mdgtpcchd2sw7/</url>
     <content><![CDATA[<h3 id="T1：最富有客户的资产总量"><a href="#T1：最富有客户的资产总量" class="headerlink" title="T1：最富有客户的资产总量"></a>T1：<a href="https://leetcode-cn.com/problems/richest-customer-wealth/">最富有客户的资产总量</a></h3><p>思路：暴力</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maximumWealth</span><span class="params">(<span class="keyword">int</span>[][] accounts)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] account : accounts) &#123;</span><br><span class="line">            res = Math.max(res, Arrays.stream(account).sum());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>复杂度分析：</strong></p>
@@ -2160,14 +2228,14 @@
       <tags>
         <tag>数组</tag>
         <tag>贪心</tag>
-        <tag>栈</tag>
         <tag>堆</tag>
+        <tag>栈</tag>
         <tag>OrderedMap</tag>
       </tags>
   </entry>
   <entry>
     <title>第40场双周赛</title>
-    <url>/2020/11/29/ckm504esc003hnctp7ydrhgv4/</url>
+    <url>/2020/11/29/ckmacojqd003jdgtp141ke0gr/</url>
     <content><![CDATA[<p>难度不大，很常规的题目。最后一题动态规划仍需要多练。</p>
 <a id="more"></a>
 
@@ -2227,7 +2295,7 @@
   </entry>
   <entry>
     <title>Trie树</title>
-    <url>/2020/11/26/ckm504erd001rnctp7zxibk20/</url>
+    <url>/2020/11/26/ckmacojp8001qdgtpes6idu9s/</url>
     <content><![CDATA[<p>Trie树是一种特殊的数据结构，它常用于在数据中检索字符串。也可以叫做字典树和前缀树等等。</p>
 <a id="more"></a>
 
@@ -2293,7 +2361,7 @@
   </entry>
   <entry>
     <title>手动实现LinkedList</title>
-    <url>/2020/11/25/ckm504ere001wnctph25yffhc/</url>
+    <url>/2020/11/25/ckmacojpe0021dgtp9l542w70/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>链表是与线性表相对应的一种特殊的数据结构，它的各个节点在物理内存上可以是连续的也可以是不连续的，逻辑上链表是连续的。</p>
 <p><strong>优点</strong></p>
 <ul>
@@ -2391,8 +2459,6 @@
 </li>
 <li><p>伪代码：</p>
   <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">cur = get(index=<span class="number">1</span>)</span><br><span class="line">// 获得前驱节点和后继节点</span><br><span class="line">prev = cur.prev</span><br><span class="line"><span class="built_in">next</span> = cur.<span class="built_in">next</span></span><br><span class="line">// 前驱节点的后继指向后继的后继</span><br><span class="line">// 后继节点的前驱指向前驱的前驱</span><br><span class="line">prev.<span class="built_in">next</span> = <span class="built_in">next</span></span><br><span class="line"><span class="built_in">next</span>.prev = prev</span><br></pre></td></tr></table></figure>
-
-
 </li>
 </ul>
 </li>
@@ -2410,7 +2476,7 @@
   </entry>
   <entry>
     <title>第201场周赛</title>
-    <url>/2020/08/11/ckm504erp002enctpfwuudybl/</url>
+    <url>/2020/08/11/ckmacojpo002idgtpf5krhnkt/</url>
     <content><![CDATA[<p>题目标题即原题地址，点击查看原题。代码主要为Java和cpp，部分tricky题目会使用py来解决</p>
 <a id="more"></a>
 
@@ -2442,7 +2508,7 @@
   </entry>
   <entry>
     <title>第199场周赛</title>
-    <url>/2020/07/27/ckm504erm002anctp70we6dbt/</url>
+    <url>/2020/07/27/ckmacojpn002fdgtp5i71c29j/</url>
     <content><![CDATA[<p>题目标题即原题地址，点击查看原题。</p>
 <a id="more"></a>
 
@@ -2473,7 +2539,7 @@
   </entry>
   <entry>
     <title>第31场双周赛</title>
-    <url>/2020/07/27/ckm504es10038nctpbewba7cz/</url>
+    <url>/2020/07/27/ckmacojqa003gdgtp98s77c75/</url>
     <content><![CDATA[<p>题目标题即原题地址，点击查看原题。</p>
 <a id="more"></a>
 
@@ -2504,7 +2570,7 @@
   </entry>
   <entry>
     <title>第197场周赛</title>
-    <url>/2020/07/13/ckm504erk0027nctp85tr15ro/</url>
+    <url>/2020/07/13/ckmacojpl002bdgtp4fnadxls/</url>
     <content><![CDATA[<p>字节又来了，感觉自己把第三题想的太复杂了。第四题是否有些超纲呢？</p>
 <a id="more"></a>
 
@@ -2535,19 +2601,19 @@
         <category>周赛</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>哈希表</tag>
+        <tag>数组</tag>
         <tag>字符串</tag>
+        <tag>图</tag>
         <tag>力扣</tag>
         <tag>周赛</tag>
         <tag>数学</tag>
-        <tag>图</tag>
         <tag>几何</tag>
       </tags>
   </entry>
   <entry>
     <title>第30场双周赛</title>
-    <url>/2020/07/13/ckm504es3003cnctp9v258bh0/</url>
+    <url>/2020/07/13/ckmacojq6003bdgtp07wffks4/</url>
     <content><![CDATA[<p>这场比赛的题目不是很难，即使第一次接触的话，AC前两题应该也是没有问题的。废话不多说，看代码。</p>
 <h4 id="题目一：转变日期格式"><a href="#题目一：转变日期格式" class="headerlink" title="题目一：转变日期格式"></a>题目一：<a href="https://leetcode-cn.com/problems/reformat-date/">转变日期格式</a></h4><p>这个题，我是不知道有什么API可以调用，但是看它给出的<code>YYYY-MM-DD</code>的格式，其实稍微想想还是硬解析的。无脑暴力即可。注意日期和月份小于10时，需要补0；</p>
 <a id="more"></a>
@@ -2583,7 +2649,7 @@
   </entry>
   <entry>
     <title>第192场周赛</title>
-    <url>/2020/06/07/ckm504erh0023nctpbd077n9v/</url>
+    <url>/2020/06/07/ckmacojpk0028dgtp4bbbgqah/</url>
     <content><![CDATA[<p>这一场发挥的不错，AC了三题。一开始做的时候感觉很难，第一题慌慌张张的花了7分钟才AC了，我在c++和java之间换了两次，最后还是c++更容易实现其实用java也是可以的，上来我就在选择语言上飘摇不定了。这也是一个问题，做题的心理问题，看完问题，分析思路完毕后，中途不能再切换语言了，使用一个语言解决它！主要是没有数论的题，一般的数据结构的问题，hard除外，我基本都是可以AC的。</p>
 <p>周赛题目考察点：<strong>数组、数组/排序、设计/栈(我的思路是这个，设计类的题目思路很开放)</strong></p>
 <a id="more"></a>
@@ -2596,12 +2662,11 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入：nums &#x3D; [1,2,3,4,4,3,2,1], n &#x3D; 4</span><br><span class="line">输出：[1,4,2,3,3,2,4,1]</span><br></pre></td></tr></table></figure>
 <p><strong>示例 3：</strong></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入：nums &#x3D; [1,1,2,2], n &#x3D; 2</span><br><span class="line">输出：[1,2,1,2]</span><br></pre></td></tr></table></figure>
-
-
 <p><strong>提示：</strong></p>
 <pre><code>1 &lt;= n &lt;= 500
 nums.length == 2n
-1 &lt;= nums[i] &lt;= 10^3</code></pre>
+1 &lt;= nums[i] &lt;= 10^3
+</code></pre>
 <h5 id="1、思路分析"><a href="#1、思路分析" class="headerlink" title="1、思路分析"></a>1、思路分析</h5><ul>
 <li>不难看出，给出的数据量很小，最大也是1000而已，所以不多想直接暴力</li>
 <li><code>[x1,x2,...,xn,y1,y2,...,yn]</code>把数组一分为二，然后归并到新数组中</li>
@@ -2654,8 +2719,6 @@ nums.length == 2n
 <h4 id="5430、设计浏览器历史记录"><a href="#5430、设计浏览器历史记录" class="headerlink" title="5430、设计浏览器历史记录"></a>5430、设计浏览器历史记录</h4><p>你有一个只支持单个标签页的 <strong>浏览器</strong> ，最开始你浏览的网页是 <code>homepage</code> ，你可以访问其他的网站 <code>url </code>，也可以在浏览历史中后退 <code>steps</code> 步或前进 <code>steps</code> 步。</p>
 <p>请你实现 <code>BrowserHistory</code> 类：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">BrowserHistory(string homepage) ，用 homepage 初始化浏览器类。</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">visit</span><span class="params">(string url)</span> 从当前页跳转访问 url 对应的页面  。执行此操作会把浏览历史前进的记录全部删除。</span></span><br><span class="line"><span class="function">string <span class="title">back</span><span class="params">(<span class="keyword">int</span> steps)</span> 在浏览历史中后退 steps 步。如果你只能在浏览历史中后退至多 x 步且 steps &gt; x ，那么你只后退 x 步。请返回后退 至多 steps 步以后的 url 。</span></span><br><span class="line"><span class="function">string <span class="title">forward</span><span class="params">(<span class="keyword">int</span> steps)</span> 在浏览历史中前进 steps 步。如果你只能在浏览历史中前进至多 x 步且 steps &gt; x ，那么你只前进 x 步。请返回前进 至多 steps步以后的 url 。</span></span><br></pre></td></tr></table></figure>
-
-
 <p><strong>示例：</strong></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">输入：</span><br><span class="line">[<span class="string">&quot;BrowserHistory&quot;</span>,<span class="string">&quot;visit&quot;</span>,<span class="string">&quot;visit&quot;</span>,<span class="string">&quot;visit&quot;</span>,<span class="string">&quot;back&quot;</span>,<span class="string">&quot;back&quot;</span>,<span class="string">&quot;forward&quot;</span>,<span class="string">&quot;visit&quot;</span>,<span class="string">&quot;forward&quot;</span>,<span class="string">&quot;back&quot;</span>,<span class="string">&quot;back&quot;</span>]</span><br><span class="line">[[<span class="string">&quot;leetcode.com&quot;</span>],[<span class="string">&quot;google.com&quot;</span>],[<span class="string">&quot;facebook.com&quot;</span>],[<span class="string">&quot;youtube.com&quot;</span>],[<span class="number">1</span>],[<span class="number">1</span>],[<span class="number">1</span>],[<span class="string">&quot;linkedin.com&quot;</span>],[<span class="number">2</span>],[<span class="number">2</span>],[<span class="number">7</span>]]</span><br><span class="line">输出：</span><br><span class="line">[<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="string">&quot;facebook.com&quot;</span>,<span class="string">&quot;google.com&quot;</span>,<span class="string">&quot;facebook.com&quot;</span>,<span class="keyword">null</span>,<span class="string">&quot;linkedin.com&quot;</span>,<span class="string">&quot;google.com&quot;</span>,<span class="string">&quot;leetcode.com&quot;</span>]</span><br><span class="line"></span><br><span class="line">解释：</span><br><span class="line">BrowserHistory browserHistory = <span class="keyword">new</span> BrowserHistory(<span class="string">&quot;leetcode.com&quot;</span>);</span><br><span class="line">browserHistory.visit(<span class="string">&quot;google.com&quot;</span>);       <span class="comment">// 你原本在浏览 &quot;leetcode.com&quot; 。访问 &quot;google.com&quot;</span></span><br><span class="line">browserHistory.visit(<span class="string">&quot;facebook.com&quot;</span>);     <span class="comment">// 你原本在浏览 &quot;google.com&quot; 。访问 &quot;facebook.com&quot;</span></span><br><span class="line">browserHistory.visit(<span class="string">&quot;youtube.com&quot;</span>);      <span class="comment">// 你原本在浏览 &quot;facebook.com&quot; 。访问 &quot;youtube.com&quot;</span></span><br><span class="line">browserHistory.back(<span class="number">1</span>);                   <span class="comment">// 你原本在浏览 &quot;youtube.com&quot; ，后退到 &quot;facebook.com&quot; 并返回 &quot;facebook.com&quot;</span></span><br><span class="line">browserHistory.back(<span class="number">1</span>);                   <span class="comment">// 你原本在浏览 &quot;facebook.com&quot; ，后退到 &quot;google.com&quot; 并返回 &quot;google.com&quot;</span></span><br><span class="line">browserHistory.forward(<span class="number">1</span>);                <span class="comment">// 你原本在浏览 &quot;google.com&quot; ，前进到 &quot;facebook.com&quot; 并返回 &quot;facebook.com&quot;</span></span><br><span class="line">browserHistory.visit(<span class="string">&quot;linkedin.com&quot;</span>);     <span class="comment">// 你原本在浏览 &quot;facebook.com&quot; 。 访问 &quot;linkedin.com&quot;</span></span><br><span class="line">browserHistory.forward(<span class="number">2</span>);                <span class="comment">// 你原本在浏览 &quot;linkedin.com&quot; ，你无法前进任何步数。</span></span><br><span class="line">browserHistory.back(<span class="number">2</span>);                   <span class="comment">// 你原本在浏览 &quot;linkedin.com&quot; ，后退两步依次先到 &quot;facebook.com&quot; ，然后到 &quot;google.com&quot; ，并返回 &quot;google.com&quot;</span></span><br><span class="line">browserHistory.back(<span class="number">7</span>);                   <span class="comment">// 你原本在浏览 &quot;google.com&quot;， 你只能后退一步到 &quot;leetcode.com&quot; ，并返回 &quot;leetcode.com&quot;</span></span><br></pre></td></tr></table></figure>
 
