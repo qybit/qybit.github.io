@@ -1,0 +1,521 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>虚拟机类的加载机制 | Qybit's Blog</title><meta name="keywords" content="虚拟机"><meta name="author" content="qybit,2601970213@qq.com"><meta name="copyright" content="qybit"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="【转载】本文作者：WMS本文链接：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;kylinxxx&#x2F;p&#x2F;13778513.html关于博主：评论和私信会在第一时间回复。或者直接私信我。版权声明：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！声援博主：如果您觉得文章对您有帮助，可以点击文章右下角【推荐】一下。您的鼓励是博主的最大动力！ 虚拟机类的加载机制概述虚拟机把">
+<meta property="og:type" content="article">
+<meta property="og:title" content="虚拟机类的加载机制">
+<meta property="og:url" content="https://qybit.gitee.io/2021/03/10/JVM_CHAPTER7/index.html">
+<meta property="og:site_name" content="Qybit&#39;s Blog">
+<meta property="og:description" content="【转载】本文作者：WMS本文链接：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;kylinxxx&#x2F;p&#x2F;13778513.html关于博主：评论和私信会在第一时间回复。或者直接私信我。版权声明：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！声援博主：如果您觉得文章对您有帮助，可以点击文章右下角【推荐】一下。您的鼓励是博主的最大动力！ 虚拟机类的加载机制概述虚拟机把">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png">
+<meta property="article:published_time" content="2021-03-10T02:25:27.000Z">
+<meta property="article:modified_time" content="2021-09-23T13:18:44.010Z">
+<meta property="article:author" content="qybit">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="转载">
+<meta property="article:tag" content="JVM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://qybit.gitee.io/2021/03/10/JVM_CHAPTER7/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: qybit","link":"链接: ","source":"来源: Qybit's Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '虚拟机类的加载机制',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-09-23 21:18:44'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Qybit's Blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/qybit/CDN@master/Photo/my/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">52</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-music"></i><span> 图片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/talking/"><i class="fa-fw fa-fw fa-fw fas fa-cubes"></i><span> 自言自语</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Qybit's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-music"></i><span> 图片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/talking/"><i class="fa-fw fa-fw fa-fw fas fa-cubes"></i><span> 自言自语</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">虚拟机类的加载机制</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-03-10T02:25:27.000Z" title="发表于 2021-03-10 10:25:27">2021-03-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-09-23T13:18:44.010Z" title="更新于 2021-09-23 21:18:44">2021-09-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF%E4%BA%A4%E6%B5%81/">技术交流</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>11分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="虚拟机类的加载机制"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="【转载】"><a href="#【转载】" class="headerlink" title="【转载】"></a>【转载】</h2><p>本文作者<strong>：</strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/kylinxxx/p/13778513.html">WMS</a><br><strong>本文链接</strong>：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/kylinxxx/p/13778513.html">https://www.cnblogs.com/kylinxxx/p/13778513.html</a><br><strong>关于博主</strong>：评论和私信会在第一时间回复。或者<a target="_blank" rel="noopener" href="https://msg.cnblogs.com/msg/send/kylinxxx">直接私信</a>我。<br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">BY-NC-SA</a> 许可协议。转载请注明出处！<br><strong>声援博主</strong>：如果您觉得文章对您有帮助，可以点击文章右下角<strong>【<a href="javascript:void(0);">推荐</a>】</strong>一下。您的鼓励是博主的最大动力！</p>
+<h1 id="虚拟机类的加载机制"><a href="#虚拟机类的加载机制" class="headerlink" title="虚拟机类的加载机制"></a>虚拟机类的加载机制</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>虚拟机把描述类的数据从Class文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成可以被虚拟机直接使用的Java类型，这就是虚拟机的类的加载机制。</p>
+<h2 id="类加载的时机"><a href="#类加载的时机" class="headerlink" title="类加载的时机"></a>类加载的时机</h2><p>JVM 会在程序第一次主动引用类的时候，加载该类，被动引用时并不会引发类加载的操作。也就是说，JVM 并不是在一开始就把一个程序就所有的类都加载到内存中，而是到不得不用的时候才把它加载进来，而且只加载一次。那么什么是主动引用，什么是被动引用呢？</p>
+<ul>
+<li>主动引用<ul>
+<li>遇到 new、getstatic、putstatic、invokestatic 字节码指令，例如：<ul>
+<li>使用 new 实例化对象；</li>
+<li>读取或设置一个类的 static 字段（被 final 修饰的除外）；</li>
+<li>调用类的静态方法。</li>
+</ul>
+</li>
+<li>对类进行反射调用；</li>
+<li>初始化一个类时，其父类还没初始化（需先初始化父类）；<ul>
+<li>这点类与接口具有不同的表现，接口初始化时，不要求其父接口完成初始化，只有真正使用父接口时才初始化，如引用父接口中定义的常量。</li>
+</ul>
+</li>
+<li>虚拟机启动，先初始化包含 main() 函数的主类；</li>
+<li>JDK 1.7 动态语言支持：一个 <code>java.lang.invoke.MethodHandle</code> 的解析结果为 <code>REF_getStatic</code>、<code>REF_putStatic</code>、<code>REF_invokeStatic</code>。</li>
+</ul>
+</li>
+<li>被动引用<ul>
+<li>通过子类引用父类静态字段，不会导致子类初始化；</li>
+<li><code>Array[] arr = new Array[10]</code>; 不会触发 Array 类初始化；</li>
+<li><code>static final VAR</code> 在编译阶段会存入调用类的常量池，通过 <code>ClassName.VAR</code> 引用不会触发 ClassName 初始化。</li>
+</ul>
+</li>
+</ul>
+<p>也就是说，只有发生主动引用所列出的 5 种情况，一个类才会被加载到内存中，也就是说类的加载是 lazy-load 的，不到必要时刻是不会提前加载的，毕竟如果将程序运行中永远用不到的类加载进内存，会占用方法区中的内存，浪费系统资源。</p>
+<hr>
+<blockquote>
+<p>类的生命周期</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/qybit/CDN@master/Photo/reprint/%E7%B1%BB%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F1.png"></p>
+<hr>
+<h2 id="类的加载过程"><a href="#类的加载过程" class="headerlink" title="类的加载过程"></a>类的加载过程</h2><blockquote>
+<p>加载</p>
+</blockquote>
+<p><strong>加载（Loading）</strong>阶段，虚拟机需要完成以下三件事：</p>
+<ul>
+<li>通过一个类的全限定名来获取定义这个类对应的二进制字节流</li>
+<li>将这个类的二进制字节流所代表的静态存储结构转换为方法区的运行时数据结构</li>
+<li>在Java堆中生成一个代表这个类的 <code>java.lang.Class</code> 对象，作为方法区这些数据的访问入口。</li>
+</ul>
+<blockquote>
+<blockquote>
+<p>分类</p>
+</blockquote>
+</blockquote>
+<ul>
+<li>非数组类<ul>
+<li>系统提供的引导类加载器</li>
+<li>用户自定义的类加载器</li>
+</ul>
+</li>
+<li>数组类<ul>
+<li>不通过类加载器，由 Java 虚拟机直接创建</li>
+<li>创建动作由 newarray 指令触发，new 实际上触发了 [L全类名 对象的初始化</li>
+<li>规则<ul>
+<li>数组元素是引用类型<ul>
+<li>加载：递归加载其组件</li>
+<li>可见性：与引用类型一致</li>
+</ul>
+</li>
+<li>数组元素是非引用类型<ul>
+<li>加载：与引导类加载器关联</li>
+<li>可见性：public</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<blockquote>
+<p>类的显式加载和隐式加载</p>
+</blockquote>
+</blockquote>
+<ul>
+<li>显示加载：<ul>
+<li>调用 <code>ClassLoader#loadClass(className)</code> 或 <code>Class.forName(className)</code>。</li>
+<li>两种显示加载 .class 文件的区别：<ul>
+<li><code>Class.forName(className)</code> 加载 class 的同时会初始化静态域，<code>ClassLoader#loadClass(className)</code> 不会初始化静态域；</li>
+<li><code>Class.forName</code> 借助当前调用者的 class 的 ClassLoader 完成 class 的加载。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>隐式加载：<ul>
+<li>new 类对象；</li>
+<li>使用类的静态域；</li>
+<li>创建子类对象；</li>
+<li>使用子类的静态域；</li>
+<li>其他的隐式加载，在 JVM 启动时：<ul>
+<li><code>BootStrapLoader</code> 会加载一些 JVM 自身运行所需的 Class；</li>
+<li><code>ExtClassLoader</code> 会加载指定目录下一些特殊的 Class；</li>
+<li><code>AppClassLoader</code> 会加载 classpath 路径下的 Class，以及 main 函数所在的类的 Class 文件。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>验证</p>
+</blockquote>
+<p>目的： 确保 .class 文件中的字节流信息符合虚拟机的要求。</p>
+<p>4 个验证过程：</p>
+<ul>
+<li>文件格式验证：是否符合 Class 文件格式规范，验证文件开头 4 个字节是不是 “魔数” 0xCAFEBABE<ul>
+<li>魔数：每个Class文件的头4个字节称为魔数，它的唯一作用是确定这个文件是否为一个能被虚拟机接收的class文件。</li>
+</ul>
+</li>
+<li>元数据验证：保证字节码描述信息符号 Java 规范（语义分析）</li>
+<li>字节码验证：程序语义、逻辑是否正确（通过数据流、控制流分析）</li>
+<li>符号引用验证：对类自身以外的信息（常量池中的符号引用）进行匹配性校验</li>
+</ul>
+<p>这个操作虽然重要，但不是必要的，可以通过 <code>-Xverify:none</code> 关掉。</p>
+<blockquote>
+<p>准备</p>
+</blockquote>
+<p>描述： 为 static 变量在方法区分配内存。</p>
+<ul>
+<li>static 变量准备后的初始值：<ul>
+<li>public static int value = 123;<ul>
+<li>准备后为 0，value 的赋值指令 putstatic 会被放在 <code>&lt;clinit&gt;()</code> 方法中，<code>&lt;clinit&gt;()</code>方法会在初始化时执行，也就是说，value 变量只有在初始化后才等于 123。</li>
+</ul>
+</li>
+<li>public static final int value = 123;<ul>
+<li>准备后为 123，因为被 static final 赋值之后 value 就不能再修改了，所以在这里进行了赋值之后，之后不可能再出现赋值操作，所以可以直接在准备阶段就把 value 的值初始化好。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>解析</p>
+</blockquote>
+<p>描述： 将常量池中的 “符号引用” 替换为 “直接引用”。</p>
+<p>在此之前，常量池中的引用是不一定存在的，解析过之后，可以保证常量池中的引用在内存中一定存在。</p>
+<blockquote>
+<blockquote>
+<p>什么是 “符号引用” 和 “直接引用” ？</p>
+</blockquote>
+</blockquote>
+<ul>
+<li>符号引用：以一组符号描述所引用的对象（如对象的全类名），引用的目标不一定存在于内存中。</li>
+<li>直接引用：直接指向被引用目标在内存中的位置的指针等，也就是说，引用的目标一定存在于内存中。</li>
+</ul>
+<blockquote>
+<p>初始化</p>
+</blockquote>
+<p>描述： 执行类构造器 () 方法的过程。</p>
+<ul>
+<li><code>&lt;clinit&gt;()</code> 方法<ul>
+<li>包含的内容：<ul>
+<li>所有 static 的赋值操作；</li>
+<li>static 块中的语句；</li>
+</ul>
+</li>
+<li><code>&lt;clinit&gt;()</code> 方法中的语句顺序：<ul>
+<li>基本按照语句在源文件中出现的顺序排列；</li>
+<li>静态语句块只能访问定义在它前面的变量，定义在它后面的变量，可以赋值，但不能访问。</li>
+</ul>
+</li>
+<li>与 <code>&lt;init&gt;()</code> 的不同：<ul>
+<li>不需要显示调用父类的 <code>&lt;clinit&gt;()</code> 方法；</li>
+<li>虚拟机保证在子类的 <code>&lt;clinit&gt;()</code> 方法执行前，父类的 <code>&lt;clinit&gt;()</code> 方法一定执行完毕。也就是说，父类的 static 块和 static 字段的赋值操作是要先于子类的。</li>
+</ul>
+</li>
+<li>接口与类的不同：<ul>
+<li>执行子接口的 <code>&lt;clinit&gt;()</code> 方法前不需要先执行父接口的 <code>&lt;clinit&gt;()</code> 方法（除非用到了父接口中定义的 public static final 变量）；</li>
+</ul>
+</li>
+<li>执行过程中加锁：<ul>
+<li>同一时刻只能有一个线程在执行 <code>&lt;clinit&gt;()</code> 方法，因为虚拟机要保证在同一个类加载器下，一个类只被加载一次。</li>
+</ul>
+</li>
+<li>非必要性：<ul>
+<li>一个类如果没有任何 static 的内容就不需要执行 () 方法。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="本小节的补充：-lt-clinit-gt-与-lt-init-gt-方法"><a href="#本小节的补充：-lt-clinit-gt-与-lt-init-gt-方法" class="headerlink" title="本小节的补充：&lt;clinit&gt; 与 &lt;init&gt; 方法"></a>本小节的补充：<code>&lt;clinit&gt;</code> 与 <code>&lt;init&gt;</code> 方法</h3><p><strong>概述</strong></p>
+<p>在编译生成class文件时，会自动产生两个方法，一个是类的初始化方法<code>&lt;clinit&gt;</code>, 另一个是实例的初始化方法<code>&lt;init&gt;</code></p>
+<p><code>&lt;clinit&gt;</code>：在jvm第一次加载class文件时调用，包括静态变量初始化语句和静态块的执行</p>
+<p><code>&lt;init&gt;</code>:在实例创建出来的时候调用，包括调用new操作符；调用Class或<code>java.lang.reflect.Constructor</code>对象的<code>newInstance()</code>方法；调用任何现有对象的clone()方法；通过<code>java.io.ObjectInputStream</code>类的<code>getObject()</code>方法反序列化。</p>
+<h4 id="lt-clinit-gt-方法"><a href="#lt-clinit-gt-方法" class="headerlink" title="&lt;clinit&gt;方法"></a><code>&lt;clinit&gt;</code>方法</h4><blockquote>
+<p>先理解 类初始化阶段 的含义: 该阶段负责为类变量赋予正确的初始值, 是一个类或接口被首次使用前的最后一项工作</p>
+</blockquote>
+<p><code>&lt;clinit&gt;</code>方法的执行时期: 类初始化阶段(该方法只能被jvm调用, 专门承担类变量的初始化工作)</p>
+<p><code>&lt;clinit&gt;</code>方法的内容: 所有的类变量初始化语句和类型的静态初始化器</p>
+<p>类的初始化时机: 即在java代码中首次主动使用的时候, 包含以下情形:</p>
+<ul>
+<li>(首次)创建某个类的新实例时–new, 反射, 克隆 或 反序列化;</li>
+<li>(首次)调用某个类的静态方法时;</li>
+<li>(首次)使用某个类或接口的静态字段或对该字段(final 字段除外)赋值时;</li>
+<li>(首次)调用java的某些反射方法时;</li>
+<li>(首次)初始化某个类的子类时;</li>
+<li>(首次)在虚拟机启动时某个含有 main() 方法的那个启动类</li>
+</ul>
+<p>注意: 并非所有的类都会拥有一个方法, 满足下列条件之一的类不会拥有方法:</p>
+<ol>
+<li>该类既没有声明任何类变量，也没有静态初始化语句;</li>
+<li>该类声明了类变量，但没有明确使用类变量初始化语句或静态初始化语句初始化;</li>
+<li>该类仅包含静态 final 变量的类变量初始化语句，并且类变量初始化语句是编译时常量表达式;</li>
+</ol>
+<h4 id="lt-init-gt-方法"><a href="#lt-init-gt-方法" class="headerlink" title="&lt;init&gt;方法"></a><code>&lt;init&gt;</code>方法</h4><p><code>&lt;init&gt;</code>方法的执行时期: 对象的初始化阶段</p>
+<p>实例化一个类的四种途径:</p>
+<ol>
+<li>调用 new 操作符</li>
+<li>调用 Class 或 java.lang.reflect.Constructor 对象的newInstance()方法</li>
+<li>调用任何现有对象的clone()方法</li>
+<li>通过 java.io.ObjectInputStream 类的 getObject() 方法反序列化</li>
+</ol>
+<h2 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h2><p>类加载过程中的“通过一个类的全限定名来获取描述这个类的二进制字节流”这个动作是放在Java虚拟机的外部来实现的，以便于让应用程序自己来决定如何去获取所需要的类，实现这个动作的代码模块被称为<strong>“类加载器”</strong>。</p>
+<p>类加载器虽然只用于实现类的加载动作，但是它的作用却远远不限于此，比较两个类是否“相等”，不仅仅要确认这两个类是否来源于同一个class文件，还需要加载这两个类的类加载器相同。</p>
+<h3 id="如何判断两个类-“相等”"><a href="#如何判断两个类-“相等”" class="headerlink" title="如何判断两个类 “相等”"></a>如何判断两个类 “相等”</h3><ul>
+<li>“相等” 的要求<ul>
+<li>同一个 .class 文件</li>
+<li>被同一个虚拟机加载</li>
+<li>被同一个类加载器加载</li>
+</ul>
+</li>
+<li>判断 “相等” 的方法<ul>
+<li>instanceof 关键字</li>
+<li>Class 对象中的方法：<ul>
+<li>equals()</li>
+<li>isInstance()</li>
+<li>isAssignableFrom()</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="类加载器的分类"><a href="#类加载器的分类" class="headerlink" title="类加载器的分类"></a>类加载器的分类</h3><p>站在虚拟机的角度，只存在两种类加载器：</p>
+<blockquote>
+<p>启动类加载器（Bootstrap ClassLoader），使用C++实现，是虚拟机的一部分<br>其他类加载器，由Java语言实现，独立于虚拟机之外的，全部继承自抽象类 java.lang.ClassLoader</p>
+</blockquote>
+<p>从开发人员的角度，类加载器可以划分得更细致一些：</p>
+<ul>
+<li>启动类加载器（Bootstrap）:负责将存放在 \lib 目录中的，或者被 -Xbootclasspath 参数所指定的路径中的，并且是虚拟机识别的类库加载到虚拟机内存中。<code>&lt;JAVA_HOME&gt;/lib``-Xbootclasspath</code> 参数指定的路径</li>
+<li>扩展类加载器（Extension）:负责加载 <code>&lt;JAVA_HOME&gt;\lib\ext</code> 目录下的，或者被 <code>java.ext.dir</code> 系统变量所指定的路径中的所有类库，开发者可以直接使用扩展类加载器。<ul>
+<li><code>&lt;JAVA_HOME&gt;/lib/ext</code></li>
+<li><code>java.ext.dirs</code> 系统变量指定的路径</li>
+</ul>
+</li>
+<li>应用程序类加载器（Application）:负责加载用户类路径（ClassPath）上所指定的类库，一般情况下这个就是程序中默认的类加载器。<ul>
+<li><code>-classpath</code> 参数</li>
+</ul>
+</li>
+</ul>
+<p>以上加载器互相配合来加载我们自己的应用程序，如果有必要，我们还可以加入自己定义的加载器。这些加载器之间的关系一般如下图示：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qybit/CDN@master/Photo/reprint/%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%A8%A1%E5%9E%8B.png"></p>
+<h3 id="双亲委派模型"><a href="#双亲委派模型" class="headerlink" title="双亲委派模型"></a>双亲委派模型</h3><p>类加载器的双亲委派模型（Parent Delegation Model）：要求除了顶层的启动类加载器外，其余的类加载器都必须有自己的父类加载器。（注意！这里类加载器之间的父子关系一般不会以继承（Inheritance）来实现，而是使用组合（Composition）来复用父加载器的代码）。这种模型被广泛使用于几乎所有的Java程序中，但是它并不是一个强制性的约束，只是Java设计者推荐给开发者使用的一种类加载器实现方式。</p>
+<ul>
+<li>工作过程<ul>
+<li>当前类加载器收到类加载的请求后，先不自己尝试加载类，而是先将请求委派给父类加载器。因此，所有的类加载请求，都会先被传送到启动类加载器。</li>
+<li>只有当父类加载器加载失败时，当前类加载器才会尝试自己去自己负责的区域加载</li>
+</ul>
+</li>
+<li>实现<ul>
+<li>检查该类是否已经被加载</li>
+<li>将类加载请求委派给父类<ul>
+<li>如果父类加载器为 null，默认使用启动类加载器</li>
+<li>parent.loadClass(name, false)</li>
+</ul>
+</li>
+<li>当父类加载器加载失败时<ul>
+<li>catch ClassNotFoundException 但不做任何处理</li>
+<li>调用自己的 findClass() 去加载<ul>
+<li>我们在实现自己的类加载器时只需要 extends ClassLoader，然后重写 findClass() 方法而不是 loadClass() 方法，这样就不用重写 loadClass() 中的双亲委派机制了</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>优点<ul>
+<li>自己写的类库同名类不会覆盖类库的类</li>
+<li>java类随着它的类加载器一起具备了一种带有优先层级的层次关系，保证了Java程序的稳定运行。</li>
+</ul>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://www.cnblogs.com/kylinxxx/p/13778513.html">WNS</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://www.cnblogs.com/kylinxxx/p/13778513.html">https://www.cnblogs.com/kylinxxx/p/13778513.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://qybit.gitee.io" target="_blank">Qybit's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a><a class="post-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/">转载</a><a class="post-meta__tags" href="/tags/JVM/">JVM</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://cdn.jsdelivr.net/gh/qybit/CDN@master/Photo/my/wechat.png" target="_blank"><img class="post-qr-code-img" src="https://cdn.jsdelivr.net/gh/qybit/CDN@master/Photo/my/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://cdn.jsdelivr.net/gh/qybit/CDN@master/Photo/my/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="https://cdn.jsdelivr.net/gh/qybit/CDN@master/Photo/my/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/03/11/259/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">10. 正则表达式匹配</div></div></a></div><div class="next-post pull-right"><a href="/2021/03/07/259/"><img class="next-cover" src="https://img.imgdb.cn/item/601ff3903ffa7d37b3329d56.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">131. 分割回文串</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/04/03/Spring-IoC/" title="深入理解 Spring IoC 容器"><img class="cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-09-23</div><div class="title">深入理解 Spring IoC 容器</div></div></a></div><div><a href="/2020/12/31/cktzoxmtk0023rwv43d226rsk/" title="一文解决Tomcat开发中乱码的问题"><img class="cover" src="https://img.imgdb.cn/item/601ff3903ffa7d37b3329d56.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-09-23</div><div class="title">一文解决Tomcat开发中乱码的问题</div></div></a></div><div><a href="/2020/11/26/cktzoxmtk001zrwv48znabbl2/" title="Trie树"><img class="cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-09-23</div><div class="title">Trie树</div></div></a></div><div><a href="/2020/11/25/cktzoxmtm0029rwv4c7whdk01/" title="手动实现LinkedList"><img class="cover" src="https://img.imgdb.cn/item/601ff3903ffa7d37b3329d56.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-09-23</div><div class="title">手动实现LinkedList</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/qybit/CDN@master/Photo/my/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">qybit</div><div class="author-info__description">喜欢技术，二次元，音乐，电影和阅读</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">52</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/qybit"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/qybit" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%80%90%E8%BD%AC%E8%BD%BD%E3%80%91"><span class="toc-number">1.</span> <span class="toc-text">【转载】</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6"><span class="toc-number"></span> <span class="toc-text">虚拟机类的加载机制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E7%9A%84%E6%97%B6%E6%9C%BA"><span class="toc-number">2.</span> <span class="toc-text">类加载的时机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">类的加载过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E5%B0%8F%E8%8A%82%E7%9A%84%E8%A1%A5%E5%85%85%EF%BC%9A-lt-clinit-gt-%E4%B8%8E-lt-init-gt-%E6%96%B9%E6%B3%95"><span class="toc-number">3.1.</span> <span class="toc-text">本小节的补充：&lt;clinit&gt; 与 &lt;init&gt; 方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#lt-clinit-gt-%E6%96%B9%E6%B3%95"><span class="toc-number">3.1.1.</span> <span class="toc-text">&lt;clinit&gt;方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lt-init-gt-%E6%96%B9%E6%B3%95"><span class="toc-number">3.1.2.</span> <span class="toc-text">&lt;init&gt;方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8"><span class="toc-number">4.</span> <span class="toc-text">类加载器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E4%B8%A4%E4%B8%AA%E7%B1%BB-%E2%80%9C%E7%9B%B8%E7%AD%89%E2%80%9D"><span class="toc-number">4.1.</span> <span class="toc-text">如何判断两个类 “相等”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-number">4.2.</span> <span class="toc-text">类加载器的分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.3.</span> <span class="toc-text">双亲委派模型</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/09/25/583/" title="EQ-583-两个字符串的删除操作"><img src="https://img.imgdb.cn/item/601ff3903ffa7d37b3329d56.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="EQ-583-两个字符串的删除操作"/></a><div class="content"><a class="title" href="/2021/09/25/583/" title="EQ-583-两个字符串的删除操作">EQ-583-两个字符串的删除操作</a><time datetime="2021-09-25T09:51:56.000Z" title="发表于 2021-09-25 17:51:56">2021-09-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/05/06/259/" title="第 239 场周赛"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="第 239 场周赛"/></a><div class="content"><a class="title" href="/2021/05/06/259/" title="第 239 场周赛">第 239 场周赛</a><time datetime="2021-05-06T02:07:38.000Z" title="发表于 2021-05-06 10:07:38">2021-05-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/04/19/w237/" title="第 237 场周赛"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="第 237 场周赛"/></a><div class="content"><a class="title" href="/2021/04/19/w237/" title="第 237 场周赛">第 237 场周赛</a><time datetime="2021-04-19T01:49:11.000Z" title="发表于 2021-04-19 09:49:11">2021-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/04/12/w236/" title="第 236 场周赛"><img src="https://img.imgdb.cn/item/601ff3903ffa7d37b3329d56.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="第 236 场周赛"/></a><div class="content"><a class="title" href="/2021/04/12/w236/" title="第 236 场周赛">第 236 场周赛</a><time datetime="2021-04-12T07:23:07.000Z" title="发表于 2021-04-12 15:23:07">2021-04-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/04/07/doubantop250/" title="Go语言实践-豆瓣TOP250"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Go语言实践-豆瓣TOP250"/></a><div class="content"><a class="title" href="/2021/04/07/doubantop250/" title="Go语言实践-豆瓣TOP250">Go语言实践-豆瓣TOP250</a><time datetime="2021-04-07T13:33:06.000Z" title="发表于 2021-04-07 21:33:06">2021-04-07</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By qybit</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Talk is cheap, show me your code.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'bXWbbE9acJmnRcSYNkVRTEkE-gzGzoHsz',
+      appKey: 'oxKqCUaNn5TaVNdCjnX1pU2W',
+      placeholder: '记得留下你的昵称和邮箱....可以快速收到回复',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: true,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: true,
+      path: window.location.pathname,
+      requiredFields: ["nick,mail"],
+      visitor: true
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

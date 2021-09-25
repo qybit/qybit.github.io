@@ -1,0 +1,287 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>72. 编辑距离 | Qybit's Blog</title><meta name="keywords" content="DP,DFS"><meta name="author" content="qybit,2601970213@qq.com"><meta name="copyright" content="qybit"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="开头我们要求 $word1$ 变成 $word2$ 的最少操作次数。 操作如下：  插入一个字符 删除一个字符 替换一个字符  基本指导思想，对于 $word1$ 中所有的下标，我们尝试所有可能的操作，期望可以达到 $word2$ 。但是这样的时间复杂度将会达到 指数级。因此是不可能通过本题的。但我们也可以使用记忆化的方式优化。 方法一：DFS + 剪枝使用两个指针分别为 $i$ 和 $j$ ，分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="72. 编辑距离">
+<meta property="og:url" content="https://qybit.gitee.io/2021/03/20/72/index.html">
+<meta property="og:site_name" content="Qybit&#39;s Blog">
+<meta property="og:description" content="开头我们要求 $word1$ 变成 $word2$ 的最少操作次数。 操作如下：  插入一个字符 删除一个字符 替换一个字符  基本指导思想，对于 $word1$ 中所有的下标，我们尝试所有可能的操作，期望可以达到 $word2$ 。但是这样的时间复杂度将会达到 指数级。因此是不可能通过本题的。但我们也可以使用记忆化的方式优化。 方法一：DFS + 剪枝使用两个指针分别为 $i$ 和 $j$ ，分">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png">
+<meta property="article:published_time" content="2021-03-20T05:09:15.000Z">
+<meta property="article:modified_time" content="2021-09-23T13:18:43.998Z">
+<meta property="article:author" content="qybit">
+<meta property="article:tag" content="DP">
+<meta property="article:tag" content="DFS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://qybit.gitee.io/2021/03/20/72/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: qybit","link":"链接: ","source":"来源: Qybit's Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '72. 编辑距离',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-09-23 21:18:43'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Qybit's Blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/qybit/CDN@master/Photo/my/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">52</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-music"></i><span> 图片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/talking/"><i class="fa-fw fa-fw fa-fw fas fa-cubes"></i><span> 自言自语</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Qybit's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-music"></i><span> 图片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/talking/"><i class="fa-fw fa-fw fa-fw fas fa-cubes"></i><span> 自言自语</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">72. 编辑距离</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-03-20T05:09:15.000Z" title="发表于 2021-03-20 13:09:15">2021-03-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-09-23T13:18:43.998Z" title="更新于 2021-09-23 21:18:43">2021-09-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%8A%9B%E6%89%A3/">力扣</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="72. 编辑距离"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="开头"><a href="#开头" class="headerlink" title="开头"></a>开头</h1><p>我们要求 $word1$ 变成 $word2$ 的最少操作次数。</p>
+<p>操作如下：</p>
+<ul>
+<li>插入一个字符</li>
+<li>删除一个字符</li>
+<li>替换一个字符</li>
+</ul>
+<p>基本指导思想，对于 $word1$ 中所有的下标，我们尝试所有可能的操作，期望可以达到 $word2$ 。但是这样的时间复杂度将会达到 指数级。因此是不可能通过本题的。但我们也可以使用记忆化的方式优化。</p>
+<h2 id="方法一：DFS-剪枝"><a href="#方法一：DFS-剪枝" class="headerlink" title="方法一：DFS + 剪枝"></a>方法一：DFS + 剪枝</h2><p>使用两个指针分别为 $i$ 和 $j$ ，分别指向 $word1$ 和 $word2$ ，我们借助指针的移动来对 $word1$ 模拟上述的 $3$ 种操作。</p>
+<p>这里我们可以假设 $word1[0, i-1]$ 的字符 和 $word2[0, j-1]$ 已经完全相等了，此时我们的指针分别指向 $word1$ 的第 $i$ 个字符 和 $word2$  和 第 $j$ 个字符。 对于下述的操作，我们始终是在 <strong>操作</strong> $word1$ 。</p>
+<p>具体实现如下：</p>
+<ul>
+<li>当 $word1[i] = word2[j]$ 时，我们同时移动指针 $i$ 和 $j$ 向右一位。</li>
+<li>当 $word1[i] \neq word2[j]$ 时：<ul>
+<li>当我们选择 【删除】时，我们移动指针 $i$ 向右一位。这里实际上对于 $word1$ 而言是 【跳过】 当前字符，让 $word1$ 的下一个字符和 $word2$ 的第 $j$ 个字符得以匹配相等，而在 $word2$ 看来，我们好像是多了一个字符。因此对于 $word2$ 而言，$word2$ 是多了一个字符。</li>
+<li>当我们选择 【插入】时，我们移动指针 $j$ 向右一位。实际上对于 $word2$ 而言是 【跳过】当前字符，让 $word2$ 的下一个字符和 $word1$ 的第 $i$ 个字符得以匹配相等。对于 $word2$ 同理，在 $j$ 的位置进行 $word2$  的 【删除】操作。</li>
+<li>当我们选择 【替换】时，实际上是和 $word1[i] = word2[j]$ 情况一致的。我们把指针 $i$ 和 $j$ 同时向右移动一位。</li>
+</ul>
+</li>
+<li>在指针 $i$ 和 $j$ 没有把 $word1$ 或者 $word2$ 扫描完毕之前，我们重复上述操作。</li>
+<li>当任意一个指针到达字符串末尾时，即说明我们存在一个方案使得 $word1 = word2$，。因为对于任意一个 $i (0 \le i \le word1.length, j同理)$ ，我们都存在最多可以有 $3$ 种选择分支。因此，我们需要在 【删除】、【插入】和【替换】三种操作取最小值。</li>
+</ul>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>由上述搜索的思路，我们可以发现。虽然我们可能的操作一共是 $6$ 种。但是对于 $word1$ 的【删除】操作，等效于对 $word2$ 进行【插入】操作。所以我们的最终操作方案实际上是 $3$ 种。</p>
+<ul>
+<li>$word1$ 的【插入】操作，等效于 $word2$ 的【删除】操作</li>
+<li>$word1$ 的【删除】操作，等效于 $word2$ 的【插入】操作</li>
+<li>$word1$ 的【替换】操作，等效于 $word2$ 的【替换】操作。</li>
+</ul>
+<p>公式化描述：</p>
+<p>前提条件是，$word1[0, i-1]$ 和 $word2[0, j-1]$ 已经完全相等了。$f(i, j)$ 表示 $word1$ 的前 $i (0 \le i \le word1.length)$ 个字符转变成 $word2$ 前 $j(0 \le j \le word2.length)$ 个字符所需的最小操作次数。那么存在<br>$$<br>f(i,j)=<br>\begin{cases}<br>&amp; f(i + 1, j + 1) , word1[i] = word2[j] \\<br>&amp; min{f(i+1, j), f(i+1,j+1), f(i, j +1)} + 1, word1[i] \ne word2[j]<br>\end{cases}<br>$$<br>PS：不相等时，加 $1$ 是因为我们选择了任意一个操作。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">510</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> mem[N][N];</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="built_in">string</span> word1, <span class="keyword">int</span> i, <span class="built_in">string</span> word2, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mem[i][j] != <span class="number">-1</span>) <span class="keyword">return</span> mem[i][j];</span><br><span class="line">        <span class="keyword">if</span> (i &gt;= word1.size() || j &gt;= word2.size()) &#123;</span><br><span class="line">            mem[i][j] = word1.size() - i + word2.size() - j;</span><br><span class="line">            <span class="keyword">return</span> mem[i][j];</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">if</span> (word1[i] == word2[j]) &#123;</span><br><span class="line">            mem[i][j] = dfs(word1, i + <span class="number">1</span>, word2, j + <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">return</span> mem[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> increased = dfs(word1, i, word2, j + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">int</span> deleted = dfs(word1, i + <span class="number">1</span>, word2, j);</span><br><span class="line">        <span class="keyword">int</span> modify = dfs(word1, i + <span class="number">1</span>, word2, j + <span class="number">1</span>);</span><br><span class="line">        mem[i][j] = min(increased, min(deleted, modify)) + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> mem[i][j];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minDistance</span><span class="params">(<span class="built_in">string</span> word1, <span class="built_in">string</span> word2)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">memset</span>(mem, <span class="number">-1</span>, <span class="keyword">sizeof</span> mem);</span><br><span class="line">        <span class="keyword">return</span> dfs(word1, <span class="number">0</span>, word2, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h4><p>时间复杂度：$O(3^{max{n, m}})$，其中 $n$ 和 $m$ 分别是指字符串 $word1$ 和 $word2$ 的长度。</p>
+<ul>
+<li>但是由于我们存在缓存数组，因此时间复杂度是远远小于这个级别的。具体的时间复杂度我也没有办法分析。</li>
+</ul>
+<p>空间复杂度：$O(n \times m)$，我们要缓存字符串所有可能状态的最小操作数。</p>
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>由上一步，我们通过 【自顶向下】的一顿分析，递推出来的式子。进行改造<br>$$<br>f(i,j)=<br>\begin{cases}<br>&amp; f(i + 1, j + 1) , word1[i] = word2[j] \\<br>&amp; min{f(i+1, j), f(i+1,j+1), f(i, j +1)} + 1, word1[i] \ne word2[j]<br>\end{cases}<br>$$<br>我们需要注意的点，就是边界问题，也就是当 $i=0$ 或者 $j = 0$ 时，当任意一个字符串为空串时，我们的改变次数等于不为空的字符串的长度。</p>
+<p>我们的动态规划转移公式仍然定义为： $f[i][j]$，表示 $word1[0,i]$ 与 $word2[0,j]$ 完全相等的最小操作次数。 </p>
+<p>因此，动态规划的转移方程为：</p>
+<ul>
+<li>当 $word1[i] = word2[j]$ ，$f[i][j] = f[i-1][j-1]$，相等时，不需要任何操作。</li>
+<li>当 $word1[i] \ne word2[j]$，$f[i][j] = min{f[i-1][j], f[i-1][j-1], f[i][j-1]} + 1$，我们从三种操作中，选择最小的一种进行一次操作。</li>
+</ul>
+<p>解释：</p>
+<ul>
+<li>$f[i-1][j]$ 表示将 $word1[0, i -1]$ 的第 $i$ 个字符【删除】后，使得 $word1[0,i] = word2[0, j]$</li>
+<li>$f[i-1][j-1]$ 表示将 $word1[0,i-1]$ 的第 $i$ 个字符进行【修改】后，使得 $word1[0,i] = word2[0,j]$</li>
+<li>$f[i][j-1]$ 表示在 $word1[0,i]$ 【插入】一个字符后，使得 $word1[0, i] = word2[0,j]$</li>
+</ul>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minDistance</span><span class="params">(<span class="built_in">string</span> word1, <span class="built_in">string</span> word2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = word1.size(), m = word2.size();</span><br><span class="line"></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; f(n + <span class="number">1</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(m + <span class="number">1</span>, <span class="number">0</span>));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i ++) </span><br><span class="line">            f[i][<span class="number">0</span>] = i;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= m; i ++) </span><br><span class="line">            f[<span class="number">0</span>][i] = i;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= m; j ++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (word1[i - <span class="number">1</span>] == word2[j - <span class="number">1</span>]) &#123;</span><br><span class="line">                    f[i][j] = f[i - <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    f[i][j] = min(f[i - <span class="number">1</span>][j], min(f[i - <span class="number">1</span>][j - <span class="number">1</span>], f[i][j - <span class="number">1</span>])) + <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f[n][m];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="复杂度分析-1"><a href="#复杂度分析-1" class="headerlink" title="复杂度分析"></a>复杂度分析</h4><p>时间复杂度：$O(n \times m)$，其中 $n$ 和 $m$ 分别是指字符串 $word1$ 和 $word2$ 的长度。</p>
+<p>空间复杂度：$O(n \times m)$</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:2601970213@qq.com">qybit</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://qybit.gitee.io/2021/03/20/72/">https://qybit.gitee.io/2021/03/20/72/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://qybit.gitee.io" target="_blank">Qybit's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/DP/">DP</a><a class="post-meta__tags" href="/tags/DFS/">DFS</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://cdn.jsdelivr.net/gh/qybit/CDN@master/Photo/my/wechat.png" target="_blank"><img class="post-qr-code-img" src="https://cdn.jsdelivr.net/gh/qybit/CDN@master/Photo/my/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://cdn.jsdelivr.net/gh/qybit/CDN@master/Photo/my/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="https://cdn.jsdelivr.net/gh/qybit/CDN@master/Photo/my/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/03/21/259/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">第 48 场双周赛</div></div></a></div><div class="next-post pull-right"><a href="/2021/03/15/w232/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">第 232 场周赛</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/04/12/w236/" title="第 236 场周赛"><img class="cover" src="https://img.imgdb.cn/item/601ff3903ffa7d37b3329d56.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-09-23</div><div class="title">第 236 场周赛</div></div></a></div><div><a href="/2021/02/08/978/" title="978. 最长湍流子数组"><img class="cover" src="https://img.imgdb.cn/item/601ff3903ffa7d37b3329d56.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-09-23</div><div class="title">978. 最长湍流子数组</div></div></a></div><div><a href="/2020/12/13/cktzoxmtx003krwv473hy2tej/" title="第219场周赛"><img class="cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-09-23</div><div class="title">第219场周赛</div></div></a></div><div><a href="/2020/12/12/cktzoxmt8000prwv48bseazms/" title="376 摆动序列"><img class="cover" src="https://img.imgdb.cn/item/601ff3903ffa7d37b3329d56.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-09-23</div><div class="title">376 摆动序列</div></div></a></div><div><a href="/2020/11/29/cktzoxmu3004arwv4cuw52gfe/" title="第40场双周赛"><img class="cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-09-23</div><div class="title">第40场双周赛</div></div></a></div><div><a href="/2020/08/11/cktzoxmtu003arwv4781n5vy6/" title="第201场周赛"><img class="cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-09-23</div><div class="title">第201场周赛</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/qybit/CDN@master/Photo/my/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">qybit</div><div class="author-info__description">喜欢技术，二次元，音乐，电影和阅读</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">52</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/qybit"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/qybit" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%80%E5%A4%B4"><span class="toc-number">1.</span> <span class="toc-text">开头</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9ADFS-%E5%89%AA%E6%9E%9D"><span class="toc-number">1.1.</span> <span class="toc-text">方法一：DFS + 剪枝</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%EF%BC%9A"><span class="toc-number">1.1.1.</span> <span class="toc-text">总结：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">1.1.2.</span> <span class="toc-text">代码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">复杂度分析</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="toc-number">1.2.</span> <span class="toc-text">动态规划</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">代码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90-1"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">复杂度分析</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/09/25/583/" title="EQ-583-两个字符串的删除操作"><img src="https://img.imgdb.cn/item/601ff3903ffa7d37b3329d56.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="EQ-583-两个字符串的删除操作"/></a><div class="content"><a class="title" href="/2021/09/25/583/" title="EQ-583-两个字符串的删除操作">EQ-583-两个字符串的删除操作</a><time datetime="2021-09-25T09:51:56.000Z" title="发表于 2021-09-25 17:51:56">2021-09-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/05/06/259/" title="第 239 场周赛"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="第 239 场周赛"/></a><div class="content"><a class="title" href="/2021/05/06/259/" title="第 239 场周赛">第 239 场周赛</a><time datetime="2021-05-06T02:07:38.000Z" title="发表于 2021-05-06 10:07:38">2021-05-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/04/19/w237/" title="第 237 场周赛"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="第 237 场周赛"/></a><div class="content"><a class="title" href="/2021/04/19/w237/" title="第 237 场周赛">第 237 场周赛</a><time datetime="2021-04-19T01:49:11.000Z" title="发表于 2021-04-19 09:49:11">2021-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/04/12/w236/" title="第 236 场周赛"><img src="https://img.imgdb.cn/item/601ff3903ffa7d37b3329d56.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="第 236 场周赛"/></a><div class="content"><a class="title" href="/2021/04/12/w236/" title="第 236 场周赛">第 236 场周赛</a><time datetime="2021-04-12T07:23:07.000Z" title="发表于 2021-04-12 15:23:07">2021-04-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/04/07/doubantop250/" title="Go语言实践-豆瓣TOP250"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Go语言实践-豆瓣TOP250"/></a><div class="content"><a class="title" href="/2021/04/07/doubantop250/" title="Go语言实践-豆瓣TOP250">Go语言实践-豆瓣TOP250</a><time datetime="2021-04-07T13:33:06.000Z" title="发表于 2021-04-07 21:33:06">2021-04-07</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By qybit</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Talk is cheap, show me your code.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'bXWbbE9acJmnRcSYNkVRTEkE-gzGzoHsz',
+      appKey: 'oxKqCUaNn5TaVNdCjnX1pU2W',
+      placeholder: '记得留下你的昵称和邮箱....可以快速收到回复',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: true,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: true,
+      path: window.location.pathname,
+      requiredFields: ["nick,mail"],
+      visitor: true
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
