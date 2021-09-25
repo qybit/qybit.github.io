@@ -1694,7 +1694,7 @@
   </entry>
   <entry>
     <title>665 非递减数列</title>
-    <url>/2021/02/07/cktzoxmte001brwv48sx663ds/</url>
+    <url>/2021/02/07/cktzozkvq001bjcv43f6397vj/</url>
     <content><![CDATA[<p>力扣链接：<a href="https://leetcode-cn.com/problems/non-decreasing-array/">665. 非递减数列</a></p>
 <p>这道题很坑，虽然是 <code>easy</code>，但是测试用例很好。</p>
 <a id="more"></a>
@@ -1729,7 +1729,7 @@
   </entry>
   <entry>
     <title>127 单词接龙</title>
-    <url>/2021/02/06/cktzoxmt2000brwv449kz8577/</url>
+    <url>/2021/02/06/cktzozkva000bjcv45fhg2j13/</url>
     <content><![CDATA[<p>力扣链接：<a href="https://leetcode-cn.com/problems/word-ladder/">单词接龙</a></p>
 <p>这是一道求最短路径的题目，BFS 是我们用来解决最短路问题的强心剂。</p>
 <a id="more"></a>
@@ -1764,7 +1764,7 @@
   </entry>
   <entry>
     <title>1625 执行操作后字典序最小的字符串</title>
-    <url>/2021/02/06/cktzoxmt7000mrwv4g8tm53qd/</url>
+    <url>/2021/02/06/cktzozkvf000mjcv44dlkh88q/</url>
     <content><![CDATA[<p>广度优先搜索（BFS）的优势在于当问题存在最优解的情况下，一定可以找到最优解。因此常用于最短路问题。</p>
 <p>这道题数据比较弱，所以暴力搜索也不会超时。</p>
 <p>力扣链接：<a href="https://leetcode-cn.com/problems/lexicographically-smallest-string-after-applying-operations/">执行操作后字典序最小的字符串</a></p>
@@ -1813,7 +1813,7 @@
   </entry>
   <entry>
     <title>1208 尽可能使字符串相等</title>
-    <url>/2021/02/05/cktzoxmt00007rwv45b34clte/</url>
+    <url>/2021/02/05/cktzozkv90009jcv47fqca7f0/</url>
     <content><![CDATA[<p>力扣链接：<a href="https://leetcode-cn.com/problems/get-equal-substrings-within-budget/">尽可能使字符串相等</a></p>
 <p>昨晚睡前没仔细读题，以为挺难做的，没想到也不难做。</p>
 <a id="more"></a>
@@ -1864,7 +1864,7 @@
   </entry>
   <entry>
     <title>480 滑动窗口中位数</title>
-    <url>/2021/02/03/cktzoxmtc0015rwv41sqbee8c/</url>
+    <url>/2021/02/03/cktzozkvl0014jcv41uqtbz4f/</url>
     <content><![CDATA[<p><em>官方题解十分的鬼畜，但是这道题用二分也是可以做的</em></p>
 <p>力扣链接： <a href="https://leetcode-cn.com/problems/sliding-window-median/">滑动窗口中位数</a></p>
 <p>相似题目推荐：</p>
@@ -1906,7 +1906,7 @@
   </entry>
   <entry>
     <title>1540 K次操作转变字符串</title>
-    <url>/2021/02/02/cktzoxmt5000hrwv45082fimr/</url>
+    <url>/2021/02/02/cktzozkve000hjcv4bsrmb44r/</url>
     <content><![CDATA[<p>原题链接：<a href="https://leetcode-cn.com/problems/can-convert-string-in-k-moves/">K 次操作转变字符串</a></p>
 <p>我人傻了，A了这题就立马回小学重修语文。</p>
 <a id="more"></a>
@@ -1935,7 +1935,7 @@
   </entry>
   <entry>
     <title>410 分割数组的最大值</title>
-    <url>/2021/02/02/cktzoxmt9000urwv455am1w2f/</url>
+    <url>/2021/02/02/cktzozkvh000tjcv4e2hw5gwm/</url>
     <content><![CDATA[<p>力扣410链接：<a href="https://leetcode-cn.com/problems/split-array-largest-sum/">分割数组的最大值</a></p>
 <a id="more"></a>
 
@@ -1964,7 +1964,7 @@
   </entry>
   <entry>
     <title>424 替换后的最长重复字符</title>
-    <url>/2021/02/02/cktzoxmta000xrwv4dc064ad0/</url>
+    <url>/2021/02/02/cktzozkvi000xjcv40sizaquv/</url>
     <content><![CDATA[<p>力扣424链接：<a href="https://leetcode-cn.com/problems/longest-repeating-character-replacement/">替换后的最长重复字符</a></p>
 <a id="more"></a>
 
@@ -1987,7 +1987,7 @@
   </entry>
   <entry>
     <title>1128 等价多米诺骨牌对的数量</title>
-    <url>/2021/01/26/cktzoxmt10009rwv44wi3h8fl/</url>
+    <url>/2021/01/26/cktzozkv80007jcv4fyt56ifd/</url>
     <content><![CDATA[<p>一道比较有意思的题目，足够简单但是时间复杂度卡得很紧。</p>
 <p>原题链接：<a href="https://leetcode-cn.com/problems/number-of-equivalent-domino-pairs/">等价多米诺骨牌对的数量</a></p>
 <a id="more"></a>
@@ -2020,7 +2020,7 @@
   </entry>
   <entry>
     <title>第224场周赛</title>
-    <url>/2021/01/17/cktzoxmu0003xrwv4bvcuahb8/</url>
+    <url>/2021/01/17/cktzozkwe003zjcv4g87j12pb/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/number-of-rectangles-that-can-form-the-largest-square/">可以形成最大正方形的矩形数目</a></li>
@@ -2075,7 +2075,7 @@
   </entry>
   <entry>
     <title>第43场双周赛</title>
-    <url>/2021/01/12/cktzoxmu5004krwv49hil3gra/</url>
+    <url>/2021/01/12/cktzozkwj004kjcv49zk073av/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/calculate-money-in-leetcode-bank/">计算力扣银行的钱</a></li>
@@ -2135,7 +2135,7 @@
   </entry>
   <entry>
     <title>第222场周赛</title>
-    <url>/2021/01/03/cktzoxmtz003urwv4hf39698l/</url>
+    <url>/2021/01/03/cktzozkwd003vjcv49ax07nd9/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/maximum-units-on-a-truck/">卡车上的最大单元数</a></li>
@@ -2218,7 +2218,7 @@
   </entry>
   <entry>
     <title>一文解决Tomcat开发中乱码的问题</title>
-    <url>/2020/12/31/cktzoxmtk0023rwv43d226rsk/</url>
+    <url>/2020/12/31/cktzozkvx0023jcv4dl6oe5vn/</url>
     <content><![CDATA[<p>开发环境：</p>
 <ul>
 <li>Windows 10，idea</li>
@@ -2263,7 +2263,7 @@
   </entry>
   <entry>
     <title>第221场周赛</title>
-    <url>/2020/12/29/cktzoxmty003rrwv427p1gb3o/</url>
+    <url>/2020/12/29/cktzozkwc003rjcv4439k0t15/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/determine-if-string-halves-are-alike/">判断字符串的两半是否相似</a></li>
@@ -2359,7 +2359,7 @@
   </entry>
   <entry>
     <title>第42场双周赛</title>
-    <url>/2020/12/28/cktzoxmu4004irwv4hiup6wlz/</url>
+    <url>/2020/12/28/cktzozkwi004ijcv47glv34z0/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li><p> <a href="https://leetcode-cn.com/problems/number-of-students-unable-to-eat-lunch/">无法吃午餐的学生数量</a></p>
@@ -2462,7 +2462,7 @@
   </entry>
   <entry>
     <title>第220场周赛</title>
-    <url>/2020/12/20/cktzoxmtx003orwv4at9d64zz/</url>
+    <url>/2020/12/20/cktzozkwb003ojcv41lms1w0s/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li><a href="https://leetcode-cn.com/problems/reformat-phone-number/">重新格式化电话号码</a></li>
@@ -2554,7 +2554,7 @@
   </entry>
   <entry>
     <title>460 LFU缓存</title>
-    <url>/2020/12/14/cktzoxmtb0012rwv4a2uhd25v/</url>
+    <url>/2020/12/14/cktzozkvj0010jcv464pz8k2b/</url>
     <content><![CDATA[<p><strong>开头</strong></p>
 <p>采用自定义的双向链表来实现</p>
 <p>Node：存储每一个 key, value, freq </p>
@@ -2597,7 +2597,7 @@
   </entry>
   <entry>
     <title>第219场周赛</title>
-    <url>/2020/12/13/cktzoxmtx003krwv473hy2tej/</url>
+    <url>/2020/12/13/cktzozkwa003ljcv4d10kabi4/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/count-of-matches-in-tournament/">比赛中的配对次数</a></li>
@@ -2683,7 +2683,7 @@
   </entry>
   <entry>
     <title>第41场双周赛</title>
-    <url>/2020/12/13/cktzoxmu3004drwv44w7o5hpt/</url>
+    <url>/2020/12/13/cktzozkwh004ejcv46lutcxfl/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/count-the-number-of-consistent-strings/"> 统计一致字符串的数目</a></li>
@@ -2759,7 +2759,7 @@
   </entry>
   <entry>
     <title>376 摆动序列</title>
-    <url>/2020/12/12/cktzoxmt8000prwv48bseazms/</url>
+    <url>/2020/12/12/cktzozkvg000pjcv48v7z7omn/</url>
     <content><![CDATA[<p><strong>开头</strong></p>
 <p><strong>摆动序列：</strong></p>
 <ul>
@@ -2800,7 +2800,7 @@
   </entry>
   <entry>
     <title>第218场周赛</title>
-    <url>/2020/12/06/cktzoxmtw003hrwv4gsny66ao/</url>
+    <url>/2020/12/06/cktzozkwa003ijcv4hz5a0wor/</url>
     <content><![CDATA[<h3 id="T1：设计-Goal-解析器"><a href="#T1：设计-Goal-解析器" class="headerlink" title="T1：设计 Goal 解析器"></a>T1：<a href="https://leetcode-cn.com/problems/goal-parser-interpretation/">设计 Goal 解析器</a></h3><p><strong>方法一：</strong> 利用API</p>
 <p>利用语言自带的API，进行替换操作。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">interpret</span><span class="params">(String command)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> command.replace(<span class="string">&quot;()&quot;</span>, <span class="string">&quot;o&quot;</span>).replace(<span class="string">&quot;(al)&quot;</span>, <span class="string">&quot;al&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -2840,7 +2840,7 @@
   </entry>
   <entry>
     <title>第217场周赛</title>
-    <url>/2020/11/30/cktzoxmtv003drwv4gk2wbhhs/</url>
+    <url>/2020/11/30/cktzozkw9003ejcv432ghdgfg/</url>
     <content><![CDATA[<h3 id="T1：最富有客户的资产总量"><a href="#T1：最富有客户的资产总量" class="headerlink" title="T1：最富有客户的资产总量"></a>T1：<a href="https://leetcode-cn.com/problems/richest-customer-wealth/">最富有客户的资产总量</a></h3><p>思路：暴力</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maximumWealth</span><span class="params">(<span class="keyword">int</span>[][] accounts)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] account : accounts) &#123;</span><br><span class="line">            res = Math.max(res, Arrays.stream(account).sum());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>复杂度分析：</strong></p>
@@ -2913,7 +2913,7 @@
   </entry>
   <entry>
     <title>第40场双周赛</title>
-    <url>/2020/11/29/cktzoxmu3004arwv4cuw52gfe/</url>
+    <url>/2020/11/29/cktzozkwh004cjcv45kz048ot/</url>
     <content><![CDATA[<p>难度不大，很常规的题目。最后一题动态规划仍需要多练。</p>
 <a id="more"></a>
 
@@ -2973,7 +2973,7 @@
   </entry>
   <entry>
     <title>Trie树</title>
-    <url>/2020/11/26/cktzoxmtk001zrwv48znabbl2/</url>
+    <url>/2020/11/26/cktzozkvx001zjcv4aj7n8ykn/</url>
     <content><![CDATA[<p>Trie树是一种特殊的数据结构，它常用于在数据中检索字符串。也可以叫做字典树和前缀树等等。</p>
 <a id="more"></a>
 
@@ -3039,7 +3039,7 @@
   </entry>
   <entry>
     <title>手动实现LinkedList</title>
-    <url>/2020/11/25/cktzoxmtm0029rwv4c7whdk01/</url>
+    <url>/2020/11/25/cktzozkvz0029jcv40kt49bo3/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>链表是与线性表相对应的一种特殊的数据结构，它的各个节点在物理内存上可以是连续的也可以是不连续的，逻辑上链表是连续的。</p>
 <p><strong>优点</strong></p>
 <ul>
@@ -3154,7 +3154,7 @@
   </entry>
   <entry>
     <title>第201场周赛</title>
-    <url>/2020/08/11/cktzoxmtu003arwv4781n5vy6/</url>
+    <url>/2020/08/11/cktzozkw8003bjcv48wyihe2m/</url>
     <content><![CDATA[<p>题目标题即原题地址，点击查看原题。代码主要为Java和cpp，部分tricky题目会使用py来解决</p>
 <a id="more"></a>
 
@@ -3186,7 +3186,7 @@
   </entry>
   <entry>
     <title>第199场周赛</title>
-    <url>/2020/07/27/cktzoxmtt0036rwv41t3461ow/</url>
+    <url>/2020/07/27/cktzozkw70037jcv41k7rfn2i/</url>
     <content><![CDATA[<p>题目标题即原题地址，点击查看原题。</p>
 <a id="more"></a>
 
@@ -3217,7 +3217,7 @@
   </entry>
   <entry>
     <title>第31场双周赛</title>
-    <url>/2020/07/27/cktzoxmu20048rwv4h40n1y2l/</url>
+    <url>/2020/07/27/cktzozkwg0049jcv4f4oa5rse/</url>
     <content><![CDATA[<p>题目标题即原题地址，点击查看原题。</p>
 <a id="more"></a>
 
@@ -3248,7 +3248,7 @@
   </entry>
   <entry>
     <title>第197场周赛</title>
-    <url>/2020/07/13/cktzoxmts002zrwv45lrq4akl/</url>
+    <url>/2020/07/13/cktzozkw60035jcv41efqfbzt/</url>
     <content><![CDATA[<p>字节又来了，感觉自己把第三题想的太复杂了。第四题是否有些超纲呢？</p>
 <a id="more"></a>
 
@@ -3291,7 +3291,7 @@
   </entry>
   <entry>
     <title>第30场双周赛</title>
-    <url>/2020/07/13/cktzoxmu10045rwv4a2skckiq/</url>
+    <url>/2020/07/13/cktzozkwf0046jcv42ss1aa4k/</url>
     <content><![CDATA[<p>这场比赛的题目不是很难，即使第一次接触的话，AC前两题应该也是没有问题的。废话不多说，看代码。</p>
 <h4 id="题目一：转变日期格式"><a href="#题目一：转变日期格式" class="headerlink" title="题目一：转变日期格式"></a>题目一：<a href="https://leetcode-cn.com/problems/reformat-date/">转变日期格式</a></h4><p>这个题，我是不知道有什么API可以调用，但是看它给出的<code>YYYY-MM-DD</code>的格式，其实稍微想想还是硬解析的。无脑暴力即可。注意日期和月份小于10时，需要补0；</p>
 <a id="more"></a>
@@ -3327,7 +3327,7 @@
   </entry>
   <entry>
     <title>第192场周赛</title>
-    <url>/2020/06/07/cktzoxmtt0034rwv4diagg2gx/</url>
+    <url>/2020/06/07/cktzozkw50030jcv4eow41t17/</url>
     <content><![CDATA[<p>这一场发挥的不错，AC了三题。一开始做的时候感觉很难，第一题慌慌张张的花了7分钟才AC了，我在c++和java之间换了两次，最后还是c++更容易实现其实用java也是可以的，上来我就在选择语言上飘摇不定了。这也是一个问题，做题的心理问题，看完问题，分析思路完毕后，中途不能再切换语言了，使用一个语言解决它！主要是没有数论的题，一般的数据结构的问题，hard除外，我基本都是可以AC的。</p>
 <p>周赛题目考察点：<strong>数组、数组/排序、设计/栈(我的思路是这个，设计类的题目思路很开放)</strong></p>
 <a id="more"></a>
