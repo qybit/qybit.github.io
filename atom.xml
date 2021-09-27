@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://qybit.gitee.io/"/>
-  <updated>2021-09-26T02:16:26.953Z</updated>
+  <updated>2021-09-27T10:39:34.859Z</updated>
   <id>https://qybit.gitee.io/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>EQ-2-两数相加</title>
+    <link href="https://qybit.gitee.io/2021/09/27/2/"/>
+    <id>https://qybit.gitee.io/2021/09/27/2/</id>
+    <published>2021-09-27T10:21:40.000Z</published>
+    <updated>2021-09-27T10:39:34.859Z</updated>
+    
+    <content type="html"><![CDATA[<p>题目链接：<a href="https://leetcode-cn.com/problems/add-two-numbers/">2. 两数相加</a></p><h1 id="方法一：模拟"><a href="#方法一：模拟" class="headerlink" title="方法一：模拟"></a>方法一：模拟</h1><h2 id="编码思路"><a href="#编码思路" class="headerlink" title="编码思路"></a>编码思路</h2><p>由于两个链表都是<strong>逆序</strong>存储数字的位数，因此我们对于每一个相同位置的数字可以直接相加。</p><p>我们可以同时遍历链表，逐位计算每一位的和，并与当前进位的值和相加。如果当前位的数字分别为 $n1$ 和 $n2$ ，进位值 $carry$，那么当前位的和即表示为 $n1 + n2 + carry$，答案链表对应位置的数字即 $(n1 + n2 + carry) % 10$，新的进位为 $\lfloor \frac{n1+n2+carry}{10} \rfloor$</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">addTwoNumbers</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> carry = <span class="number">0</span>;</span><br><span class="line">        ListNode* res = <span class="keyword">new</span> ListNode(<span class="number">-1</span>);</span><br><span class="line">        ListNode* cur = res;</span><br><span class="line">        res -&gt; next = cur;</span><br><span class="line">        <span class="keyword">while</span> (l1 || l2 || carry) &#123;</span><br><span class="line">            <span class="keyword">int</span> n1 = l1 == <span class="literal">nullptr</span> ? <span class="number">0</span> : l1 -&gt; val;</span><br><span class="line">            <span class="keyword">int</span> n2 = l2 == <span class="literal">nullptr</span> ? <span class="number">0</span> : l2 -&gt; val;</span><br><span class="line">            <span class="keyword">int</span> s = n1 + n2 + carry;</span><br><span class="line">            cur -&gt; next = <span class="keyword">new</span> ListNode(s % <span class="number">10</span>);</span><br><span class="line">            carry = s / <span class="number">10</span>;</span><br><span class="line">            cur = cur -&gt; next;</span><br><span class="line">            <span class="keyword">if</span> (l1) l1 = l1 -&gt; next;</span><br><span class="line">            <span class="keyword">if</span> (l2) l2 = l2 -&gt; next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res -&gt; next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><p>时间复杂度：$O(max(n, m))$，其中 $n$ 表示为链表1的长度，$m$ 表示为链表2的长度。我们会遍历两个链表的全部位置，且每个位置的处理时间为 $O(1)$。</p><p>空间复杂度：$O(max(n, m))$。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;题目链接：&lt;a href=&quot;https://leetcode-cn.com/problems/add-two-numbers/&quot;&gt;2. 两数相加&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;方法一：模拟&quot;&gt;&lt;a href=&quot;#方法一：模拟&quot; class=&quot;headerlink&quot; tit
+      
+    
+    </summary>
+    
+    
+      <category term="力扣" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/"/>
+    
+    
+      <category term="每日一题" scheme="https://qybit.gitee.io/tags/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/"/>
+    
+      <category term="力扣" scheme="https://qybit.gitee.io/tags/%E5%8A%9B%E6%89%A3/"/>
+    
+      <category term="链表" scheme="https://qybit.gitee.io/tags/%E9%93%BE%E8%A1%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>EQ-371-两整数之和</title>
@@ -39,9 +70,9 @@
       <category term="每日一题" scheme="https://qybit.gitee.io/categories/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/"/>
     
     
-      <category term="位运算" scheme="https://qybit.gitee.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
-    
       <category term="每日一题" scheme="https://qybit.gitee.io/tags/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/"/>
+    
+      <category term="位运算" scheme="https://qybit.gitee.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
     
   </entry>
   
@@ -103,11 +134,11 @@
     
       <category term="数组" scheme="https://qybit.gitee.io/tags/%E6%95%B0%E7%BB%84/"/>
     
+      <category term="回溯" scheme="https://qybit.gitee.io/tags/%E5%9B%9E%E6%BA%AF/"/>
+    
       <category term="字符串" scheme="https://qybit.gitee.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
       <category term="贪心" scheme="https://qybit.gitee.io/tags/%E8%B4%AA%E5%BF%83/"/>
-    
-      <category term="回溯" scheme="https://qybit.gitee.io/tags/%E5%9B%9E%E6%BA%AF/"/>
     
   </entry>
   
@@ -386,11 +417,11 @@
     
       <category term="哈希表" scheme="https://qybit.gitee.io/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
+      <category term="回溯" scheme="https://qybit.gitee.io/tags/%E5%9B%9E%E6%BA%AF/"/>
+    
       <category term="字符串" scheme="https://qybit.gitee.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
       <category term="贪心" scheme="https://qybit.gitee.io/tags/%E8%B4%AA%E5%BF%83/"/>
-    
-      <category term="回溯" scheme="https://qybit.gitee.io/tags/%E5%9B%9E%E6%BA%AF/"/>
     
       <category term="设计" scheme="https://qybit.gitee.io/tags/%E8%AE%BE%E8%AE%A1/"/>
     
@@ -630,37 +661,6 @@
       <category term="双指针" scheme="https://qybit.gitee.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
     
       <category term="哈希表" scheme="https://qybit.gitee.io/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>第228场周赛</title>
-    <link href="https://qybit.gitee.io/2021/02/14/w228/"/>
-    <id>https://qybit.gitee.io/2021/02/14/w228/</id>
-    <published>2021-02-14T07:18:07.000Z</published>
-    <updated>2021-09-23T13:18:44.008Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id=""><a href="#" class="headerlink" title=""></a></h1><p>比赛链接：<a href="https://leetcode-cn.com/contest/weekly-contest-228/">第 228 场周赛</a></p><p>题目单：</p><ul><li><a href="https://leetcode-cn.com/problems/minimum-changes-to-make-alternating-binary-string/">生成交替二进制字符串的最少操作数</a></li><li><a href="https://leetcode-cn.com/problems/count-number-of-homogenous-substrings/">统计同构子字符串的数目</a></li><li><a href="https://leetcode-cn.com/problems/minimum-limit-of-balls-in-a-bag/"> 袋子里最少数目的球</a></li><li><a href="https://leetcode-cn.com/problems/minimum-degree-of-a-connected-trio-in-a-graph/"> 一个图中连通三元组的最小度数</a></li></ul><h1 id="T1：生成交替二进制字符串的最少操作数"><a href="#T1：生成交替二进制字符串的最少操作数" class="headerlink" title="T1：生成交替二进制字符串的最少操作数"></a>T1：<a href="https://leetcode-cn.com/problems/minimum-changes-to-make-alternating-binary-string/">生成交替二进制字符串的最少操作数</a></h1><p>由交替字符串的定义，我们可以知道像 $010101…$ 和 $101010…$ 这种字符串是<strong>交替二进制字符串</strong>。</p><p>那么， 我们的标准只有两个，要么是变成 $0101$ 交替组成的字符串，要么是变成 $1010$ 交替组成的字符串。</p><p>因此，我们同时变换成两种标准的交替二进制字符串，然后取最小值。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>其中 $n1$ 代表的是 $1010…$ ，$n2$ 代表的是 $0101…$</p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minOperations</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n1 = <span class="number">0</span>, n2 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="comment">// 010101  101010</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i % <span class="number">2</span>) &#123;</span><br><span class="line">                n2 += s[i] == <span class="string">&#x27;1&#x27;</span> ? <span class="number">0</span> : <span class="number">1</span>;</span><br><span class="line">                n1 += s[i] == <span class="string">&#x27;0&#x27;</span> ? <span class="number">0</span> : <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                n2 += s[i] == <span class="string">&#x27;0&#x27;</span> ? <span class="number">0</span> : <span class="number">1</span>;</span><br><span class="line">                n1 += s[i] == <span class="string">&#x27;1&#x27;</span> ? <span class="number">0</span> : <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> min(n1, n2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(N)$，其中$N$ 为字符串的长度。我们只会遍历一次字符串。</p><p>空间复杂度：$O(1)$</p><h1 id="T2：统计同构子字符串的数目"><a href="#T2：统计同构子字符串的数目" class="headerlink" title="T2：统计同构子字符串的数目"></a>T2：<a href="https://leetcode-cn.com/problems/count-number-of-homogenous-substrings/">统计同构子字符串的数目</a></h1><blockquote><p>​    同构字符串：如果一个字符串种的所有字符都相同，那么该字符串就是同构字符串</p></blockquote><p>观察用例 <code>s = abbcccaa</code></p><p><code>c</code> 出现 $3$ 次，<code>cc</code> 出现 $2$ 次，<code>ccc</code> 出现 $1$ 次。</p><p>假设 <code>ccc....c</code> 存在 $n$ 个连续的字串，那么：</p><ol><li>$n$ 个 <code>c</code></li><li>$n-1$ 个 <code>cc</code></li><li>$n - 2$ 个 <code>ccc</code></li><li>…..</li><li>$1$ 个 <code>ccc....c</code></li></ol><p>所以，这段连续 $n$ 个 <code>ccc....c</code> 一共贡献了<br>$$<br>1 + 2 + 3 + 4 + … +n = \frac{n \times (n + 1)}{2}<br>$$<br>$\frac{n \times (n + 1)}{2}$ 个同构字符串。</p><h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><p>注意了，假设用例中存在全是同一个字符的情况下，那么 $10 ^ 5 \times (10 ^ 5 + 1)$，此时会爆 <code>int</code>。所以需要用 <code>long long</code>，64位的整数变量。</p> <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">countHomogenous</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line">        <span class="keyword">int</span> mod = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line">        LL ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++) &#123;</span><br><span class="line">            <span class="keyword">int</span> j = i;</span><br><span class="line">            <span class="keyword">while</span> (j &lt; n &amp;&amp; s[i] == s[j]) j++;</span><br><span class="line">            LL count = j - i;</span><br><span class="line">            ans += count * (count + <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">            ans %= mod;</span><br><span class="line">            i = j - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans % mod;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(N)$，其中 $N$ 为字符串的长度。我们至多只有遍历一次字符串。</p><p>空间复杂度：$O(1)$</p><h1 id="T3：袋子里最少数目的球"><a href="#T3：袋子里最少数目的球" class="headerlink" title="T3：袋子里最少数目的球"></a>T3：<a href="https://leetcode-cn.com/problems/minimum-limit-of-balls-in-a-bag/">袋子里最少数目的球</a></h1><p>我们可以转换一下问题。</p><blockquote><p>​    在不超过 $maxOperations$ 的操作次数下，使得每个袋子里球的<strong>最大数目</strong>不超过 $y$  个。</p></blockquote><p>当 $y$ 增加时，我们的操作次数就会减少，那么 $y$ 的大小就具有单调性。因此可以二分进行查找。</p><p>假设对于单个袋子里的 $x$ 个球：</p><ul><li>如果 $x \ mod  \ y = 0$，此时可以整除 $y$ 时，可以进行 $\frac{x}{y}$ 操作。</li><li>如果 $x \ mod \ y \ne 0$，此时不能整除 $y$ 时，我们直接下取整 $\lfloor \frac{x}{y} \rfloor$</li></ul><p>那么，分类讨论后，我们可以发现 $\lfloor \frac{x - 1}{y} \rfloor$ 和上述讨论的结果实际上是等价的。</p><p>因此，对于数组中的 $N$ 个袋子，我们都有上述的操作方案。那么：<br>$$<br>\sum_{x \ \in \ nums} \lfloor \frac{x - 1}{y} \rfloor \le maxOperations<br>$$</p><h2 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums, <span class="keyword">int</span> y, <span class="keyword">int</span> maxOperations)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> &amp;x : nums) &#123;</span><br><span class="line">            count += (x - <span class="number">1</span>) / y;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count &lt;= maxOperations;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minimumSize</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> maxOperations)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">1</span>, right = <span class="number">1e9</span>;</span><br><span class="line">        <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">            <span class="keyword">int</span> y = left + right &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; y &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">            <span class="keyword">if</span> (check(nums, y, maxOperations)) right = y;</span><br><span class="line">            <span class="keyword">else</span> left = y + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> left;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(N logC)$，其中 $N$ 为数组的长度，$C$ 为 $max(nums)$ 数组中的最大值，$C$ 不超过 $10^9$。</p><ul><li><p>我们会进行 $logC$ 次二分查找。</p></li><li><p>每一次二分查找，我们需要遍历数组验证操作数是否超过 $maxOperations$的次数。时间复杂度$O(N)$。</p></li></ul><p>空间复杂度：$O(1)$</p><h1 id="T4：一个图中连通三元组的最小度数"><a href="#T4：一个图中连通三元组的最小度数" class="headerlink" title="T4：一个图中连通三元组的最小度数"></a>T4：<a href="https://leetcode-cn.com/problems/minimum-degree-of-a-connected-trio-in-a-graph/">一个图中连通三元组的最小度数</a></h1><blockquote><p>​    三元组：是指三个点组成的集合，且三个点之间是两两存在边的</p><p>​    联通三元组的度数：是指将这个三元组的集合视作一个“点” 。然后这个“点“ 和其他点的度数之和（无向图只要某个点存在一条边，那么这个点的度数就可以 +2），集合内部点的度数则不参与计算。</p></blockquote><p>先了解上述概念后，在看看数据范围，实际上才 $400$ 个点<del>（看不起谁呢？[doge]）</del>。 我们的算法很暴力，差不多是$400^3$，这个计算出来是 6400万，因此在力扣是完全够用的。</p><p>我们直接暴力枚举三个点，检查一下是否构成三元组，然后再计算出最小的度数。</p><p>值得注意的是，三元组可能是不存在的，因此我们需要特判一下。</p><p>我们的算法时间复杂度很高，这么做纯粹是这题数据很弱，正确的做法尚待学习！</p><h2 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h2><p>三元组的度数，不包含内部之间的入度和出度。因此需要减去 $6$。</p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minTrioDegree</span><span class="params">(<span class="keyword">int</span> n, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; edges)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; graph(n + <span class="number">1</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n + <span class="number">1</span>, <span class="number">0</span>));</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">degree</span><span class="params">(n + <span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;edge : edges) &#123;</span><br><span class="line">            <span class="keyword">int</span> a = edge[<span class="number">0</span>], b = edge[<span class="number">1</span>];</span><br><span class="line">            graph[a][b] = graph[b][a] = <span class="number">1</span>;</span><br><span class="line">            degree[a] ++ , degree[b] ++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">1e9</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt;= n; j ++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (graph[i][j]) &#123;</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> k = j + <span class="number">1</span>; k &lt;= n; k ++) &#123;</span><br><span class="line">                        <span class="keyword">if</span> (graph[j][k] &amp;&amp; graph[i][k]) &#123;</span><br><span class="line">                            ans = min(ans, degree[i] + degree[j] + degree[k] - <span class="number">6</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (ans == <span class="number">1e9</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(N^3)$ ，其中 $N$ 是图中点的数量。我们会枚举所有可能的三元组。</p><p>空间复杂度：$O(N^2)$，我们需要存储所有的边，以及每个点的入度和出度之和。</p>]]></content>
-    
-    <summary type="html">
-    
-      周赛
-    
-    </summary>
-    
-    
-      <category term="力扣" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/"/>
-    
-      <category term="周赛" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/%E5%91%A8%E8%B5%9B/"/>
-    
-    
-      <category term="二分" scheme="https://qybit.gitee.io/tags/%E4%BA%8C%E5%88%86/"/>
-    
-      <category term="字符串" scheme="https://qybit.gitee.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
-      <category term="贪心" scheme="https://qybit.gitee.io/tags/%E8%B4%AA%E5%BF%83/"/>
-    
-      <category term="图" scheme="https://qybit.gitee.io/tags/%E5%9B%BE/"/>
     
   </entry>
   
