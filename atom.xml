@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://qybit.gitee.io/"/>
-  <updated>2021-09-27T10:49:08.195Z</updated>
+  <updated>2021-09-28T10:47:08.789Z</updated>
   <id>https://qybit.gitee.io/</id>
   
   <author>
@@ -15,6 +15,41 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>EQ-437-路径总和III</title>
+    <link href="https://qybit.gitee.io/2021/09/28/437/"/>
+    <id>https://qybit.gitee.io/2021/09/28/437/</id>
+    <published>2021-09-28T10:13:24.000Z</published>
+    <updated>2021-09-28T10:47:08.789Z</updated>
+    
+    <content type="html"><![CDATA[<p>题目链接：<a href="https://leetcode-cn.com/problems/path-sum-iii/">437. 路径总和 III</a></p><h1 id="方法一：深度优先搜索"><a href="#方法一：深度优先搜索" class="headerlink" title="方法一：深度优先搜索"></a>方法一：深度优先搜索</h1><h2 id="编码思路"><a href="#编码思路" class="headerlink" title="编码思路"></a>编码思路</h2><p>我们可以遍历出所有的可能情况，对于某个节点 $node$ 我们穷举出所有可能的路径，只要满足和为 $target$ 我们就认为找到了一条路径。</p><p>对于任意一个节点 $node$，我们都需要计算其子节点存在的可能路径，一共有 $n$ 个节点，因为时间复杂度为 $O(n^2)$。观察数据范围节点范围最大是 $1000$，因此可行。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">pathSum</span><span class="params">(TreeNode* root, <span class="keyword">int</span> targetSum)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        getSum(root, <span class="number">0</span>, targetSum);</span><br><span class="line">        pathSum(root -&gt; left, targetSum);</span><br><span class="line">        pathSum(root -&gt; right, targetSum);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">getSum</span><span class="params">(TreeNode* root, <span class="keyword">int</span> cur, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line">        cur += root -&gt; val;</span><br><span class="line">        <span class="keyword">if</span> (cur == target) &#123;</span><br><span class="line">            res++;</span><br><span class="line">        &#125;</span><br><span class="line">        getSum(root -&gt; left, cur, target);</span><br><span class="line">        getSum(root -&gt; right, cur, target);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><p>时间复杂度：$O(n^2)$，其中 $n$ 为二叉树节点的数量，对于某一个节点，我们要遍历其所有子节点，时间复杂度为 $O(n)$。一共有 $n$ 个节点，因此时间复杂度为 $O(n^2)$。</p><p>空间复杂度：$O(n)$，递归消耗的栈空间。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;题目链接：&lt;a href=&quot;https://leetcode-cn.com/problems/path-sum-iii/&quot;&gt;437. 路径总和 III&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;方法一：深度优先搜索&quot;&gt;&lt;a href=&quot;#方法一：深度优先搜索&quot; class=&quot;head
+      
+    
+    </summary>
+    
+    
+      <category term="每日一题" scheme="https://qybit.gitee.io/categories/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/"/>
+    
+      <category term="力扣" scheme="https://qybit.gitee.io/categories/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/%E5%8A%9B%E6%89%A3/"/>
+    
+    
+      <category term="每日一题" scheme="https://qybit.gitee.io/tags/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/"/>
+    
+      <category term="力扣" scheme="https://qybit.gitee.io/tags/%E5%8A%9B%E6%89%A3/"/>
+    
+      <category term="二叉树" scheme="https://qybit.gitee.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    
+      <category term="深度优先搜索" scheme="https://qybit.gitee.io/tags/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/"/>
+    
+  </entry>
   
   <entry>
     <title>EQ-2-两数相加</title>
@@ -634,33 +669,6 @@
     
     
       <category term="字符串" scheme="https://qybit.gitee.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>1.两数之和</title>
-    <link href="https://qybit.gitee.io/2021/02/18/1/"/>
-    <id>https://qybit.gitee.io/2021/02/18/1/</id>
-    <published>2021-02-18T07:42:46.000Z</published>
-    <updated>2021-09-23T13:18:43.993Z</updated>
-    
-    <content type="html"><![CDATA[<p>当年我的劝退题目~，第一次做力扣被这道题卡到劝退。半天憋不出来一个可以 <code>AC</code> 的代码。</p><p>今天有必要给它写个题解，来纪念一下。</p><p>本文，将会分别从不同的时间复杂度来解决问题，如下 $O(N^2)$、$O(NlogN)$、$O(N)$ 的解决思路。</p><a id="more"></a><h1 id="开头"><a href="#开头" class="headerlink" title="开头"></a>开头</h1><p>我们需要在一个数组中，找到两个不同的下标使得下标对应的元素和等于 $targert$。</p><p>假设存在两个下标 $i$ 和 $j$ （$i \ne j$），使得 $nums[i] + nums[j] = target (i \ne j)$，其中 $nums$ 表示为数组。</p><h1 id="方法一：暴力"><a href="#方法一：暴力" class="headerlink" title="方法一：暴力"></a>方法一：暴力</h1><p>思路如下：</p><ul><li>第一层循环，我们固定一个下标 $i$。</li><li>第二层循环，我们在下标 $i$ 固定的前提下，再寻找一个下标 $j$，使得 $nums[i] + nums[j] = target (i \ne j)$。</li></ul><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i ++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; nums.size(); j ++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (i == j) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">if</span> (nums[i] + nums[j] == target) </span><br><span class="line">                    <span class="keyword">return</span> &#123;i, j&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(N^2)$，其中 $N$ 为数组的长度。对于数组中的每个元素，我们在最坏的情况下需要访问 $N$ 次。</p><p>空间复杂度：$O(1)$</p><h1 id="方法二：排序-双指针"><a href="#方法二：排序-双指针" class="headerlink" title="方法二：排序 + 双指针"></a>方法二：排序 + 双指针</h1><p>我们先将数组排序后，再使用双指针分别从数组 <strong>头部</strong> 和 <strong>尾部</strong> 夹逼寻找符合条件的两个元素。</p><p>由于排序后会打乱其原本的信息，因此我们必须要重新存储一下数组的元素，并维护其原本的位置。这一步我们可以使用结构体或者类来实现。</p><p>那么为什么可以使用双指针呢？证明如下：</p><ul><li>对于数组中的两个指针 $left(left \ge 0)$ 和 $right(right \le n - 1)$，其中 $n$ 为数组长度。存在如下情况：<ul><li>​    $q[left] + q[right] \gt target$，那么此时指针 $right$ 必不可能是向右移动的，因为对于 $q[right] \le q[right + 1] (right \le n -2)$ 一定成立。为了使得 $left$ 和 $right$ 所指元素 <strong>等于</strong> $target$  ，$right$ 只能单调向左移动。</li><li>$q[left] + q[right] \lt target$，对于 $left$ 指针而言也是同理。对于 $q[left - 1] \le q[left](left &gt; 0)$ 一定成立。为了使得 $left$ 和 $right$ 所指元素 <strong>等于</strong> $target$。$left$ 只能单调向右移动。</li><li>$q[left] + q[right] = target$ ，那么皆大欢喜，我们找到两个符合条件的下标。返回 $left$ 和 $right$ 所指元素的原本下标位置即可。</li></ul></li><li>只有满足了指针移动的单调性，我们才可以使用双指针来解决此类问题。</li></ul><p>类似题目推荐：</p><ul><li> <a href="https://leetcode-cn.com/problems/container-with-most-water/">力扣 11.盛最多水的容器</a></li></ul><h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1010</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Ele</span> &#123;</span></span><br><span class="line">    <span class="comment">// a 表示数组元素， k 表示该元素在原数组的位置</span></span><br><span class="line">    <span class="keyword">int</span> a, k;</span><br><span class="line">    <span class="comment">// 重载操作符，方便排序 </span></span><br><span class="line">    <span class="comment">// 按照数组元素大小升序排列</span></span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (Ele &amp;t) <span class="keyword">const</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> a &lt; t.a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;q[N];</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++) &#123;</span><br><span class="line">            q[i] = &#123;nums[i], i&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        sort(q, q + n);</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>, right = n - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">            <span class="keyword">int</span> sum = q[left].a + q[right].a;</span><br><span class="line">            <span class="keyword">if</span> (sum &gt; target) &#123;</span><br><span class="line">                right--;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sum &lt; target) &#123;</span><br><span class="line">                left ++;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> &#123;q[left].k, q[right].k&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(NlogN)$，其中 $N$ 为数组的长度。</p><ul><li>我们第一次遍历数组，备份各元素原本下标的位置。时间复杂度$O(N)$。</li><li>我们对<strong>新数组</strong>元素进行排序操作，此处的时间复杂度为 $O(NlogN)$。</li><li>我们还要双指针遍历<strong>新数组</strong>，来寻找符合条件的两个下标，并返回<strong>原本</strong>的下标位置。时间复杂度$O(N)$。</li><li>我们对于所有数组中的任意一个元素，在最坏的情况下都不会访问到达 $N$ 次。因此时间复杂度为 $O(NlogN)$。</li></ul><p>空间复杂度：$O(N)$，我们需要备份原来的数组的信息。</p><h1 id="方法三：哈希表-这个方法应该是最优解"><a href="#方法三：哈希表-这个方法应该是最优解" class="headerlink" title="方法三：哈希表 (这个方法应该是最优解)"></a>方法三：哈希表 (这个方法应该是最优解)</h1><p>假设存在两个下标 $i$ 和 $j$ $(i \ne j)$，满足 $a = nums[i], b = nums[j]$，那么此时 $a + b = target$。</p><p>对于数组中的元素，我们固定一个下标并假设其为 $i$ ，如下图</p><p><img src="https://img.imgdb.cn/item/602e232d99aa8726f2955d70.jpg"></p><p>那么我们的最终目标其实是，询问 $b (nums[j])$ 是否存在于区间 $[0, i - 1]$ 中，并且这个操作必须是 $O(1)$ 时间复杂度的。</p><p>因此我们不难想到用 <strong>哈希表</strong> 来优化。考虑到本题中，存在负数，因此不可以使用数组来充当哈希表，我们只能使用 <code>Map</code> 结构来实现。</p><p>类似题目推荐：</p><ul><li> <a href="https://leetcode-cn.com/problems/n-repeated-element-in-size-2n-array/">961. 重复 N 次的元素</a></li><li> <a href="https://leetcode-cn.com/problems/single-number/">136. 只出现一次的数字</a></li><li> <a href="https://leetcode-cn.com/problems/sort-characters-by-frequency/">451. 根据字符出现频率排序</a></li></ul><h2 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; f;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i ++) &#123;</span><br><span class="line">            <span class="keyword">int</span> x = target - nums[i];</span><br><span class="line">            <span class="keyword">if</span> (f.find(x) != f.end()) &#123;</span><br><span class="line">                <span class="keyword">return</span> &#123;i, f[x]&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            f[nums[i]] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><strong>复杂度分析</strong></p><p>时间复杂度：$O(N)$，其中 $N$ 为数组长度。我们至多只会遍历一遍数组。</p><p>空间复杂度：$O(N)$，其中 $N$ 为数组长度。我们需要使用 <strong>哈希表</strong> 维护数组元素和下标。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;当年我的劝退题目~，第一次做力扣被这道题卡到劝退。半天憋不出来一个可以 &lt;code&gt;AC&lt;/code&gt; 的代码。&lt;/p&gt;
-&lt;p&gt;今天有必要给它写个题解，来纪念一下。&lt;/p&gt;
-&lt;p&gt;本文，将会分别从不同的时间复杂度来解决问题，如下 $O(N^2)$、$O(NlogN)$、$O(N)$ 的解决思路。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="力扣" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/"/>
-    
-    
-      <category term="双指针" scheme="https://qybit.gitee.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
-    
-      <category term="哈希表" scheme="https://qybit.gitee.io/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
   </entry>
   
