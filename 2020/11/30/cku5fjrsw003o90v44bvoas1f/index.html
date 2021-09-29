@@ -1,0 +1,294 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第217场周赛 | Qybit's Blog</title><meta name="keywords" content="数组,贪心,堆,栈,OrderedMap"><meta name="author" content="qybit,2601970213@qq.com"><meta name="copyright" content="qybit"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="T1：最富有客户的资产总量思路：暴力 class Solution &amp;#123;    public int maximumWealth(int[][] accounts) &amp;#123;        int res &#x3D; 0;        for (int[] account : accounts) &amp;#123;            res &#x3D; Math.max(res, Arrays.str">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第217场周赛">
+<meta property="og:url" content="https://qybit.gitee.io/2020/11/30/cku5fjrsw003o90v44bvoas1f/index.html">
+<meta property="og:site_name" content="Qybit&#39;s Blog">
+<meta property="og:description" content="T1：最富有客户的资产总量思路：暴力 class Solution &amp;#123;    public int maximumWealth(int[][] accounts) &amp;#123;        int res &#x3D; 0;        for (int[] account : accounts) &amp;#123;            res &#x3D; Math.max(res, Arrays.str">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png">
+<meta property="article:published_time" content="2020-11-30T07:43:56.000Z">
+<meta property="article:modified_time" content="2021-09-23T13:18:44.006Z">
+<meta property="article:author" content="qybit">
+<meta property="article:tag" content="数组">
+<meta property="article:tag" content="贪心">
+<meta property="article:tag" content="堆">
+<meta property="article:tag" content="栈">
+<meta property="article:tag" content="OrderedMap">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://qybit.gitee.io/2020/11/30/cku5fjrsw003o90v44bvoas1f/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: qybit","link":"链接: ","source":"来源: Qybit's Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '第217场周赛',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-09-23 21:18:44'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Qybit's Blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/qybit/CDN@master/Photo/my/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">56</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-music"></i><span> 图片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/talking/"><i class="fa-fw fa-fw fa-fw fas fa-cubes"></i><span> 自言自语</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Qybit's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-music"></i><span> 图片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/talking/"><i class="fa-fw fa-fw fa-fw fas fa-cubes"></i><span> 自言自语</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">第217场周赛</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-11-30T07:43:56.000Z" title="发表于 2020-11-30 15:43:56">2020-11-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-09-23T13:18:44.006Z" title="更新于 2021-09-23 21:18:44">2021-09-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%8A%9B%E6%89%A3/">力扣</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%8A%9B%E6%89%A3/%E7%AE%97%E6%B3%95/">算法</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%8A%9B%E6%89%A3/%E7%AE%97%E6%B3%95/%E5%91%A8%E8%B5%9B/">周赛</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="第217场周赛"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="T1：最富有客户的资产总量"><a href="#T1：最富有客户的资产总量" class="headerlink" title="T1：最富有客户的资产总量"></a>T1：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/richest-customer-wealth/">最富有客户的资产总量</a></h3><p>思路：暴力</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maximumWealth</span><span class="params">(<span class="keyword">int</span>[][] accounts)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] account : accounts) &#123;</span><br><span class="line">            res = Math.max(res, Arrays.stream(account).sum());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>复杂度分析：</strong></p>
+<p>时间复杂度：$O(n^2)$</p>
+<p>空间复杂度：$O(1)$</p>
+<a id="more"></a>
+
+<h3 id="T2：找出最具竞争力的子序列"><a href="#T2：找出最具竞争力的子序列" class="headerlink" title="T2：找出最具竞争力的子序列"></a>T2：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/find-the-most-competitive-subsequence/">找出最具竞争力的子序列</a></h3><p>思路：</p>
+<ul>
+<li>重新翻译一下题目，就是在数组中找出一个长度为<code>k</code>，且自然序列是最小的一个子序列。</li>
+<li>如<code>[1, 3, 4]</code> 和 <code>[1, 3, 5]</code> ，由于 <code>4</code> 在自然序列上小于 <code>5</code> 所以，前者更具竞争力。</li>
+<li>我们借助栈这一特殊结构来找出这个子序列。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] mostCompetitive(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k) &#123;</span><br><span class="line">        <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[k];</span><br><span class="line">        Deque&lt;Integer&gt; stack = <span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> a = nums.length - k;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> num : nums) &#123;</span><br><span class="line">            <span class="keyword">while</span> (!stack.isEmpty() &amp;&amp; a &gt; <span class="number">0</span> &amp;&amp; stack.peekLast() &gt; num) &#123;</span><br><span class="line">                stack.pollLast();</span><br><span class="line">                a--;</span><br><span class="line">            &#125;</span><br><span class="line">            stack.offerLast(num);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (stack.size() &gt; k) &#123;</span><br><span class="line">            stack.pollLast();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = k-<span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) res[i] = stack.pollLast();</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>复杂度分析：</strong></p>
+<p>时间复杂度：$O(N^2)$最差为$O(N^2)$</p>
+<p>空间复杂度：$O(n)$</p>
+<h3 id="T3：使数组互补的最少操作次数"><a href="#T3：使数组互补的最少操作次数" class="headerlink" title="T3：使数组互补的最少操作次数"></a>T3：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/minimum-moves-to-make-array-complementary/">使数组互补的最少操作次数</a></h3><p>思路：</p>
+<p>差分数组  详细可见：<a target="_blank" rel="noopener" href="https://oi-wiki.org/basic/prefix-sum/">https://oi-wiki.org/basic/prefix-sum/</a></p>
+<p>差分数组是为了区间更新和区间修改问题的，如果数据量很小的话，可以直接通过暴力循环去解决，可是数据量一旦达到一定的量，而且常数足够大时，暴力不再是最好的解决办法。例如 <code>1&lt;=n&lt;=1e5</code>, <code>1&lt;=nums[i]&lt;=1e5</code>时。</p>
+<p>假设一次操作中，要修改(加上或减去)闭区间内<code>[left, right]</code>的值，即对其左右边界进行操作即可<br>m 为操作数， left ,right 为左右边界， change 为改变值</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> (m--) &#123;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; left &gt;&gt; right &gt;&gt; change;</span><br><span class="line">	arr[left] += change;</span><br><span class="line">	arr[right+<span class="number">1</span>] -= change;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>回到本题中，</p>
+<p>假设 <code>res[x]</code> 为 <code>nums[i] + nums[n-1-i]</code>和为 <code>x</code> 需要的操作数。</p>
+<p>由于 <code>1 &lt;= nums[i] &lt;= limit</code>， 所以 <code>x</code> 的取值范围为 <code>[2, 2*limit]</code>，但由于差分数组的端点操作，所以我们需要申请 <code>2*limit+2</code>长度的数组。</p>
+<p>根据题意，我们每次操作，都可以改变一个数为<code>[1, limit]</code>之间的数。</p>
+<p>那么假设 <code>nums[i] = A</code>, <code>nums[n-1-i] = B</code></p>
+<ol>
+<li>如果修改后两数的和是A+B，那么表示A,B都没有修改</li>
+<li>如果修改后和在 <code>[1+min(A,B), limit+max(A,B)]</code> 的范围，说明值修改了一个数</li>
+<li>如果在<code>[2, 2limit]</code> 说明修改了两个数</li>
+</ol>
+<p>算法过程为：</p>
+<ul>
+<li>差分数组 <code>f[0 ... x]</code> 的和，表示最终数组互补的数字为 x 所需的操作</li>
+<li>对于A， B<ul>
+<li>我们将 <code>[2, 2*limit]</code> 范围内的操作数 +2。</li>
+<li>对于 <code>[1+min(A,B), limit+max(A,B)]</code> 范围内的操作数 - 1。</li>
+<li>对于 A+B，操作数 -1。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minMoves</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> limit)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.length;</span><br><span class="line">        <span class="keyword">int</span>[] f = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>*limit + <span class="number">2</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n/<span class="number">2</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> A = nums[i], B = nums[n-<span class="number">1</span>-i];</span><br><span class="line">            <span class="comment">// [2, 2*limit] 范围操作数 +2</span></span><br><span class="line">            <span class="keyword">int</span> l = <span class="number">2</span>, r = <span class="number">2</span>*limit;</span><br><span class="line">            f[l] += <span class="number">2</span>;</span><br><span class="line">            f[r+<span class="number">1</span>] -= <span class="number">2</span>;</span><br><span class="line">            <span class="comment">// [1+min(A,B), limit+max(A,B)] 范围操作数 +1，实际-1</span></span><br><span class="line">            l = <span class="number">1</span>+Math.min(A, B);r = limit+Math.max(A, B);</span><br><span class="line">            f[l] += -<span class="number">1</span>;</span><br><span class="line">            f[r+<span class="number">1</span>] -= -<span class="number">1</span>;</span><br><span class="line">            <span class="comment">// A+B 范围操作数 0，实际-1  (2-1-1)</span></span><br><span class="line">            l = A+B;r = A+B;</span><br><span class="line">            f[l] += -<span class="number">1</span>;</span><br><span class="line">            f[r+<span class="number">1</span>] -= -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>, res = n;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= <span class="number">2</span>*limit; i++) &#123;</span><br><span class="line">            sum += f[i];</span><br><span class="line">            res = Math.min(res, sum);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>复杂度分析：</strong></p>
+<p>时间复杂度：$O(n)$</p>
+<p>空间复杂度：$O(n)$</p>
+<h3 id="T4：数组的最小偏移量"><a href="#T4：数组的最小偏移量" class="headerlink" title="T4：数组的最小偏移量"></a>T4：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/minimize-deviation-in-array/">数组的最小偏移量</a></h3><p>思路：</p>
+<ul>
+<li>将数组中的数变成可变范围内的最大值</li>
+<li>理解上面那句话，即根据规则，将奇数全部乘以2即可</li>
+<li>然后剩下的操作就只剩把数据缩小即可，每次取出最大值。借助<code>TreeSet</code>或者<code>PriorityQueue</code>来实现。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minimumDeviation</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        TreeSet&lt;Integer&gt; set = <span class="keyword">new</span> TreeSet&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> num : nums) &#123;</span><br><span class="line">            set.add(num%<span class="number">2</span>==<span class="number">0</span>?num : num*<span class="number">2</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> res = set.last() - set.first();</span><br><span class="line">        <span class="keyword">while</span> (res &gt; <span class="number">0</span> &amp;&amp; set.last()%<span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> num = set.last();</span><br><span class="line">            set.remove(num);</span><br><span class="line">            set.add(num/<span class="number">2</span>);</span><br><span class="line">            res = Math.min(res, set.last() - set.first());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>复杂度分析：</strong></p>
+<p>时间复杂度：$O(NlogN)$</p>
+<p>空间复杂度：$O(N)$</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:2601970213@qq.com">qybit</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://qybit.gitee.io/2020/11/30/cku5fjrsw003o90v44bvoas1f/">https://qybit.gitee.io/2020/11/30/cku5fjrsw003o90v44bvoas1f/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://qybit.gitee.io" target="_blank">Qybit's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E7%BB%84/">数组</a><a class="post-meta__tags" href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a><a class="post-meta__tags" href="/tags/%E5%A0%86/">堆</a><a class="post-meta__tags" href="/tags/%E6%A0%88/">栈</a><a class="post-meta__tags" href="/tags/OrderedMap/">OrderedMap</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://cdn.jsdelivr.net/gh/qybit/CDN@master/Photo/my/wechat.png" target="_blank"><img class="post-qr-code-img" src="https://cdn.jsdelivr.net/gh/qybit/CDN@master/Photo/my/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://cdn.jsdelivr.net/gh/qybit/CDN@master/Photo/my/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="https://cdn.jsdelivr.net/gh/qybit/CDN@master/Photo/my/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/12/06/cku5fjrsw003r90v4258y6mqt/"><img class="prev-cover" src="https://img.imgdb.cn/item/601ff3903ffa7d37b3329d56.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">第218场周赛</div></div></a></div><div class="next-post pull-right"><a href="/2020/11/29/cku5fjrt6004i90v46fb21qyi/"><img class="next-cover" src="https://img.imgdb.cn/item/601ff3903ffa7d37b3329d56.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">第40场双周赛</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2020/12/28/cku5fjrt7004q90v41k54hhwc/" title="第42场双周赛"><img class="cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-09-23</div><div class="title">第42场双周赛</div></div></a></div><div><a href="/2021/05/06/259/" title="第 239 场周赛"><img class="cover" src="https://img.imgdb.cn/item/601ff3903ffa7d37b3329d56.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-09-23</div><div class="title">第 239 场周赛</div></div></a></div><div><a href="/2021/04/12/w236/" title="第 236 场周赛"><img class="cover" src="https://img.imgdb.cn/item/601ff3903ffa7d37b3329d56.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-09-23</div><div class="title">第 236 场周赛</div></div></a></div><div><a href="/2021/04/03/259/" title="第 234 场周赛"><img class="cover" src="https://img.imgdb.cn/item/601ff3903ffa7d37b3329d56.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-09-23</div><div class="title">第 234 场周赛</div></div></a></div><div><a href="/2021/02/22/w46/" title="第46场双周赛"><img class="cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-09-23</div><div class="title">第46场双周赛</div></div></a></div><div><a href="/2021/01/17/cku5fjrt3004a90v4d93b05qs/" title="第224场周赛"><img class="cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-09-23</div><div class="title">第224场周赛</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/qybit/CDN@master/Photo/my/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">qybit</div><div class="author-info__description">喜欢技术，二次元，音乐，电影和阅读</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">56</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/qybit"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/qybit" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#T1%EF%BC%9A%E6%9C%80%E5%AF%8C%E6%9C%89%E5%AE%A2%E6%88%B7%E7%9A%84%E8%B5%84%E4%BA%A7%E6%80%BB%E9%87%8F"><span class="toc-number">1.</span> <span class="toc-text">T1：最富有客户的资产总量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#T2%EF%BC%9A%E6%89%BE%E5%87%BA%E6%9C%80%E5%85%B7%E7%AB%9E%E4%BA%89%E5%8A%9B%E7%9A%84%E5%AD%90%E5%BA%8F%E5%88%97"><span class="toc-number">2.</span> <span class="toc-text">T2：找出最具竞争力的子序列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#T3%EF%BC%9A%E4%BD%BF%E6%95%B0%E7%BB%84%E4%BA%92%E8%A1%A5%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0"><span class="toc-number">3.</span> <span class="toc-text">T3：使数组互补的最少操作次数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#T4%EF%BC%9A%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E5%81%8F%E7%A7%BB%E9%87%8F"><span class="toc-number">4.</span> <span class="toc-text">T4：数组的最小偏移量</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/09/29/async-await-source/" title="async/await原理学习笔记"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="async/await原理学习笔记"/></a><div class="content"><a class="title" href="/2021/09/29/async-await-source/" title="async/await原理学习笔记">async/await原理学习笔记</a><time datetime="2021-09-29T02:10:24.000Z" title="发表于 2021-09-29 10:10:24">2021-09-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/09/28/437/" title="EQ-437-路径总和III"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="EQ-437-路径总和III"/></a><div class="content"><a class="title" href="/2021/09/28/437/" title="EQ-437-路径总和III">EQ-437-路径总和III</a><time datetime="2021-09-28T10:13:24.000Z" title="发表于 2021-09-28 18:13:24">2021-09-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/09/27/2/" title="EQ-2-两数相加"><img src="https://img.imgdb.cn/item/601ff3903ffa7d37b3329d56.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="EQ-2-两数相加"/></a><div class="content"><a class="title" href="/2021/09/27/2/" title="EQ-2-两数相加">EQ-2-两数相加</a><time datetime="2021-09-27T10:21:40.000Z" title="发表于 2021-09-27 18:21:40">2021-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/09/26/371/" title="EQ-371-两整数之和"><img src="https://img.imgdb.cn/item/601ff3903ffa7d37b3329d56.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="EQ-371-两整数之和"/></a><div class="content"><a class="title" href="/2021/09/26/371/" title="EQ-371-两整数之和">EQ-371-两整数之和</a><time datetime="2021-09-26T01:33:01.000Z" title="发表于 2021-09-26 09:33:01">2021-09-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/09/25/583/" title="EQ-583-两个字符串的删除操作"><img src="https://img.imgdb.cn/item/601ff3903ffa7d37b3329d56.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="EQ-583-两个字符串的删除操作"/></a><div class="content"><a class="title" href="/2021/09/25/583/" title="EQ-583-两个字符串的删除操作">EQ-583-两个字符串的删除操作</a><time datetime="2021-09-25T09:51:56.000Z" title="发表于 2021-09-25 17:51:56">2021-09-25</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By qybit</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Talk is cheap, show me your code.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'bXWbbE9acJmnRcSYNkVRTEkE-gzGzoHsz',
+      appKey: 'oxKqCUaNn5TaVNdCjnX1pU2W',
+      placeholder: '记得留下你的昵称和邮箱....可以快速收到回复',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: true,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: true,
+      path: window.location.pathname,
+      requiredFields: ["nick,mail"],
+      visitor: true
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

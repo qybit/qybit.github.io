@@ -1,0 +1,291 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>async/await原理学习笔记 | Qybit's Blog</title><meta name="keywords" content="前端,JS"><meta name="author" content="qybit,2601970213@qq.com"><meta name="copyright" content="qybit"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前置知识1、JS 是单线程首先，JavaScript 的一大特色就是单线程语言，这种设计使得 JavaScript 在同一时刻只做一件事；作为浏览器脚本语言，JavaScript 的主要用途是与用户互动，以及操作 DOM，避免了复杂性，比如假设 JavaScript 有两个线程，那么在同一时刻进行添加和删除节点操作，为浏览器分辨以哪个线程为主带来了困难，所以单线程是它作为脚本语言的优势，也是核心所">
+<meta property="og:type" content="article">
+<meta property="og:title" content="async&#x2F;await原理学习笔记">
+<meta property="og:url" content="https://qybit.gitee.io/2021/09/29/async-await-source/index.html">
+<meta property="og:site_name" content="Qybit&#39;s Blog">
+<meta property="og:description" content="前置知识1、JS 是单线程首先，JavaScript 的一大特色就是单线程语言，这种设计使得 JavaScript 在同一时刻只做一件事；作为浏览器脚本语言，JavaScript 的主要用途是与用户互动，以及操作 DOM，避免了复杂性，比如假设 JavaScript 有两个线程，那么在同一时刻进行添加和删除节点操作，为浏览器分辨以哪个线程为主带来了困难，所以单线程是它作为脚本语言的优势，也是核心所">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png">
+<meta property="article:published_time" content="2021-09-29T02:10:24.000Z">
+<meta property="article:modified_time" content="2021-09-29T11:33:07.400Z">
+<meta property="article:author" content="qybit">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="JS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://qybit.gitee.io/2021/09/29/async-await-source/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: qybit","link":"链接: ","source":"来源: Qybit's Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'async/await原理学习笔记',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-09-29 19:33:07'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Qybit's Blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/qybit/CDN@master/Photo/my/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">56</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-music"></i><span> 图片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/talking/"><i class="fa-fw fa-fw fa-fw fas fa-cubes"></i><span> 自言自语</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Qybit's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-music"></i><span> 图片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/talking/"><i class="fa-fw fa-fw fa-fw fas fa-cubes"></i><span> 自言自语</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">async/await原理学习笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-09-29T02:10:24.000Z" title="发表于 2021-09-29 10:10:24">2021-09-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-09-29T11:33:07.400Z" title="更新于 2021-09-29 19:33:07">2021-09-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF/JS/">JS</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="async/await原理学习笔记"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><h3 id="1、JS-是单线程"><a href="#1、JS-是单线程" class="headerlink" title="1、JS 是单线程"></a>1、JS 是单线程</h3><p>首先，JavaScript 的一大特色就是单线程语言，这种设计使得 JavaScript 在同一时刻只做一件事；作为浏览器脚本语言，JavaScript 的主要用途是与用户互动，以及操作 DOM，避免了复杂性，比如假设 JavaScript 有两个线程，那么在同一时刻进行添加和删除节点操作，为浏览器分辨以哪个线程为主带来了困难，所以单线程是它作为脚本语言的优势，也是核心所在。</p>
+<h3 id="2、同步任务和异步任务"><a href="#2、同步任务和异步任务" class="headerlink" title="2、同步任务和异步任务"></a>2、同步任务和异步任务</h3><p>单线程也就意味所有的任务都需要排队，前一个任务结束后下一个任务才会执行，为了提高 CPU 的利用率，就把任务分为了同步任务和异步任务。同步任务会在主线程栈顺序执行，而异步任务则会先进入任务队列中。在主线程上会形成一个执行栈，等执行栈中所有任务执行完毕后，会到异步任务队列中查看有哪些事件，此时异步任务结束等待状态，进入执行栈中，开始执行。</p>
+<h2 id="JS-异步编程方法"><a href="#JS-异步编程方法" class="headerlink" title="JS 异步编程方法"></a>JS 异步编程方法</h2><p>需求描述：假设我有一个 <code>db1.json</code> 存放用户的个人信息，有一个 <code>db2.json</code> 存放用户的订单信息。现在我要查找该用户的全部订单信息，我应该怎么做？</p>
+<blockquote>
+<p>首先我需要先根据前台的信息查找到用户的个人信息后，再去查找用户的订单信息。</p>
+</blockquote>
+<p>那么在业务代码上是如何体现的呢？</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; readFile &#125; <span class="keyword">from</span> <span class="string">&#x27;fs&#x27;</span>;</span><br><span class="line"></span><br><span class="line">readFile(<span class="string">&#x27;/db/db1.json&#x27;</span>, <span class="function">(<span class="params">err, data</span>) =&gt;</span> &#123;</span><br><span class="line">  	<span class="keyword">if</span> (err) <span class="keyword">throw</span> err; <span class="comment">// error </span></span><br><span class="line"> 	<span class="comment">// success</span></span><br><span class="line">    readFile(<span class="string">&#x27;/db/db2.json&#x27;</span>, <span class="function">(<span class="params">err, data</span>) =&gt;</span> &#123;</span><br><span class="line">       	<span class="comment">// do something </span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>可以很明显的看到，我们的业务代码在不停的嵌套着这种回调函数风格，假如我在获取到 <code>bd1.json</code> 之后还有其他的事情，比如查看用户是不是满足打折优惠、满减和附赠优惠卷等活动时，那这个嵌套的深度将会 $\infty$ 大。</p>
+<h3 id="痛点"><a href="#痛点" class="headerlink" title="痛点"></a>痛点</h3><ol>
+<li><p>嵌套深度过大，代码难以阅读和维护，造成 “回调地狱”。</p>
+</li>
+<li><p>异步任务具有 “滞后性”，即它略过异步任务代码，直接执行同步代码。造成 undefined 错误。</p>
+<p> 相信有很多用过 jQuery 的小伙伴，那么对于下面这种错误代码，应该都非常的熟悉</p>
+ <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> res;</span><br><span class="line"></span><br><span class="line">$.ajax(&#123;</span><br><span class="line">    url: <span class="string">&#x27;http://xxx.com/api/xxx&#x27;</span>,</span><br><span class="line">    method: <span class="string">&#x27;POST&#x27;</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">      <span class="string">&#x27;name&#x27;</span>: <span class="number">12</span>,  </span><br><span class="line">    &#125;,</span><br><span class="line">    success: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">        res = data; <span class="comment">// 上下文找不到该变量</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(res); <span class="comment">// undefined </span></span><br></pre></td></tr></table></figure>
+<p> 原因此时很简单，因为 ajax 本身是一个异步任务，因此在执行时 ajax 函数的上下文已经发生了改变。因此找不到 res 变量，又由于 JS 会提升变量因此 res = undefined。</p>
+<p> 解决办法：async: false，将 ajax 改为 同步任务</p>
+</li>
+<li><p>执行上下文发生改变。</p>
+</li>
+</ol>
+<h2 id="Promise-链式调用解决-回调地狱"><a href="#Promise-链式调用解决-回调地狱" class="headerlink" title="Promise 链式调用解决 回调地狱"></a>Promise 链式调用解决 回调地狱</h2><p>我们改造异步编程中的代码</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> readFilePromise = <span class="function">(<span class="params">filePath</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">       	readFile(filePath, <span class="function">(<span class="params">err, data</span>) =&gt;</span> &#123;</span><br><span class="line">       		<span class="comment">// do something </span></span><br><span class="line">            resolve(data);</span><br><span class="line">    	&#125;); </span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Promise 链式调用</span></span><br><span class="line">readFilePromise(<span class="string">&#x27;/db1.json&#x27;</span>)</span><br><span class="line">.then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">    <span class="keyword">return</span> readFilePromise(<span class="string">&#x27;/db2.json&#x27;</span>);</span><br><span class="line">&#125;)</span><br><span class="line">.then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(); <span class="comment">// .....</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>但是这样的代码可能看起来逻辑上是足够清晰了，但是我又不想嵌套这么多层的 <code>then</code>，而且每一层 <code>then</code> 里我还要返回一个 Promise ，才能保证调用链的正常执行。</p>
+<h2 id="解决-回调地狱-的终极方法"><a href="#解决-回调地狱-的终极方法" class="headerlink" title="解决 回调地狱 的终极方法"></a>解决 回调地狱 的终极方法</h2><h3 id="async-await-关键字"><a href="#async-await-关键字" class="headerlink" title="async/await 关键字"></a>async/await 关键字</h3><p>可以通过 <code>async/await</code> 一对关键字，注意是一对，使用 <code>await</code> 时必须要先声明 <code>async</code> 。我们可以通过 <code>await</code> 阻塞同步任务，使得异步任务完成后再继续进行同步任务。</p>
+<p>具体可看代码</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> readFilePromise = <span class="function">(<span class="params">filePath</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">       	readFile(filePath, <span class="function">(<span class="params">err, data</span>) =&gt;</span> &#123;</span><br><span class="line">       		<span class="comment">// do something </span></span><br><span class="line">            resolve(data);</span><br><span class="line">    	&#125;); </span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// </span></span><br><span class="line">;(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> res1 = <span class="keyword">await</span> readFilePromise(<span class="string">&#x27;/db1.json&#x27;</span>);</span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">    <span class="keyword">const</span> res2 = <span class="keyword">await</span> readFilePromise(<span class="string">&#x27;/db2.json&#x27;</span>);</span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<p>这样我们的异步任务代码就可以完美的嵌入到同步任务代码中了</p>
+<h2 id="深挖原理"><a href="#深挖原理" class="headerlink" title="深挖原理"></a>深挖原理</h2><p>我们从最经典的异步任务 <code>setTimeout</code> 举例，把它改写成同步任务</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> p1 = <span class="function">() =&gt;</span> (<span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;p1&#x27;</span>);</span><br><span class="line">        resolve(<span class="string">&#x27;p2&#x27;</span>);</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;));</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> p = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> p2 = <span class="keyword">await</span> p1();</span><br><span class="line">    <span class="built_in">console</span>.log(p2);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;p3&#x27;</span>);</span><br><span class="line">&#125;;</span><br><span class="line">p();</span><br><span class="line"><span class="comment">// 分别输出</span></span><br><span class="line"><span class="comment">// p1</span></span><br><span class="line"><span class="comment">// p2</span></span><br><span class="line"><span class="comment">// p3</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>async 和 await 处理异步任务都是基于 Promise 的，await 后面需要跟一个返回 Promise 对象的函数。</p>
+</li>
+<li><p>如果 await 后跟的是一个普通函数，await 会将其 Promise 化。</p>
+  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="title">test</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;test start&#x27;</span>);</span><br><span class="line">    <span class="keyword">await</span> otherTest();</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;test end&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="title">otherTest</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;otherTest&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;after test&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">输出 test start -&gt; otherTest -&gt; after test -&gt; test end</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//因为其相当于变成了</span></span><br><span class="line"><span class="function"><span class="title">test</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;test start&#x27;</span>);</span><br><span class="line">    <span class="keyword">const</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">res, rej</span>) =&gt;</span> &#123;</span><br><span class="line">        otherTest();</span><br><span class="line">    &#125;);</span><br><span class="line">    p.then(<span class="function">() =&gt;</span> <span class="built_in">console</span>.log(<span class="string">&#x27;test end&#x27;</span>));</span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>async/await是语法糖，用 async 标记的函数，在其内部遇到 await 标记的逻辑时，会被阻塞不执行后续的逻辑，等 await 内部的逻辑处理完毕后，再继续走await后面的逻辑，这个方式，其实就是 ES6 定义的 generator 函数。即 async 与 await 将标记的函数转换成了生成器。</p>
+</li>
+</ul>
+<h3 id="手动实现一个-async-函数"><a href="#手动实现一个-async-函数" class="headerlink" title="手动实现一个 async 函数"></a>手动实现一个 async 函数</h3><p>将 函数 <code>p</code> 变成一个 generator 函数，其中遇到 await 的地方就改成 yield</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">p</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> p2 = <span class="keyword">yield</span> p1();</span><br><span class="line">    <span class="built_in">console</span>.log(p2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们继续运行 p()，得到一个迭代器，调用  next()，我们需要手动调用这个 next 函数才会继续执行 函数p，所以我们需要一个自动执行的入口函数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">(<span class="function">(<span class="params">generator</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> gen = generator();</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">next</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> &#123; value, done &#125; = gen.next(data);</span><br><span class="line">        <span class="keyword">if</span> (done) &#123;</span><br><span class="line">            <span class="keyword">return</span> value;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!(value <span class="keyword">instanceof</span> <span class="built_in">Promise</span>)) &#123;</span><br><span class="line">            next(value);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            value.then(<span class="function">(<span class="params">data</span>) =&gt;</span> next(data));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    next();</span><br><span class="line">&#125;)(p);</span><br></pre></td></tr></table></figure>
+<p>该函数会自动调用，我们执行了生成器 p 得到迭代器 gen，通过递归 next ，将 gen 自动执行到底（当 done =true 时，每次调用迭代器都会返回 <code>&#123;value: &#39;xxx&#39;, done: boolean&#125;</code> ）。</p>
+<p>而当 yield 后面表达式返回 Promise 时，通过迭代器的 next 方法放到 Promise 的 then 中执行，使得 yield 后面的逻辑要等待 p1 完成后才能继续进行，即达到同步的效果。</p>
+<p>可见 async/await 是通过将函数变为一个生成器函数，并使用自动执行函数来执行他，在执行过程中，有意地让生成的迭代器放到 Promise 的 then 中，即异步完成后才执行，从而达到的同步效果。</p>
+<p>完整的流程</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> p1 = <span class="function">() =&gt;</span> (<span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;p1&#x27;</span>);</span><br><span class="line">        res(<span class="string">&#x27;p2&#x27;</span>);</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;));</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">p</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> p2 = <span class="keyword">yield</span> p1();</span><br><span class="line">    <span class="built_in">console</span>.log(p2);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;p3&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">(<span class="function">(<span class="params">generator</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> gen = generator();</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">next</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> &#123; value, done &#125; = gen.next(data);</span><br><span class="line">        <span class="keyword">if</span> (done) &#123;</span><br><span class="line">            <span class="keyword">return</span> value;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!(value <span class="keyword">instanceof</span> <span class="built_in">Promise</span>)) &#123;</span><br><span class="line">            next(value);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            value.then(<span class="function">(<span class="params">data</span>) =&gt;</span> next(data));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    next();</span><br><span class="line">&#125;)(p);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>首先自动执行函数，执行生成器 p 得到迭代器 gen</li>
+<li>调用 next 函数，执行 gen.next，此时执行器执行到 p 函数的 yield p1()，返回了一个 Promise，该 Promise 在 1s 后打印 p1 后并返回 p2</li>
+<li>在此之前，自动执行函数，在该 Promise 的回调中传入了 next 方法</li>
+<li>则 1s 后，打印 p1，返回 p2，执行 next(p2)</li>
+<li>迭代器继续执行 yield p1 后面的逻辑，并且把 p2 赋值给了 <code>p2</code></li>
+<li>打印 p2，p3</li>
+<li>async / await 的实现原比我们实现的 demo 要复杂，但是核心逻辑就是 generator 结合自动执行函数</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:2601970213@qq.com">qybit</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://qybit.gitee.io/2021/09/29/async-await-source/">https://qybit.gitee.io/2021/09/29/async-await-source/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://qybit.gitee.io" target="_blank">Qybit's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a><a class="post-meta__tags" href="/tags/JS/">JS</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://cdn.jsdelivr.net/gh/qybit/CDN@master/Photo/my/wechat.png" target="_blank"><img class="post-qr-code-img" src="https://cdn.jsdelivr.net/gh/qybit/CDN@master/Photo/my/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://cdn.jsdelivr.net/gh/qybit/CDN@master/Photo/my/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="https://cdn.jsdelivr.net/gh/qybit/CDN@master/Photo/my/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2021/09/28/437/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">EQ-437-路径总和III</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/qybit/CDN@master/Photo/my/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">qybit</div><div class="author-info__description">喜欢技术，二次元，音乐，电影和阅读</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">56</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/qybit"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/qybit" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">前置知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81JS-%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B"><span class="toc-number">1.1.</span> <span class="toc-text">1、JS 是单线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E5%90%8C%E6%AD%A5%E4%BB%BB%E5%8A%A1%E5%92%8C%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1"><span class="toc-number">1.2.</span> <span class="toc-text">2、同步任务和异步任务</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JS-%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">JS 异步编程方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%97%9B%E7%82%B9"><span class="toc-number">2.1.</span> <span class="toc-text">痛点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Promise-%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8%E8%A7%A3%E5%86%B3-%E5%9B%9E%E8%B0%83%E5%9C%B0%E7%8B%B1"><span class="toc-number">3.</span> <span class="toc-text">Promise 链式调用解决 回调地狱</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3-%E5%9B%9E%E8%B0%83%E5%9C%B0%E7%8B%B1-%E7%9A%84%E7%BB%88%E6%9E%81%E6%96%B9%E6%B3%95"><span class="toc-number">4.</span> <span class="toc-text">解决 回调地狱 的终极方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#async-await-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-number">4.1.</span> <span class="toc-text">async&#x2F;await 关键字</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%B1%E6%8C%96%E5%8E%9F%E7%90%86"><span class="toc-number">5.</span> <span class="toc-text">深挖原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA-async-%E5%87%BD%E6%95%B0"><span class="toc-number">5.1.</span> <span class="toc-text">手动实现一个 async 函数</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/09/29/async-await-source/" title="async/await原理学习笔记"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="async/await原理学习笔记"/></a><div class="content"><a class="title" href="/2021/09/29/async-await-source/" title="async/await原理学习笔记">async/await原理学习笔记</a><time datetime="2021-09-29T02:10:24.000Z" title="发表于 2021-09-29 10:10:24">2021-09-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/09/28/437/" title="EQ-437-路径总和III"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="EQ-437-路径总和III"/></a><div class="content"><a class="title" href="/2021/09/28/437/" title="EQ-437-路径总和III">EQ-437-路径总和III</a><time datetime="2021-09-28T10:13:24.000Z" title="发表于 2021-09-28 18:13:24">2021-09-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/09/27/2/" title="EQ-2-两数相加"><img src="https://img.imgdb.cn/item/601ff3903ffa7d37b3329d56.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="EQ-2-两数相加"/></a><div class="content"><a class="title" href="/2021/09/27/2/" title="EQ-2-两数相加">EQ-2-两数相加</a><time datetime="2021-09-27T10:21:40.000Z" title="发表于 2021-09-27 18:21:40">2021-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/09/26/371/" title="EQ-371-两整数之和"><img src="https://img.imgdb.cn/item/601ff3903ffa7d37b3329d56.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="EQ-371-两整数之和"/></a><div class="content"><a class="title" href="/2021/09/26/371/" title="EQ-371-两整数之和">EQ-371-两整数之和</a><time datetime="2021-09-26T01:33:01.000Z" title="发表于 2021-09-26 09:33:01">2021-09-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/09/25/583/" title="EQ-583-两个字符串的删除操作"><img src="https://img.imgdb.cn/item/601ff3903ffa7d37b3329d56.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="EQ-583-两个字符串的删除操作"/></a><div class="content"><a class="title" href="/2021/09/25/583/" title="EQ-583-两个字符串的删除操作">EQ-583-两个字符串的删除操作</a><time datetime="2021-09-25T09:51:56.000Z" title="发表于 2021-09-25 17:51:56">2021-09-25</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By qybit</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Talk is cheap, show me your code.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'bXWbbE9acJmnRcSYNkVRTEkE-gzGzoHsz',
+      appKey: 'oxKqCUaNn5TaVNdCjnX1pU2W',
+      placeholder: '记得留下你的昵称和邮箱....可以快速收到回复',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: true,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: true,
+      path: window.location.pathname,
+      requiredFields: ["nick,mail"],
+      visitor: true
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
