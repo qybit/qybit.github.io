@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>EQ-34-在排序数组中查找元素的第一个和最后一个位置</title>
+    <url>/2021/10/01/34/</url>
+    <content><![CDATA[<p>题目链接：<a href="https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/">34. 在排序数组中查找元素的第一个和最后一个位置</a></p>
+<h1 id="开头"><a href="#开头" class="headerlink" title="开头"></a>开头</h1><p>找了一道极其具有代表性的题目来复习一下二分查找算法，在有序数组里找重复元素的第一个和最后一个位置。</p>
+<p>先看看我们一般情况下简单的二分算法是怎么样的。这里的需求是，在有序数组中查找元素 $x$。</p>
+<p>一般情况下，我们会定义区间 $[l, r]$ ，每一次划分时我们取 $[l, mid-1]$，或者 $[mid + 1, 1]$ 。当 $mid$ 命中时，我们即刻返回 $mid$ 。当 $l == r$ 说明，有序数组里没有我们要找的元素，我们返回 $-1$；</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> search = <span class="function">(<span class="params">nums_, x</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> l = <span class="number">0</span>, r = nums_.length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (l &lt; r) &#123;</span><br><span class="line">        <span class="keyword">let</span> mid = l + r &gt;&gt; <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (nums_[mid] == x) <span class="keyword">return</span> mid;</span><br><span class="line">        <span class="keyword">if</span> (nums_[mid] &gt; x) &#123;</span><br><span class="line">            r = mid - <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            l = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> nums = [-<span class="number">1</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">12</span>];</span><br><span class="line"><span class="keyword">const</span> target = <span class="number">5</span>; </span><br><span class="line"><span class="built_in">console</span>.log(search(nums, target)); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+<h2 id="YXC-算法模板"><a href="#YXC-算法模板" class="headerlink" title="YXC 算法模板"></a>YXC 算法模板</h2><p><a href="https://www.acwing.com/user/myspace/index/1/">@闫学灿</a> 的算法模板非常的简单整洁，他为我们总结了两套通用的<a href="https://www.acwing.com/blog/content/31/">二分查找算法模板</a></p>
+<p>根据 YXC 的算法思路：假设目标值存在闭区间 $[l, r]$，每一次将区间缩小一半，当 <code>l=r</code>时，我们就找到了目标值。</p>
+<h3 id="版本1"><a href="#版本1" class="headerlink" title="版本1"></a>版本1</h3><p>当我们将区间 $[l,r]$ 划分成 $[l, mid]$ 和 $[mid + 1, r]$，其更新操作是 <code>r=mid</code> 或者 <code>l=mid+1</code>，计算 <code>mid</code> 时不需要加1。</p>
+<p>算法模板表示为</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">bsearch_1</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (l &lt; r)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> mid = l + r &gt;&gt; <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (check(mid)) r = mid;</span><br><span class="line">        <span class="keyword">else</span> l = mid + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> l;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们把上面自己的算法，改造成适用于 YXC 版算法</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> search = <span class="function">(<span class="params">nums_, x</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> l = <span class="number">0</span>, r = nums_.length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (l &lt; r) &#123;</span><br><span class="line">        <span class="keyword">let</span> mid = l + r &gt;&gt; <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (nums_[mid] &gt;= x) &#123; <span class="comment">// 注意这里的区间选择，[l, mid] 新的区间里必须包含 x，否则算法将会出现错误</span></span><br><span class="line">            r = mid;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            l = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (nums_[l] != x) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> l;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> nums = [-<span class="number">1</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">12</span>];</span><br><span class="line"><span class="keyword">const</span> target = <span class="number">9</span>; </span><br><span class="line"><span class="built_in">console</span>.log(search(nums, target)); <span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
+<p>注意：二分算法的思路非常简单，即当数组整体呈现单调性即可。但是在具体的问题中，如何正确的分配区间是一个致命的问题，你在实际代码很容易就会写成死循环，或者算法期望错误。</p>
+<p>我们不参考 版本2，因为版本2需要 $\lceil mid \rceil$ ，我们可能会搞混淆所以不考虑版本2。</p>
+<h1 id="方法一：二分查找"><a href="#方法一：二分查找" class="headerlink" title="方法一：二分查找"></a>方法一：二分查找</h1><h2 id="编码思路"><a href="#编码思路" class="headerlink" title="编码思路"></a>编码思路</h2><p>我们设置 $p1, p2$ 分别为对应元素的左端点和右端点，$L$  和  $R$ 设置为数组的起点和末位。这道题的思路就是：先查找第一个等于 $target$ 的位置，然后再查找第一个大于 $target$ 元素的位置减一。</p>
+<ol>
+<li><p>先找到左边界值的位置，每一次划分时，我们都取 $[l, mid]$ 区间。这与我们上面的二分算法是一致的</p>
+<p> <img src="https://pic.imgdb.cn/item/6156ba5c2ab3f51d91386e19.jpg"></p>
+</li>
+<li><p>我们设置第二次 二分查找 的闭区间为 $[p1, R]$，我们可以查找第一个大于 $target$ 的位置 $p3$，这样最右边的元素位置 $p2 = p3-1$ </p>
+<p> <img src="https://pic.imgdb.cn/item/6156bdea2ab3f51d913e99b6.jpg"></p>
+</li>
+</ol>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">searchRange</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> p1 = <span class="number">0</span>, p2 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">0</span>) <span class="keyword">return</span> &#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">0</span>, r = n - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (l &lt; r) &#123;</span><br><span class="line">            <span class="keyword">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (nums[mid] &gt;= target) &#123;</span><br><span class="line">                r = mid;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                l = mid + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (nums[l] != target) <span class="keyword">return</span> &#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">        p1 = l;</span><br><span class="line">        r = n;</span><br><span class="line">        <span class="keyword">while</span> (l &lt; r) &#123;</span><br><span class="line">            <span class="keyword">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (nums[mid] &lt;= target) &#123;</span><br><span class="line">                l = mid + <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                r = mid;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        p2 = l - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> &#123;p1, p2&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><p>时间复杂度：$O(log \ n)$，其中 $n$ 表示为数组的长度。我们一共进行两次二分查找，其中一次二分查找的时间复杂度为 $O(log \ n)$，即 $O(2 \times log \ n) = O(log \ n)$。</p>
+<p>空间复杂度：$O(1)$，我们只使用了常量空间。</p>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>每日一题</tag>
+        <tag>二分查找</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>EQ-3-无重复字符的最长字串</title>
     <url>/2021/09/29/3/</url>
     <content><![CDATA[<p>题目链接：<a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/">3. 无重复字符的最长子串</a></p>
@@ -383,8 +421,8 @@
         <category>周赛</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>BFS</tag>
+        <tag>数组</tag>
         <tag>DP</tag>
         <tag>设计</tag>
         <tag>堆</tag>
@@ -1537,8 +1575,8 @@
         <category>周赛</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>BFS</tag>
+        <tag>数组</tag>
         <tag>字符串</tag>
         <tag>贪心</tag>
         <tag>DFS</tag>
@@ -1860,7 +1898,7 @@
   </entry>
   <entry>
     <title>665 非递减数列</title>
-    <url>/2021/02/07/cku5huc2p001a60v45vyj3306/</url>
+    <url>/2021/02/07/cku82ow7r001b2wv430fqhc5d/</url>
     <content><![CDATA[<p>力扣链接：<a href="https://leetcode-cn.com/problems/non-decreasing-array/">665. 非递减数列</a></p>
 <p>这道题很坑，虽然是 <code>easy</code>，但是测试用例很好。</p>
 <a id="more"></a>
@@ -1895,7 +1933,7 @@
   </entry>
   <entry>
     <title>127 单词接龙</title>
-    <url>/2021/02/06/cku5huc2c000b60v4cm6j6nps/</url>
+    <url>/2021/02/06/cku82ow7d00072wv49rdv8o0c/</url>
     <content><![CDATA[<p>力扣链接：<a href="https://leetcode-cn.com/problems/word-ladder/">单词接龙</a></p>
 <p>这是一道求最短路径的题目，BFS 是我们用来解决最短路问题的强心剂。</p>
 <a id="more"></a>
@@ -1930,7 +1968,7 @@
   </entry>
   <entry>
     <title>1625 执行操作后字典序最小的字符串</title>
-    <url>/2021/02/06/cku5huc2h000m60v4dq4hc5az/</url>
+    <url>/2021/02/06/cku82ow7l000n2wv4dyc7fcz6/</url>
     <content><![CDATA[<p>广度优先搜索（BFS）的优势在于当问题存在最优解的情况下，一定可以找到最优解。因此常用于最短路问题。</p>
 <p>这道题数据比较弱，所以暴力搜索也不会超时。</p>
 <p>力扣链接：<a href="https://leetcode-cn.com/problems/lexicographically-smallest-string-after-applying-operations/">执行操作后字典序最小的字符串</a></p>
@@ -1979,7 +2017,7 @@
   </entry>
   <entry>
     <title>1208 尽可能使字符串相等</title>
-    <url>/2021/02/05/cku5huc2b000960v480bvbi0d/</url>
+    <url>/2021/02/05/cku82ow7f000b2wv4f2we3lrq/</url>
     <content><![CDATA[<p>力扣链接：<a href="https://leetcode-cn.com/problems/get-equal-substrings-within-budget/">尽可能使字符串相等</a></p>
 <p>昨晚睡前没仔细读题，以为挺难做的，没想到也不难做。</p>
 <a id="more"></a>
@@ -2030,7 +2068,7 @@
   </entry>
   <entry>
     <title>480 滑动窗口中位数</title>
-    <url>/2021/02/03/cku5huc2m001060v4at0rfazk/</url>
+    <url>/2021/02/03/cku82ow7q00142wv43l8ucmg9/</url>
     <content><![CDATA[<p><em>官方题解十分的鬼畜，但是这道题用二分也是可以做的</em></p>
 <p>力扣链接： <a href="https://leetcode-cn.com/problems/sliding-window-median/">滑动窗口中位数</a></p>
 <p>相似题目推荐：</p>
@@ -2072,7 +2110,7 @@
   </entry>
   <entry>
     <title>1540 K次操作转变字符串</title>
-    <url>/2021/02/02/cku5huc2g000h60v462jq4764/</url>
+    <url>/2021/02/02/cku82ow7i000i2wv4ae9i4fhc/</url>
     <content><![CDATA[<p>原题链接：<a href="https://leetcode-cn.com/problems/can-convert-string-in-k-moves/">K 次操作转变字符串</a></p>
 <p>我人傻了，A了这题就立马回小学重修语文。</p>
 <a id="more"></a>
@@ -2101,7 +2139,7 @@
   </entry>
   <entry>
     <title>410 分割数组的最大值</title>
-    <url>/2021/02/02/cku5huc2k000t60v4g4ph6flv/</url>
+    <url>/2021/02/02/cku82ow7n000t2wv48y8q3ov8/</url>
     <content><![CDATA[<p>力扣410链接：<a href="https://leetcode-cn.com/problems/split-array-largest-sum/">分割数组的最大值</a></p>
 <a id="more"></a>
 
@@ -2130,7 +2168,7 @@
   </entry>
   <entry>
     <title>424 替换后的最长重复字符</title>
-    <url>/2021/02/02/cku5huc2o001460v44b7f81mh/</url>
+    <url>/2021/02/02/cku82ow7o000w2wv4fx5ib0r7/</url>
     <content><![CDATA[<p>力扣424链接：<a href="https://leetcode-cn.com/problems/longest-repeating-character-replacement/">替换后的最长重复字符</a></p>
 <a id="more"></a>
 
@@ -2153,7 +2191,7 @@
   </entry>
   <entry>
     <title>1128 等价多米诺骨牌对的数量</title>
-    <url>/2021/01/26/cku5huc2a000760v43pja0fyy/</url>
+    <url>/2021/01/26/cku82ow7e00092wv42fz2fpfg/</url>
     <content><![CDATA[<p>一道比较有意思的题目，足够简单但是时间复杂度卡得很紧。</p>
 <p>原题链接：<a href="https://leetcode-cn.com/problems/number-of-equivalent-domino-pairs/">等价多米诺骨牌对的数量</a></p>
 <a id="more"></a>
@@ -2186,7 +2224,7 @@
   </entry>
   <entry>
     <title>第224场周赛</title>
-    <url>/2021/01/17/cku5huc3g004c60v4eonb5ewr/</url>
+    <url>/2021/01/17/cku82ow8m004g2wv4awrkf0z8/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/number-of-rectangles-that-can-form-the-largest-square/">可以形成最大正方形的矩形数目</a></li>
@@ -2241,7 +2279,7 @@
   </entry>
   <entry>
     <title>第43场双周赛</title>
-    <url>/2021/01/12/cku5huc3p004y60v4azfpai7p/</url>
+    <url>/2021/01/12/cku82ow8s004z2wv41nxt1iv0/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/calculate-money-in-leetcode-bank/">计算力扣银行的钱</a></li>
@@ -2301,7 +2339,7 @@
   </entry>
   <entry>
     <title>第222场周赛</title>
-    <url>/2021/01/03/cku5huc3f004660v482cbaal4/</url>
+    <url>/2021/01/03/cku82ow8l004d2wv47im83nzm/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/maximum-units-on-a-truck/">卡车上的最大单元数</a></li>
@@ -2384,7 +2422,7 @@
   </entry>
   <entry>
     <title>一文解决Tomcat开发中乱码的问题</title>
-    <url>/2020/12/31/cku5huc31002j60v48zzc7oah/</url>
+    <url>/2020/12/31/cku82ow83002k2wv477lhgwf9/</url>
     <content><![CDATA[<p>开发环境：</p>
 <ul>
 <li>Windows 10，idea</li>
@@ -2429,7 +2467,7 @@
   </entry>
   <entry>
     <title>第221场周赛</title>
-    <url>/2020/12/29/cku5huc3g004960v48qeyht1a/</url>
+    <url>/2020/12/29/cku82ow8k00492wv40q6l9d2d/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/determine-if-string-halves-are-alike/">判断字符串的两半是否相似</a></li>
@@ -2525,7 +2563,7 @@
   </entry>
   <entry>
     <title>第42场双周赛</title>
-    <url>/2020/12/28/cku5huc3p004v60v46o123a5r/</url>
+    <url>/2020/12/28/cku82ow8u00572wv4e0k6b61u/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li><p> <a href="https://leetcode-cn.com/problems/number-of-students-unable-to-eat-lunch/">无法吃午餐的学生数量</a></p>
@@ -2628,7 +2666,7 @@
   </entry>
   <entry>
     <title>第220场周赛</title>
-    <url>/2020/12/20/cku5huc3e004460v412iucfsi/</url>
+    <url>/2020/12/20/cku82ow8j00462wv4el15ehfl/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li><a href="https://leetcode-cn.com/problems/reformat-phone-number/">重新格式化电话号码</a></li>
@@ -2720,7 +2758,7 @@
   </entry>
   <entry>
     <title>460 LFU缓存</title>
-    <url>/2020/12/14/cku5huc2l000x60v4cttoghr7/</url>
+    <url>/2020/12/14/cku82ow7p00112wv4259691u9/</url>
     <content><![CDATA[<p><strong>开头</strong></p>
 <p>采用自定义的双向链表来实现</p>
 <p>Node：存储每一个 key, value, freq </p>
@@ -2763,7 +2801,7 @@
   </entry>
   <entry>
     <title>第219场周赛</title>
-    <url>/2020/12/13/cku5huc3d003z60v4fvqv0m91/</url>
+    <url>/2020/12/13/cku82ow8j00432wv48ezudt7k/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/count-of-matches-in-tournament/">比赛中的配对次数</a></li>
@@ -2849,7 +2887,7 @@
   </entry>
   <entry>
     <title>第41场双周赛</title>
-    <url>/2020/12/13/cku5huc3m004q60v48bqvdbwj/</url>
+    <url>/2020/12/13/cku82ow8r004x2wv45ni8gofv/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/count-the-number-of-consistent-strings/"> 统计一致字符串的数目</a></li>
@@ -2925,7 +2963,7 @@
   </entry>
   <entry>
     <title>376 摆动序列</title>
-    <url>/2020/12/12/cku5huc2j000p60v42458ckwi/</url>
+    <url>/2020/12/12/cku82ow7m000p2wv4an0ef812/</url>
     <content><![CDATA[<p><strong>开头</strong></p>
 <p><strong>摆动序列：</strong></p>
 <ul>
@@ -2966,7 +3004,7 @@
   </entry>
   <entry>
     <title>第218场周赛</title>
-    <url>/2020/12/06/cku5huc3d003w60v4c5e8cfm6/</url>
+    <url>/2020/12/06/cku82ow8i00402wv4d29v0bbq/</url>
     <content><![CDATA[<h3 id="T1：设计-Goal-解析器"><a href="#T1：设计-Goal-解析器" class="headerlink" title="T1：设计 Goal 解析器"></a>T1：<a href="https://leetcode-cn.com/problems/goal-parser-interpretation/">设计 Goal 解析器</a></h3><p><strong>方法一：</strong> 利用API</p>
 <p>利用语言自带的API，进行替换操作。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">interpret</span><span class="params">(String command)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> command.replace(<span class="string">&quot;()&quot;</span>, <span class="string">&quot;o&quot;</span>).replace(<span class="string">&quot;(al)&quot;</span>, <span class="string">&quot;al&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -3006,7 +3044,7 @@
   </entry>
   <entry>
     <title>第217场周赛</title>
-    <url>/2020/11/30/cku5huc3c003r60v4fvrg9iip/</url>
+    <url>/2020/11/30/cku82ow8h003y2wv43efi5fye/</url>
     <content><![CDATA[<h3 id="T1：最富有客户的资产总量"><a href="#T1：最富有客户的资产总量" class="headerlink" title="T1：最富有客户的资产总量"></a>T1：<a href="https://leetcode-cn.com/problems/richest-customer-wealth/">最富有客户的资产总量</a></h3><p>思路：暴力</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maximumWealth</span><span class="params">(<span class="keyword">int</span>[][] accounts)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] account : accounts) &#123;</span><br><span class="line">            res = Math.max(res, Arrays.stream(account).sum());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>复杂度分析：</strong></p>
@@ -3079,7 +3117,7 @@
   </entry>
   <entry>
     <title>第40场双周赛</title>
-    <url>/2020/11/29/cku5huc3m004o60v47tcx2uwu/</url>
+    <url>/2020/11/29/cku82ow8q004u2wv45worf6rg/</url>
     <content><![CDATA[<p>难度不大，很常规的题目。最后一题动态规划仍需要多练。</p>
 <a id="more"></a>
 
@@ -3139,7 +3177,7 @@
   </entry>
   <entry>
     <title>Trie树</title>
-    <url>/2020/11/26/cku5huc2z002b60v4cvjfaf81/</url>
+    <url>/2020/11/26/cku82ow81002d2wv4eg48g2o9/</url>
     <content><![CDATA[<p>Trie树是一种特殊的数据结构，它常用于在数据中检索字符串。也可以叫做字典树和前缀树等等。</p>
 <a id="more"></a>
 
@@ -3205,7 +3243,7 @@
   </entry>
   <entry>
     <title>手动实现LinkedList</title>
-    <url>/2020/11/25/cku5huc32002q60v47di4fu53/</url>
+    <url>/2020/11/25/cku82ow84002s2wv40b2fd5kg/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>链表是与线性表相对应的一种特殊的数据结构，它的各个节点在物理内存上可以是连续的也可以是不连续的，逻辑上链表是连续的。</p>
 <p><strong>优点</strong></p>
 <ul>
@@ -3320,7 +3358,7 @@
   </entry>
   <entry>
     <title>第201场周赛</title>
-    <url>/2020/08/11/cku5huc3b003p60v42s1fhjyk/</url>
+    <url>/2020/08/11/cku82ow8d003t2wv439dyd8km/</url>
     <content><![CDATA[<p>题目标题即原题地址，点击查看原题。代码主要为Java和cpp，部分tricky题目会使用py来解决</p>
 <a id="more"></a>
 
@@ -3352,7 +3390,7 @@
   </entry>
   <entry>
     <title>第199场周赛</title>
-    <url>/2020/07/27/cku5huc3a003k60v40y0m4nco/</url>
+    <url>/2020/07/27/cku82ow8c003q2wv47ucb7suu/</url>
     <content><![CDATA[<p>题目标题即原题地址，点击查看原题。</p>
 <a id="more"></a>
 
@@ -3383,7 +3421,7 @@
   </entry>
   <entry>
     <title>第31场双周赛</title>
-    <url>/2020/07/27/cku5huc3i004l60v42m2404n8/</url>
+    <url>/2020/07/27/cku82ow8p004r2wv46tkp48th/</url>
     <content><![CDATA[<p>题目标题即原题地址，点击查看原题。</p>
 <a id="more"></a>
 
@@ -3414,7 +3452,7 @@
   </entry>
   <entry>
     <title>第197场周赛</title>
-    <url>/2020/07/13/cku5huc3a003i60v4ai7k693x/</url>
+    <url>/2020/07/13/cku82ow8b003l2wv4e580du14/</url>
     <content><![CDATA[<p>字节又来了，感觉自己把第三题想的太复杂了。第四题是否有些超纲呢？</p>
 <a id="more"></a>
 
@@ -3457,7 +3495,7 @@
   </entry>
   <entry>
     <title>第30场双周赛</title>
-    <url>/2020/07/13/cku5huc3i004i60v4342sgn6e/</url>
+    <url>/2020/07/13/cku82ow8o004o2wv48z65emjg/</url>
     <content><![CDATA[<p>这场比赛的题目不是很难，即使第一次接触的话，AC前两题应该也是没有问题的。废话不多说，看代码。</p>
 <h4 id="题目一：转变日期格式"><a href="#题目一：转变日期格式" class="headerlink" title="题目一：转变日期格式"></a>题目一：<a href="https://leetcode-cn.com/problems/reformat-date/">转变日期格式</a></h4><p>这个题，我是不知道有什么API可以调用，但是看它给出的<code>YYYY-MM-DD</code>的格式，其实稍微想想还是硬解析的。无脑暴力即可。注意日期和月份小于10时，需要补0；</p>
 <a id="more"></a>
@@ -3493,7 +3531,7 @@
   </entry>
   <entry>
     <title>第192场周赛</title>
-    <url>/2020/06/07/cku5huc39003e60v4bn13bnps/</url>
+    <url>/2020/06/07/cku82ow8b003j2wv45dwo5php/</url>
     <content><![CDATA[<p>这一场发挥的不错，AC了三题。一开始做的时候感觉很难，第一题慌慌张张的花了7分钟才AC了，我在c++和java之间换了两次，最后还是c++更容易实现其实用java也是可以的，上来我就在选择语言上飘摇不定了。这也是一个问题，做题的心理问题，看完问题，分析思路完毕后，中途不能再切换语言了，使用一个语言解决它！主要是没有数论的题，一般的数据结构的问题，hard除外，我基本都是可以AC的。</p>
 <p>周赛题目考察点：<strong>数组、数组/排序、设计/栈(我的思路是这个，设计类的题目思路很开放)</strong></p>
 <a id="more"></a>
