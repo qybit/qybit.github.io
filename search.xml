@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>EQ-187-重复的DNA序列</title>
+    <url>/2021/10/08/187/</url>
+    <content><![CDATA[<p>题目链接：<a href="https://leetcode-cn.com/problems/repeated-dna-sequences/">187. 重复的DNA序列</a></p>
+<h1 id="方法一：哈希"><a href="#方法一：哈希" class="headerlink" title="方法一：哈希"></a>方法一：哈希</h1><h2 id="编码思路"><a href="#编码思路" class="headerlink" title="编码思路"></a>编码思路</h2><p>我们可以通过枚举字符串 $s$ 中所有长度为 $10$ 的子串并且统计其出现的次数来实现</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">findRepeatedDnaSequences</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; res;</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">10</span>) <span class="keyword">return</span> res;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; hash;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n - <span class="number">10</span>; i ++) &#123;</span><br><span class="line">            <span class="built_in">string</span> sub = s.substr(i, <span class="number">10</span>);</span><br><span class="line">            hash[sub] ++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;[k, v] : hash) &#123;</span><br><span class="line">            <span class="keyword">if</span> (v &gt; <span class="number">1</span>) res.push_back(k);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><p>时间复杂度：$O(NL)$，其中 $N$ 为字符串 $s$ 的长度，$L=10$ 是子串的长度。</p>
+<p>空间复杂度：$O(NL)$。</p>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>每日一题</tag>
+        <tag>力扣</tag>
+        <tag>哈希</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>EQ-434-字符串中的单词数</title>
     <url>/2021/10/07/434/</url>
     <content><![CDATA[<p>题目链接：<a href="https://leetcode-cn.com/problems/number-of-segments-in-a-string/">434. 字符串中的单词数</a></p>
@@ -353,8 +371,8 @@
         <category>周赛</category>
       </categories>
       <tags>
-        <tag>回溯</tag>
         <tag>数组</tag>
+        <tag>回溯</tag>
         <tag>字符串</tag>
         <tag>贪心</tag>
       </tags>
@@ -464,8 +482,8 @@
         <category>周赛</category>
       </categories>
       <tags>
-        <tag>BFS</tag>
         <tag>数组</tag>
+        <tag>BFS</tag>
         <tag>DP</tag>
         <tag>设计</tag>
         <tag>数学</tag>
@@ -1618,8 +1636,8 @@
         <category>周赛</category>
       </categories>
       <tags>
-        <tag>BFS</tag>
         <tag>数组</tag>
+        <tag>BFS</tag>
         <tag>字符串</tag>
         <tag>贪心</tag>
         <tag>DFS</tag>
@@ -1941,7 +1959,7 @@
   </entry>
   <entry>
     <title>665 非递减数列</title>
-    <url>/2021/02/07/ckugku43l001bzwv4dw1n0d9z/</url>
+    <url>/2021/02/07/ckuhps76u0017qcv41hus2cxy/</url>
     <content><![CDATA[<p>力扣链接：<a href="https://leetcode-cn.com/problems/non-decreasing-array/">665. 非递减数列</a></p>
 <p>这道题很坑，虽然是 <code>easy</code>，但是测试用例很好。</p>
 <a id="more"></a>
@@ -1976,7 +1994,7 @@
   </entry>
   <entry>
     <title>127 单词接龙</title>
-    <url>/2021/02/06/ckugku4370009zwv4dv4maa7f/</url>
+    <url>/2021/02/06/ckuhps76j000bqcv41jnh9f8z/</url>
     <content><![CDATA[<p>力扣链接：<a href="https://leetcode-cn.com/problems/word-ladder/">单词接龙</a></p>
 <p>这是一道求最短路径的题目，BFS 是我们用来解决最短路问题的强心剂。</p>
 <a id="more"></a>
@@ -2011,7 +2029,7 @@
   </entry>
   <entry>
     <title>1625 执行操作后字典序最小的字符串</title>
-    <url>/2021/02/06/ckugku43e000mzwv493g5ey04/</url>
+    <url>/2021/02/06/ckuhps76o000hqcv472my459c/</url>
     <content><![CDATA[<p>广度优先搜索（BFS）的优势在于当问题存在最优解的情况下，一定可以找到最优解。因此常用于最短路问题。</p>
 <p>这道题数据比较弱，所以暴力搜索也不会超时。</p>
 <p>力扣链接：<a href="https://leetcode-cn.com/problems/lexicographically-smallest-string-after-applying-operations/">执行操作后字典序最小的字符串</a></p>
@@ -2060,7 +2078,7 @@
   </entry>
   <entry>
     <title>1208 尽可能使字符串相等</title>
-    <url>/2021/02/05/ckugku4360007zwv486z2g0d0/</url>
+    <url>/2021/02/05/ckuhps76j0009qcv4dyyx08qh/</url>
     <content><![CDATA[<p>力扣链接：<a href="https://leetcode-cn.com/problems/get-equal-substrings-within-budget/">尽可能使字符串相等</a></p>
 <p>昨晚睡前没仔细读题，以为挺难做的，没想到也不难做。</p>
 <a id="more"></a>
@@ -2111,7 +2129,7 @@
   </entry>
   <entry>
     <title>480 滑动窗口中位数</title>
-    <url>/2021/02/03/ckugku43j0015zwv4g0usbe18/</url>
+    <url>/2021/02/03/ckuhps76u0014qcv48errhyki/</url>
     <content><![CDATA[<p><em>官方题解十分的鬼畜，但是这道题用二分也是可以做的</em></p>
 <p>力扣链接： <a href="https://leetcode-cn.com/problems/sliding-window-median/">滑动窗口中位数</a></p>
 <p>相似题目推荐：</p>
@@ -2153,7 +2171,7 @@
   </entry>
   <entry>
     <title>1540 K次操作转变字符串</title>
-    <url>/2021/02/02/ckugku43c000hzwv45llq9euf/</url>
+    <url>/2021/02/02/ckuhps76p000mqcv4gn6fgp99/</url>
     <content><![CDATA[<p>原题链接：<a href="https://leetcode-cn.com/problems/can-convert-string-in-k-moves/">K 次操作转变字符串</a></p>
 <p>我人傻了，A了这题就立马回小学重修语文。</p>
 <a id="more"></a>
@@ -2182,7 +2200,7 @@
   </entry>
   <entry>
     <title>410 分割数组的最大值</title>
-    <url>/2021/02/02/ckugku43h000uzwv40ymz82pc/</url>
+    <url>/2021/02/02/ckuhps76r000tqcv4cx9e3ekl/</url>
     <content><![CDATA[<p>力扣410链接：<a href="https://leetcode-cn.com/problems/split-array-largest-sum/">分割数组的最大值</a></p>
 <a id="more"></a>
 
@@ -2211,7 +2229,7 @@
   </entry>
   <entry>
     <title>424 替换后的最长重复字符</title>
-    <url>/2021/02/02/ckugku43h000xzwv4d95samrj/</url>
+    <url>/2021/02/02/ckuhps76s000xqcv4f86e9ps9/</url>
     <content><![CDATA[<p>力扣424链接：<a href="https://leetcode-cn.com/problems/longest-repeating-character-replacement/">替换后的最长重复字符</a></p>
 <a id="more"></a>
 
@@ -2234,7 +2252,7 @@
   </entry>
   <entry>
     <title>1128 等价多米诺骨牌对的数量</title>
-    <url>/2021/01/26/ckugku43a000fzwv4hh6w94u0/</url>
+    <url>/2021/01/26/ckuhps76i0007qcv411ef7jhf/</url>
     <content><![CDATA[<p>一道比较有意思的题目，足够简单但是时间复杂度卡得很紧。</p>
 <p>原题链接：<a href="https://leetcode-cn.com/problems/number-of-equivalent-domino-pairs/">等价多米诺骨牌对的数量</a></p>
 <a id="more"></a>
@@ -2267,7 +2285,7 @@
   </entry>
   <entry>
     <title>第224场周赛</title>
-    <url>/2021/01/17/ckugku44i004lzwv406ohh317/</url>
+    <url>/2021/01/17/ckuhps77o004wqcv49r8g6r3j/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/number-of-rectangles-that-can-form-the-largest-square/">可以形成最大正方形的矩形数目</a></li>
@@ -2322,7 +2340,7 @@
   </entry>
   <entry>
     <title>第43场双周赛</title>
-    <url>/2021/01/12/ckugku44q005czwv4al6ub27k/</url>
+    <url>/2021/01/12/ckuhps77y005lqcv4gbmq7raj/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/calculate-money-in-leetcode-bank/">计算力扣银行的钱</a></li>
@@ -2382,7 +2400,7 @@
   </entry>
   <entry>
     <title>第222场周赛</title>
-    <url>/2021/01/03/ckugku44j004pzwv4edbw2764/</url>
+    <url>/2021/01/03/ckuhps77n004tqcv49jot35wi/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/maximum-units-on-a-truck/">卡车上的最大单元数</a></li>
@@ -2465,7 +2483,7 @@
   </entry>
   <entry>
     <title>一文解决Tomcat开发中乱码的问题</title>
-    <url>/2020/12/31/ckugku43z002tzwv4d4sz9t96/</url>
+    <url>/2020/12/31/ckuhps778002tqcv40ax07b2h/</url>
     <content><![CDATA[<p>开发环境：</p>
 <ul>
 <li>Windows 10，idea</li>
@@ -2510,7 +2528,7 @@
   </entry>
   <entry>
     <title>第221场周赛</title>
-    <url>/2020/12/29/ckugku44h004kzwv48dwbfenh/</url>
+    <url>/2020/12/29/ckuhps77m004pqcv415ci490m/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/determine-if-string-halves-are-alike/">判断字符串的两半是否相似</a></li>
@@ -2606,7 +2624,7 @@
   </entry>
   <entry>
     <title>第42场双周赛</title>
-    <url>/2020/12/28/ckugku44q0058zwv4fl4vgm80/</url>
+    <url>/2020/12/28/ckuhps77y005iqcv40o2y01kn/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li><p> <a href="https://leetcode-cn.com/problems/number-of-students-unable-to-eat-lunch/">无法吃午餐的学生数量</a></p>
@@ -2709,7 +2727,7 @@
   </entry>
   <entry>
     <title>第220场周赛</title>
-    <url>/2020/12/20/ckugku44g004fzwv4f9h1bevv/</url>
+    <url>/2020/12/20/ckuhps77l004lqcv49ret7h3d/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li><a href="https://leetcode-cn.com/problems/reformat-phone-number/">重新格式化电话号码</a></li>
@@ -2801,7 +2819,7 @@
   </entry>
   <entry>
     <title>460 LFU缓存</title>
-    <url>/2020/12/14/ckugku43j0012zwv4asdc078u/</url>
+    <url>/2020/12/14/ckuhps76t0010qcv4c2xm8f3f/</url>
     <content><![CDATA[<p><strong>开头</strong></p>
 <p>采用自定义的双向链表来实现</p>
 <p>Node：存储每一个 key, value, freq </p>
@@ -2844,7 +2862,7 @@
   </entry>
   <entry>
     <title>第219场周赛</title>
-    <url>/2020/12/13/ckugku44f004czwv413uf57o1/</url>
+    <url>/2020/12/13/ckuhps77k004hqcv4hsopbid6/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/count-of-matches-in-tournament/">比赛中的配对次数</a></li>
@@ -2930,7 +2948,7 @@
   </entry>
   <entry>
     <title>第41场双周赛</title>
-    <url>/2020/12/13/ckugku44p0055zwv4bzr9bjzs/</url>
+    <url>/2020/12/13/ckuhps77w005dqcv4648ya1wy/</url>
     <content><![CDATA[<p>题单：</p>
 <ul>
 <li> <a href="https://leetcode-cn.com/problems/count-the-number-of-consistent-strings/"> 统计一致字符串的数目</a></li>
@@ -3006,7 +3024,7 @@
   </entry>
   <entry>
     <title>376 摆动序列</title>
-    <url>/2020/12/12/ckugku43f000pzwv4cucycdjl/</url>
+    <url>/2020/12/12/ckuhps76q000pqcv4c03g9h2r/</url>
     <content><![CDATA[<p><strong>开头</strong></p>
 <p><strong>摆动序列：</strong></p>
 <ul>
@@ -3047,7 +3065,7 @@
   </entry>
   <entry>
     <title>第218场周赛</title>
-    <url>/2020/12/06/ckugku44d0045zwv46qpsdsuh/</url>
+    <url>/2020/12/06/ckuhps77k004eqcv4b8eo38v1/</url>
     <content><![CDATA[<h3 id="T1：设计-Goal-解析器"><a href="#T1：设计-Goal-解析器" class="headerlink" title="T1：设计 Goal 解析器"></a>T1：<a href="https://leetcode-cn.com/problems/goal-parser-interpretation/">设计 Goal 解析器</a></h3><p><strong>方法一：</strong> 利用API</p>
 <p>利用语言自带的API，进行替换操作。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">interpret</span><span class="params">(String command)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> command.replace(<span class="string">&quot;()&quot;</span>, <span class="string">&quot;o&quot;</span>).replace(<span class="string">&quot;(al)&quot;</span>, <span class="string">&quot;al&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -3087,7 +3105,7 @@
   </entry>
   <entry>
     <title>第217场周赛</title>
-    <url>/2020/11/30/ckugku44c0041zwv43bc68u33/</url>
+    <url>/2020/11/30/ckuhps77j0049qcv458w09vgg/</url>
     <content><![CDATA[<h3 id="T1：最富有客户的资产总量"><a href="#T1：最富有客户的资产总量" class="headerlink" title="T1：最富有客户的资产总量"></a>T1：<a href="https://leetcode-cn.com/problems/richest-customer-wealth/">最富有客户的资产总量</a></h3><p>思路：暴力</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maximumWealth</span><span class="params">(<span class="keyword">int</span>[][] accounts)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] account : accounts) &#123;</span><br><span class="line">            res = Math.max(res, Arrays.stream(account).sum());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>复杂度分析：</strong></p>
@@ -3160,7 +3178,7 @@
   </entry>
   <entry>
     <title>第40场双周赛</title>
-    <url>/2020/11/29/ckugku44o0052zwv4eq5sdrdi/</url>
+    <url>/2020/11/29/ckuhps77w005aqcv42awv6dai/</url>
     <content><![CDATA[<p>难度不大，很常规的题目。最后一题动态规划仍需要多练。</p>
 <a id="more"></a>
 
@@ -3220,7 +3238,7 @@
   </entry>
   <entry>
     <title>Trie树</title>
-    <url>/2020/11/26/ckugku43x002lzwv40mw94cdg/</url>
+    <url>/2020/11/26/ckuhps777002qqcv4fmiwcd2s/</url>
     <content><![CDATA[<p>Trie树是一种特殊的数据结构，它常用于在数据中检索字符串。也可以叫做字典树和前缀树等等。</p>
 <a id="more"></a>
 
@@ -3286,7 +3304,7 @@
   </entry>
   <entry>
     <title>手动实现LinkedList</title>
-    <url>/2020/11/25/ckugku4410030zwv41cfj9sei/</url>
+    <url>/2020/11/25/ckuhps77a0034qcv405pf6vxh/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>链表是与线性表相对应的一种特殊的数据结构，它的各个节点在物理内存上可以是连续的也可以是不连续的，逻辑上链表是连续的。</p>
 <p><strong>优点</strong></p>
 <ul>
@@ -3401,7 +3419,7 @@
   </entry>
   <entry>
     <title>第201场周赛</title>
-    <url>/2020/08/11/ckugku44e0047zwv4ey8f3cku/</url>
+    <url>/2020/08/11/ckuhps77j0046qcv4f0vqhejx/</url>
     <content><![CDATA[<p>题目标题即原题地址，点击查看原题。代码主要为Java和cpp，部分tricky题目会使用py来解决</p>
 <a id="more"></a>
 
@@ -3433,7 +3451,7 @@
   </entry>
   <entry>
     <title>第199场周赛</title>
-    <url>/2020/07/27/ckugku44c003yzwv4h079b3sc/</url>
+    <url>/2020/07/27/ckuhps77i0041qcv4g9160bcq/</url>
     <content><![CDATA[<p>题目标题即原题地址，点击查看原题。</p>
 <a id="more"></a>
 
@@ -3464,7 +3482,7 @@
   </entry>
   <entry>
     <title>第31场双周赛</title>
-    <url>/2020/07/27/ckugku44n004yzwv4g6b90svc/</url>
+    <url>/2020/07/27/ckuhps77u0056qcv4ed08e58z/</url>
     <content><![CDATA[<p>题目标题即原题地址，点击查看原题。</p>
 <a id="more"></a>
 
@@ -3495,7 +3513,7 @@
   </entry>
   <entry>
     <title>第197场周赛</title>
-    <url>/2020/07/13/ckugku448003vzwv402zifah7/</url>
+    <url>/2020/07/13/ckuhps77h003yqcv48ceobduo/</url>
     <content><![CDATA[<p>字节又来了，感觉自己把第三题想的太复杂了。第四题是否有些超纲呢？</p>
 <a id="more"></a>
 
@@ -3538,7 +3556,7 @@
   </entry>
   <entry>
     <title>第30场双周赛</title>
-    <url>/2020/07/13/ckugku44l004vzwv45907fkim/</url>
+    <url>/2020/07/13/ckuhps77q0053qcv4b1so2vwf/</url>
     <content><![CDATA[<p>这场比赛的题目不是很难，即使第一次接触的话，AC前两题应该也是没有问题的。废话不多说，看代码。</p>
 <h4 id="题目一：转变日期格式"><a href="#题目一：转变日期格式" class="headerlink" title="题目一：转变日期格式"></a>题目一：<a href="https://leetcode-cn.com/problems/reformat-date/">转变日期格式</a></h4><p>这个题，我是不知道有什么API可以调用，但是看它给出的<code>YYYY-MM-DD</code>的格式，其实稍微想想还是硬解析的。无脑暴力即可。注意日期和月份小于10时，需要补0；</p>
 <a id="more"></a>
@@ -3574,7 +3592,7 @@
   </entry>
   <entry>
     <title>第192场周赛</title>
-    <url>/2020/06/07/ckugku447003rzwv4e4v18nbr/</url>
+    <url>/2020/06/07/ckuhps77g003tqcv4d675cc6n/</url>
     <content><![CDATA[<p>这一场发挥的不错，AC了三题。一开始做的时候感觉很难，第一题慌慌张张的花了7分钟才AC了，我在c++和java之间换了两次，最后还是c++更容易实现其实用java也是可以的，上来我就在选择语言上飘摇不定了。这也是一个问题，做题的心理问题，看完问题，分析思路完毕后，中途不能再切换语言了，使用一个语言解决它！主要是没有数论的题，一般的数据结构的问题，hard除外，我基本都是可以AC的。</p>
 <p>周赛题目考察点：<strong>数组、数组/排序、设计/栈(我的思路是这个，设计类的题目思路很开放)</strong></p>
 <a id="more"></a>

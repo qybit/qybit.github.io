@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://qybit.gitee.io/"/>
-  <updated>2021-10-07T06:46:23.149Z</updated>
+  <updated>2021-10-08T01:40:07.354Z</updated>
   <id>https://qybit.gitee.io/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>EQ-187-重复的DNA序列</title>
+    <link href="https://qybit.gitee.io/2021/10/08/187/"/>
+    <id>https://qybit.gitee.io/2021/10/08/187/</id>
+    <published>2021-10-08T01:30:00.000Z</published>
+    <updated>2021-10-08T01:40:07.354Z</updated>
+    
+    <content type="html"><![CDATA[<p>题目链接：<a href="https://leetcode-cn.com/problems/repeated-dna-sequences/">187. 重复的DNA序列</a></p><h1 id="方法一：哈希"><a href="#方法一：哈希" class="headerlink" title="方法一：哈希"></a>方法一：哈希</h1><h2 id="编码思路"><a href="#编码思路" class="headerlink" title="编码思路"></a>编码思路</h2><p>我们可以通过枚举字符串 $s$ 中所有长度为 $10$ 的子串并且统计其出现的次数来实现</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">findRepeatedDnaSequences</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; res;</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">10</span>) <span class="keyword">return</span> res;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; hash;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n - <span class="number">10</span>; i ++) &#123;</span><br><span class="line">            <span class="built_in">string</span> sub = s.substr(i, <span class="number">10</span>);</span><br><span class="line">            hash[sub] ++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;[k, v] : hash) &#123;</span><br><span class="line">            <span class="keyword">if</span> (v &gt; <span class="number">1</span>) res.push_back(k);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><p>时间复杂度：$O(NL)$，其中 $N$ 为字符串 $s$ 的长度，$L=10$ 是子串的长度。</p><p>空间复杂度：$O(NL)$。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;题目链接：&lt;a href=&quot;https://leetcode-cn.com/problems/repeated-dna-sequences/&quot;&gt;187. 重复的DNA序列&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;方法一：哈希&quot;&gt;&lt;a href=&quot;#方法一：哈希&quot; class=&quot;he
+      
+    
+    </summary>
+    
+    
+      <category term="力扣" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/"/>
+    
+    
+      <category term="每日一题" scheme="https://qybit.gitee.io/tags/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/"/>
+    
+      <category term="力扣" scheme="https://qybit.gitee.io/tags/%E5%8A%9B%E6%89%A3/"/>
+    
+      <category term="哈希" scheme="https://qybit.gitee.io/tags/%E5%93%88%E5%B8%8C/"/>
+    
+  </entry>
   
   <entry>
     <title>EQ-434-字符串中的单词数</title>
@@ -316,9 +347,9 @@
       <category term="周赛" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/%E5%91%A8%E8%B5%9B/"/>
     
     
-      <category term="回溯" scheme="https://qybit.gitee.io/tags/%E5%9B%9E%E6%BA%AF/"/>
-    
       <category term="数组" scheme="https://qybit.gitee.io/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="回溯" scheme="https://qybit.gitee.io/tags/%E5%9B%9E%E6%BA%AF/"/>
     
       <category term="字符串" scheme="https://qybit.gitee.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
@@ -392,9 +423,9 @@
       <category term="周赛" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/%E5%91%A8%E8%B5%9B/"/>
     
     
-      <category term="BFS" scheme="https://qybit.gitee.io/tags/BFS/"/>
-    
       <category term="数组" scheme="https://qybit.gitee.io/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="BFS" scheme="https://qybit.gitee.io/tags/BFS/"/>
     
       <category term="DP" scheme="https://qybit.gitee.io/tags/DP/"/>
     
@@ -643,42 +674,6 @@
       <category term="DP" scheme="https://qybit.gitee.io/tags/DP/"/>
     
       <category term="DFS" scheme="https://qybit.gitee.io/tags/DFS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>第 232 场周赛</title>
-    <link href="https://qybit.gitee.io/2021/03/15/w232/"/>
-    <id>https://qybit.gitee.io/2021/03/15/w232/</id>
-    <published>2021-03-15T02:56:07.000Z</published>
-    <updated>2021-09-23T13:18:44.002Z</updated>
-    
-    <content type="html"><![CDATA[<p>题目清单：</p><ul><li> <a href="https://leetcode-cn.com/problems/check-if-one-string-swap-can-make-strings-equal/">仅执行一次字符串交换能否使两个字符串相等</a></li><li> <a href="https://leetcode-cn.com/problems/find-center-of-star-graph/">找出星型图的中心节点</a></li><li> <a href="https://leetcode-cn.com/problems/maximum-average-pass-ratio/">最大平均通过率</a></li><li> <a href="https://leetcode-cn.com/problems/maximum-average-pass-ratio/">最大平均通过率</a></li></ul><h1 id="T1：仅执行一次字符串交换能否使两个字符串相等"><a href="#T1：仅执行一次字符串交换能否使两个字符串相等" class="headerlink" title="T1：仅执行一次字符串交换能否使两个字符串相等"></a>T1：<a href="https://leetcode-cn.com/problems/check-if-one-string-swap-can-make-strings-equal/">仅执行一次字符串交换能否使两个字符串相等</a></h1><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>由于数据范围比较小，$1 \le s1.length, s2.length \le 100$，我们可以直接暴力的枚举字符串 $s1$ 或者 字符串 $s2$ 的交换字符的下标，然后再判断是否相等即可。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">areAlmostEqual</span><span class="params">(<span class="built_in">string</span> s1, <span class="built_in">string</span> s2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s1.size();</span><br><span class="line">        <span class="keyword">if</span> (s2.size() != n) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span> (s1 == s2) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j ++) &#123;</span><br><span class="line">                swap(s1[i], s1[j]);</span><br><span class="line">                <span class="keyword">if</span> (s1 == s2) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                swap(s1[i], s1[j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><p>时间复杂度：$O(N^3)$ ，其中 $N$ 为字符串 $s1$ 或者 $s2$ 的长度。</p><ul><li>字符串的下标交换方式一共存在 $N^2$ 种，我们每一次交换都需要判断字符串 $s1$ 和 $s2$ 是否相等。</li><li>判断字符串是否相等，只能遍历两字符串。因此时间复杂度一共为 $O(N^3)$。</li></ul><p>空间复杂度：$O(1)$</p><h1 id="T2：找出星型图的中心节点"><a href="#T2：找出星型图的中心节点" class="headerlink" title="T2：找出星型图的中心节点"></a>T2：<a href="https://leetcode-cn.com/problems/find-center-of-star-graph/">找出星型图的中心节点</a></h1><h2 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h2><h3 id="方法一：dfs"><a href="#方法一：dfs" class="headerlink" title="方法一：dfs"></a>方法一：dfs</h3><p>直接对给定的边，建图进行 dfs，遍历。</p><p>从某一个节点出发，找到一个可以到达所有的节点的点。</p><p>时间复杂度为 $O(N^2)$，空间复杂度为 $O(N^2)$</p><h3 id="方法二：建图优化"><a href="#方法二：建图优化" class="headerlink" title="方法二：建图优化"></a>方法二：建图优化</h3><p>我们不必去写繁杂的 dfs 代码，建图的过程中我们可以选择 <strong>邻接矩阵</strong>，存储图。然后遍历每一行，判断该行与其他列，是否都存在边。</p><p>时间复杂度为 $O(N^2)$，空间复杂度为 $O(N^2)$</p><h3 id="方法三：统计每个点的度数"><a href="#方法三：统计每个点的度数" class="headerlink" title="方法三：统计每个点的度数"></a>方法三：统计每个点的度数</h3><p>我们甚至都不必去存储所有的图的节点信息，我们可以注意到<strong>星型图</strong>的中心节点，是与所有的点都存在边，当我们找到<strong>某个点的度数等于边数</strong>时，即表示该点为中心节点。</p><h4 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findCenter</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; edges)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = edges.size() + <span class="number">2</span>;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">deg</span><span class="params">(n)</span></span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;e : edges) &#123;</span><br><span class="line">            <span class="keyword">int</span> a = e[<span class="number">0</span>], b = e[<span class="number">1</span>];</span><br><span class="line">            deg[a] ++, deg[b] ++;</span><br><span class="line">            <span class="keyword">if</span> (deg[a] == n) <span class="keyword">return</span> a;</span><br><span class="line">            <span class="keyword">if</span> (deg[b] == n) <span class="keyword">return</span> b; </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (deg[i] == edges.size()) <span class="keyword">return</span> i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><h5 id="复杂度分析-1"><a href="#复杂度分析-1" class="headerlink" title="复杂度分析"></a>复杂度分析</h5><p>时间复杂度：$O(N)$，其中 $N$ 为点的数量。</p><p>空间复杂度：$O(N)$。</p><h1 id="T3：最大平均通过率"><a href="#T3：最大平均通过率" class="headerlink" title="T3：最大平均通过率"></a>T3：<a href="https://leetcode-cn.com/problems/maximum-average-pass-ratio/">最大平均通过率</a></h1><h2 id="思路：-1"><a href="#思路：-1" class="headerlink" title="思路："></a>思路：</h2><h3 id="方法一：贪心"><a href="#方法一：贪心" class="headerlink" title="方法一：贪心"></a>方法一：贪心</h3><p>对于某一个班级 $calsses[i] = [x_i, y_i]$ 而言，其原本的通过率为 $\frac{x}{y}$。那么我们加入一个保证能够过线学生后，存在<br>$$<br>\theta =  \frac{x + 1}{y + 1} - \frac{x}{y}，\theta (0 \lt \theta \lt1) \ 表示添加学生后，通过率增长幅度<br>$$<br>当我们在该班级继续加入学生后，存在<br>$$<br>\theta_1 = \frac{x_2 + 1}{y_2 + 1} - \frac{x_1}{y_1}， \<br>\theta_2 = \frac{x_4 + 1}{y_4 + 1} - \frac{x_3}{y_3}， \<br>\theta_2 \gt \theta_1<br>$$<br>即班级的通过率是单调递增的。</p><p>当某个班级的通过率呈现最大化后，即表示所有班级的平均通过率最大。</p><p>贪心的体现为：</p><p>当所有的班级都呈现通过率 $\theta$ 单调递增时，假设我们现在将一个学生加入班级，那么我们需要在 $N$ 个班级中，快速选择出一个 $\theta$ 最大的班级(借助堆优化)。这样就可以使所有班级的平均通过率最大。</p><h4 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">        <span class="keyword">double</span> w;</span><br><span class="line">        <span class="keyword">int</span> a, b;</span><br><span class="line">        <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> Node &amp;t) <span class="keyword">const</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> w &lt; t.w;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">double</span> <span class="title">cal</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ((x + <span class="number">1.0</span>) / (y + <span class="number">1.0</span>)) - ((<span class="keyword">double</span>)x / y);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">double</span> <span class="title">maxAverageRatio</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; classes, <span class="keyword">int</span> extraStudents)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">priority_queue</span>&lt;Node&gt; heap;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">double</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;c : classes) &#123;</span><br><span class="line">            <span class="keyword">int</span> x = c[<span class="number">0</span>], y = c[<span class="number">1</span>];</span><br><span class="line">            ans += (<span class="keyword">double</span>)x / y;</span><br><span class="line">            heap.push(&#123;cal(x, y), x, y&#125;); </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (extraStudents --) &#123;</span><br><span class="line">            <span class="keyword">auto</span> t = heap.top();</span><br><span class="line">            heap.pop();</span><br><span class="line">            ans += t.w;</span><br><span class="line">            <span class="keyword">int</span> x = t.a + <span class="number">1</span>, y = t.b + <span class="number">1</span>;</span><br><span class="line">            heap.push(&#123;cal(x, y), x, y&#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans / classes.size();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><h5 id="复杂度分析-2"><a href="#复杂度分析-2" class="headerlink" title="复杂度分析"></a>复杂度分析</h5><p>时间复杂度：$O(N logN)$，其中 $N$ 表示为额外添加的学生数量。</p><ul><li>我们需要预处理所有的班级，计算出最初始的增长幅度，然后加入到 <strong>堆</strong> 中维护。时间复杂度 $O(NlogN)$</li><li>我们要把这些额外的学生，分别都加入到 <strong>堆顶</strong> 的第一个班级里去，并且重新计算增长幅度。时间复杂度 $O(NlogN)$</li></ul><p>空间复杂度：$O(N)$，我们使用结构体存储班级，并维护额外的信息。</p><h1 id="T4：好子数组的最大分数"><a href="#T4：好子数组的最大分数" class="headerlink" title="T4：好子数组的最大分数"></a>T4：<a href="https://leetcode-cn.com/problems/maximum-score-of-a-good-subarray/">好子数组的最大分数</a></h1><h2 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h2><h2 id="方法二：双指针-贪心"><a href="#方法二：双指针-贪心" class="headerlink" title="方法二：双指针 + 贪心"></a>方法二：双指针 + 贪心</h2><p>子数组的定义为： $min{ nums[i], nums[i+1],…,nums[j]} \times (j - i + 1)$。且满足 $i \le k \le j$。</p><p>算法实现流程：</p><ul><li>我们直接以下标 $k$ 为可能区间 $[i, j]$ 的中心点，然后分别以指针 $left$, 指令 $right$ 左右扩展<ul><li>当 $ left &gt;= 0 \ 时 \ nums[k] \le nums[left]$，指针 $left$ 恒向左扫描。</li><li>当 $right &lt; n \ 时 \ nums[k] \le nums[right]$，指针 $right$ 恒向右扫描。</li><li>当 指针 $left \lt 0 \ 且 \ right \gt n$ 时，表示我们已经扫描完整个数组。</li><li>当 $left \ge 0 \ 且 \ right \lt n$ ， 表示我们还未扩展到边界，为了求得最大值，我们以左右边界中任意一个最大值，作为中心点继续扩展。</li><li>当 $left \lt 0$ ，表示左边界已经没有元素，将右边界定义为中心点。</li><li>当 $right \ge n$ ，表示右边界已经没有元素，同理。</li><li>我们循环上述操作，直至在数组中找到一个最小值，然后扩展至整个数组后退出。</li></ul></li></ul><p>贪心的体现：</p><p>当我们扫描到边界值时 (且满足 $left \ge 0 \ 或 \ right \lt n$)，我们会在左右边界选择一个最大值，作为新区间的中心点。</p><h3 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maximumScore</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> l = k, r = k, mi = nums[k];</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="keyword">while</span> (r &lt; n &amp;&amp; nums[r] &gt;= nums[k]) r ++;</span><br><span class="line">            <span class="keyword">while</span> (l &gt;= <span class="number">0</span> &amp;&amp; nums[l] &gt;= nums[k]) l --;</span><br><span class="line">            ans = max(ans, (r - l - <span class="number">1</span>) * nums[k]);</span><br><span class="line">            <span class="keyword">if</span> (l &lt; <span class="number">0</span> &amp;&amp; r &gt;= n) <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">if</span> (l &gt;= <span class="number">0</span> &amp;&amp; r &lt; n) nums[k] = max(nums[l], nums[r]);</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (l &lt; <span class="number">0</span>) nums[k] = nums[r];</span><br><span class="line">            <span class="keyword">else</span> nums[k] = nums[l];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><h4 id="复杂度分析-3"><a href="#复杂度分析-3" class="headerlink" title="复杂度分析"></a>复杂度分析</h4><p>时间复杂度：$O(N)$，其中 $N$ 为数组的长度。</p><ul><li>对于数组中的元素任意一个元素，我们在最坏的情况下，都不会访问达到 $N$ 次。</li></ul><p>空间复杂度：$O(1)$</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;题目清单：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt; &lt;a href=&quot;https://leetcode-cn.com/problems/check-if-one-string-swap-can-make-strings-equal/&quot;&gt;仅执行一次字符串交换能否使两个字符串相等&lt;/a&gt;&lt;
-      
-    
-    </summary>
-    
-    
-      <category term="力扣" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/"/>
-    
-      <category term="周赛" scheme="https://qybit.gitee.io/categories/%E5%8A%9B%E6%89%A3/%E5%91%A8%E8%B5%9B/"/>
-    
-    
-      <category term="字符串" scheme="https://qybit.gitee.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
-      <category term="贪心" scheme="https://qybit.gitee.io/tags/%E8%B4%AA%E5%BF%83/"/>
-    
-      <category term="图" scheme="https://qybit.gitee.io/tags/%E5%9B%BE/"/>
-    
-      <category term="堆" scheme="https://qybit.gitee.io/tags/%E5%A0%86/"/>
     
   </entry>
   
